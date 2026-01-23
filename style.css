@@ -60,7 +60,9 @@ body::before {
 
 /* Nav & Sidebar */
 .sidebar h1 {
-    white-space: nowrap;
+    white-space: normal;
+    font-size: 1.6rem;
+    line-height: 1.2;
 }
 
 .sidebar {

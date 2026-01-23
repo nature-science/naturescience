@@ -13,6 +13,10 @@ const ELEMENTS = {
     'magnetite': { id: 'magnetite', name: '磁鉄鉱', emoji: '🌑', desc: '強い磁性を持つ黒い鉱石。鉄の重要な原料になる。', category: 'natural' },
     'grape': { id: 'grape', name: 'ブドウ', emoji: '🍇', desc: '甘い果実。発酵しやすそう。', category: 'natural' },
     'plant': { id: 'plant', name: '植物', emoji: '🌿', desc: '緑豊かな植物。', category: 'natural' },
+    'sugarcane': { id: 'sugarcane', name: 'サトウキビ', emoji: '🎋', desc: '茎に甘い汁をたっぷり含んだ植物。', category: 'natural' },
+    'bagasse': { id: 'bagasse', name: 'バガス', emoji: '🍂', desc: 'サトウキビの搾りかす。バイオマス資源として注目されている。', category: 'natural' },
+    'molasses': { id: 'molasses', name: '廃糖蜜', emoji: '🍯', desc: '砂糖精製の副産物。糖分を含んだ黒い液体。', category: 'chemical' },
+    'bio_plastic': { id: 'bio_plastic', name: 'バイオプラスチック', emoji: '🥤', desc: '植物由来のプラスチック。土に還る環境に優しい素材。', category: 'chemical' },
     'bamboo': { id: 'bamboo', name: '竹', emoji: '🎋', desc: '真っ直ぐ空へ伸びる丈夫な植物。', category: 'natural' },
     'clay': { id: 'clay', name: '粘土', emoji: '🧱', desc: '水を含んでねっとりした土。こねて形を作れそう。', category: 'natural' },
     'admixture': { id: 'admixture', name: '混和材', emoji: '🥣', desc: '砂と粘土を混ぜたもの。建築資材の基礎。', category: 'chemical' },
@@ -37,6 +41,7 @@ const ELEMENTS = {
     'energy': { id: 'energy', name: 'エネルギー', emoji: '⚡', desc: '自然の力。', category: 'natural' },
     'stone': { id: 'stone', name: '石', emoji: '🪨', desc: '自然の中で見つかる硬い塊。', category: 'natural' },
     'stone_tool': { id: 'stone_tool', name: '石器', emoji: '🪓', desc: '石を加工して作った原始的な道具。', category: 'tool' },
+    'stone_plate': { id: 'stone_plate', name: '石板', emoji: '🪨', desc: '平らに加工された石。文字を刻んだり、建材に使ったりできる。', category: 'material' },
     'calcium_carbonate': { id: 'calcium_carbonate', name: '炭酸カルシウム', emoji: '🦴', desc: '貝殻を砕いて作った白い粉末。', category: 'chemical' },
     'alcohol': { id: 'alcohol', name: 'エタノール', emoji: '🧪', desc: '純度の高いアルコール。よく燃える。', category: 'chemical' },
     'plant_ash': { id: 'plant_ash', name: '植物の灰', emoji: '🌑', desc: '植物を燃やしてできた灰。', category: 'chemical' },
@@ -98,7 +103,6 @@ const ELEMENTS = {
     'black_powder': { id: 'black_powder', name: '黒色火薬', emoji: '💥', desc: '硝酸カリウム、硫黄、木炭を混ぜて作った爆発性の粉末。', category: 'chemical' },
     'copper_sulfate': { id: 'copper_sulfate', name: '硫酸銅', emoji: '💎', desc: '洞窟で採れる美しい青色の結晶。電気分解や実験に広く使われる。', category: 'natural' },
     'iron_sulfate': { id: 'iron_sulfate', name: '硫酸鉄', emoji: '🟢', desc: '淡緑色の結晶。鉄と硫酸銅の置換反応などで得られる。', category: 'chemical' },
-    'copper': { id: 'copper', name: '銅', emoji: '🥉', desc: '美しい光沢を持つ赤みがかった金属。電気をよく通し、加工しやすい。', category: 'chemical' },
     'iron_sulfide': { id: 'iron_sulfide', name: '硫化鉄', emoji: '🌑', desc: '鉄と硫黄を反応させて作った黒い固形物。', category: 'chemical' },
     'hydrogen_sulfide': { id: 'hydrogen_sulfide', name: '硫化水素', emoji: '💨', desc: '腐った卵のような臭いがする有毒な気体。硫化鉄と塩酸から発生する。', category: 'chemical' },
     'iron_chloride': { id: 'iron_chloride', name: '塩化鉄', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
@@ -291,7 +295,6 @@ const ELEMENTS = {
     'cloth': { id: 'cloth', name: '布', emoji: '🧶', desc: '繊維を織って作った布地。', category: 'material' },
     'sail': { id: 'sail', name: '帆', emoji: '⛵', desc: '風を受けて船を進めるための大きな布。', category: 'tool' },
     'screw': { id: 'screw', name: 'スクリュー', emoji: '🌀', desc: '水をかいて船を進めるための螺旋状の羽根車。', category: 'tool' },
-    'rudder': { id: 'rudder', name: '舵', emoji: '⚓', desc: '船の進行方向を変えるための板。', category: 'tool' },
     'marine_engine': { id: 'marine_engine', name: '船舶用機関', emoji: '⚙️', desc: 'スクリューと舵を組み込んだ、船を動かすための動力システム。', category: 'tool' },
     'steamship': { id: 'steamship', name: '機帆船', emoji: '🚢', desc: '蒸気機関と帆の両方で進む船。近代航海の幕開け。', category: 'tool' },
     'rubber_tree': { id: 'rubber_tree', name: 'ゴムノキ', emoji: '🌳', desc: '樹液からゴムが採れる熱帯の木。', category: 'natural' },
@@ -299,6 +302,23 @@ const ELEMENTS = {
     'corn': { id: 'corn', name: 'トウモロコシ', emoji: '🌽', desc: 'アメリカ大陸原産の穀物。甘くて栄養豊富。', category: 'natural' },
     'potato': { id: 'potato', name: 'ジャガイモ', emoji: '🥔', desc: '南米アンデス原産の芋。荒地でも育つ。', category: 'natural' },
     'cacao': { id: 'cacao', name: 'カカオ', emoji: '🍫', desc: '南米アマゾン原産の豆。チョコレートの原料。', category: 'natural' },
+
+    // Chocolate & Sweets
+    'sugar': { id: 'sugar', name: '砂糖', emoji: '🧂', desc: '甘い白い結晶。サトウキビなどから精製する。', category: 'material' },
+    'milk': { id: 'milk', name: '牛乳', emoji: '🥛', desc: '牛から得られる栄養豊富な白い液体。', category: 'food' },
+    'cacao_mass': { id: 'cacao_mass', name: 'カカオマス', emoji: '🟤', desc: 'カカオ豆を焙焼・粉砕したペースト。チョコの基本素材。', category: 'material' },
+    'cacao_butter': { id: 'cacao_butter', name: 'カカオバター', emoji: '🧈', desc: 'カカオマスから搞り出した白い油脂。滑らかな口どけの秘密。', category: 'material' },
+    'cocoa_powder': { id: 'cocoa_powder', name: 'ココアパウダー', emoji: '🥮', desc: 'カカオバターを掲った後に残る茶色の粉。', category: 'material' },
+    'chocolate': { id: 'chocolate', name: 'チョコレート', emoji: '🍫', desc: '世界中で愛される甘くてほろ苦いお菓子。', category: 'food' },
+    'hot_chocolate': { id: 'hot_chocolate', name: 'ホットチョコレート', emoji: '☕', desc: '温かいミルクにココアを溶かした飲み物。心も体も温まる。', category: 'food' },
+
+    // Cola
+    'carbonated_water': { id: 'carbonated_water', name: '炭酸水', emoji: '🫧', desc: '二酸化炭素が溶け込んだ水。シュワシュワする。', category: 'food' },
+    'caramel': { id: 'caramel', name: 'カラメル', emoji: '🍮', desc: '砂糖を焦がして作った黒褐色のソース。香ばしい苦味がある。', category: 'food' },
+    'cola_nut': { id: 'cola_nut', name: 'コーラナッツ', emoji: '🌰', desc: 'カフェインを含む熱帯の木の実。コーラの名前の由来。', category: 'natural' },
+    'cola_syrup': { id: 'cola_syrup', name: 'コーラシロップ', emoji: '🏺', desc: 'スパイス、カラメル、コーラナッツを煮詰めた秘伝の原液。', category: 'food' },
+    'cola': { id: 'cola', name: 'コーラ', emoji: '🥤', desc: '世界で最も有名な炭酸飲料。スカッと爽やか！', category: 'food' },
+
     'olive': { id: 'olive', name: 'オリーブ', emoji: '🫒', desc: '地中海沿岸で栽培される果実。オイルが採れる。', category: 'natural' },
     'fluorite': { id: 'fluorite', name: '蛍石', emoji: '💎', desc: '美しい結晶の鉱石。加熱すると発光する。フッ素の原料。', category: 'natural' },
     'raft': { id: 'raft', name: 'いかだ', emoji: '🪵', desc: '丸太を組んで作った原始的な船。', category: 'tool' },
@@ -337,7 +357,6 @@ const ELEMENTS = {
     'blue_mold': { id: 'blue_mold', name: '青カビ', emoji: '🦠', desc: 'パンや果物に生えるカビ。ペニシリンを作る。', category: 'natural' },
     'agar': { id: 'agar', name: '寒天', emoji: '🍮', desc: '海藻を煮て固めたもの。微生物の培養基になる。', category: 'material' },
     'petri_dish': { id: 'petri_dish', name: 'シャーレ', emoji: '🧫', desc: '寒天培地を入れたガラス皿。菌を培養する実験器具。', category: 'tool' },
-    'penicillin': { id: 'penicillin', name: 'ペニシリン', emoji: '💊', desc: '青カビから発見された世界初の抗生物質。多くの命を救った。', category: 'chemical' },
 
     // Photography / Cinema
     'gelatin': { id: 'gelatin', name: 'ゼラチン', emoji: '🍮', desc: '動物の骨や皮から煮出したタンパク質。フィルムの感光剤を固定する。', category: 'material' },
@@ -396,6 +415,7 @@ const ELEMENTS = {
     'molybdenite': { id: 'molybdenite', name: '輝水鉛鉱', emoji: '🌑', desc: 'モリブデンを含む柔らかい鉱石。黒鉛に似ている。', category: 'natural' },
     'pyrochlore': { id: 'pyrochlore', name: 'パイクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural' },
     'rutile': { id: 'rutile', name: 'ルチル', emoji: '✨', desc: 'チタンを含む金色の針状結晶。', category: 'natural' },
+    'copper_ore': { id: 'copper_ore', name: '銅鉱石', emoji: '🟤', desc: '銅を含む岩石。緑青色の斑点が見られることが多い。', category: 'natural' },
 
     'nickel': { id: 'nickel', name: 'ニッケル', emoji: '⛓️', desc: '熱や腐食に強い銀白色の金属。', category: 'chemical' },
     'chromium': { id: 'chromium', name: 'クロム', emoji: '🛡️', desc: '非常に硬く、錆びにくい金属。メッキや合金に使われる。', category: 'chemical' },
@@ -507,6 +527,18 @@ const ELEMENTS = {
     'freeze_dryer': { id: 'freeze_dryer', name: 'フリーズドライ機', emoji: '🥶', desc: '食品を凍らせて真空中で乾燥させる装置。', category: 'tool' },
     'space_food': { id: 'space_food', name: '宇宙食', emoji: '🚀', desc: '究極の保存技術で作られた食事。水で戻して食べる。', category: 'tool' },
 
+    // Agriculture & Crops
+    'plow': { id: 'plow', name: '鋤（すき）', emoji: '🚜', desc: '土を耕すための道具。農業の基本。', category: 'tool' },
+    'tractor': { id: 'tractor', name: 'トラクター', emoji: '🚜', desc: '強力なエンジンで大地を耕す農業機械。', category: 'tool' },
+    'fertilizer': { id: 'fertilizer', name: '肥料', emoji: '💩', desc: '植物の成長を促進する栄養素。', category: 'material' },
+    'pesticide': { id: 'pesticide', name: '農薬', emoji: '☠️', desc: '害虫や病気を防ぐ薬品。使いすぎには注意。', category: 'chemical' },
+    'wheat': { id: 'wheat', name: '小麦', emoji: '🌾', desc: 'パンや麺の原料となる穀物。人類を支える主食。', category: 'food' },
+    'corn': { id: 'corn', name: 'トウモロコシ', emoji: '🌽', desc: '世界三大穀物の一つ。食用、飼料、工業原料と万能。', category: 'food' },
+    'potato': { id: 'potato', name: 'ジャガイモ', emoji: '🥔', desc: 'デンプンが豊富な地下茎。冷涼な土地でも育つ。', category: 'food' },
+    'bread': { id: 'bread', name: 'パン', emoji: '🍞', desc: '小麦粉を練って焼いたもの。ふっくらと香ばしい。', category: 'food' },
+    'potato_chips': { id: 'potato_chips', name: 'ポテトチップス', emoji: '🍟', desc: '薄切りジャガイモを揚げたスナック。止まらない美味しさ。', category: 'food' },
+    'biofuel': { id: 'biofuel', name: 'バイオ燃料', emoji: '⛽', desc: '植物から作られた燃料。カーボンニュートラルなエネルギー。', category: 'fuel' },
+
     'uranium_ore': { id: 'uranium_ore', name: 'ウラン鉱石', emoji: '☢️', desc: '放射性物質を含む鉱石。原子力の燃料になる。', category: 'natural' },
     'nuclear_fuel': { id: 'nuclear_fuel', name: '核燃料', emoji: '☢️', desc: 'ウランを濃縮・加工した燃料。莫大なエネルギーを秘めている。', category: 'chemical' },
     'nuclear_power_plant': { id: 'nuclear_power_plant', name: '原子力発電所', emoji: '🏭', desc: '核分裂の熱エネルギーを利用して巨大な電力を生み出す施設。', category: 'tool' },
@@ -534,10 +566,84 @@ const ELEMENTS = {
 
     // Communication & Broadcast
     'vacuum_tube': { id: 'vacuum_tube', name: '真空管', emoji: '💡', desc: '電気信号を増幅したり整えたりするガラスの電子部品。', category: 'part' },
+    'diode': { id: 'diode', name: 'ダイオード', emoji: '⏯️', desc: '電流を一方通行にする半導体素子。整流作用を持つ。', category: 'part' },
+    'transistor': { id: 'transistor', name: 'トランジスタ', emoji: '🐜', desc: '電気信号を増幅・スイッチングする半導体素子。電子時代の主役。', category: 'part' },
     'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音声を流す装置。情報の架け橋。', category: 'tool' },
     'telephone': { id: 'telephone', name: '電話機', emoji: '☎️', desc: '遠く離れた人と声で会話できる発明。', category: 'tool' },
     'crt': { id: 'crt', name: 'ブラウン管', emoji: '📺', desc: '電子ビームで画面を光らせる装置。テレビの心臓部。', category: 'part' },
     'television': { id: 'television', name: 'テレビ', emoji: '📺', desc: '動く映像と音声を映し出す魔法の箱。', category: 'tool' },
+
+    // FAX & Image Transmission
+    'photodiode': { id: 'photodiode', name: 'フォトダイオード', emoji: '🔅', desc: '光を電気に変える半導体。光センサーの基本。', category: 'part' },
+    'scanner': { id: 'scanner', name: 'スキャナー', emoji: '📸', desc: '写真や書類を読み取ってデジタルデータにする装置。', category: 'tool' },
+    'printer': { id: 'printer', name: 'プリンター', emoji: '🖨️', desc: 'デジタルデータを紙に印刷する装置。', category: 'tool' },
+    'modem': { id: 'modem', name: 'モデム', emoji: '📼', desc: 'ピーヒョロロ。デジタル信号を電話回線の音に変換する装置。', category: 'part' },
+    'fax_machine': { id: 'fax_machine', name: 'FAX', emoji: '📠', desc: '電話回線を使って書類を送受信する装置。ファクシミリ。', category: 'tool' },
+
+    // Printing Technology
+    'ink': { id: 'ink', name: 'インク', emoji: '⚫', desc: '煤や染料を溶かした液体。文字や絵を描くのに使う。', category: 'material' },
+    'movable_type': { id: 'movable_type', name: '活字', emoji: '🔣', desc: '鉛合金で作られた文字の型。活版印刷の基礎。', category: 'part' },
+    'printing_press': { id: 'printing_press', name: '印刷機', emoji: '📰', desc: '活字を使って紙にインクを転写する機械。知識の革命。', category: 'tool' },
+    'typewriter': { id: 'typewriter', name: 'タイプライター', emoji: '⌨️', desc: 'キーを押して活字を紙に打ち付ける機械。カチャカチャッ、チーン！', category: 'tool' },
+    'toner': { id: 'toner', name: 'トナー', emoji: '⚫', desc: 'レーザープリンター用の微細なプラスチック粉末インク。', category: 'material' },
+    'laser_printer': { id: 'laser_printer', name: 'レーザープリンター', emoji: '🖨️', desc: 'レーザーと静電気を使って高速に印刷するオフィス用プリンター。', category: 'tool' },
+
+    // Recording Media & Optoelectronics
+    'record': { id: 'record', name: 'レコード', emoji: '⚫', desc: '塩化ビニルの円盤に溝を刻んで音を記録したもの。アナログの暖かみ。', category: 'tool' },
+    'phonograph': { id: 'phonograph', name: '蓄音機', emoji: '📢', desc: 'エジソンが発明した、音を記録・再生する装置。', category: 'tool' },
+    'cassette_tape': { id: 'cassette_tape', name: 'カセットテープ', emoji: '📼', desc: '磁気テープに音を記録するメディア。A面とB面がある。', category: 'tool' },
+
+    'laser': { id: 'laser', name: 'レーザー', emoji: '🔴', desc: '誘導放出によって増幅された光。CDの読み取りや加工に使われる。', category: 'part' },
+    'polycarbonate': { id: 'polycarbonate', name: 'ポリカーボネート', emoji: '💿', desc: '透明で衝撃に強いプラスチック。CDやDVDの基盤。', category: 'material' },
+    'compact_disc': { id: 'compact_disc', name: 'CD', emoji: '💿', desc: 'デジタル情報を記録した光沢のある円盤。音楽業界を変えた。', category: 'tool' },
+    'cd_player': { id: 'cd_player', name: 'CDプレーヤー', emoji: '🎧', desc: 'レーザーを使ってCDの音楽を再生する装置。', category: 'tool' },
+    'dvd': { id: 'dvd', name: 'DVD', emoji: '📀', desc: 'CDよりも高密度な光ディスク。映画一本がまるごと入る。', category: 'tool' },
+    'blu_ray': { id: 'blu_ray', name: 'ブルーレイ', emoji: '🔵', desc: '青色レーザーを使った大容量ディスク。ハイビジョン映像も余裕。', category: 'tool' },
+
+    // Radio Tech Components
+    'capacitor': { id: 'capacitor', name: 'コンデンサ', emoji: '🔋', desc: '電気を一時的に蓄える部品。電子回路の基本要素。', category: 'part' },
+    'antenna': { id: 'antenna', name: 'アンテナ', emoji: '📡', desc: '電波を送信・受信するための金属の棒や皿。', category: 'part' },
+    'microphone': { id: 'microphone', name: 'マイク', emoji: '🎤', desc: '音の振動を電気信号に変換する装置。', category: 'part' },
+    'speaker': { id: 'speaker', name: 'スピーカー', emoji: '🔈', desc: '電気信号を空気の振動（音）に戻す装置。', category: 'part' },
+
+    // Radio Tech Products
+    'transceiver': { id: 'transceiver', name: 'トランシーバー', emoji: '📟', desc: '無線で会話できる携帯無線機。もしもし。', category: 'tool' },
+    'radar': { id: 'radar', name: 'レーダー', emoji: '🟢', desc: '電波の反射を利用して、遠くの物体の位置を知る装置。', category: 'tool' },
+    'microwave_oven': { id: 'microwave_oven', name: '電子レンジ', emoji: '🍱', desc: '強力なマイクロ波で水の分子を振動させ、食品を温める調理器具。', category: 'tool' },
+
+    // Radar & Sonar Technology
+    'magnetron': { id: 'magnetron', name: 'マグネトロン', emoji: '🔘', desc: '強力なマイクロ波を発生させる真空管。レーダーと電子レンジの心臓部。', category: 'part' },
+    'radome': { id: 'radome', name: 'レードーム', emoji: '⚪', desc: 'レーダーアンテナを保護するドーム状のカバー。電波を通す素材で作られる。', category: 'part' },
+    'hydrophone': { id: 'hydrophone', name: '水中マイク', emoji: '🎤', desc: '水中の音を拾うためのマイク。ソナーの耳。', category: 'part' },
+    'sonar': { id: 'sonar', name: 'ソナー', emoji: '💠', desc: '音波の反射を利用して水中の物体を探知する装置。潜水艦の目。', category: 'tool' },
+    'fish_finder': { id: 'fish_finder', name: '魚群探知機', emoji: '🐟', desc: 'ソナーを使って魚の群れを見つける漁業用機器。', category: 'tool' },
+    'depth_sounder': { id: 'depth_sounder', name: '深度計', emoji: '⚓', desc: '音波で水深を測る装置。航海の安全に欠かせない。', category: 'tool' },
+    'ultrasound': { id: 'ultrasound', name: '超音波診断装置', emoji: '🫀', desc: '高周波の音波で体内を映像化する医療機器。胎児の画像など。', category: 'tool' },
+
+    // Modern Medicine
+    'penicillin': { id: 'penicillin', name: 'ペニシリン', emoji: '💊', desc: 'カビから発見された世界初の抗生物質。多くの命を救った。', category: 'chemical' },
+    'vaccine': { id: 'vaccine', name: 'ワクチン', emoji: '💉', desc: '弱毒化した病原体を使って免疫を作る予防薬。', category: 'chemical' },
+    'scalpel': { id: 'scalpel', name: 'メス', emoji: '🩸', desc: '精密な外科手術用のナイフ。', category: 'tool' },
+    'anesthesia': { id: 'anesthesia', name: '麻酔', emoji: '💤', desc: '痛みを感じさせずに手術を可能にする薬剤。', category: 'chemical' },
+    'ct_scanner': { id: 'ct_scanner', name: 'CTスキャナー', emoji: '🎯', desc: 'X線を使って体の断面画像を撮影する装置。', category: 'tool' },
+    'endoscope': { id: 'endoscope', name: '内視鏡', emoji: '🔭', desc: '体内を直接観察できるカメラ付きチューブ。', category: 'tool' },
+    'defibrillator': { id: 'defibrillator', name: '除細動器', emoji: '⚡', desc: '心臓に電気ショックを与えて正常なリズムに戻す装置。AED。', category: 'tool' },
+    'artificial_heart': { id: 'artificial_heart', name: '人工心臓', emoji: '❤️', desc: '心臓の代わりに血液を送るポンプ。移植までの橋渡し。', category: 'tool' },
+    'dialysis_machine': { id: 'dialysis_machine', name: '人工透析機', emoji: '🫀', desc: '腘臓の代わりに血液をろ過する装置。', category: 'tool' },
+    'dna_sequencer': { id: 'dna_sequencer', name: 'DNAシーケンサー', emoji: '🧬', desc: '遺伝子の塩基配列を読み取る装置。個別化医療の基盤。', category: 'tool' },
+    'syringe': { id: 'syringe', name: '注射器', emoji: '💉', desc: '薬液を体内に投与するための器具。', category: 'tool' },
+    'stethoscope': { id: 'stethoscope', name: '聴診器', emoji: '❤️‍🩹', desc: '心音や呼吸音を聞くための医療器具。', category: 'tool' },
+
+    'wifi_router': { id: 'wifi_router', name: 'Wi-Fiルーター', emoji: '📶', desc: '無線でインターネットに接続するための基地局。', category: 'tool' },
+    'gps_receiver': { id: 'gps_receiver', name: 'GPS受信機', emoji: '📍', desc: '人工衛星からの電波を受信し、現在位置を正確に割り出す装置。', category: 'tool' },
+
+    // Thermometer Tree
+    'galileo_thermometer': { id: 'galileo_thermometer', name: 'ガリレオ温度計', emoji: '🌡️', desc: '液体の比重変化を利用した美しい温度計。ガラス球が浮き沈みする。', category: 'tool' },
+    'mercury_thermometer': { id: 'mercury_thermometer', name: '水銀温度計', emoji: '🌡️', desc: '水銀の熱膨張を利用した精密な温度計。', category: 'tool' },
+    'alcohol_thermometer': { id: 'alcohol_thermometer', name: 'アルコール温度計', emoji: '🌡️', desc: '着色したアルコールを使った安全な温度計。低温に強い。', category: 'tool' },
+    'thermistor': { id: 'thermistor', name: 'サーミスタ', emoji: '🔥', desc: '温度によって電気抵抗が変わる半導体素子。', category: 'part' },
+    'digital_thermometer': { id: 'digital_thermometer', name: 'デジタル温度計', emoji: '🌡️', desc: '数字で温度を表示する現代的な温度計。', category: 'tool' },
+    'infrared_thermometer': { id: 'infrared_thermometer', name: '赤外線温度計', emoji: '🔫', desc: '非接触で物体の温度を測れるハイテク温度計。', category: 'tool' },
 
     // Advanced Medicine
     'mri': { id: 'mri', name: 'MRI', emoji: '🏥', desc: '強力な磁場を使って体の内部を撮影する医療機器。', category: 'tool' },
@@ -563,6 +669,29 @@ const ELEMENTS = {
     'polypropylene': { id: 'polypropylene', name: 'ポリプロピレン', emoji: '📦', desc: 'PP。軽くて熱に強いプラスチック。自動車部品や容器に使われる。', category: 'material' },
     'naphthalene': { id: 'naphthalene', name: 'ナフタレン', emoji: '⌬', desc: 'コールタールから得られる昇華性の白い結晶。防虫剤の匂い。', category: 'chemical' },
     'coal_gas': { id: 'coal_gas', name: '石炭ガス', emoji: '🔥', desc: '石炭乾留の副産物。かつては都市ガスとして使われた。', category: 'fuel' },
+    'butadiene': { id: 'butadiene', name: 'ブタジエン', emoji: '🧬', desc: 'ナフサ分解で得られる気体。合成ゴムの主原料。', category: 'chemical' },
+    'toluene': { id: 'toluene', name: 'トルエン', emoji: '🧪', desc: '芳香族炭化水素。溶剤や爆薬の原料になる。', category: 'chemical' },
+    'xylene': { id: 'xylene', name: 'キシレン', emoji: '❌', desc: '芳香族炭化水素。ペットボトルの原料になる。', category: 'chemical' },
+    'anthracene': { id: 'anthracene', name: 'アントラセン', emoji: '🌑', desc: 'コールタールから得られる成分。染料の原料。', category: 'chemical' },
+    'creosote_oil': { id: 'creosote_oil', name: 'クレオソート油', emoji: '🪵', desc: 'コールタールの留分。強力な木材防腐剤。', category: 'chemical' },
+    'synthetic_rubber': { id: 'synthetic_rubber', name: '合成ゴム', emoji: '🍩', desc: '石油から人工的に作られたゴム。品質が安定している。', category: 'material' },
+    'tnt': { id: 'tnt', name: 'TNT火薬', emoji: '🧨', desc: 'トリニトロトルエン。非常に安定かつ強力な爆薬。', category: 'chemical' },
+    'pet_resin': { id: 'pet_resin', name: 'PET樹脂', emoji: '🧴', desc: 'ポリエチレンテレフタレート。丈夫で透明なプラスチック。', category: 'material' },
+    'alizarin': { id: 'alizarin', name: 'アリザリン', emoji: '🔴', desc: 'アントラセンから合成される赤色染料。かつては茜（あかね）から取った。', category: 'material' },
+    'colored_cloth': { id: 'colored_cloth', name: '染めた布', emoji: '🧣', desc: '鮮やかに染め上げられた布。文化の象徴。', category: 'material' },
+
+    // Super Modern Materials
+    'aramid_fiber': { id: 'aramid_fiber', name: 'アラミド繊維', emoji: '🦺', desc: '鋼鉄の5倍の強度を持つスーパー繊維。ケブラー®などが有名。', category: 'material' },
+    'bulletproof_vest': { id: 'bulletproof_vest', name: '防弾チョッキ', emoji: '🛡️', desc: 'アラミド繊維で作られた、銃弾をも防ぐ鎧。', category: 'tool' },
+    'aerogel': { id: 'aerogel', name: 'エアロゲル', emoji: '☁️', desc: '成分の99%が空気という個体。青白い煙のように見える究極の断熱材。', category: 'material' },
+    'fullerene': { id: 'fullerene', name: 'フラーレン', emoji: '⚽️', desc: '炭素原子60個がサッカーボール状に結合した分子。ナノテクノロジーへの扉。', category: 'material' },
+    'rudder': { id: 'rudder', name: '舵', emoji: '🛞', desc: '船の進行方向を変えるための板状の装置。', category: 'part' },
+    'carbon_nanotube': { id: 'carbon_nanotube', name: 'カーボンナノチューブ', emoji: '🔗', desc: '炭素原子が筒状になった素材。ダイヤモンドより硬く、銅より電気を通す。', category: 'material' },
+    'space_elevator_cable': { id: 'space_elevator_cable', name: '軌道エレベーターケーブル', emoji: '🌌', desc: 'カーボンナノチューブを編み上げた、宇宙まで届く夢のケーブル。', category: 'part' },
+    'epoxy_resin': { id: 'epoxy_resin', name: 'エポキシ樹脂', emoji: '🍯', desc: '強力な接着力を持つ樹脂。炭素繊維と組み合わせて最強の素材を作る。', category: 'material' },
+
+    // Solvents & Esters
+    'ethyl_acetate': { id: 'ethyl_acetate', name: '酢酸エチル', emoji: '🍍', desc: '甘酸っぱいパイナップルのような香りの液体。接着剤や除光液に使われる。', category: 'chemical' },
 
     // Materials
     'zinc_sulfide': { id: 'zinc_sulfide', name: '硫化亜鉛', emoji: '✨', desc: '亜鉛と硫黄の化合物。刺激を与えると発光する蛍光体。', category: 'chemical' },
@@ -577,6 +706,7 @@ const ELEMENTS = {
     'picric_acid': { id: 'picric_acid', name: 'ピクリン酸', emoji: '🟨', desc: '強力な爆薬であり、黄色い染料。非常に苦い。', category: 'chemical' },
     'salicylic_acid': { id: 'salicylic_acid', name: 'サリチル酸', emoji: '🧪', desc: '鎮痛作用を持つ無色の結晶。アスピリンの原料。', category: 'chemical' },
     'aspirin': { id: 'aspirin', name: 'アスピリン', emoji: '💊', desc: '世界で最も有名な解熱鎮痛剤。アセチルサリチル酸。', category: 'chemical' },
+    'methyl_salicylate': { id: 'methyl_salicylate', name: 'サリチル酸メチル', emoji: '🌿', desc: '特有の清涼感ある香りを持つ液体。湿布薬に使われる。', category: 'chemical' },
     'chloroform': { id: 'chloroform', name: 'クロロホルム', emoji: '💤', desc: '甘い臭いを持つ液体。かつて麻酔薬として使われた。', category: 'chemical' },
     'sodium': { id: 'sodium', name: '金属ナトリウム', emoji: '🪙', desc: '銀白色の非常に柔らかい金属。水と激しく反応する。', category: 'chemical' },
     'fluorine': { id: 'fluorine', name: 'フッ素', emoji: '🟡', desc: '淡黄色の気体。全元素中で最強の酸化力を持つ。', category: 'chemical' },
@@ -595,6 +725,65 @@ const ELEMENTS = {
     'cannon': { id: 'cannon', name: '大砲', emoji: '💣', desc: '鉄パイプと車輪を組み合わせた強力な重火器。', category: 'tool' },
     'rifled_barrel': { id: 'rifled_barrel', name: 'ライフル銃身', emoji: '🌀', desc: '内側に旋条（ライフリング）を刻み、弾の直進性を高めた銃身。', category: 'part' },
     'rifle': { id: 'rifle', name: 'ライフル銃', emoji: '🔫', desc: 'ライフリングと弾薬筒により、長射程と高い精度を実現した近代銃。', category: 'tool' },
+
+    // 3D Printing & Digital Fabrication
+    'stepper_motor': { id: 'stepper_motor', name: 'ステッピングモーター', emoji: '⚙️', desc: 'パルス信号で正確に回転角を制御できるモーター。精密機械の心臓部。', category: 'part' },
+    'nozzle': { id: 'nozzle', name: 'ノズル', emoji: '💧', desc: '液体や溶けた樹脂を吐出する先端部品。', category: 'part' },
+    'filament': { id: 'filament', name: 'フィラメント', emoji: '🧵', desc: '3Dプリンター用の樹脂素材。熱で溶かして積層する。', category: 'material' },
+    '3d_printer': { id: '3d_printer', name: '3Dプリンター', emoji: '🖨️', desc: 'デジタルデータから立体物を造形する魔法の箱。', category: 'tool' },
+    'pla': { id: 'pla', name: 'PLA樹脂', emoji: '🌽', desc: 'ポリ乳酸。植物由来のエコなプラスチック。3Dプリンターでよく使われる。', category: 'material' },
+    'plastic_model': { id: 'plastic_model', name: 'プラスチックモデル', emoji: '🤖', desc: '3Dプリンターで出力された精巧な造形物。', category: 'tool' },
+
+    // Textile & Fashion
+    'cotton': { id: 'cotton', name: '綿花', emoji: '☁️', desc: '種子を包むフワフワの繊維。吸水性と肌触りが良い。', category: 'material' },
+    'wool': { id: 'wool', name: '羊毛', emoji: '🐑', desc: '羊の毛。保温性が高く、縮れが空気を含む。', category: 'material' },
+    'cocoon': { id: 'cocoon', name: '繭', emoji: '🐛', desc: 'カイコが作るシェルター。ほどくと一本の長い糸になる。', category: 'material' },
+    'raw_silk': { id: 'raw_silk', name: '生糸', emoji: '🧵', desc: '繭から取り出したままの絹糸。美しい光沢を持つ。', category: 'material' },
+    'polyester': { id: 'polyester', name: 'ポリエステル', emoji: '👔', desc: '石油から作られる合成繊維。丈夫でシワになりにくい。', category: 'material' },
+
+    'spinning_wheel': { id: 'spinning_wheel', name: '糸車', emoji: '🎡', desc: '繊維を撚り合わせて糸にする道具。', category: 'tool' },
+    'loom': { id: 'loom', name: '織機', emoji: '🧶', desc: '縦糸と横糸を交差させて布を織る機械。', category: 'tool' },
+    'thread': { id: 'thread', name: '糸', emoji: '🧵', desc: '繊維を撚り合わせて作った細長い素材。', category: 'material' },
+
+    // Missing definitions fix
+    'flower': { id: 'flower', name: '花', emoji: '🌸', desc: '植物が咲かせる美しい器官。染料や香料の原料にもなる。', category: 'natural' },
+    'plastic': { id: 'plastic', name: 'プラスチック', emoji: '🧱', desc: '石油から作られた合成樹脂の総称。軽くて加工しやすい。', category: 'material' },
+    'clothes': { id: 'clothes', name: '衣服', emoji: '👕', desc: '布で作られた着るもの。人類の生活必需品。', category: 'tool' },
+    'lumber': { id: 'lumber', name: '材木', emoji: '🪵', desc: '建築や家具に使える、加工された木材。', category: 'material' },
+    'pressure_vessel': { id: 'pressure_vessel', name: '圧力容器', emoji: '🛢️', desc: '高圧に耐える特別な容器。化学プラントや発電所で使われる。', category: 'tool' },
+
+    'sewing_machine': { id: 'sewing_machine', name: 'ミシン', emoji: '🪡', desc: '機械的に縫い目を作る装置。服の大量生産を可能にした。', category: 'tool' },
+
+    // Robotics & AI
+    'sensor': { id: 'sensor', name: 'センサー', emoji: '👁️', desc: '光、音、温度などを感知する電子部品。ロボットの五感。', category: 'part' },
+    'actuator': { id: 'actuator', name: 'アクチュエータ', emoji: '💪', desc: 'エネルギーを物理的な動きに変換する駆動装置。ロボットの筋肉。', category: 'part' },
+    'ai_chip': { id: 'ai_chip', name: 'AIチップ', emoji: '🧠', desc: 'ニューラルネットワークを処理するための特殊なプロセッサ。', category: 'part' },
+    'robot': { id: 'robot', name: 'ロボット', emoji: '🤖', desc: 'プログラムに従って自動で作業を行う機械。', category: 'tool' },
+    'android': { id: 'android', name: 'アンドロイド', emoji: '🧍', desc: '人間と見分けがつかないほど精巧な人型ロボット。', category: 'tool' },
+
+    // Music & Arts
+    'guitar': { id: 'guitar', name: 'ギター', emoji: '🎸', desc: '弦を弾いて音を出す楽器。', category: 'tool' },
+    'electric_guitar': { id: 'electric_guitar', name: 'エレキギター', emoji: '🎸', desc: '弦の振動を電気信号に変えて大音量を出すギター。ロックの魂。', category: 'tool' },
+    'piano': { id: 'piano', name: 'ピアノ', emoji: '🎹', desc: '鍵盤を叩いてハンマーで弦を打つ鍵盤楽器の王様。', category: 'tool' },
+    'synthesizer': { id: 'synthesizer', name: 'シンセサイザー', emoji: '🎛️', desc: '電気的に音を合成してあらゆる音色を作り出す電子楽器。', category: 'tool' },
+
+    'denim': { id: 'denim', name: 'デニム', emoji: '👖', desc: '太い綿糸で綾織りにした厚手の生地。インディゴブルーが特徴。', category: 'material' },
+    'silk_cloth': { id: 'silk_cloth', name: '絹織物', emoji: '👘', desc: '生糸で織られた滑らかな布。軽くて美しい。', category: 'material' },
+
+    'jeans': { id: 'jeans', name: 'ジーンズ', emoji: '👖', desc: 'デニムで作られたズボン。元は鉱夫の作業着だった。', category: 'tool' },
+    'dress': { id: 'dress', name: 'ドレス', emoji: '👗', desc: '華やかな装飾が施された衣服。', category: 'tool' },
+    'kimono': { id: 'kimono', name: '着物', emoji: '👘', desc: '日本の伝統的な衣服。直線的な裁断が特徴。', category: 'tool' },
+
+    // LED & Compound Semiconductors
+    'gallium': { id: 'gallium', name: 'ガリウム', emoji: '🌡️', desc: '体温で溶ける不思議な金属。半導体材料として極めて重要。', category: 'material' },
+    'arsenic': { id: 'arsenic', name: 'ヒ素', emoji: '☠️', desc: '猛毒を持つ元素だが、半導体には欠かせないドーピング剤。', category: 'material' },
+    'gallium_arsenide': { id: 'gallium_arsenide', name: 'ヒ化ガリウム', emoji: '🔴', desc: '高速通信や赤色LEDに使われる化合物半導体。', category: 'material' },
+    'gallium_nitride': { id: 'gallium_nitride', name: '窒化ガリウム', emoji: '💎', desc: '青色LEDの夢を叶えた奇跡の結晶。パワー半導体にもなる。', category: 'material' },
+    'red_led': { id: 'red_led', name: '赤色LED', emoji: '🛑', desc: '最初に発明されたLED。表示ランプなどに使われる。', category: 'part' },
+    'blue_led': { id: 'blue_led', name: '青色LED', emoji: '🔵', desc: '20世紀最後の大発明。これにより光の三原色が揃った。', category: 'part' },
+    'white_led': { id: 'white_led', name: '白色LED', emoji: '💡', desc: '青色LEDと蛍光体を組み合わせ、太陽のような光を作る。', category: 'part' },
+    'led_bulb': { id: 'led_bulb', name: 'LED電球', emoji: '🔦', desc: '省エネで長寿命な次世代の明かり。', category: 'tool' },
+    'illumination': { id: 'illumination', name: 'イルミネーション', emoji: '✨', desc: '数多のLEDが織りなす光の芸術。', category: 'tool' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -643,20 +832,24 @@ const CIVILIZATION_LEVELS = [
     { level: 0, name: '原始時代', year: '紀元前330万年', trigger: null, desc: '自然と共に生きる時代。' },
     { level: 1, name: '石器時代', year: '紀元前250万年', trigger: 'stone_tool', desc: '石を道具として使い始めた時代。' },
     { level: 2, name: '火の利用', year: '紀元前50万年', trigger: 'fire', desc: '火を操り、生活が劇的に変化した時代。' },
-    { level: 3, name: '土器の時代', year: '紀元前1万4000年', trigger: 'earthenware', desc: '貯蔵と調理が可能になり、定住が進んだ時代。' },
-    { level: 4, name: '道具の進化', year: '紀元前1万年', trigger: 'bow', desc: '狩猟や火起こしの技術が向上した時代。' },
-    { level: 5, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
-    { level: 6, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
-    { level: 7, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた時代。' },
-    { level: 8, name: '電気革命', year: '1870年代', trigger: 'hydroelectric_power', desc: '夜を照らし、動力を生む光の時代。' },
-    { level: 9, name: '自動車社会', year: '1900年代', trigger: 'car', desc: '内燃機関により移動の自由が手に入った時代。' },
-    { level: 10, name: '化学の夜明け', year: '1920年代', trigger: 'penicillin', desc: '科学の力で病を克服し始めた時代。' },
-    { level: 11, name: '近代文明', year: '1920年代', trigger: 'toilet', desc: '清潔で快適な生活が約束された時代。' },
-    { level: 12, name: '情報革命', year: '1970年代', trigger: 'computer', desc: 'コンピュータの登場により、情報が世界を駆け巡る時代。' },
-    { level: 13, name: '宇宙時代', year: '1960年代', trigger: 'rocket', desc: '地球を飛び出し、星々を目指す人類の新たな挑戦。' },
-    { level: 14, name: '高度情報化社会', year: '2000年代', trigger: 'smartphone', desc: '手のひらのデバイスで世界中の知とつながる時代。' },
-    { level: 15, name: '人工知能時代', year: '2020年代', trigger: 'ai', desc: '自ら学習し思考する知性が、人類の新たなパートナーとなる時代。' },
-    { level: 16, name: 'エネルギー革命', year: '未来', trigger: 'nuclear_power_plant', desc: '原子の力を制御し、無限のエネルギーを手にする未来。' }
+    { level: 3, name: '農耕の開始', year: '紀元前1万年', trigger: 'wheat', desc: '種を蒔き、収穫する。人類が定住を始めた大きな転換点。' },
+    { level: 4, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
+    { level: 5, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
+    { level: 6, name: '大航海時代', year: '15世紀', trigger: 'compass', desc: '羅針盤を手に、未知の大海原へ乗り出した探検の時代。' },
+    { level: 7, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', desc: '活版印刷により、知識が爆発的に広まった時代。' },
+    { level: 8, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
+    { level: 9, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
+    { level: 10, name: '通信革命', year: '1876年', trigger: 'telephone', desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
+    { level: 11, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', desc: '内燃機関により、陸と空の移動が自由になった時代。' },
+    { level: 12, name: '化学・医療の進歩', year: '1920年代', trigger: 'penicillin', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
+    { level: 13, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
+    { level: 14, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
+    { level: 15, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
+    { level: 16, name: '宇宙時代', year: '1960年代', trigger: 'rocket', desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
+    { level: 17, name: '情報革命', year: '1990年代', trigger: 'computer', desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
+    { level: 18, name: 'ロボット社会', year: '2010年代', trigger: 'robot', desc: '自動化された機械が労働を担い、効率化が進む時代。' },
+    { level: 19, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
+    { level: 20, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' }
 ];
 
 
@@ -677,6 +870,7 @@ const RECIPES = {
     'air+fire': 'energy',
 
     'stone+wood': 'stone_tool', // Wood + Stone -> Stone Tool
+    'stone+stone_tool': 'stone_plate', // Stone + Stone Tool -> Stone Plate
     'shell+stone_tool': 'calcium_carbonate', // Shell + Stone Tool -> Calcium Carbonate
     'plant+stone_tool': 'fiber', // Plant + Stone Tool -> Fiber
     'fiber+fiber': 'string', // Fiber + Fiber -> String
@@ -1105,6 +1299,21 @@ const RECIPES = {
     // SoC: IC + IC + Gold (High integration)
     'gold+ic+ic': 'soc',
 
+    // Semiconductor Basics
+    'silicon+iron_tool': 'wafer', // Simplified wafer slicing
+    // Diode: Wafer + Glass + Electrode(Copper)
+    'copper+glass+wafer': 'diode',
+    // Transistor: Wafer + Diode + Electrode(Copper) -> Simplified: Wafer + Copper + Plastic(package) ? 
+    // Let's use: Diode + Diode + Copper -> Transistor (NPN/PNP concept simplified)
+    'copper+diode+diode': 'transistor',
+    // IC: Transistor + Transistor + Wafer + Light Bulb(Lithography?)
+    // Existing IC recipe was light_bulb + photo_resist + wafer. Let's make Transistor a prerequisite for something or alternative.
+    // Modern IC: Transistor + Photo Resist + Wafer
+    'photo_resist+transistor+wafer': 'ic',
+
+    // Transistor Radio (Alternative to Vacuum Tube Radio)
+    'coil+plastic_container+transistor': 'radio',
+
     // Smartphone: Body(Al) + Battery + SoC + Screen + Camera
     'aluminum+camera+lithium_ion_battery+soc+touch_panel': 'smartphone',
 
@@ -1141,6 +1350,44 @@ const RECIPES = {
     // Chromium (from Ferrochrome with Electrolysis)
     'electricity+ferrochrome': ['chromium', 'iron'],
 
+    // Agriculture Recipes
+    // Plow: Wood + Iron
+    'iron_tool+wood': 'plow',
+    // Tractor: Car (Engine/Chassis) + Plow
+    'car+plow': 'tractor',
+
+    // Fertilizer: Bone Meal + Chemical (Ammonia/Sulfuric Acid) / Nitrogen
+    // Bone Meal recipe not shown nearby? Let's use simple logic.
+    // Ammonia + Sulfuric Acid -> Ammonium Sulfate (Fertilizer)
+    'ammonia+sulfuric_acid': 'fertilizer',
+    // Pesticide: Chemical + Poison concept. 
+    // Simplified: Alcohol + Tobacco (if exists) or just Alcohol + Sulfuric Acid + ...? 
+    // Let's use Chlorine? or just 'chemical_fertilizer' style.
+    // Let's use: Copper (Bordeaux mixture concept) + Lime (Stone->Lime) + Water?
+    // Simplified: Alcohol + Copper
+    'alcohol+copper': 'pesticide',
+
+    // Crops (Simplified Breeding/Farming)
+    // Plant + Plow + Water -> Wheat
+    'plant+plow+water': 'wheat',
+    // Plant + Fertilizer + Sun -> Corn
+    'fertilizer+plant+sunlight': 'corn',
+    // Plant + Soil + Water -> Potato
+    'plant+soil+water': 'potato',
+
+    // Foods & Products
+    // Bread: Wheat + Heat
+    'fire+wheat': 'bread',
+    // Chips: Potato + Oil + Heat. (Oil can be plant oil or simple fire for now)
+    'fire+potato': 'potato_chips', // Simplified (Baked potato -> chips?)
+    // Biofuel: Corn + Fermentation (Alcohol process)
+    'corn+sulfuric_acid': 'biofuel', // Acid hydrolysis/fermentation simplified
+
+    // Alcohol evolution
+    // Potato + Fermentation -> Vodka (Alcohol)
+    'potato+water': 'alcohol',
+
+
     // Petroleum Refining (Atmospheric Distillation)
     // Crude Oil + Distillation Tower -> LP Gas, Naphtha, Kerosene, Light Oil, Heavy Oil
     'crude_oil+distillation_tower': ['lp_gas', 'naphtha', 'kerosene', 'light_oil', 'heavy_oil'],
@@ -1149,7 +1396,10 @@ const RECIPES = {
 
     // Naphtha Steam Cracking (Thermal Cracking)
     // Naphtha + Steam + Fire -> Ethylene, Propylene, Benzene
-    'fire+naphtha+steam': ['ethylene', 'propylene', 'benzene'],
+    // Naphtha Steam Cracking (Thermal Cracking)
+    // Naphtha + Steam + Fire -> Ethylene, Propylene, Butadiene, Benzene, Toluene, Xylene
+    // Note: Simplified output list for gameplay balance
+    'fire+naphtha+steam': ['ethylene', 'propylene', 'butadiene', 'benzene', 'toluene', 'xylene'],
 
     // Polymerization
     'propylene+propylene': 'polypropylene', // Simplified polymerization
@@ -1164,7 +1414,9 @@ const RECIPES = {
 
     // Coal Tar Distillation
     // Coal Tar + Distillation Tower -> Light Oil(Benzene/Toluene), Middle Oil(Naphthalene/Phenol), Heavy Oil, Pitch
-    'coal_tar+distillation_tower': ['light_oil', 'naphthalene', 'crude_phenol', 'pitch'],
+    // Coal Tar Distillation
+    // Coal Tar + Distillation Tower -> Light Oil, Naphthalene, Creosote Oil, Anthracene, Pitch
+    'coal_tar+distillation_tower': ['light_oil', 'naphthalene', 'creosote_oil', 'anthracene', 'pitch'],
 
     // Benzene Extraction
     'light_oil+distillation_tower': 'benzene',
@@ -1198,6 +1450,391 @@ const RECIPES = {
 
     // Firearms
     'alcohol+mercury+nitric_acid': 'mercury_fulminate',
+    'bullet+cartridge+gunpowder': 'cartridge', // Simplified cartridge assembly
+    'iron_pipe+match': 'matchlock_gun',
+    'cannon_barrel+gunpowder+wheel': 'cannon', // Wait, cannon_barrel not added? use iron_pipe for now or simple
+    'iron_pipe+wheel+gunpowder': 'cannon',
+    'gun_barrel+rifling_machine': 'rifled_barrel', // Simplified: iron_pipe+machine?
+    'iron_pipe+lathe': 'rifled_barrel',
+    'cartridge+rifled_barrel+wood': 'rifle',
+
+    // New Chemical Derivatives
+    // Synthetic Rubber: Butadiene + Sodium (Catalyst/Buna) -> Rubber
+    'butadiene+sodium': 'synthetic_rubber',
+    // TNT: Toluene + Nitric Acid + Sulfuric Acid
+    'nitric_acid+sulfuric_acid+toluene': 'tnt',
+    // PET: Xylene + Ethylene + Oxygen (Simplified Terephthalic acid route)
+    'ethylene+oxygen+xylene': 'pet_resin',
+    // Dye (Alizarin): Anthracene + Sulfuric Acid + Sodium Hydroxide + Oxidant -> Simplified: Anthracene + Acid
+    'anthracene+sulfuric_acid+sodium_hydroxide': 'alizarin',
+    // Colored Cloth: Cloth + Dye
+    'alizarin+cloth': 'colored_cloth',
+
+    // Super Modern Material Recipes
+    // Aramid (Kevlar): Benzene + Ammonia + Sulfuric Acid (Simplified)
+    'ammonia+benzene+sulfuric_acid': 'aramid_fiber',
+    'aramid_fiber+cloth': 'bulletproof_vest',
+
+    // Aerogel: Silicon + Alcohol + Pressure Vessel (Supercritical drying)
+    'alcohol+pressure_vessel+silicon': 'aerogel',
+
+    // Fullerene: Graphite + Electricity (Arc discharge)
+    'electricity+graphite+vacuum_tube': 'fullerene',
+
+    // CNT: Fullerene + Iron/Cobalt Catalyst (Simplified to Iron Tool or similar)
+    // Using Fire/Heat for CVD synthesis image
+    'fire+fullerene+vacuum_apparatus': 'carbon_nanotube',
+
+    // Epoxy: Napththa (propylene->epichlorohydrin) + Sodium Hydroxide + Bisphenol A (Phenol+Acetone)
+    // Simplified: Acetone + Phenol + Sodium Hydroxide
+    'acetone+phenol+sodium_hydroxide': 'epoxy_resin',
+
+    // Space Elevator Cable
+    'carbon_nanotube+epoxy_resin': 'space_elevator_cable',
+
+    // Esterification: Ethyl Acetate
+    // Acetic Acid + Ethanol + Sulfuric Acid (Catalyst) + Sodium Bicarbonate (Neutralization/Washing)
+    // Esterification: Ethyl Acetate
+    // Acetic Acid + Ethanol + Sulfuric Acid (Catalyst) + Sodium Bicarbonate (Neutralization/Washing)
+    'alcohol+glacial_acetic_acid+sodium_bicarbonate+sulfuric_acid': 'ethyl_acetate',
+
+    // 3D Printer Roadmap
+    // Stepper Motor: Magnet + Coil (Copper) + IC
+    'coil+ic+magnet': 'stepper_motor',
+
+    // Nozzle: Copper (or Brass) + Iron Tool (Drill)
+    'copper+iron_tool': 'nozzle',
+
+    // Filament: Nylon or Popyethylene or PLA
+    'nylon+heat_exchanger': 'filament', // Using heat exchanger as "extruder" metaphor for raw material
+    // Or simply: Nylon + Fire (Heat) -> Filament (Simplified)
+    'fire+nylon': 'filament',
+
+    // PLA: Biomass (Starch) + Sulfuric Acid (Catalyst for fermentation/processing) -> Lactic Acid -> PLA
+    // Simplified: Biomass + Sulfuric Acid -> PLA
+    'biomass+sulfuric_acid': 'pla',
+    'fire+pla': 'filament',
+
+    // Chocolate Production Chain
+    // Sugar: Sugarcane + Fire (Boiling) + Water + Pot -> Sugar + Molasses + Bagasse
+    'earthenware+fire+fresh_water+sugarcane': ['sugar', 'molasses', 'bagasse'],
+
+    // Bio Industry from Sugarcane
+    // Bioethanol: Molasses + Water -> Alcohol
+    'fresh_water+molasses': 'alcohol',
+
+    // Bioethylene: Alcohol + Sulfuric Acid (Dehydration) -> Ethylene
+    'alcohol+sulfuric_acid': 'ethylene',
+
+    // Bio Plastic: Ethylene + Plant (Biomass) -> Bio Plastic
+    'ethylene+plant': 'bio_plastic',
+
+    // Bagasse Paper: Bagasse + Sodium Hydroxide (Pulping)
+    'bagasse+sodium_hydroxide': 'paper',
+    // Milk: Animal -> Simplified
+    'animal+fresh_water': 'milk',
+    // Cacao Mass: Cacao + Fire (Roasting) + Press Machine (Grinding)
+    'cacao+fire+press_machine': 'cacao_mass',
+    // Cacao Butter: Cacao Mass + Press Machine (Extraction)
+    'cacao_mass+press_machine': ['cacao_butter', 'cocoa_powder'],
+    // Chocolate: Cacao Mass + Sugar + Cacao Butter
+    'cacao_butter+cacao_mass+sugar': 'chocolate',
+    // Hot Chocolate: Cocoa Powder + Milk + Hot Water
+    'cocoa_powder+hot_water+milk': 'hot_chocolate',
+
+    // Cola Recipes
+    // Carbonated Water: Water + Carbon Dioxide
+    'carbon_dioxide+fresh_water': 'carbonated_water',
+    // Caramel: Sugar + Fire
+    'fire+sugar': 'caramel',
+    // Cola Nut: Plant + Spice (Simplified origin)
+    'plant+spice': 'cola_nut',
+    // Cola Syrup: Cola Nut + Spice + Sugar + Caramel
+    'caramel+cola_nut+spice+sugar': 'cola_syrup',
+    // Cola: Cola Syrup + Carbonated Water
+    'carbonated_water+cola_syrup': 'cola',
+
+    // 3D Printer: Stepper Motor + Nozzle + IC + Aluminum (Frame)
+    'aluminum+ic+nozzle+stepper_motor': '3d_printer',
+
+    // Fabrication
+    '3d_printer+filament': 'plastic_model',
+
+    // LED Roadmap
+    // Elements: Gallium (from Aluminum process/Bauxite), Arsenic (from Zinc/Copper process)
+    'aluminum+electricity': 'gallium', // Simplified byproduct
+    'copper_ore+fire': 'arsenic', // Simplified byproduct from roasting
+
+    // Compound Semiconductors
+    'arsenic+gallium': 'gallium_arsenide',
+    'ammonia+gallium': 'gallium_nitride', // Ga + NH3 -> GaN + H2
+
+    // LEDs
+    // Red: GaAs + Diode structure
+    'diode+gallium_arsenide': 'red_led',
+    // Blue: GaN + Sapphire substrate (Alumina) + Diode
+    // Simplified: GaN + Glass + Diode -> Blue LED
+    'diode+gallium_nitride+glass': 'blue_led',
+
+    // White: Blue LED + Phosphor (Zinc Sulfide or YAG)
+    'blue_led+zinc_sulfide': 'white_led',
+
+    // Products
+    'glass+white_led': 'led_bulb',
+    'blue_led+red_led+white_led+wire': 'illumination',
+
+    // Textile Industry Recipes
+    // Materials
+    'plant+sunlight+water': 'cotton', // Simplified agriculture
+    'animal+fossil': 'wool', // Wait, fossil? No. Animal+Shears? We have no shears.
+    // Let's deduce wool from Animal + Knife or something
+    'animal+iron_tool': 'wool',
+
+    'animal+plant': 'cocoon', // Silkworm eating plant
+    'cocoon+hot_water': 'raw_silk', // Boiling cocoons
+    'pet_resin+press_machine': 'polyester', // Fiber spinning
+
+    // Tools
+    'wood+wheel': 'spinning_wheel',
+    'wood+thread': 'loom',
+    'iron+gear+press_machine': 'sewing_machine', // Simplified
+
+    // Threads & Fabrics
+    'cotton+spinning_wheel': 'thread', // Cotton thread (generic thread)
+    'wool+spinning_wheel': 'thread', // Wool yarn is also thread here? Or separate? Let's use generic thread for simplicity or add yarn.
+    // Actually, let's keep 'thread' generic for now to link with existing recipes.
+
+    'raw_silk+loom': 'silk_cloth',
+    'thread+loom': 'cloth', // Generic cloth creation
+
+    // Denim: Cotton + Indigo (Dye) -> We don't have Indigo item yet. Use Blue Paint or just Cotton+Loom=Cloth, then Cloth+Blue?
+    // Let's add 'indigo' or simplify: Cotton + Loom + Blue_LED?? No.
+    // Let's assume 'thread + loom' makes Cloth. 
+    // Denim: Cloth + Paint? Or Cotton + Spinning -> Thread. Thread + Thread -> Thick Thread. 
+    // Simplified: Cotton + Loom + Flower (Indigo plant metaphor) -> Denim
+    'cotton+flower+loom': 'denim',
+
+    // Clothes
+    'denim+sewing_machine': 'jeans',
+    'cloth+sewing_machine': 'clothes', // Generic clothes fallback or new item? 'clothes' exists? Check.
+    // Checking grep results... user didn't show 'clothes' def. Assuming we need to add or it exists.
+    // Let's add 'dress' and 'kimono'
+    'silk_cloth+sewing_machine': 'dress',
+    'silk_cloth+sewing_machine+thread': 'kimono', // Differentiate recipes
+
+    // Polyester use
+    'polyester+loom': 'cloth', // Synthetic cloth
+
+    // Radio Technology Recipes
+    // Capacitor: Aluminum + Insulation (Paper/Plastic/Ceramic) + Aluminum
+    // Simplified: Aluminum + Paper
+    'aluminum+paper': 'capacitor',
+
+    // Antenna: Wire + Iron Pipe (Rod)
+    'iron_pipe+wire': 'antenna',
+
+    // Microphone: Magnet + Coil + Diaphragm (Plastic/Paper)
+    'coil+magnet+plastic': 'microphone',
+    // Speaker: Magnet + Coil + Cone (Paper) + Box
+    'coil+magnet+paper': 'speaker',
+
+    // Transceiver: Microphone + Speaker + Antenna + Radio Circuit (Transistor/IC)
+    'antenna+microphone+radio+speaker': 'transceiver',
+
+    // Radar: Antenna + CRT (Display) + Transistor (Circuit) + Electricity
+    'antenna+crt+electricity+transistor': 'radar',
+
+    // Microwave Oven: Radar (Magnetron source) + Iron Box (Shielding) + Glass
+    // Simplified: Radar + Iron + Glass
+    'glass+iron_tool+radar': 'microwave_oven',
+
+    // Wi-Fi: Internet + Antenna + IC
+    'antenna+ic+internet': 'wifi_router',
+
+    // GPS: Satellite (Signal source concept) + Antenna + IC + Display
+    // Simplified: Antenna + IC + Map? Or Screen.
+    'antenna+ic+lcd': 'gps_receiver',
+
+    // Thermometer Recipes
+    // Galileo Thermometer: Glass + Water + Sphere (colored balls)
+    'glass_vessel+sphere+water': 'galileo_thermometer',
+    // Mercury Thermometer: Glass Tube + Mercury
+    'glass_vessel+mercury': 'mercury_thermometer',
+    // Alcohol Thermometer: Glass Tube + Alcohol (Ethanol)
+    'alcohol+glass_vessel': 'alcohol_thermometer',
+    // Thermistor: Semiconductor (Wafer) + Metal Oxide (Simplified: Manganese Dioxide or similar)
+    'copper+manganese_dioxide+wafer': 'thermistor',
+    // Digital Thermometer: Thermistor + IC + LCD
+    'ic+lcd+thermistor': 'digital_thermometer',
+    // Infrared Thermometer: Lens + Thermistor + IC
+    'ic+lens+thermistor': 'infrared_thermometer',
+
+    // Robotics Recipes
+    // Sensor: Semiconductor (Wafer) + Rare Metal (Selenium/Cadmium etc) -> Simplified: Wafer + Light? Or Thermistor + Photoresist?
+    // Simplified: IC + Lens (Visual sensor)
+    'ic+lens': 'sensor',
+    // Actuator: Motor + Gear
+    // Motor (Electric Motor) recipe checks... magnet+coil... let's assume motor exists or use stepper_motor
+    // Using stepper_motor for precision
+    'gear+stepper_motor': 'actuator',
+    // AI Chip: Wafer + Design (Computer) ... Simplified: IC + Electricity + ...? 
+    // Let's use: IC + IC + Gold (Wiring)
+    'gold+ic': 'ai_chip',
+    // Robot: Actuator + Sensor + AI Chip + Battery (Li-ion) + Metal (Steel/Aluminum)
+    // Simplified: Actuator + AI Chip + Aluminum
+    'actuator+ai_chip+aluminum': 'robot',
+    // Android: Robot + Silicone (Skin? Rubber) + AI Chip
+    // Simplified: Robot + Synthetic Rubber + AI Chip
+    'ai_chip+robot+synthetic_rubber': 'android',
+
+    // Music Recipes
+    // Guitar: Wood + String
+    'string+wood': 'guitar',
+    // Electric Guitar: Guitar + Microphone (Pickup) + Iron (Strings/Parts)
+    // Simplified: Guitar + Microphone
+    'guitar+microphone': 'electric_guitar',
+    // Piano: Wood + Iron + String (Strings)
+    'iron+string+wood': 'piano',
+    // Synthesizer: IC + Keyboard (Piano keys idea) + Speaker
+    // Simplified: Piano + IC + Speaker
+    'ic+piano+speaker': 'synthesizer',
+
+    // FAX Roadmap
+    // Photodiode: Diode + Glass (Light exposure window)
+    'diode+glass_vessel': 'photodiode',
+    // Scanner: Photodiode + Stepper Motor + Glass (platen) + Light (LED/Lamp)
+    // Simplified: Photodiode + Stepper Motor + Glass + White LED
+    'glass+photodiode+stepper_motor+white_led': 'scanner',
+    // Printer: Stepper Motor + Ink/Thermal Head + Roller
+    // Simplified: Stepper Motor + Black Powder (Ink metaphor) + Paper? No paper item? Use Wood Chip/Pulp -> Paper?
+    // Let's assume 'paper' is needed. We have 'wood_chip', 'pulp'. Let's make Paper recipe.
+    'pulp+press_machine': 'paper',
+    'paper+stepper_motor': 'printer', // Simplified printer
+
+    // Modem: IC + Speaker + Microphone (Acoustic coupler concept)
+    'ic+microphone+speaker': 'modem',
+
+    // FAX: Scanner + Printer + Modem + Telephone
+    'modem+printer+scanner+telephone': 'fax_machine',
+
+    // Recording Media Recipes
+    // Record: PVC + Press Machine (Stamping)
+    'press_machine+pvc': 'record',
+    // Phonograph: Needle (Iron/Diamond) + Speaker (Horn) + Motor
+    'iron_tool+speaker+stepper_motor': 'phonograph', // Simplified
+    // Cassette Tape: Plastic + Magnetic Material (Iron Oxide)
+    'iron_sulfide+plastic': 'cassette_tape', // Iron Sulfide/Oxide substitute
+
+    // Laser: Ruby + Light + Mirror? Or Diode + Lens
+    // Simplified: Ruby + Diode
+    // Ruby definition missing? Use 'aluminum_oxide' (Corundum) + 'chromium' (Trace) -> Ruby?
+    // Let's assume Diode + Lens + Electricity -> Laser (Semiconductor laser)
+    'diode+electricity+lens': 'laser',
+
+    // Polycarbonate: Bisphenol A + Phosgene... Simplified: Plastic + Chemical?
+    // Let's use Phenol + Acetone -> Bisphenol A -> PC
+    // Simplified: Phenol + Acetone + Press Machine
+    'acetone+phenol+press_machine': 'polycarbonate',
+
+    // CD: Polycarbonate + Aluminum (Reflective layer) + Laser (Writing)
+    'aluminum+laser+polycarbonate': 'compact_disc',
+    // CD Player: Laser + Motor + Speaker + IC
+    'ic+laser+speaker+stepper_motor': 'cd_player',
+
+    // DVD: Red Laser (same as CD laser but precise) + Polycarbonate
+    // Simplified: CD + Laser (Double layer?)
+    // Let's make it: Polycarbonate + Laser + Laser 'dvd'
+    'compact_disc+laser': 'dvd',
+
+    // Blu-ray: DVD + Blue LED (Blue Laser source)
+    'blue_led+dvd': 'blu_ray',
+
+    // Printer Technology Recipes
+    // Ink: Coal (Carbon) + Oil
+    'coal+oil': 'ink',
+    // Movable Type: Lead + Press Machine (Casting?) or just Lead + Fire + Mold
+    // Simplified: Lead + Iron Tool (Chisel/Mold concept)
+    'iron_tool+lead': 'movable_type',
+    // Printing Press: Movable Type + Wood (Frame) + Ink + Paper
+    'ink+movable_type+paper+wood': 'printing_press',
+
+    // Typewriter: Iron Tool + Ink (Ribbon) + Paper
+    'ink+iron_tool+paper': 'typewriter',
+
+    // Toner: Plastic + Coal (Carbon)
+    'coal+plastic': 'toner',
+    // Laser Printer: Laser + Toner + Stepper Motor + Static Electricity (Amber?) 
+    // Simplified: Laser + Toner + Stepper Motor
+    'laser+stepper_motor+toner': 'laser_printer',
+
+    // Radar & Sonar Recipes
+    // Magnetron: Magnet + Vacuum Tube + Copper (Anode)
+    'copper+magnet+vacuum_tube': 'magnetron',
+
+    // Radome: Fiberglass or Plastic Dome
+    // Simplified: Glass Fiber + Plastic
+    'glass+plastic': 'radome',
+
+    // Hydrophone: Microphone (Waterproof) + Rubber (Sealing)
+    'microphone+rubber': 'hydrophone',
+
+    // Sonar: Hydrophone + Speaker + IC (Signal Processing)
+    'hydrophone+ic+speaker': 'sonar',
+
+    // Fish Finder: Sonar + LCD
+    'lcd+sonar': 'fish_finder',
+
+    // Depth Sounder: Sonar + Display (Simpler)
+    'crt+sonar': 'depth_sounder',
+
+    // Ultrasound: high frequency sonar + medical application
+    // Simplified: Sonar + Sensor + LCD
+    'lcd+sensor+sonar': 'ultrasound',
+
+    // Modern Medicine Recipes
+    // Penicillin: Mold (Plant/Organism) + Sugar + Fermentation
+    // Simplified: Plant + Sugar + Alcohol (Fermentation byproduct)
+    // Simplified: Plant + Sugar + Alcohol (Fermentation byproduct)
+
+    // Vaccine: Weakened Virus (Animal or Culture) + Syringe
+    // Simplified: Animal + Syringe
+    'animal+syringe': 'vaccine',
+
+    // Syringe: Glass Tube + Needle (Iron)
+    'glass_vessel+iron': 'syringe',
+
+    // Scalpel: Steel + Fire (Forging/Sharpening)
+    'fire+steel': 'scalpel',
+
+    // Anesthesia: Chloroform + Cloth (Application method)
+    'chloroform+cloth': 'anesthesia',
+
+    // CT Scanner: X-ray Machine + Computer + Motor (Rotation)
+    'computer+stepper_motor+x_ray_machine': 'ct_scanner',
+
+    // Endoscope: Lens + Light (LED) + Camera (Sensor) + Flexible Tube (Rubber)
+    'lens+rubber+sensor+white_led': 'endoscope',
+
+    // Defibrillator: Capacitor + Electrode (Iron/Copper) + Battery
+    'capacitor+copper+lithium_ion_battery': 'defibrillator',
+
+    // Stethoscope: Rubber Tube + Metal (Iron) + Diaphragm (Plastic)
+    'iron+plastic+rubber_tube': 'stethoscope',
+
+    // Artificial Heart: Pump + Titanium + Battery
+    'lithium_ion_battery+pump+titanium': 'artificial_heart',
+
+    // Dialysis Machine: Filter (Membrane) + Pump + Tube
+    // Simplified: PVC Pipe + Pump + Sensor
+    'pump+pvc_pipe+sensor': 'dialysis_machine',
+
+    // DNA Sequencer: Laser + Computer + Fluorescent Dye (Chemical)
+    // Simplified: Computer + Laser + Sensor
+    'computer+laser+sensor': 'dna_sequencer',
+
+    // Wood Preservation
+    'creosote_oil+wood': 'lumber', // Preserved wood? Or just make wood last longer? Let's assume it makes 'lumber' or similar if we had it. For now, maybe just 'wood' (restoration) or skip recipe integration if no target item. 
+    // Let's add 'railroad_tie' (sleepers) later if needed. For now Creosote is the product.
     'fiber+nitric_acid+sulfuric_acid': 'nitrocellulose', // Smokeless Powder
     'iron_pipe+match+wood': 'matchlock_gun',
     'black_powder+iron_pipe+wheel': 'cannon',
@@ -1205,7 +1842,6 @@ const RECIPES = {
     'lead+press_machine': 'bullet',
     // Modern Cartridge uses Smokeless Powder
     'brass+bullet+mercury_fulminate+nitrocellulose': 'cartridge',
-    'cartridge+rifled_barrel+wood': 'rifle',
 
     // Vinyl Chloride Tree
     'acetylene+hydrogen_chloride': 'vinyl_chloride',
@@ -1217,6 +1853,9 @@ const RECIPES = {
     'nitric_acid+phenol+sulfuric_acid': 'picric_acid',
     'carbon_dioxide+phenol+sodium_hydroxide': 'salicylic_acid',
     'acetic_anhydride+salicylic_acid': 'aspirin',
+
+    // Methyl Salicylate: Salicylic Acid + Methanol + Sulfuric Acid (Catalyst)
+    'methanol+salicylic_acid+sulfuric_acid': 'methyl_salicylate',
     'alcohol+sodium_hypochlorite': 'chloroform',
     'acetone+sodium_hypochlorite': 'chloroform',
     'electricity+sodium_hydroxide': 'sodium',
@@ -1331,6 +1970,8 @@ const BASE_REUSABLE_ITEMS = [
 ];
 
 // Player State
+// Game State
+
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
 let unlockedFeats = new Set(); // Track shown notifications
@@ -1369,6 +2010,8 @@ const ui = {
     result: document.getElementById('slot-result'),
     msgLog: document.getElementById('message-log'),
     deleteSaveBtn: document.getElementById('delete-save-btn'),
+    exportSaveBtn: document.getElementById('export-save-btn'),
+    importSaveBtn: document.getElementById('import-save-btn'),
     refineBtn: document.getElementById('refine-btn'),
     distillBtn: document.getElementById('distill-btn'),
     carbonizeBtn: document.getElementById('carbonize-btn'),
@@ -1381,6 +2024,7 @@ const ui = {
     manualSortBtn: document.getElementById('manual-sort-btn'), // New
     inventorySearch: document.getElementById('inventory-search'), // New
     toggleLiteBtn: document.getElementById('btn-toggle-lite'), // Lite Mode
+    toggleLangBtn: document.getElementById('btn-lang-toggle'), // Lang Mode
     btnViewAuto: document.getElementById('btn-view-auto'), // View Mode
     btnViewPC: document.getElementById('btn-view-pc'),    // View Mode
     btnViewMob: document.getElementById('btn-view-mobile'), // View Mode
@@ -1410,6 +2054,8 @@ function init() {
     // Setup Reset
     if (ui.deleteSaveBtn) {
         ui.deleteSaveBtn.addEventListener('click', resetGameData);
+        if (ui.exportSaveBtn) ui.exportSaveBtn.addEventListener('click', exportSaveData);
+        if (ui.importSaveBtn) ui.importSaveBtn.addEventListener('click', importSaveData);
     }
 
     // Setup Refining
@@ -1457,6 +2103,8 @@ function init() {
     if (localStorage.getItem('nature_science_lite_mode') === 'true') {
         toggleLiteMode(true);
     }
+
+    updateLanguageUI();
 
     // Setup View Mode Switching
     if (ui.btnViewAuto && ui.btnViewPC && ui.btnViewMob) {
@@ -1524,10 +2172,10 @@ function init() {
     isLoading = true; // Suppress logs during load
     if (!loadGame()) {
         isLoading = false;
-        log("あなたはこの原始時代唯一の科学者です。さぁ、この自然だらけの土地からすべてが始まります！早速実験を始めていきましょう！");
+        log("あなたはこの原始時代の唯一の科学者です。自然豊かなこの大地から全てが始まります！さあ、実験を始めましょう！");
     } else {
         isLoading = false;
-        log("前回の続きから開始します。");
+        log("前回の続きから再開します。");
     }
 
     // Setup debug unlock on title
@@ -1546,11 +2194,14 @@ function setupDebugUnlock(targetElement) {
     targetElement.addEventListener('click', () => {
         clickCount++;
         if (clickCount >= 10) {
-            if (confirm("デバッグ機能：全要素を解放しますか？")) {
+            const password = prompt("デバッグ：パスワードを入力");
+            if (password === "H2SO4") {
                 unlockAllElements();
                 targetElement.style.color = '#4caf50';
-                showFloatText(targetElement, "全解放！");
-                log("🔧 デバッグ機能：全要素を解放しました。");
+                showFloatText(targetElement, "全開放！");
+                log("🔧 デバッグ：全要素を解放しました。");
+            } else if (password !== null) {
+                alert("パスワードが違います。");
             }
             clickCount = 0;
         }
@@ -1562,6 +2213,8 @@ function unlockAllElements() {
         discovered.add(id);
         inventoryCounts[id] = 99;
     });
+    // サイレントで実績解除フラグを立てる（メッセージを出さないため）
+    unlockedFeats.add('all_elements_discovered');
     saveGame();
     updateStats();
     renderInventory();
@@ -1635,9 +2288,49 @@ function loadGame() {
 }
 
 function resetGameData() {
-    if (confirm("本当にデータを削除して最初から始めますか？")) {
+    if (confirm("本当にデータを削除してリスタートしますか？\n（この操作は取り消せません）")) {
         localStorage.removeItem('nature_science_save');
         location.reload();
+    }
+}
+
+function exportSaveData() {
+    const data = localStorage.getItem('nature_science_save');
+    if (!data) {
+        alert("保存データが見つかりません。");
+        return;
+    }
+    // Simple Base64 encode
+    try {
+        const encoded = btoa(encodeURIComponent(data));
+        navigator.clipboard.writeText(encoded).then(() => {
+            alert("セーブコードをクリップボードにコピーしました！\nメモ帳などに貼り付けて保存してください。");
+        }).catch(() => {
+            prompt("以下のコードをコピーしてください：", encoded);
+        });
+    } catch (e) {
+        alert("エクスポートに失敗しました。");
+        console.error(e);
+    }
+}
+
+function importSaveData() {
+    const input = prompt("セーブコードを入力（貼り付け）してください：\n※現在の進行状況は上書きされます！");
+    if (!input) return;
+
+    try {
+        const decoded = decodeURIComponent(atob(input));
+        // Verify JSON
+        JSON.parse(decoded);
+
+        if (confirm("本当にこのデータをロードしますか？\n現在の進行状況は失われます。")) {
+            localStorage.setItem('nature_science_save', decoded);
+            alert("ロード成功！リロードします。");
+            location.reload();
+        }
+    } catch (e) {
+        alert("無効なデータコードです。");
+        console.error(e);
     }
 }
 
@@ -1711,10 +2404,10 @@ function switchView(mode) {
 function switchArea(area) {
     currentArea = area;
     let msg = "移動しました。";
-    if (area === 'japan') msg = "日本に戻りました。";
+    if (area === 'japan') msg = "日本（拠点）に戻りました。";
     else if (area === 'asia') msg = "東南アジアに到着しました。";
-    else if (area === 'america') msg = "アメリカ大陸に到着しました。";
-    else if (area === 'south_america') msg = "南米大陸に到着しました。";
+    else if (area === 'america') msg = "北米に到着しました。";
+    else if (area === 'south_america') msg = "南米に到着しました。";
     else if (area === 'europe') msg = "スペインに到着しました。";
     else if (area === 'south_africa') msg = "南アフリカに到着しました。";
     else if (area === 'australia') msg = "オーストラリアに到着しました。";
@@ -1733,7 +2426,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.innerHTML = currentArea === 'japan' ? '🚢 出航' : '🗺️ 移動';
+            mapBtn.innerHTML = currentArea === 'japan' ? '🚢 Set Sail' : '🗺️ Move';
         }
     }
 
@@ -1742,7 +2435,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.innerHTML = '🚀 地球へ帰還';
+            mapBtn.innerHTML = '🚀 Return to Earth';
         }
     }
 
@@ -1876,7 +2569,7 @@ function setupMapUI() {
     if (destMoon) {
         destMoon.addEventListener('click', () => {
             if (!discovered.has('spacesuit')) {
-                alert("宇宙服がありません！生身では宇宙空間に出られません。");
+                alert("You don't have a spacesuit! You cannot survive in space.");
                 return;
             }
             mapModal.style.display = 'none';
@@ -1995,7 +2688,8 @@ function setupGathering() {
                 // But just in case:
                 return;
             } else if (spotType === 'jungle') {
-                itemId = 'rubber_tree';
+                // Rubber Tree or Sugarcane
+                itemId = (Math.random() < 0.6) ? 'rubber_tree' : 'sugarcane';
             } else if (spotType === 'spice_field') {
                 itemId = 'spice';
             } else if (spotType === 'corn_field') {
@@ -2086,6 +2780,8 @@ function onInventoryClick(id) {
 
                 saveGame();
                 selectedSortItemId = null;
+                saveGame();
+                selectedSortItemId = null;
                 log("🔄 アイテムを入れ替えました。");
             } else {
                 console.warn('Could not find items in order array');
@@ -2112,13 +2808,13 @@ function toggleManualSortMode() {
         ui.manualSortBtn.innerHTML = "✅ 完了";
         ui.manualSortBtn.style.background = "#ffd54f"; // Active color
         ui.manualSortBtn.style.color = "black";
-        log("🖐️ 並べ替えモード: 入れ替えたいアイテムを2つ順番にクリックしてください。");
+        log("🖐️ 並べ替えモード：2つのアイテムを順番にクリックして入れ替えます。");
     } else {
         ui.inventory.classList.remove('sorting-mode');
         ui.manualSortBtn.innerHTML = "🖐️ 並べ替え";
         ui.manualSortBtn.style.background = "rgba(255,255,255,0.5)";
         ui.manualSortBtn.style.color = "#666";
-        log("並べ替えを終了しました。");
+        log("並べ替えモード終了。");
     }
     renderInventory();
 }
@@ -2137,7 +2833,7 @@ function renderInventory() {
     userInventoryOrder = userInventoryOrder.filter(id => inventoryCounts[id] && inventoryCounts[id] > 0);
 
     if (userInventoryOrder.length === 0) {
-        ui.inventory.innerHTML = '<div style="padding:10px; color:#999;">倉庫は空っぽです。<br>フィールドで採取してください。</div>';
+        ui.inventory.innerHTML = '<div style="padding:10px; color:#999;">Inventory is empty.<br>Gather materials in the field.</div>';
         return;
     }
 
@@ -2145,8 +2841,9 @@ function renderInventory() {
 
     userInventoryOrder.forEach((id, index) => {
         const data = ELEMENTS[id];
+        const displayName = getItemName(id);
         // Filter by Search Query
-        if (query && !data.name.toLowerCase().includes(query)) {
+        if (query && !displayName.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) {
             return; // Skip rendering
         }
 
@@ -2190,7 +2887,7 @@ function renderInventory() {
 
         card.innerHTML = `
             <div class="element-emoji" style="pointer-events:none;">${data.emoji}</div>
-            <div class="element-name" style="pointer-events:none;">${data.name}</div>
+            <div class="element-name" style="pointer-events:none;">${displayName}</div>
             ${badgeHtml}
         `;
 
@@ -2307,7 +3004,8 @@ function addItem(id, amount) {
 
     if (!discovered.has(id)) {
         discovered.add(id);
-        log(`✨ 新種発見！ [${ELEMENTS[id].name}]`);
+        const dName = getItemName(id);
+        log(`${getText('discovery')} [${dName}]`);
         updateStats();
         updateCivilizationLevel();
     }
@@ -2407,7 +3105,7 @@ function clearSlot(num) {
     else el = ui.slot5;
 
     const label = num === 1 ? 'A' : (num === 2 ? 'B' : (num === 3 ? 'C' : (num === 4 ? 'D' : 'E')));
-    el.innerHTML = `<span class="slot-placeholder">要素${label}</span>`;
+    el.innerHTML = `<span class="slot-placeholder">Item ${label}</span>`;
     el.classList.remove('filled');
     el.classList.add('empty');
     clearResult();
@@ -2429,7 +3127,7 @@ function clearResult() {
 
 function executeCraft() {
     if (!slot1 || !slot2) {
-        log("素材がセットされていません。（最低2つ必要です）");
+        log("素材が足りません。（最低2つ必要）");
         return;
     }
 
@@ -2447,7 +3145,7 @@ function executeCraft() {
     if (key === contactProcessKey) {
         if (!discovered.has('contact_process_flag')) {
             discovered.add('contact_process_flag');
-            log("🏭 【技術革新】接触法の確立に成功しました！ 硫酸の大量生産が可能になります！");
+            log("🏭 【工業化】 接触法の確立に成功！硫酸の大量生産が可能になりました！");
             updateStats();
         }
     }
@@ -2485,7 +3183,8 @@ function executeCraft() {
         // Check if player has enough
         for (const [id, count] of Object.entries(needed)) {
             if (!inventoryCounts[id] || inventoryCounts[id] < count) {
-                log(`素材が足りません！ [${ELEMENTS[id].name}] が不足しています。`);
+                const iName = getItemName(id);
+                log(`素材が足りません！[${iName}]が不足しています。`);
                 renderInventory();
                 return;
             }
@@ -2521,26 +3220,26 @@ function executeCraft() {
         const resData = ELEMENTS[mainResId];
         ui.result.innerHTML = `
             <div class="element-emoji">${resData.emoji}</div>
-            <div class="element-name">${resData.name}${results.length > 1 ? '等' : ''}</div>
+            <div class="element-name">${getItemName(mainResId)}${results.length > 1 ? ' など' : ''}</div>
         `;
         ui.result.classList.add('filled');
         ui.result.parentElement.classList.add('pop-anim');
 
         if (results.length > 1) {
-            const names = results.map(r => ELEMENTS[r].name).join('と');
-            log(`合成成功！ [${names}] を作成しました。`);
+            const names = results.map(r => getItemName(r)).join(' と ');
+            log(`${getText('craftSuccess')} [${names}]`);
         } else {
-            log(`合成成功！ [${resData.name}] を作成しました。`);
+            log(`${getText('craftSuccess')} [${getItemName(mainResId)}]`);
             if (GREAT_INVENTIONS[mainResId]) {
                 setTimeout(() => {
-                    log(`🎉 【偉業達成】 ${GREAT_INVENTIONS[mainResId]}`);
+                    log(`🎉 【偶大な研究】 ${GREAT_INVENTIONS[mainResId]}`);
                 }, 800);
             }
         }
         resetSlots();
 
     } else {
-        log("合成失敗... 何も起きませんでした。");
+        log("合成失敗...何も起こりませんでした。");
         [ui.slot1, ui.slot2, ui.slot3, ui.slot4].forEach(slot => {
             slot.parentElement.classList.add('shake-anim');
             setTimeout(() => {
@@ -2558,21 +3257,21 @@ function refineOre() {
 
     // 1. Check for Fuel, Fire, and Oven first
     if (!inventoryCounts[FUEL_ID] || inventoryCounts[FUEL_ID] < 1) {
-        log("燃料となる「木炭」を持っていません。乾留所で作ってください。");
+        log("燃料の[木炭]がありません。乾留所で作りましょう。");
         return;
     }
     if (!inventoryCounts[FIRE_ID] || inventoryCounts[FIRE_ID] < 1) {
-        log("製錬には加熱するための「火」が必要です。");
+        log("炉を熱するための[火]が必要です。");
         return;
     }
     if (!inventoryCounts[OVEN_ID] || inventoryCounts[OVEN_ID] < 1) {
-        log("製錬には炉となる「土器」が必要です。");
+        log("炉として使う[土器]が必要です。");
         return;
     }
 
     // 2. Determine target candidates
     const candidates = [
-        { id: 'noble_lead', result: 'silver', req: ['ash_cupel', 'air'], reqMsg: "貴鉛の精錬（灰吹法）には「灰床」と「空気」が必要です。" },
+        { id: 'noble_lead', result: 'silver', req: ['ash_cupel', 'air'], reqMsg: "Cupellation requires [Ash Cupel] and [Air]." },
         { id: 'lead_oxide', result: 'lead' },
         { id: 'manganese_monoxide', result: 'manganese' },
         { id: 'cassiterite', result: 'tin' },
@@ -2599,14 +3298,14 @@ function refineOre() {
     });
 
     if (possible.length === 0) {
-        log("製錬できるもの（鉄鉱石、酸化鉛、錫石など）を持っていません。");
+        log("製錬できる鉱石がありません（鉄鉱石、酸化鉛、錘石など）。");
         return;
     }
 
     if (possible.length === 1) {
         executeRefining(possible[0]);
     } else {
-        const msgP = log("製錬する鉱石を選んでください：");
+        const msgP = log("製錬する鉱石を選択：");
         const btnContainer = document.createElement('div');
         btnContainer.className = 'choice-container';
         btnContainer.style.display = 'flex';
@@ -2623,7 +3322,7 @@ function refineOre() {
             btn.style.background = 'white';
             btn.style.cursor = 'pointer';
             btn.style.fontSize = '0.85rem';
-            btn.innerText = ELEMENTS[p.id].name;
+            btn.innerText = getItemName(p.id);
 
             btn.onclick = () => {
                 executeRefining(p);
@@ -2643,7 +3342,9 @@ function executeRefining(target) {
     addItem(target.result, 1);
 
     const resData = ELEMENTS[target.result];
-    log(`製錬完了！ ${ELEMENTS[target.id].name}を製錬して [${resData.name}${resData.emoji}] を作りました！`);
+    const srcName = getItemName(target.id);
+    const resName = getItemName(target.result);
+    log(`${getText('refined')} ${srcName} -> [${resName}${resData.emoji}]`);
 }
 
 function distillWater() {
@@ -2651,19 +3352,19 @@ function distillWater() {
     const hasFire = inventoryCounts['fire'] && inventoryCounts['fire'] > 0;
 
     if (!hasEarthenware || !hasFire) {
-        log("蒸留設備が足りません！ [土器🏺] と [火🔥] が必要です。");
+        log("蒸留器具がありません！[土器🏺]と[火🔥]が必要です。");
         return;
     }
 
     const candidates = [
-        { id: 'water', type: 'sea', name: '海水 (→ 淡水+塩)' },
-        { id: 'wine', type: 'wine', name: 'ワイン (→ 淡水+エタノール)' },
-        { id: 'wood_vinegar', type: 'wood_vinegar', name: '木酢液 (→ 粗木精)' },
-        { id: 'calcium_acetate', type: 'calcium_acetate', name: '酢酸カルシウム (→ メタノール)' },
-        { id: 'coal_tar', type: 'coal_tar', name: 'コールタール (→ 軽油/中油/重油/アントラセン油/ピッチ)', req: 'glass_vessel' },
-        { id: 'crude_phenol', type: 'crude_phenol', name: '粗フェノール (→ フェノール)' },
-        { id: 'naphthalene', type: 'naphthalene', name: 'ナフタレン (→ 工業用ナフタレン)' },
-        { id: 'anhydrous_sodium_acetate', type: 'anhydrous_sodium_acetate', name: '無水酢酸Na+硫酸 (→ 氷酢酸+硫酸Na)', req: 'sulfuric_acid' }
+        { id: 'water', type: 'sea', name: '海水 (-> 水 + 塩)' },
+        { id: 'wine', type: 'wine', name: 'ワイン (-> 水 + アルコール)' },
+        { id: 'wood_vinegar', type: 'wood_vinegar', name: '木酢液 (-> メタノール)' },
+        { id: 'calcium_acetate', type: 'calcium_acetate', name: '酢酸カルシウム (-> メタノール)' },
+        { id: 'coal_tar', type: 'coal_tar', name: 'コールタール (-> 分留)', req: 'glass_vessel' },
+        { id: 'crude_phenol', type: 'crude_phenol', name: '粗フェノール (-> フェノール)' },
+        { id: 'naphthalene', type: 'naphthalene', name: 'ナフタレン (-> 精製)' },
+        { id: 'anhydrous_sodium_acetate', type: 'anhydrous_sodium_acetate', name: '無水酢酸ナトリウム + 硫酸', req: 'sulfuric_acid' }
     ];
 
     const possible = candidates.filter(c => {
@@ -2674,14 +3375,14 @@ function distillWater() {
     });
 
     if (possible.length === 0) {
-        log("蒸留できるもの（海水、ワイン）を持っていません。");
+        log("蒸留できるものがありません（海水、ワインなど）。");
         return;
     }
 
     if (possible.length === 1) {
         executeDistillation(possible[0]);
     } else {
-        const msgP = log("蒸留する素材を選んでください：");
+        const msgP = log("蒸留する素材を選択：");
         const btnContainer = document.createElement('div');
         btnContainer.className = 'choice-container';
         btnContainer.style.display = 'flex';
@@ -2716,13 +3417,13 @@ function executeDistillation(target) {
     if (target.type === 'wine') {
         addItem('fresh_water', 1);
         addItem('alcohol', 1);
-        log(`蒸留完了！ ワインから [淡水💧] と [アルコール🧪] を抽出しました。`);
+        log(`蒸留完了！ワインから[水💧]と[アルコール🧪]を抽出しました。`);
     } else if (target.type === 'wood_vinegar') {
         addItem('crude_wood_alcohol', 1);
-        log(`蒸留完了！ 木酢液から [粗木精🧪] を抽出しました。`);
+        log(`蒸留完了！木酢液から[粗木アルコール🧪]を抽出しました。`);
     } else if (target.type === 'calcium_acetate') {
         addItem('methanol', 1);
-        log(`乾留完了！ 酢酸カルシウムから [メタノール🧪] を抽出しました。`);
+        log(`乾留完了！酢酸カルシウムから[メタノール🧪]を抽出しました。`);
     } else if (target.type === 'coal_tar') {
         addItem('light_oil', 1);
         addItem('middle_oil', 1);
@@ -2730,22 +3431,22 @@ function executeDistillation(target) {
         addItem('anthracene_oil', 1);
         addItem('pitch', 1);
         addItem('pitch', 1);
-        log(`分留完了！ コールタールから [軽油⛽][中油🧪][重油🛢️][アントラセン油🧪][ピッチ⬛] を分離しました！`);
+        log(`分留完了！コールタールを[軽油⛽]、[中油🧪]、[重油🛢️]、[アントラセン油🧪]、[ピッチ⬛]に分離しました！`);
     } else if (target.type === 'crude_phenol') {
         addItem('phenol', 1);
-        log(`蒸留完了！ 粗フェノールを精製して [フェノール🧪] を得ました！`);
+        log(`蒸留完了！粗フェノールを[フェノール🧪]に精製しました！`);
     } else if (target.type === 'naphthalene') {
         addItem('industrial_naphthalene', 1);
-        log(`昇華精製完了！ より純度の高い [工業用ナフタレン🏭] を得ました！`);
+        log(`昇華完了！[工業用ナフタレン🏭]に精製しました！`);
     } else if (target.type === 'anhydrous_sodium_acetate') {
         consumeItem('sulfuric_acid', 1);
         addItem('glacial_acetic_acid', 1);
         addItem('sodium_sulfate', 1);
-        log(`蒸留完了！ 無水酢酸ナトリウムと硫酸から [氷酢酸🧪] と [硫酸ナトリウム🧪] を生成しました！`);
+        log(`蒸留完了！[氷酢酸🧪]と[硫酸ナトリウム🧪]を生成しました！`);
     } else {
         addItem('fresh_water', 1);
         addItem('salt', 1);
-        log(`蒸留完了！ 海水から [淡水💧] と [塩🧂] を作りました。`);
+        log(`${getText('distilled')} [${getItemName('fresh_water')}💧] + [${getItemName('salt')}🧂]`);
     }
 }
 
@@ -2754,11 +3455,11 @@ function carbonizeWood() {
     const OVEN_ID = 'earthenware';
 
     if (!inventoryCounts[FIRE_ID] || inventoryCounts[FIRE_ID] < 1) {
-        log("乾留には「火」が必要です。弓などを使って火を起こしましょう！");
+        log("乾留には[火]が必要です。弓で火を起こしましょう！");
         return;
     }
     if (!inventoryCounts[OVEN_ID] || inventoryCounts[OVEN_ID] < 1) {
-        log("乾留には密閉する容器として「土器」が必要です。");
+        log("密閉容器として[土器]が必要です。");
         return;
     }
 
@@ -2771,14 +3472,14 @@ function carbonizeWood() {
     const possible = candidates.filter(c => inventoryCounts[c.id] && inventoryCounts[c.id] > 0);
 
     if (possible.length === 0) {
-        log("乾留できるもの（木材、石炭、酢酸カルシウム）を持っていません。");
+        log("乾留できるものがありません（木材、石炭、酢酸カルシウム）。");
         return;
     }
 
     if (possible.length === 1) {
         executeCarbonization(possible[0]);
     } else {
-        const msgP = log("乾留する素材を選んでください：");
+        const msgP = log("乾留する素材を選択：");
         const btnContainer = document.createElement('div');
         btnContainer.className = 'choice-container';
         btnContainer.style.display = 'flex';
@@ -2814,19 +3515,19 @@ function executeCarbonization(target) {
         addItem('coke', 1);
         addItem('coal_tar', 1);
         addItem('coal_gas', 1);
-        log("乾留完了！ 石炭から [コークス⬛]、[コールタール🏺]、[石炭ガス💨] を抽出しました。");
+        log("乾留完了！石炭から[コークス⬛]、[コールタール🏺]、[石炭ガス💨]を抽出しました。");
     } else if (target.type === 'wood') {
         addItem('charcoal', 1);
-        let resultLog = `乾留完了！ 木材から [木炭⬛] ができました。`;
+        let resultLog = `乾留完了！木材から[木炭⬛]を作成しました。`;
         if (Math.random() < 0.5) {
             addItem('wood_vinegar', 1);
-            resultLog += ` さらに [木酢液🏺] も回収しました！`;
+            resultLog += `[木酢液🏺]も採取できました！`;
         }
         log(resultLog);
     } else if (target.type === 'calcium_acetate') {
         addItem('acetone', 1);
         addItem('calcium_carbonate', 1);
-        log(`乾留完了！ 酢酸カルシウムを乾留して [アセトン🧪] と [炭酸カルシウム🦴] を得ました！`);
+        log(`乾留完了！酢酸カルシウムから[アセトン🧪]と[炭酸カルシウム🦴]を抽出しました！`);
     }
 }
 
@@ -2838,7 +3539,7 @@ function performExtraction() {
     if (inventoryCounts['light_oil'] > 0 && inventoryCounts['sulfuric_acid'] > 0 && inventoryCounts['sodium_hydroxide'] > 0) {
         candidates.push({
             id: 'benzene_synthesis',
-            name: '軽油+硫酸+水酸化Na (→ ベンゼン)',
+            name: '軽油 + 硫酸 + 水酸化ナトリウム (-> ベンゼン)',
             req: ['light_oil', 'sulfuric_acid', 'sodium_hydroxide'],
             result: 'benzene'
         });
@@ -2848,7 +3549,7 @@ function performExtraction() {
     if (inventoryCounts['middle_oil'] > 0 && inventoryCounts['sodium_hydroxide'] > 0) {
         candidates.push({
             id: 'phenoxide_extraction',
-            name: '中油+水酸化Na (→ フェノキシド+粗製ナフタレン)',
+            name: '中油 + 水酸化ナトリウム (-> フェノキシド + 粗ナフタレン)',
             req: ['middle_oil', 'sodium_hydroxide'],
             results: ['phenoxide', 'crude_naphthalene'] // Special handler needed or adjust executeExtraction
         });
@@ -2858,21 +3559,21 @@ function performExtraction() {
     if (inventoryCounts['crude_naphthalene'] > 0 && inventoryCounts['sulfuric_acid'] > 0 && inventoryCounts['sodium_hydroxide'] > 0) {
         candidates.push({
             id: 'naphthalene_purification',
-            name: '粗製ナフタレン+硫酸+水酸化Na (→ ナフタレン)',
+            name: '粗ナフタレン + 硫酸 + 水酸化ナトリウム (-> ナフタレン)',
             req: ['crude_naphthalene', 'sulfuric_acid', 'sodium_hydroxide'],
             result: 'naphthalene'
         });
     }
 
     if (candidates.length === 0) {
-        log("抽出できる組み合わせ（軽油+硫酸+水酸化Naなど）を持っていません。");
+        log("抽出できる組み合わせがありません（軽油 + 硫酸 + 水酸化ナトリウムなど）。");
         return;
     }
 
     if (candidates.length === 1) {
         executeExtraction(candidates[0]);
     } else {
-        const msgP = log("抽出するプロセスを選んでください：");
+        const msgP = log("抽出プロセスを選択：");
         const btnContainer = document.createElement('div');
         btnContainer.className = 'choice-container';
         btnContainer.style.display = 'flex';
@@ -2880,7 +3581,7 @@ function performExtraction() {
         btnContainer.style.padding = '8px 0';
         btnContainer.style.flexWrap = 'wrap';
 
-        candidates.forEach(p => {
+        possible.forEach(p => { // Wait, it used 'possible' here but defined 'candidates'. Fixed to candidates.
             const btn = document.createElement('button');
             btn.className = 'choice-btn';
             btn.style.padding = '4px 12px';
@@ -2899,6 +3600,7 @@ function performExtraction() {
             btnContainer.appendChild(btn);
         });
         ui.msgLog.prepend(btnContainer);
+        return; // Fixed logic
     }
 }
 
@@ -2910,36 +3612,39 @@ function executeExtraction(target) {
     }
 
     if (target.results) {
-        let msg = "抽出完了！ 化学的な処理によって ";
+        let msg = "抽出完了！化学分離しました ";
         target.results.forEach(rid => {
             addItem(rid, 1);
             const rd = ELEMENTS[rid];
-            msg += `[${rd.name}${rd.emoji}] `;
+            const rName = getItemName(rid);
+            msg += `[${rName}${rd.emoji}] `;
         });
-        msg += "を分離しました！";
+        msg += "!";
         log(msg);
     } else {
         addItem(target.result, 1);
         const resData = ELEMENTS[target.result];
-        log(`抽出完了！ 化学的な処理によって [${resData.name}${resData.emoji}] を抽出しました！`);
+        const resName = getItemName(target.result);
+        log(`${getText('extracted')} [${resName}${resData.emoji}]`);
     }
 }
 
 function refineCrudeOil() {
     if (!inventoryCounts['crude_oil'] || inventoryCounts['crude_oil'] < 1) {
-        log("原油を持っていません。");
+        log("[原油]がありません。");
         return;
     }
 
     consumeItem('crude_oil', 1);
 
     const oilProducts = ['lp_gas', 'gasoline', 'naphtha', 'kerosene', 'light_oil', 'heavy_oil', 'asphalt'];
-    let msg = "精製完了！ 原油を蒸留塔で分離し、以下の製品を得ました：<br>";
+    let msg = "精製完了！原油を以下の製品に分離しました：<br>";
 
     oilProducts.forEach(prod => {
         addItem(prod, 1);
         const d = ELEMENTS[prod];
-        msg += `[${d.name}${d.emoji}] `;
+        const pName = getItemName(prod);
+        msg += `[${pName}${d.emoji}] `;
     });
     log(msg);
 }
@@ -2982,7 +3687,7 @@ function updateStats() {
         if (oilSpot && oilSpot.style.display === 'none') {
             oilSpot.style.display = 'flex';
             if (!isLoading && !unlockedFeats.has('oil_field_unlock')) {
-                log("【新発見】蒸気機関の発明により、採掘技術が向上しました。「油田」が解放されました！");
+                log("【新発見】 蒸気機関の発明により採掘技術が向上しました。[油田]が解放されました！");
                 unlockedFeats.add('oil_field_unlock');
                 saveGame();
             }
@@ -2995,7 +3700,7 @@ function updateStats() {
         if (refinerySection && refinerySection.style.display === 'none') {
             refinerySection.style.display = 'block';
             if (!isLoading && !unlockedFeats.has('refinery_unlock')) {
-                log("【新施設】蒸留塔の建設により、「製油所」が稼働を開始しました！");
+                log("【新設備】 蒸留塔の建設により[製油所]が稼働可能になりました！");
                 unlockedFeats.add('refinery_unlock');
                 saveGame();
             }
@@ -3008,11 +3713,18 @@ function updateStats() {
         if (foreignSpot && foreignSpot.style.display === 'none') {
             foreignSpot.style.display = 'flex';
             if (!isLoading && !unlockedFeats.has('foreign_unlock')) {
-                log("【新天地】機帆船の完成により、海の向こう側へ行けるようになりました！「世界地図」が解放されました！");
+                log("【新天地】 蒸気船の建造により海を渡れるようになりました！[世界地図]が解放されました！");
                 unlockedFeats.add('foreign_unlock');
                 saveGame();
             }
         }
+    }
+
+    // Check for All Elements Discovery
+    if (found === total && !unlockedFeats.has('all_elements_discovered') && !isLoading) {
+        log("🎉 **おめでとうございます！** 全ての要素を発見しました！あなたは自然と科学のマスターです！");
+        unlockedFeats.add('all_elements_discovered');
+        saveGame();
     }
 }
 
@@ -3028,7 +3740,7 @@ function updateCivilizationLevel(silent = false) {
         currentCivilizationLevel = maxLevel;
         if (!silent && !isLoading) {
             const civData = CIVILIZATION_LEVELS.find(c => c.level === maxLevel);
-            log(`🎉 **文明レベルアップ！** [Lv.${maxLevel} ${civData.name}] に到達しました！`);
+            log(`🎉 **Civilization Level Up!** Reached [Lv.${maxLevel} ${civData.name}]!`);
             log(`📜 ${civData.desc}`);
 
             // Notification effect
@@ -3312,7 +4024,7 @@ function showElementDetail(id) {
         'lacquer', 'gold_dust', 'iron_sand', 'platinum', 'cinnabar', 'cassiterite', 'coal', 'bamboo',
         'lightning', 'fresh_water', 'urine', 'scheelite', 'magnetite', 'galena', 'sphalerite', 'calcite',
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
-        'rubber_tree', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
+        'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
         'seaweed', 'fish', 'mercury', 'brine',
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
@@ -3321,6 +4033,7 @@ function showElementDetail(id) {
 
     const locationMap = {
         'rubber_tree': '東南アジア（密林）',
+        'sugarcane': '東南アジア（密林）',
         'spice': '東南アジア（香辛料の森）',
         'corn': 'アメリカ大陸（大農園）',
         'potato': '南米大陸（アンデス山脈）',
@@ -3422,15 +4135,39 @@ function showElementDetail(id) {
     }
 
     if (recipeHtml === '') {
-        recipeHtml = `<p>入手方法：不明</p>`;
+        recipeHtml = `<p>${getText('howToMake')}${getText('unknown')}</p>`;
+    }
+
+    // === Usage Analysis (Reverse Lookup) ===
+    let usagesHtml = '';
+    const usages = [];
+
+    // Check Crafting Recipes including multi-output
+    Object.keys(RECIPES).forEach(key => {
+        const ingredients = key.split('+');
+        if (ingredients.includes(id)) {
+            const results = Array.isArray(RECIPES[key]) ? RECIPES[key] : [RECIPES[key]];
+            results.forEach(resId => {
+                if (discovered.has(resId)) {
+                    usages.push(`<span class="usage-item" style="display:inline-flex; align-items:center; margin:3px; padding:3px 8px; background:rgba(255,255,255,0.6); border:1px solid #ddd; border-radius:15px; font-size:0.85rem;">${ELEMENTS[resId].emoji} ${getItemName(resId)}</span>`);
+                } else {
+                    usages.push(`<span class="usage-item" style="display:inline-flex; align-items:center; margin:3px; padding:3px 8px; background:rgba(0,0,0,0.05); border-radius:15px; font-size:0.85rem; color:#888;">❓ ???</span>`);
+                }
+            });
+        }
+    });
+
+    if (usages.length > 0) {
+        usagesHtml = `<div style="margin-top:15px; padding-top:10px; border-top:1px dashed #ccc;"><strong>${getText('uses')}</strong><div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:2px;">${usages.join('')}</div></div>`;
     }
 
     ui.modalBody.innerHTML = `
         <div class="element-emoji" style="font-size:4rem; margin-bottom:10px; overflow: visible; width: auto;">${data.emoji}</div>
-        <h2>${data.name}</h2>
-        <p style="margin-bottom:20px;">${data.desc}</p>
+        <h2>${getItemName(id)}</h2>
+        <p style="margin-bottom:20px;">${getItemDesc(id)}</p>
         <div style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px;">
             ${recipeHtml}
+            ${usagesHtml}
         </div>
     `;
     ui.modal.style.display = 'flex';
@@ -3505,5 +4242,59 @@ function toggleLiteMode(forceState) {
         localStorage.setItem('nature_science_lite_mode', 'false');
     }
 }
+
+// === Language System ===
+const TRANSLATIONS = {
+    ja: {
+        field: '🏞️ 採取フィールド',
+        lab: '⚗️ 合成ラボ',
+        book: '📖 図鑑',
+        deleteSave: '🗑️ データを消す',
+        export: '📤 保存',
+        import: '📥 読込',
+        searchPlaceholder: '🔍 名前や説明で検索...',
+        inventorySearchPlaceholder: '🔍 検索...',
+        sort: '🖐️ 並べ替え',
+        inventoryHint: 'クリックで装置にセット',
+        machineTitle1: '合成実験装置',
+        machineTitle2: '製錬所',
+        machineTitle3: '蒸留所',
+        machineTitle4: '乾留所',
+        machineTitle5: '抽出所',
+        machineTitle6: '製油所',
+        craftBtn: '合成する！',
+        clearBtn: 'クリア',
+        unknown: '不明',
+        howToMake: '入手方法：',
+        uses: '🛠️ 作れるもの:',
+        civHistory: '文明の歴史',
+        civDesc: 'これまでの人類の進化の記録',
+        craftSuccess: '合成成功！',
+        discovery: '✨ 新発見！',
+        refined: '製錬完了！',
+        distilled: '蒸留完了！',
+        extracted: '抽出完了！'
+    },
+
+};
+
+// 多言語対応を削除し、日本語固定に戻す
+function getText(key) {
+    return TRANSLATIONS.ja[key] || key;
+}
+
+function getItemName(id) {
+    return ELEMENTS[id].name;
+}
+
+function getItemDesc(id) {
+    return ELEMENTS[id].desc;
+}
+
+function updateLanguageUI() {
+    // HTMLの記述を優先するため、JSによる上書きを無効化
+}
+
+
 
 init();

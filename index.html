@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nature Science Craft</title>
+    <title>自然と科学</title>
     <link rel="stylesheet" href="style.css?v=20260111">
     <link rel="stylesheet" href="sort.css">
     <link rel="stylesheet" href="mobile.css" id="responsive-css" media="(max-width: 768px)">
@@ -25,7 +25,7 @@
             </nav>
 
             <div class="stats">
-                <p>発見図鑑: <span id="discovery-count">0</span> / <span id="total-count">??</span></p>
+                <p>発見数: <span id="discovery-count">0</span> / <span id="total-count">??</span></p>
                 <div
                     style="margin: 5px 0; width: 100%; background: rgba(0,0,0,0.1); border-radius: 5px; overflow: hidden; height: 12px; position: relative;">
                     <div id="sidebar-progress-bar"
@@ -36,20 +36,27 @@
                 </div>
                 <button id="delete-save-btn" class="text-btn"
                     style="color: #e53935; margin-top:10px; font-size:0.8rem;">🗑️ データを消す</button>
+                <div style="margin-top: 5px; display: flex; gap: 5px;">
+                    <button id="export-save-btn" class="text-btn" style="color: #1976d2; font-size:0.8rem;">📤
+                        保存</button>
+                    <button id="import-save-btn" class="text-btn" style="color: #f57c00; font-size:0.8rem;">📥
+                        読込</button>
+                </div>
 
                 <div class="view-mode-controls" style="margin-top: 8px; font-size: 0.8rem; text-align: right;">
-                    <span>View:</span>
+                    <span>表示:</span>
                     <button class="text-btn" id="btn-view-auto">Auto</button>
                     <button class="text-btn" id="btn-view-pc">PC</button>
                     <button class="text-btn" id="btn-view-mobile">Mob</button>
                     <button class="text-btn" id="btn-toggle-lite"
                         style="margin-left: 5px; border-left: 1px solid #ccc; padding-left: 10px;">✨ Lite</button>
+
                 </div>
             </div>
 
 
             <div id="message-log" class="message-log">
-                <p>ロード中...</p>
+
             </div>
         </aside>
 
@@ -60,25 +67,27 @@
             <div id="view-field" class="view-panel active">
                 <div class="field-container glass-panel">
                     <div class="field-header">
-                        <h2>採集エリア</h2>
-                        <p>自然をクリックして基本素材を探そう</p>
+                        <h2>採取フィールド</h2>
+                        <p>自然をクリックして素材を集めよう</p>
                     </div>
 
                     <div class="nature-scene">
                         <!-- Clickable Areas -->
-                        <div class="gather-spot water-spot" data-id="water" title="海水を汲む / 貝殻を探す">🌊 海</div>
+                        <div class="gather-spot water-spot" data-id="water" title="海水を汲む / 貝殻を拾う">🌊 海</div>
                         <div class="gather-spot forest-spot" data-id="forest" title="森を探索する">🌲 森</div>
                         <div class="gather-spot earth-spot" data-id="land" title="土を掘る">🌱 大地</div>
                         <div class="gather-spot tree-spot" data-id="air" title="空を観察する">💨 空</div>
-                        <div class="gather-spot sun-spot" data-id="sun" title="陽の光を集める">☀️ 太陽</div>
+                        <div class="gather-spot sun-spot" data-id="sun" title="日光を集める">☀️ 太陽</div>
                         <!-- COVE Added -->
-                        <div class="gather-spot cave-spot" data-id="ore" title="鉄鉱石を掘る">⛏️ 洞窟</div>
-                        <div class="gather-spot onsen-spot" data-id="onsen" title="温泉水を汲む / 硫黄を探す">♨️ 温泉</div>
-                        <div class="gather-spot river-spot" data-id="river" title="川の水を汲む / 砂金を探す">🌊 川</div>
-                        <div class="gather-spot home-spot" data-id="home" title="生活の痕跡を探す">🏠 家</div>
-                        <div class="gather-spot oil-spot" data-id="oil" title="原油を採掘する" style="display:none;">🛢️ 油田
+                        <div class="gather-spot cave-spot" data-id="ore" title="鉱石を採掘する">⛏️ 洞窟</div>
+                        <div class="gather-spot onsen-spot" data-id="onsen" title="硫黄を採る">♨️ 温泉</div>
+                        <div class="gather-spot river-spot" data-id="river" title="砂金を探す">🌊 川
                         </div>
-                        <div class="gather-spot foreign-spot" data-id="foreign" title="世界中へ出航する"
+                        <div class="gather-spot home-spot" data-id="home" title="生活の痕跡">🏠 家</div>
+                        <div class="gather-spot oil-spot" data-id="oil" title="原油を採掘する" style="display:none;">
+                            🛢️ 油田
+                        </div>
+                        <div class="gather-spot foreign-spot" data-id="foreign" title="世界へ旅立つ"
                             style="display:none; background: linear-gradient(135deg, #42a5f5, #1e88e5); color:white;">🚢
                             出航</div>
 
@@ -129,36 +138,36 @@
 
                 <!-- Section 1: Crafting -->
                 <div class="machine-section glass-panel">
-                    <div class="machine-title">合成実験装置</div>
+                    <div class="machine-title">合成ラボ</div>
 
                     <div class="slots-container">
                         <div class="slot-wrapper">
                             <div id="slot-1" class="element-slot empty" data-index="0">
-                                <span class="slot-placeholder">要素A</span>
+                                <span class="slot-placeholder">素材A</span>
                             </div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-2" class="element-slot empty" data-index="1">
-                                <span class="slot-placeholder">要素B</span>
+                                <span class="slot-placeholder">素材B</span>
                             </div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-3" class="element-slot empty" data-index="2">
-                                <span class="slot-placeholder">要素C</span>
+                                <span class="slot-placeholder">素材C</span>
                             </div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-4" class="element-slot empty" data-index="3">
-                                <span class="slot-placeholder">要素D</span>
+                                <span class="slot-placeholder">素材D</span>
                             </div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-5" class="element-slot empty" data-index="4">
-                                <span class="slot-placeholder">要素E</span>
+                                <span class="slot-placeholder">素材E</span>
                             </div>
                         </div>
                         <div class="operator">=</div>
@@ -180,9 +189,9 @@
                     <div class="machine-title" style="margin-bottom: 10px;">製錬所</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>鉱石と木炭を使い、火と土器の力で金属を製錬します。</p>
+                            <p>鉱石・木炭・火・土器を使って金属を製錬する。</p>
                         </div>
-                        <button id="refine-btn" class="action-btn secondary">🔥 製錬する (鉱石x1, 木炭x1)</button>
+                        <button id="refine-btn" class="action-btn secondary">🔥 製錬 (鉱石+木炭)</button>
                     </div>
                 </div>
 
@@ -191,11 +200,11 @@
                     <div class="machine-title" style="margin-bottom: 10px;">蒸留所</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>土器に海水やワインを入れ、火で熱して成分を分離します。</p>
-                            <p style="font-size: 0.8rem; color: #d32f2f;">※ [土器] と [火] が必要です</p>
+                            <p>液体を土器で沸騰させて成分を分離する。</p>
+                            <p style="font-size: 0.8rem; color: #d32f2f;">※[土器]と[火]が必要</p>
                         </div>
                         <button id="distill-btn" class="action-btn"
-                            style="background: #29b6f6; box-shadow: 0 4px 10px rgba(41, 182, 246, 0.3);">💧 蒸留する
+                            style="background: #29b6f6; box-shadow: 0 4px 10px rgba(41, 182, 246, 0.3);">💧 蒸留
                             (海水/ワイン)</button>
                     </div>
                 </div>
@@ -205,11 +214,11 @@
                     <div class="machine-title" style="margin-bottom: 10px;">乾留所</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>土器に木材、石炭、または酢酸カルシウムを入れ、火で熱して成分を取り出します。</p>
+                            <p>火を使って木材・石炭・薬品を蒸し焼き（乾留）にする。</p>
                         </div>
                         <button id="carbonize-btn" class="action-btn"
-                            style="background: #4e342e; box-shadow: 0 4px 10px rgba(78, 52, 46, 0.3);">⬛ 乾留する
-                            (木材/石炭/酢酸Ca)</button>
+                            style="background: #4e342e; box-shadow: 0 4px 10px rgba(78, 52, 46, 0.3);">⬛ 乾留
+                            (木材/石炭)</button>
                     </div>
                 </div>
 
@@ -218,10 +227,10 @@
                     <div class="machine-title" style="margin-bottom: 10px;">抽出所</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>化学薬品との反応を利用して、混合物から特定の成分を分離・抽出します。</p>
+                            <p>化学反応を利用して混合物から成分を取り出す。</p>
                         </div>
                         <button id="extract-btn" class="action-btn"
-                            style="background: #66bb6a; box-shadow: 0 4px 10px rgba(102, 187, 106, 0.3);">⚗️ 抽出する
+                            style="background: #66bb6a; box-shadow: 0 4px 10px rgba(102, 187, 106, 0.3);">⚗️ 抽出
                             (化学分離)</button>
                     </div>
                 </div>
@@ -232,12 +241,12 @@
                     <div class="machine-title" style="margin-bottom: 10px;">製油所</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>蒸留塔を用いて、原油を様々な石油製品に分離・精製します。</p>
-                            <p style="font-size: 0.8rem; color: #555;">※ [蒸留塔] の建設により稼働中</p>
+                            <p>蒸留塔を使って原油を様々な石油製品に分離する。</p>
+                            <p style="font-size: 0.8rem; color: #555;">※[蒸留塔]が必要</p>
                         </div>
                         <button id="oil-refine-btn" class="action-btn"
                             style="background: #ef5350; box-shadow: 0 4px 10px rgba(239, 83, 80, 0.3);">🛢️
-                            原油を精製する</button>
+                            石油精製</button>
                     </div>
                 </div>
 
@@ -247,8 +256,8 @@
             <div id="view-book" class="view-panel" style="display: none;">
                 <div class="encyclopedia-container glass-panel">
                     <div class="field-header">
-                        <h2>発見図鑑</h2>
-                        <p>これまでに発見した要素の記録</p>
+                        <h2>図鑑</h2>
+                        <p>発見した要素の記録</p>
                         <!-- Encyclopedia Specific Progress -->
                         <div
                             style="margin: 10px auto; width: 80%; max-width: 400px; background: rgba(0,0,0,0.1); border-radius: 10px; overflow: hidden; height: 20px; position: relative;">
@@ -270,7 +279,7 @@
 
                         <!-- Search Bar -->
                         <div class="search-bar-container" style="padding: 0 10px 10px; text-align: center;">
-                            <input type="text" id="book-search-input" placeholder="🔍 名前や説明で検索..."
+                            <input type="text" id="book-search-input" placeholder="🔍 名前で検索..."
                                 style="padding: 8px 15px; width: 80%; max-width: 300px; border-radius: 20px; border: 1px solid #ccc; font-size: 0.9rem; outline: none;">
                         </div>
 
@@ -294,7 +303,7 @@
         <!-- Bottom Panel: Inventory (Shared) -->
         <section class="inventory glass-panel">
             <div class="inventory-header">
-                <h2>倉庫</h2>
+                <h2>持ち物</h2>
                 <div style="margin-left: auto; display: flex; gap: 10px; align-items: center;">
                     <input type="text" id="inventory-search" placeholder="🔍 検索..."
                         style="padding: 5px 10px; border-radius: 15px; border: none; font-size: 0.9rem; width: 150px; background: rgba(255,255,255,0.8); box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
@@ -325,7 +334,7 @@
         <div class="modal-content glass-panel" style="max-width: 600px; text-align: center;">
             <span id="close-map" class="close-btn">&times;</span>
             <h2>🗺️ 世界地図</h2>
-            <p>目的地を選択してください</p>
+            <p>行き先を選択してください</p>
             <div class="map-container"
                 style="margin-top:20px; display:grid; grid-template-columns: 1fr 1fr; gap:20px; padding: 20px;">
                 <!-- Local -->
@@ -340,21 +349,21 @@
                     style="border: 2px solid #2196f3; padding: 20px; border-radius: 10px; cursor: pointer; background: #e3f2fd;">
                     <div style="font-size: 3rem;">🌏</div>
                     <h3>東南アジア</h3>
-                    <p style="font-size: 0.8rem; color: #555;">ゴムノキや香辛料を探す</p>
+                    <p style="font-size: 0.8rem; color: #555;">ゴムノキと香辛料の産地</p>
                 </div>
                 <!-- America -->
                 <div id="dest-america" class="map-destination"
                     style="border: 2px solid #81c784; padding: 20px; border-radius: 10px; cursor: pointer; background: #f1f8e9;">
                     <div style="font-size: 3rem;">🤠</div>
-                    <h3>アメリカ大陸</h3>
+                    <h3>北米</h3>
                     <p style="font-size: 0.8rem; color: #555;">未知の穀物を求めて</p>
                 </div>
                 <!-- South America -->
                 <div id="dest-south-america" class="map-destination"
                     style="border: 2px solid #8d6e63; padding: 20px; border-radius: 10px; cursor: pointer; background: #efebe9;">
                     <div style="font-size: 3rem;">🦙</div>
-                    <h3>南米大陸</h3>
-                    <p style="font-size: 0.8rem; color: #555;">アンデスとアマゾンの探索</p>
+                    <h3>南米</h3>
+                    <p style="font-size: 0.8rem; color: #555;">アンデス山脈とアマゾン川</p>
                 </div>
                 <!-- Europe (Spain) -->
                 <div id="dest-europe" class="map-destination"
@@ -368,7 +377,7 @@
                     style="border: 2px solid #ff5722; padding: 20px; border-radius: 10px; cursor: pointer; background: #fbe9e7;">
                     <div style="font-size: 3rem;">🦘</div>
                     <h3>オーストラリア</h3>
-                    <p style="font-size: 0.8rem; color: #555;">広大な赤土の大地</p>
+                    <p style="font-size: 0.8rem; color: #555;">広大な赤い大地</p>
                 </div>
                 <!-- South Africa -->
                 <div id="dest-south-africa" class="map-destination"
@@ -382,7 +391,7 @@
             <!-- Rocket Map Section -->
             <div id="rocket-map-section"
                 style="display:none; border-top:1px solid #ddd; margin-top:20px; padding-top:10px; width: 100%;">
-                <h3 style="margin:0 0 10px 0;">宇宙空間</h3>
+                <h3 style="margin:0 0 10px 0;">宇宙</h3>
                 <div class="map-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div id="dest-moon" class="map-destination"
                         style="border: 2px solid #546e7a; padding: 20px; border-radius: 10px; cursor: pointer; background: #eceff1; text-align: center;">
@@ -395,6 +404,7 @@
 
             <button id="close-map"
                 style="margin-top:20px; padding:10px 20px; background:#ddd; border:none; border-radius:5px; cursor:pointer;">閉じる</button>
+
             <script src="script.js"></script>
 </body>
 
