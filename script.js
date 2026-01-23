@@ -2426,7 +2426,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.innerHTML = currentArea === 'japan' ? '🚢 Set Sail' : '🗺️ Move';
+            mapBtn.innerHTML = currentArea === 'japan' ? '🚢 出航' : '🗺️ 移動';
         }
     }
 
@@ -2435,7 +2435,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.innerHTML = '🚀 Return to Earth';
+            mapBtn.innerHTML = '🚀 地球へ帰還';
         }
     }
 
@@ -2569,7 +2569,7 @@ function setupMapUI() {
     if (destMoon) {
         destMoon.addEventListener('click', () => {
             if (!discovered.has('spacesuit')) {
-                alert("You don't have a spacesuit! You cannot survive in space.");
+                alert("宇宙服がありません！宇宙空間では生存できません。");
                 return;
             }
             mapModal.style.display = 'none';
@@ -3581,7 +3581,7 @@ function performExtraction() {
         btnContainer.style.padding = '8px 0';
         btnContainer.style.flexWrap = 'wrap';
 
-        possible.forEach(p => { // Wait, it used 'possible' here but defined 'candidates'. Fixed to candidates.
+        candidates.forEach(p => {
             const btn = document.createElement('button');
             btn.className = 'choice-btn';
             btn.style.padding = '4px 12px';
