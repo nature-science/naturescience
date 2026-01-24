@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Manual Sort Mode Styles */
 .sorting-mode .element-card {
     cursor: cell !important;
@@ -9,4 +10,17 @@
     transform: scale(1.05);
     box-shadow: 0 0 10px rgba(255, 152, 0, 0.5) !important;
     z-index: 20;
+=======
+/* Manual Sort Mode Styles */
+.sorting-mode .element-card {
+    cursor: cell !important;
+}
+
+.element-card.selected-sort {
+    border: 3px solid #ff9800 !important;
+    background-color: #fff3e0 !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.5) !important;
+    z-index: 20;
+>>>>>>> c285f23415ae7d60d7a72e1baa3c868a0c3d7211
 }
