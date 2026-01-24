@@ -236,7 +236,7 @@ const ELEMENTS = {
     'silver_chloride': { id: 'silver_chloride', name: '塩化銀', emoji: '⚪', desc: '光に当たると黒く変色する性質を持つ白い粉末。写真の感光材。', category: 'chemical' },
     'camera': { id: 'camera', name: 'カメラ', emoji: '📷', desc: 'レンズと感光材を組み合わせ、一瞬の景色を切り取る装置。', category: 'tool' },
     'photo': { id: 'photo', name: '写真', emoji: '🖼️', desc: 'カメラで撮影された風景の記録。', category: 'tool' },
-    'fireworks': { id: 'fireworks', name: '花火', 'emoji': '🎆', desc: '火薬と金属粉を混ぜて夜空を彩る美しい爆発。', category: 'tool' },
+    'fireworks': { id: 'fireworks', name: '花火', emoji: '🎆', desc: '火薬と金属粉を混ぜて夜空を彩る美しい爆発。', category: 'tool' },
     'mirror': { id: 'mirror', name: '鏡', emoji: '🪞', desc: 'ガラスに銀メッキを施して作られた、姿を映す道具。銀鏡反応の応用。', category: 'tool' },
     'prism': { id: 'prism', name: 'プリズム', emoji: '🌈', desc: '光を屈折・分散させる透明な三角柱。虹を作り出せる。', category: 'tool' },
     'calcite': { id: 'calcite', name: '方解石', emoji: '⬜', desc: '透明度の高い炭酸カルシウムの結晶。複屈折という不思議な性質を持つ。', category: 'natural' },
@@ -1141,7 +1141,6 @@ const ELEMENTS = {
     'nft': { id: 'nft', name: 'NFT', emoji: '🖼️', desc: 'ブロックチェーンで所有権を証明されたデジタルデータ。', category: 'data' },
 
     'animal': { id: 'animal', name: '動物', emoji: '🐕', desc: '地球上の多様な生物たち。素材や力の源になる。', category: 'natural' },
-    'bird': { id: 'bird', name: '鳥', emoji: '🐦', desc: '空を飛ぶ脊椎動物。食料や羽根の源。', category: 'natural' },
     'biomass': { id: 'biomass', name: 'バイオマス', emoji: '🪵', desc: '生物由来の再生可能なエネルギー資源。', category: 'material' },
     'ocean': { id: 'ocean', name: '海洋', emoji: '🌊', desc: '地球の表面の大部分を覆う巨大な塩水の塊。', category: 'natural' },
     'fossil': { id: 'fossil', name: '化石', emoji: '🦴', desc: '太古の生物が石化したもの。', category: 'natural' },
@@ -2284,7 +2283,7 @@ const RECIPES = {
     // Refinement
     'cassiterite+coal': 'tin',
     'lithium_ore+sulfuric_acid': 'lithium_carbonate',
-    'bird+stone_tool': 'meat', // Changed from fish to bird to avoid conflict with bone recipe
+    'animal+stone_tool': 'meat', // Changed from bird to animal
     'plant+plant': 'soybean',
     'soybean+corn+salt+moldy_bread': 'soy_sauce',
     'aluminum+polyethylene': 'retort_pouch',
@@ -2674,7 +2673,8 @@ const RECIPES = {
     // Level 4: Modern Process
     // Rhodium: Platinum ore byproduct or synthesized? Let's say found in 'ore' rare drop, or Platinum + Aqua Regia -> Residue?
     // Simplified: Platinum + Aqua Regia (Separation)
-    'aqua_regia+platinum': 'rhodium',
+    // Rhodium: Found in ore (South Africa) or byproduct
+    // 'aqua_regia+platinum': 'rhodium', // REMOVED: Unscientific. Rhodium is present in ore, not created from Pt.
     // Monsanto Process (Acetic Acid): Methanol + Carbon Monoxide + Rhodium
     'carbon_monoxide+methanol+rhodium': 'glacial_acetic_acid', // High purity acetic acid
     // Wacker Process (Acetaldehyde): Ethylene + Oxygen + Palladium
@@ -2698,6 +2698,82 @@ const RECIPES = {
     'qr_code+smartphone': 'cashless_payment',
     // NFT: Blockchain + Photo
     'blockchain+photo': 'nft',
+
+    // === Fixes for Missing Acquisitions ===
+    // Crafted Items
+    'copper+rod': 'copper_pipe',
+    // 'naphtha+fire': 'plastic', // REMOVED: Too simple. Use polymerization.
+    'ethylene+ethylene': 'plastic', // Simplified polymerization
+    'iron_plate+iron_plate': 'pressure_vessel',
+    'gear+iron_plate+motor': 'lathe',
+    'iron_pipe+lathe': 'gun_barrel',
+    'gear+lathe+motor': 'rifling_machine',
+    'computer+ink+paper': 'barcode',
+
+    // Biomass
+    'plant+plant': 'biomass',
+
+    // Ocean (Conceptual)
+    // Ocean (Conceptual) - REMOVED (Unscientific)
+    // 'fish+salt+water': 'ocean',
+
+    // Mars Base construction
+    'dome_city+living_module+mars': 'mars_base',
+
+    // Mars item (Conceptual) - REMOVED (Unscientific: soil cannot become a planet)
+    // 'martian_soil+martian_soil': 'mars',
+
+
+    // Rare Metals Refining (Alternative to rare gathering) - REMOVED per feedback (unscientific)
+    // 'gold_dust+aqua_regia': 'palladium',
+    // 'platinum+aqua_regia': 'iridium',
+    // 'galena+iron': 'antimony', // Antimony is now gathered directly
+
+
+    // === Future / High Tech Recipes ===
+    'computer+game_controller': 'game_console',
+    'battery+motor+sensor': 'robot_vacuum',
+    'ai_chip+electricity+speaker': 'smart_speaker',
+    'lcd+plastic+sensor': 'vr_headset',
+    'game_console+internet+stadium': 'esports',
+    'computer+liquid_nitrogen+super_conductor': 'quantum_computer',
+    'ic+microscope+motor': 'nanomachine',
+    'concrete+super_conductor+tritium': 'fusion_reactor',
+    'living_module+rocket+solar_panel': 'space_station',
+    'antenna+computer+satellite': 'satellite_data',
+
+    'aluminum+computer+rocket_engine': 'moon_lander',
+    'oxygen+spacesuit': 'astronaut',
+
+    // Moon Resource (Gatherable but also craftable for gameplay?)
+    // Moon Resource
+    // 'moon+stone_tool': 'regolith', // Removed: Moon is a location, not a mineable block here. Regolith is gathered. 
+    // Actually, regolith is gathered on moon surface. But if "moon" item exists...
+
+    'concrete+regolith': 'lunar_concrete',
+    'regolith+wind': 'helium3', // Processing
+
+    'airtight_fabric+aluminum+glass': 'living_module',
+    'iron_plate+pump+road': 'airlock', // Need switch?
+
+    'battery+electric_drill': 'electric_drill', // Self-craft? No.
+    // Drill: Motor + Battery + Diamond(or Tungsten)
+    'battery+motor+tungsten': 'electric_drill',
+
+    'fusion_reactor+rocket_engine': 'fusion_drive',
+    'ai_chip+fusion_drive+living_module': 'deep_space_ship',
+
+
+    // Fossil
+    // Found in land/cave.
+
+    // Mars Terraforming
+    'aluminum+mirror+rocket': 'orbital_mirror',
+    'orbital_mirror+permafrost': 'liquid_water',
+    'fresh_water+sun': 'cyano_bacteria',
+    'cyano_bacteria+stone': 'lichen',
+    'earth+lichen+water': 'forest', // Creating forest from lichen/earth
+    'forest+liquid_water+mars': 'blue_mars',
 };
 
 // Normalize RECIPES keys (Ensure all keys are sorted to avoid matching issues)
@@ -3486,8 +3562,10 @@ function setupGathering() {
                 else if (rand < 0.40) itemId = 'stone';
                 else if (rand < 0.50) itemId = 'grape';
                 else if (rand < 0.60) itemId = 'plant';
-                else if (rand < 0.75) itemId = 'flower'; // Added Flower (15%)
-                else if (rand < 0.90) itemId = 'bamboo';
+                else if (rand < 0.70) itemId = 'flower';
+                else if (rand < 0.80) itemId = 'bamboo';
+                else if (rand < 0.90) itemId = 'animal'; // Added Animal
+                // else if (rand < 0.95) itemId = 'bird'; // Removed Bird (Moved to Air)
                 else itemId = 'lacquer';
             } else if (spotType === 'land') {
                 // Land: 60% Earth, 25% Clay, 15% Diatomaceous Earth
@@ -3496,8 +3574,10 @@ function setupGathering() {
                 else if (rand < 0.4) itemId = 'clay';
                 else itemId = 'earth';
             } else if (spotType === 'air') {
-                // Sky: 5% Lightning, 95% Air
-                itemId = (Math.random() < 0.05) ? 'lightning' : 'air';
+                // Sky: Lightning, Air
+                const rand = Math.random();
+                if (rand < 0.05) itemId = 'lightning';
+                else itemId = 'air';
             } else if (spotType === 'river') {
                 // River: 0.1% Platinum, 10% Gold Dust, (20% Iron Sand if has Magnet), else Sand/Stone/Water
                 const rand = Math.random();
@@ -3520,11 +3600,14 @@ function setupGathering() {
                 for (let i = 0; i < gatherCount; i++) {
                     let oreItem = 'iron_ore';
                     const rand = Math.random();
-                    if (rand < 0.04) oreItem = 'bismuth_ore'; // Realism: Ore first
-                    else if (rand < 0.08) oreItem = 'antimony'; // New
-                    else if (rand < 0.13) oreItem = 'cinnabar';
-                    else if (rand < 0.18) oreItem = 'copper_sulfate';
-                    else if (rand < 0.23) oreItem = 'cassiterite';
+                    if (rand < 0.04) oreItem = 'bismuth_ore';
+                    else if (rand < 0.08) oreItem = 'antimony';
+                    else if (rand < 0.12) oreItem = 'copper_ore';
+                    else if (rand < 0.13) oreItem = 'palladium'; // Rare chance in cave
+                    else if (rand < 0.14) oreItem = 'iridium';   // Rare chance in cave
+                    else if (rand < 0.18) oreItem = 'cinnabar';
+                    else if (rand < 0.20) oreItem = 'copper_sulfate';
+                    else if (rand < 0.25) oreItem = 'cassiterite';
                     else if (rand < 0.30) oreItem = 'manganese_dioxide';
                     else if (rand < 0.37) oreItem = 'galena';
                     else if (rand < 0.44) oreItem = 'sphalerite';
@@ -3534,6 +3617,7 @@ function setupGathering() {
                     else if (rand < 0.77) oreItem = 'scheelite';
                     else if (rand < 0.85) oreItem = 'calcite';
                     else if (rand < 0.90) oreItem = 'barite';
+                    else oreItem = 'fossil'; // Added Fossil
 
                     addItem(oreItem, 1);
                     // Slight delay for visual or just show all
@@ -3587,10 +3671,12 @@ function setupGathering() {
                 // South Africa (Rare Metals)
                 const rand = Math.random();
                 if (rand < 0.15) itemId = 'chromite';
-                else if (rand < 0.30) itemId = 'pentlandite';
-                else if (rand < 0.45) itemId = 'molybdenite';
-                else if (rand < 0.60) itemId = 'pyrochlore';
-                else if (rand < 0.75) itemId = 'palladium'; // New
+                else if (rand < 0.25) itemId = 'pentlandite';
+                else if (rand < 0.35) itemId = 'molybdenite';
+                else if (rand < 0.45) itemId = 'pyrochlore';
+                else if (rand < 0.55) itemId = 'palladium';
+                else if (rand < 0.65) itemId = 'rhodium'; // Added Rhodium
+                else if (rand < 0.80) itemId = 'platinum'; // Added Platinum
                 else itemId = 'rutile';
                 // Add chance for Uranium in South Africa too if desired, but Australia is famous for it.
             } else if (spotType === 'red_desert') {
@@ -3615,9 +3701,10 @@ function setupGathering() {
             } else if (spotType === 'mars_surface') {
                 // Mars Surface: Martian Soil, Dry Ice, Stone, Iron Ore
                 const rand = Math.random();
-                if (rand < 0.40) itemId = 'martian_soil';
-                else if (rand < 0.60) itemId = 'stone';
-                else if (rand < 0.80) itemId = 'dry_ice';
+                if (rand < 0.30) itemId = 'martian_soil';
+                else if (rand < 0.50) itemId = 'stone';
+                else if (rand < 0.70) itemId = 'dry_ice';
+                else if (rand < 0.80) itemId = 'permafrost'; // Added Permafrost
                 else if (rand < 0.95) itemId = 'iron_ore';
                 else itemId = 'sand';
             }
@@ -4719,7 +4806,7 @@ function renderShop() {
     }
 
     // Filter out Money Items (Cannot buy/sell money itself)
-    const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft'];
+    const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air'];
     targetIds = targetIds.filter(id => !MONEY_ITEMS.includes(id));
 
     // Filter out concepts, phenomena, etc. (Non-physical goods)
@@ -5230,9 +5317,9 @@ function showElementDetail(id) {
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
         'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
         'seaweed', 'fish', 'mercury', 'brine',
-        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile',
+        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
-        'titanium_sponge', 'flower'
+        'titanium_sponge', 'flower', 'animal'
     ];
 
     const locationMap = {
@@ -5250,6 +5337,10 @@ function showElementDetail(id) {
         'molybdenite': '南アフリカ（サバンナ）',
         'pyrochlore': '南アフリカ（サバンナ）',
         'rutile': '南アフリカ（サバンナ）',
+        'palladium': '南アフリカ（サバンナ）',
+        'rhodium': '南アフリカ（サバンナ）',
+        'platinum': '南アフリカ（サバンナ）・フィールド（川）・月面',
+        'iridium': '月面（クレーター）・フィールド（洞窟）',
         'bauxite': 'オーストラリア（赤い砂漠）',
         'cobalt_ore': 'オーストラリア（赤い砂漠）',
         'monazite': 'オーストラリア（赤い砂漠）',
@@ -5259,7 +5350,9 @@ function showElementDetail(id) {
         'fish': 'フィールド（海）',
         'mercury': 'フィールド（洞窟）',
         'titanium_sponge': '月面（クレーター）',
-        'flower': 'フィールド（森）'
+        'flower': 'フィールド（森）',
+        'flower': 'フィールド（森）',
+        'animal': 'フィールド（森）'
     };
 
     if (gatherables.includes(id)) {

@@ -16,16 +16,28 @@ $recipesMatch = [regex]::Match($content, "(?ms)const RECIPES = \{(.*?)\};\s*(?:/
 $recipeTargets = @{}
 if ($recipesMatch.Success) {
     $recipesContent = $recipesMatch.Groups[1].Value
-    $targets = [regex]::Matches($recipesContent, ":\s*([^,}]+)")
-    foreach ($t in $targets) {
-        $raw = $t.Groups[1].Value.Trim()
-        if ($raw.StartsWith("[")) {
-            $inner = [regex]::Matches($raw, "'([^']+)'")
-            foreach ($i in $inner) { $recipeTargets[$i.Groups[1].Value] = $true }
+    # Match values: either 'string' or ['string', 'string']
+    # We look for key: value pattern.
+    # Simplified approach: just look for all strings on the right side of a colon?
+    # No, that's hard because keys also have strings.
+    # Let's match line by line or property by property.
+    
+    # Matches: key : value
+    # Value can be '...' or [...]
+    $matches = [regex]::Matches($recipesContent, ":\s*('([^']+)'|\[(.*?)\])")
+    
+    foreach ($m in $matches) {
+        if ($m.Groups[2].Success) {
+            # Single string
+            $recipeTargets[$m.Groups[2].Value] = $true
         }
-        else {
-            $name = $raw.Replace("'", "").Trim()
-            $recipeTargets[$name] = $true
+        elseif ($m.Groups[3].Success) {
+            # Array content
+            $arrayContent = $m.Groups[3].Value
+            $innerMatches = [regex]::Matches($arrayContent, "'([^']+)'")
+            foreach ($im in $innerMatches) {
+                $recipeTargets[$im.Groups[1].Value] = $true
+            }
         }
     }
 }
