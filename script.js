@@ -1,4 +1,4 @@
-// Game Internal Data
+﻿// Game Internal Data
 const ELEMENTS = {
     // Basic (Gatherable) - Now includes Ore
     'water': { id: 'water', name: '海水', emoji: '🌊', desc: 'しょっぱい海の恵み。', category: 'natural' },
@@ -142,13 +142,102 @@ const ELEMENTS = {
     'coil': { id: 'coil', name: 'コイル', emoji: '🌀', desc: '鉄芯にエナメル線を巻き付けたもの。電磁誘導や電磁石の基礎パーツ。', category: 'tool' },
     'electromagnet': { id: 'electromagnet', name: '電磁石', emoji: '🧲', desc: 'コイルに電気を流すことで磁力を持たせた装置。電気を切ると磁力が消える。', category: 'tool' },
     'manganese_monoxide': { id: 'manganese_monoxide', name: '一酸化マンガン', emoji: '🧪', desc: '軟マンガン鉱を炭素で還元して得られる緑色の粉末。', category: 'chemical' },
+    'nickel_catalyst': { id: 'nickel_catalyst', name: 'ニッケル触媒', emoji: '🌑', desc: '微粉末状のニッケル。水素化反応などを促進する。', category: 'part' },
+    'sabatier_reactor': { id: 'sabatier_reactor', name: 'サバティエ反応炉', emoji: '⚛️', desc: '二酸化炭素と水素からメタンを作る装置。宇宙での燃料生成に重要。', category: 'device' },
+    'methane': { id: 'methane', name: 'メタン', emoji: '🔥', desc: '最も単純な炭化水素。天然ガスの主成分で、燃料になる。', category: 'chemical' },
+    'hydrogen_cyanide': { id: 'hydrogen_cyanide', name: 'シアン化水素', emoji: '☠️', desc: 'アンドルッソフ法で合成される猛毒の気体。青酸。工業原料として重要。', category: 'chemical' },
+    'sodium_cyanide': { id: 'sodium_cyanide', name: 'シアン化ナトリウム', emoji: '💀', desc: '青酸ソーダ。金の製錬（青化法）に使われる。取り扱い注意。', category: 'chemical' },
+    'tea_leaf': { id: 'tea_leaf', name: '茶葉', emoji: '🍃', desc: '香り高い葉。加工の方法で緑茶にも紅茶にもなる。', category: 'natural' },
+    'black_tea_leaf': { id: 'black_tea_leaf', name: '発酵した茶葉', emoji: '🍂', desc: '酸化発酵させた茶葉。紅茶の原料。', category: 'natural' },
+    'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'chemical' },
+    'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'chemical' },
+    'milk_tea': { id: 'milk_tea', name: 'ミルクティー', emoji: '🧋', desc: '紅茶にミルクと砂糖を入れた濃厚な飲み物。', category: 'chemical' },
+    'flour': { id: 'flour', name: '小麦粉', emoji: '🌾', desc: '小麦を挽いて粉にしたもの。お菓子やパンの材料。', category: 'chemical' },
+    'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'chemical' },
+    'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'chemical' },
+    'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural' },
+    'roasted_coffee_bean': { id: 'roasted_coffee_bean', name: '焙煎コーヒー豆', emoji: '🟤', desc: '火で煎って香ばしくなったコーヒー豆。', category: 'chemical' },
+    'coffee_powder': { id: 'coffee_powder', name: 'コーヒー粉', emoji: '🤎', desc: '豆を挽いて粉状にしたもの。お湯を注げばコーヒーになる。', category: 'chemical' },
+    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
+    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
+    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
+    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
+    'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'chemical' },
+    'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
+    'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
+    'pulley': { id: 'pulley', name: '滑車', emoji: '🏗️', desc: 'ロープと車輪を組み合わせた装置。重いものを小さな力で持ち上げられる。', category: 'tool' },
+    'nickel': { id: 'nickel', name: 'ニッケル', emoji: '🔗', desc: '銀白色の金属。錆びにくく、メッキや合金に使われる。', category: 'chemical' },
+    'nickel_oxide': { id: 'nickel_oxide', name: '酸化ニッケル', emoji: '🌑', desc: 'ニッケルの酸化物。ガラスに着色すると可視光を吸収する。', category: 'chemical' },
+    'mercury_lamp': { id: 'mercury_lamp', name: '水銀灯', emoji: '💡', desc: '水銀蒸気中の放電を利用した強い光源。紫外線も多く含む。', category: 'tool' },
+    'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
+    'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
+    'black_light': { id: 'black_light', name: 'ブラックライト', emoji: '🟣', desc: '紫外線を放出するライト。蛍光物質を光らせる。', category: 'tool' },
+    'tamahagane': { id: 'tamahagane', name: '玉鋼', emoji: '💎', desc: 'たたら製鉄で作られた純度の高い鋼。日本刀の材料。', category: 'material' },
+    'japanese_sword': { id: 'japanese_sword', name: '日本刀', emoji: '⚔️', desc: '玉鋼を鍛え上げた芸術的な美しさを持つ刀剣。折れず曲がらずよく切れる。', category: 'tool' },
+    'chromium': { id: 'chromium', name: 'クロム', emoji: '🔗', desc: '銀白色の硬い金属。光沢があり、錆びにくい。', category: 'chemical' },
+    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🍴', desc: '鉄にクロムを混ぜて錆びにくくした合金。', category: 'material' },
+    'knife': { id: 'knife', name: 'ナイフ', emoji: '🔪', desc: '物を切るための基本的な道具。料理や工作に必須。', category: 'tool' },
+    'saw': { id: 'saw', name: 'ノコギリ', emoji: '🪚', desc: '木材を切断するためのギザギザの刃がついた道具。', category: 'tool' },
+    'scissors': { id: 'scissors', name: 'ハサミ', emoji: '✂️', desc: '2枚の刃で挟んで切る道具。紙や布の加工に便利。', category: 'tool' },
+    'scalpel': { id: 'scalpel', name: 'メス', emoji: '⚕️', desc: '医療用の極めて鋭利な刃物。ステンレス製で清潔。', category: 'tool' },
+    'diamond': { id: 'diamond', name: 'ダイヤモンド', emoji: '💎', desc: 'もっとも硬い天然の鉱物。炭素の結晶。', category: 'natural' },
+    'artificial_diamond': { id: 'artificial_diamond', name: '人工ダイヤモンド', emoji: '💠', desc: '高温高圧法（HPHT）で合成されたダイヤモンド。天然と化学組成は同じ。', category: 'chemical' },
+    'hydraulic_press': { id: 'hydraulic_press', name: '油圧プレス機', emoji: '🚜', desc: 'パスカルの原理を利用して巨大な圧力を生み出す装置。', category: 'machine' },
+
+    // Food & Ingredients
+    'rice': { id: 'rice', name: '米', emoji: '🍚', desc: '日本人の主食。炊くとふっくら美味しい。', category: 'natural' },
+    'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'natural' },
+    'milk': { id: 'milk', name: '牛乳', emoji: '🥛', desc: 'カルシウムたっぷりの白い飲み物。', category: 'natural' },
+    'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'natural' },
+    'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'natural' },
+    'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'chemical' },
+
+    // Seasonings
+    'miso': { id: 'miso', name: '味噌', emoji: '🥣', desc: '大豆を発酵させた日本の調味料。', category: 'chemical' },
+    'dashi': { id: 'dashi', name: '出汁', emoji: '🥘', desc: '魚や海藻から取った旨味のスープ。', category: 'chemical' },
+    'mayonnaise': { id: 'mayonnaise', name: 'マヨネーズ', emoji: '🧴', desc: '卵と油と酢で作る濃厚なソース。', category: 'chemical' },
+    'ketchup': { id: 'ketchup', name: 'ケチャップ', emoji: '🥫', desc: 'トマトを煮詰めた甘酸っぱいソース。', category: 'chemical' },
+
+    // Dishes
+    'sushi': { id: 'sushi', name: '寿司', emoji: '🍣', desc: '酢飯と新鮮な魚の芸術的な組み合わせ。', category: 'chemical' },
+    'tempura': { id: 'tempura', name: '天ぷら', emoji: '🍤', desc: '食材に衣をつけてカラッと揚げた料理。', category: 'chemical' },
+    'miso_soup': { id: 'miso_soup', name: '味噌汁', emoji: '🍲', desc: '出汁と味噌の香りが落ち着く日本のお吸い物。', category: 'chemical' },
+    'steak': { id: 'steak', name: 'ステーキ', emoji: '🥩', desc: '肉を豪快に焼いたご馳走。', category: 'chemical' },
+    'hamburger': { id: 'hamburger', name: 'ハンバーグ', emoji: '🍖', desc: '挽肉をこねて焼いた洋食の定番。', category: 'chemical' },
+    'omelet': { id: 'omelet', name: 'オムレツ', emoji: '🍳', desc: 'ふわふわに焼いた卵料理。', category: 'chemical' },
+    'ramen': { id: 'ramen', name: 'ラーメン', emoji: '🍜', desc: 'スープと麺が絡み合う国民食。', category: 'chemical' },
+    'fried_rice': { id: 'fried_rice', name: 'チャーハン', emoji: '🥘', desc: '強火でパラパラに炒めたお米料理。', category: 'chemical' },
+    'dumpling': { id: 'dumpling', name: '餃子', emoji: '🥟', desc: '肉と野菜を皮で包んで焼いた中華料理。', category: 'chemical' },
+    'curry_rice': { id: 'curry_rice', name: 'カレーライス', emoji: '🍛', desc: 'スパイスの香りが食欲をそそる皆大好きカレー。', category: 'chemical' },
+    'soldering_iron': { id: 'soldering_iron', name: 'はんだごて', emoji: '🖍️', desc: 'はんだを溶かして電子部品を接合する道具。熱くなるので注意。', category: 'tool' },
+
+    // Electronics
+    'resistor': { id: 'resistor', name: '抵抗器', emoji: '➖', desc: '電流の流れを制限する部品。', category: 'machine' },
+    'capacitor': { id: 'capacitor', name: 'コンデンサ', emoji: '🔋', desc: '電気を蓄えたり放出したりする部品。', category: 'machine' },
+    'diode': { id: 'diode', name: 'ダイオード', emoji: '▶️', desc: '電気を一方通行にする部品。', category: 'machine' },
+    'led': { id: 'led', name: 'LED', emoji: '💡', desc: '電気を流すと光る半導体。省エネで長寿命。', category: 'machine' },
+    'circuit_board': { id: 'circuit_board', name: '基板', emoji: '🟩', desc: '電子部品を配置するための板。銅の配線がある。', category: 'material' },
+    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
+
+    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
+
+    // Submarine Tech
+    'rutile': { id: 'rutile', name: 'ルチル', emoji: '🌑', desc: 'チタンを含む鉱石。金紅石。', category: 'natural' },
+    'titanium': { id: 'titanium', name: 'チタン', emoji: '🛡️', desc: '軽くて強く、錆びない金属。潜水艦や航空機に使われる。', category: 'material' },
+    'propeller': { id: 'propeller', name: 'スクリュー', emoji: '🌀', desc: '水をかいて推進力を生み出す羽根。', category: 'machine' },
+    'periscope': { id: 'periscope', name: '潜望鏡', emoji: '🔭', desc: '海中から海上を偵察するための光学装置。', category: 'tool' },
+    'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '海中を自由に航行できる船。チタン製の船体で深海へ。', category: 'machine' },
+
     'manganese': { id: 'manganese', name: 'マンガン', emoji: '⛓️', desc: '硬くて脆い銀白色の金属。鉄の脱硫や合金の添加剤として重要。', category: 'chemical' },
     'calcium_chloride': { id: 'calcium_chloride', name: '塩化カルシウム', emoji: '🧪', desc: '炭酸カルシウムと塩酸の反応で得られる塩。除湿剤や凍結防止剤に使われる。', category: 'chemical' },
+    'gold_ore': { id: 'gold_ore', name: '金鉱石', emoji: '🌑', desc: '金や銀を含んだ岩石。菱刈鉱山などの熱水鉱脈で見つかる。', category: 'natural' },
     'gold_dust': { id: 'gold_dust', name: '砂金', emoji: '✨', desc: '川底に溜まっていた重い金の粒。集めれば価値のある金属になる。', category: 'natural' },
     'gold': { id: 'gold', name: '金', emoji: '🥇', desc: '永遠に輝く貴金属の王。腐食せず、加工しやすい。', category: 'chemical' },
     'iron_sand': { id: 'iron_sand', name: '砂鉄', emoji: '✨', desc: '砂浜や川底に含まれる磁性を持つ鉄の粉末。たたら製鉄の原料になる。', category: 'natural' },
     'platinum': { id: 'platinum', name: 'プラチナ', emoji: '💍', desc: '川底で稀に見つかる非常に希少で安定した貴金属。白金。', category: 'natural' },
     'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🌑', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
+    'molybdenum_trioxide': { id: 'molybdenum_trioxide', name: '三酸化モリブデン', emoji: '🤍', desc: '輝水鉛鉱を焙焼して得られる白い粉末。モリブデンの原料。', category: 'chemical' },
+    'molybdenum_dioxide': { id: 'molybdenum_dioxide', name: '二酸化モリブデン', emoji: '🟤', desc: '三酸化モリブデンを水素還元して得られる茶褐色の粉末。', category: 'chemical' },
     'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural' },
     'cassiterite': { id: 'cassiterite', name: 'スズ石', emoji: '🌑', desc: 'スズを含む鉱石。製錬するとスズを取り出せる。', category: 'natural' },
     'tin': { id: 'tin', name: 'スズ', emoji: '⛓️', desc: '低融点で加工しやすい銀白色の金属。青銅の材料やハンダに使われる。', category: 'chemical' },
@@ -243,7 +332,7 @@ const ELEMENTS = {
     'polarizing_prism': { id: 'polarizing_prism', name: '偏光プリズム', emoji: '⬛', desc: '方解石を加工して作った、特定の方向の光だけを通すプリズム。', category: 'tool' },
     'crude_wood_alcohol': { id: 'crude_wood_alcohol', name: '粗木精', emoji: '🧪', desc: '木酢液を蒸留して得られる、メタノールを含む液体。', category: 'chemical' },
     'methanol': { id: 'methanol', name: 'メタノール', emoji: '🧪', desc: '酢酸カルシウムを乾留して得られる揮発性の液体。毒性が強い。', category: 'chemical' },
-    'copper_oxide': { id: 'copper_oxide', name: '酸化銅', emoji: '🌑', desc: '銅を加熱して酸化させた黒い粉末。', category: 'chemical' },
+    'copper_oxide': { id: 'copper_oxide', name: '酸化銅(II)', emoji: '🌑', desc: '銅を加熱して酸化させた黒い粉末。', category: 'chemical' },
     'formaldehyde': { id: 'formaldehyde', name: 'ホルムアルデヒド', emoji: '💨', desc: 'メタノールを酸化させて作る刺激臭のある気体。', category: 'chemical' },
     'formalin': { id: 'formalin', name: 'ホルマリン', emoji: '🧪', desc: 'ホルムアルデヒドの水溶液。防腐剤や銀鏡反応の還元剤に使われる。', category: 'chemical' },
     'silver_nitrate_solution': { id: 'silver_nitrate_solution', name: '硝酸銀水溶液', emoji: '🧪', desc: '硝酸銀を水に溶かしたもの。', category: 'chemical' },
@@ -415,7 +504,8 @@ const ELEMENTS = {
     'molybdenite': { id: 'molybdenite', name: '輝水鉛鉱', emoji: '🌑', desc: 'モリブデンを含む柔らかい鉱石。黒鉛に似ている。', category: 'natural' },
     'pyrochlore': { id: 'pyrochlore', name: 'パイクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural' },
     'rutile': { id: 'rutile', name: 'ルチル', emoji: '✨', desc: 'チタンを含む金色の針状結晶。', category: 'natural' },
-    'copper_ore': { id: 'copper_ore', name: '銅鉱石', emoji: '🟤', desc: '銅を含む岩石。緑青色の斑点が見られることが多い。', category: 'natural' },
+    'copper_ore': { id: 'copper_ore', name: '輝銅鉱', emoji: '🟤', desc: '銅を含む岩石。緑青色の斑点が見られることが多い。', category: 'natural' },
+    'copper_oxide_1': { id: 'copper_oxide_1', name: '酸化銅(I)', emoji: '🔴', desc: '赤色の粉末。輝銅鉱を焙焼して得られる。', category: 'chemical' },
 
     'nickel': { id: 'nickel', name: 'ニッケル', emoji: '⛓️', desc: '熱や腐食に強い銀白色の金属。', category: 'chemical' },
     'chromium': { id: 'chromium', name: 'クロム', emoji: '🛡️', desc: '非常に硬く、錆びにくい金属。メッキや合金に使われる。', category: 'chemical' },
@@ -823,7 +913,7 @@ const ELEMENTS = {
     'palladium': { id: 'palladium', name: 'パラジウム', emoji: '💍', desc: 'プラチナに似た貴金属。水素を吸い込む性質がある。', category: 'material' },
     'iridium': { id: 'iridium', name: 'イリジウム', emoji: '☄️', desc: '隕石に含まれる非常に硬く重い金属。恐竜絶滅の証拠？', category: 'material' },
     'antimony': { id: 'antimony', name: 'アンチモン', emoji: '💄', desc: '毒性があるが、合金を硬くするのに使われる半金属。', category: 'material' },
-    'magnesium': { id: 'magnesium', name: 'マグネシウム', emoji: '🔥', desc: '軽く、激しく燃える金属。', category: 'material' },
+    'magnesium': { id: 'magnesium', name: 'マグネシウム', emoji: '⚪️', desc: '軽く、激しく燃える金属。', category: 'material' },
     'magnesium_ribbon': { id: 'magnesium_ribbon', name: 'マグネシウムリボン', emoji: '➰', desc: '薄く帯状に加工されたマグネシウム。着火しやすい。', category: 'part' },
     'white_gold': { id: 'white_gold', name: 'ホワイトゴールド', emoji: '💍', desc: '金とパラジウムの合金。プラチナのような輝き。', category: 'material' },
     'fountain_pen': { id: 'fountain_pen', name: '万年筆', emoji: '✒️', desc: 'イリジウムのペン先を持つ高級な筆記具。', category: 'tool' },
@@ -939,10 +1029,11 @@ const ELEMENTS = {
     'drone': { id: 'drone', name: 'ドローン', emoji: '🚁', desc: '遠隔操作で飛ぶ無人航空機。', category: 'machine' },
     'tin_plate': { id: 'tin_plate', name: 'ブリキ板', emoji: '🥫', desc: '鉄にスズをメッキした板。錆びにくい。', category: 'material' },
     'can': { id: 'can', name: '缶', emoji: '🥫', desc: 'ブリキで作った容器。', category: 'tool' },
-    'propeller': { id: 'propeller', name: 'プロペラ', emoji: '🚁', desc: '回転して推進力を生む羽根。', category: 'part' },
+    'propeller': { id: 'propeller', name: 'プロペラ', emoji: '߷', desc: '回転して推進力を生む羽根。', category: 'part' },
     'hot_air_balloon': { id: 'hot_air_balloon', name: '熱気球', emoji: '🎈', desc: '熱した空気の浮力で空を飛ぶ乗り物。', category: 'machine' },
     'airship': { id: 'airship', name: '飛行船', emoji: '🎈', desc: 'ガスで浮き、プロペラで進む空の船。', category: 'machine' },
     'airplane': { id: 'airplane', name: '飛行機', emoji: '✈️', desc: '翼が生む揚力で空を飛ぶ機械。', category: 'machine' },
+    'helicopter': { id: 'helicopter', name: 'ヘリコプター', emoji: '🚁', desc: '回転翼で垂直に離着陸できる航空機。ホバリングが可能。', category: 'machine' },
     'jet_engine': { id: 'jet_engine', name: 'ジェットエンジン', emoji: '💨', desc: '高速の噴流で推進力を生む強力なエンジン。', category: 'machine' },
     'jet_plane': { id: 'jet_plane', name: 'ジェット機', emoji: '✈️', desc: '音速に近い速度で空を飛ぶ飛行機。', category: 'machine' },
     'elevator': { id: 'elevator', name: 'エレベーター', emoji: '🛗', desc: '上下に移動するカゴ。高層建築に不可欠。', category: 'machine' },
@@ -1144,6 +1235,14 @@ const ELEMENTS = {
     'biomass': { id: 'biomass', name: 'バイオマス', emoji: '🪵', desc: '生物由来の再生可能なエネルギー資源。', category: 'material' },
     'ocean': { id: 'ocean', name: '海洋', emoji: '🌊', desc: '地球の表面の大部分を覆う巨大な塩水の塊。', category: 'natural' },
     'fossil': { id: 'fossil', name: '化石', emoji: '🦴', desc: '太古の生物が石化したもの。', category: 'natural' },
+
+    // === Computer Storage & Memory ===
+    'magnetic_disk': { id: 'magnetic_disk', name: '磁気ディスク', emoji: '💿', desc: '磁性体を塗布した円盤。データを磁気で記録する。', category: 'part' },
+    'hdd': { id: 'hdd', name: 'HDD', emoji: '💾', desc: 'ハードディスクドライブ。大容量の記憶装置。円盤が高速回転している。', category: 'part' },
+    'dram_chip': { id: 'dram_chip', name: 'DRAMチップ', emoji: '⬛', desc: 'データを一時的に記憶する半導体チップ。', category: 'part' },
+    'ram': { id: 'ram', name: 'メモリ', emoji: '🟩', desc: 'PCの作業領域。多いほど同時にたくさんの仕事ができる。', category: 'part' },
+    'flash_memory': { id: 'flash_memory', name: 'フラッシュメモリ', emoji: '⬛', desc: '電源を切ってもデータが消えない半導体メモリ。', category: 'part' },
+    'ssd': { id: 'ssd', name: 'SSD', emoji: '💾', desc: 'ソリッドステートドライブ。HDDより高速で衝撃に強い記憶装置。', category: 'part' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1166,7 +1265,11 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'steam_cracking', name: 'スチームクラッキング', key: 'ethylene', req: 'naphtha', desc: 'ナフサを高温の水蒸気で熱分解し、プラスチック原料を作る石油化学の核。' },
     { id: 'sohio', name: 'ソハイオ法', key: 'acrylonitrile', req: 'propylene', desc: 'プロピレンとアンモニアを反応させ、アクリロニトリルを合成する。' },
     { id: 'kraft', name: 'クラフト法', key: 'pulp', req: 'sodium_hydroxide', desc: '木材チップを薬品で煮て、強靭な紙パルプを取り出す製法。' },
-    { id: 'photolithography', name: 'フォトリソグラフィ', key: 'ic', req: 'photo_resist', desc: '光を使ってシリコンウェハー上に極微細な回路パターンを転写する技術。' }
+    { id: 'kraft', name: 'クラフト法', key: 'pulp', req: 'sodium_hydroxide', desc: '木材チップを薬品で煮て、強靭な紙パルプを取り出す製法。' },
+    { id: 'photolithography', name: 'フォトリソグラフィ', key: 'ic', req: 'photo_resist', desc: '光を使ってシリコンウェハー上に極微細な回路パターンを転写する技術。' },
+    { id: 'photolithography', name: 'フォトリソグラフィ', key: 'ic', req: 'photo_resist', desc: '光を使ってシリコンウェハー上に極微細な回路パターンを転写する技術。' },
+    { id: 'sabatier', name: 'サバティエ反応', key: 'methane', req: 'sabatier_reactor', desc: '二酸化炭素と水素を反応させ、メタンと水を生成する。宇宙での燃料調達に必須の技術。' },
+    { id: 'andrussow', name: 'アンドルッソフ法', key: 'hydrogen_cyanide', req: 'platinum', desc: 'メタン、アンモニア、酸素を白金触媒で反応させ、シアン化水素を合成する。' }
 ];
 
 const GREAT_INVENTIONS = {
@@ -1252,7 +1355,6 @@ const RECIPES = {
     'fire+plant_ash+sand': 'frit', // Plant Ash + Sand + Fire -> Frit
     'fire+frit': 'glass', // Frit + Fire -> Glass
     'fire+hydrogen': 'fresh_water', // Hydrogen + Fire -> Water
-    'iron+water': 'hand_warmer', // Iron + Saltwater (water) -> Hand Warmer
     'iron+salt_water': 'hand_warmer', // Iron + Prepared Saltwater -> Hand Warmer
     'fresh_water+glass_vessel': 'cup', // Water + Vessel -> Cup
     'cup+wine': 'wine_glass', // Cup + Wine -> Wine Glass
@@ -1426,7 +1528,6 @@ const RECIPES = {
     'glass_vessel+lens+lens': 'microscope', // Multiple lenses for magnification
     'circle+wood': 'wheel', // Circle + Wood -> Wheel
     'fresh_water+wheel': 'water_wheel', // Water + Wheel -> Water Wheel
-    'water+wheel': 'water_wheel', // Seawater + Wheel -> Water Wheel
     'calcium_carbonate+fire': ['calcium_oxide', 'carbon_dioxide'], // Thermal Decomposition
     'calcium_oxide+fresh_water': 'calcium_hydroxide', // Slaking
     'calcium_hydroxide+carbon_dioxide': ['calcium_carbonate', 'fresh_water'], // Lime water test
@@ -1569,6 +1670,11 @@ const RECIPES = {
     'refined_brine+sodium_carbonate': ['lithium_carbonate', 'salt'],
     'lithium_carbonate+calcium_hydroxide': ['lithium_hydroxide', 'calcium_carbonate'],
 
+    // Molybdenum Refining (Realistic)
+    'air+fire+molybdenite': ['molybdenum_trioxide', 'sulfur_dioxide'], // Roasting with Air
+    'fire+hydrogen+molybdenum_trioxide': ['molybdenum_dioxide', 'fresh_water'], // Hydrogen Reduction 1 (MoO3 -> MoO2)
+    'fire+hydrogen+molybdenum_dioxide': ['molybdenum', 'fresh_water'], // Hydrogen Reduction 2 (MoO2 -> Mo)
+
     // Lead Acid Battery
     'lead+quadrilateral': 'lead_plate',
     'electricity+lead_plate+lead_plate+sulfuric_acid': 'plante_battery',
@@ -1591,9 +1697,7 @@ const RECIPES = {
     // 3. Sponge + Electricity (Arc Melting) -> Titanium
     'electricity+titanium_sponge': 'titanium',
 
-    // Molybdenum
-    'fire+molybdenite': ['molybdenum_trioxide', 'sulfur_dioxide'], // Roasting
-    'hydrogen+molybdenum_trioxide': ['molybdenum', 'fresh_water'], // Reduction
+
 
     // Niobium
     'coke+pyrochlore': 'niobium', // Simplified reduction
@@ -1711,8 +1815,11 @@ const RECIPES = {
     // Missing Recipes - Gold Refining
     // Gold: Gold Dust + Fire -> Melting into pure gold
     'fire+gold_dust': 'gold',
+
+    // Gold Ore Refining: Removed simple fire roasting. Using Cyanidation instead.
+    // 'fire+gold_ore': ['gold', 'silver', 'stone'], // REMOVED
     // Alternative: Mercury amalgam then heat
-    'fire+mercury+gold_dust': 'gold',
+    // 'fire+mercury+gold_dust': 'gold', // Removed per user request
     'cinnabar+fire': 'mercury',
     'fire+gold_dust+iron_plate+mercury': 'gold_plating',
     'copper+press_machine': 'copper_plate',
@@ -1804,6 +1911,25 @@ const RECIPES = {
     'boiler+compressor+iron_vessel': 'high_pressure_reactor',
     // Synthetic Ammonia: Nitrogen + Hydrogen + Iron Catalyst + High-Pressure Reactor -> Ammonia
     'high_pressure_reactor+hydrogen+iron_catalyst+nitrogen': 'ammonia',
+    'high_pressure_reactor+hydrogen+iron_catalyst+nitrogen': 'ammonia',
+
+    // Sabatier Reaction Roadmap
+    // Nickel Catalyst: Nickel + Fire + Hydrogen (Activation)
+    'fire+hydrogen+nickel': 'nickel_catalyst',
+    // Sabatier Reactor: High Pressure Reactor + Nickel Catalyst + Heater (Coil)
+    'coil+high_pressure_reactor+nickel_catalyst': 'sabatier_reactor',
+    // Sabatier Process: CO2 + 4H2 -> CH4 + 2H2O (300-400°C)
+    // Requires: Sabatier Reactor + Hydrogen + CO2
+    'carbon_dioxide+hydrogen+sabatier_reactor': ['methane', 'fresh_water'],
+
+    // Andrussow Process (Methane + Ammonia + Oxygen --Pt--> HCN + H2O)
+    'ammonia+methane+oxygen+platinum': ['hydrogen_cyanide', 'fresh_water'],
+    // Sodium Cyanide (HCN + NaOH -> NaCN + H2O)
+    'hydrogen_cyanide+sodium_hydroxide': ['sodium_cyanide', 'fresh_water'],
+    // Gold Cyanidation (Sodium Cyanide + Gold Ore + Oxygen + Water -> Gold)
+    // Simplified: Gold Ore + Sodium Cyanide + Oxygen
+    'gold_ore+oxygen+sodium_cyanide': ['gold', 'silver'],
+
     'hydrogen+oxygen+platinum': 'fuel_cell',
     'fuel_cell+hydrogen+oxygen': ['electricity', 'fresh_water'],
 
@@ -1823,7 +1949,6 @@ const RECIPES = {
     'black_powder+brass+bullet': 'cartridge', // Simplified cartridge assembly
     'black_powder+iron_pipe+wheel': 'cannon',
     'gun_barrel+rifling_machine': 'rifled_barrel',
-    'iron_pipe+lathe': 'rifled_barrel',
     'cartridge+rifled_barrel+wood': 'rifle',
 
     // New Chemical Derivatives
@@ -1954,7 +2079,7 @@ const RECIPES = {
     // Textile Industry Recipes
     // Materials
     'fresh_water+plant+sun': 'cotton', // Simplified agriculture
-    'animal+fossil': 'wool',
+    'animal+fossil': 'wool', // Removed: Unscientific
     // Let's deduce wool from Animal + Knife or something
     'animal+iron_tool': 'wool',
 
@@ -2205,7 +2330,7 @@ const RECIPES = {
     'fiber+nitric_acid+sulfuric_acid': 'nitrocellulose', // Smokeless Powder
     // 'iron_pipe+match+wood': 'matchlock_gun', // Duplicate/Near-duplicate
     // 'black_powder+iron_pipe+wheel': 'cannon', // Duplicate
-    'iron_pipe+press_machine': 'rifled_barrel',
+    // 'iron_pipe+press_machine': 'rifled_barrel', // Removed: Use rifling machine
     'lead+press_machine': 'bullet',
     // Modern Cartridge uses Smokeless Powder
     'brass+bullet+mercury_fulminate+nitrocellulose': 'cartridge',
@@ -2271,12 +2396,13 @@ const RECIPES = {
     'cloth+box+fire': 'hot_air_balloon',
     'cloth+hydrogen+propeller': 'airship',
     'duralumin+engine+propeller': 'airplane',
+    'bearing+duralumin+engine+propeller': 'helicopter',
     'titanium_sponge+press_machine': 'titanium_plate',
     'titanium_plate+compressor+kerosene': 'jet_engine',
     'duralumin+jet_engine+glass': 'jet_plane',
-    'lithium_hydroxide+carbon_rod+aluminum': 'lithium_ion_battery',
+    // 'lithium_hydroxide+carbon_rod+aluminum': 'lithium_ion_battery', // Duplicate removed
     'car_body+motor+lithium_ion_battery': 'electric_car',
-    'plastic_container+motor+propeller+ic': 'drone',
+    'bearing+ic+motor+plastic_container+propeller': 'drone',
     // 'iron_plate+iron_tool': 'iron_pipe', // Removed duplicate (defined elsewhere or use iron+rod)
     'wheel+wheel+iron_pipe+gear': 'bicycle',
     'bicycle+engine+gasoline': 'motorcycle',
@@ -2287,6 +2413,26 @@ const RECIPES = {
     'plant+plant': 'soybean',
     'soybean+corn+salt+moldy_bread': 'soy_sauce',
     'aluminum+polyethylene': 'retort_pouch',
+
+    // Tea Time Roadmap
+    // 1. Tea Processing
+    'hot_water+tea_leaf': 'green_tea', // Green Tea
+    'tea_leaf+sun': 'black_tea_leaf', // Fermentation (Sun drying/oxidizing metaphor)
+    'black_tea_leaf+hot_water': 'black_tea', // Black Tea
+    'black_tea+milk+sugar': 'milk_tea', // Milk Tea
+
+    // 2. Sweets
+    'stone_tool+wheat': 'flour', // Grinding wheat
+    'fire+flour+sugar': 'cookie', // Simple cookie
+    'fire+flour+milk+sugar': 'cake', // Cake base (simplified)
+
+    // Coffee Chain
+    'coffee_bean+fire': 'roasted_coffee_bean', // Roasting
+    'roasted_coffee_bean+stone_tool': 'coffee_powder', // Grinding
+    'coffee_powder+hot_water': 'coffee', // Drip
+    'coffee+milk': 'latte',
+    'coffee+ice': 'iced_coffee',
+
     'retort_pouch+meat+spice+hot_water': 'retort_food',
     'meat+hydrochloric_acid+sodium_hydroxide': 'culture_medium',
     'meat+culture_medium+petri_dish': 'cultured_meat',
@@ -2364,7 +2510,7 @@ const RECIPES = {
     // Simplified: Super Conductor + Electromagnet + Hydrogen + Concrete
     'concrete+electromagnet+hydrogen+super_conductor': 'fusion_reactor',
     // Space Station: Rocket + Solar Panel + Airtight Fabric + Space Food (Long stay)
-    'airtight_fabric+rocket+solar_panel+space_food': 'space_station',
+    // 'airtight_fabric+rocket+solar_panel+space_food': 'space_station', // Removed in favor of modular recipe
 
     // === Moon Base Roadmap Recipes ===
 
@@ -2372,7 +2518,7 @@ const RECIPES = {
     // Launch: Rocket + Launch Pad -> Space
     'launch_pad+rocket': 'space',
     // Satellite Data: Satellite + Computer
-    'computer+satellite': 'satellite_data',
+    // 'computer+satellite': 'satellite_data', // Duplicate removed, use antenna version
 
     // Phase 2: Lunar Landing
     // Discovery: Space + Telescope -> Moon
@@ -2394,7 +2540,7 @@ const RECIPES = {
 
     // Phase 4: Moon Base Construction
     // Living Module: Airtight Fabric + Glass + Lunar Concrete
-    'airtight_fabric+glass+lunar_concrete': 'living_module',
+    // 'airtight_fabric+glass+lunar_concrete': 'living_module', // Removed in favor of generic aluminum version
     // Airlock: Iron Plate + Motor + Sensor
     'iron_plate+motor+sensor': 'airlock',
     // Moon Base: Airlock + Living Module + Solar Power Plant + Oxygen
@@ -2404,9 +2550,9 @@ const RECIPES = {
 
     // Phase 1: Interplanetary Voyage
     // Electric Drill: Motor + Screw + Titanium
-    'motor+screw+titanium': 'electric_drill',
+    // 'motor+screw+titanium': 'electric_drill', // Removed in favor of battery/tungsten version
     // Fusion Drive: Fusion Reactor + Helium 3 + Rocket Engine
-    'fusion_reactor+helium3+rocket_engine': 'fusion_drive',
+    // 'fusion_reactor+helium3+rocket_engine': 'fusion_drive', // Removed fuel requirement for parts
     // Deep Space Ship: AI Chip + Fusion Drive + Space Station
     'ai_chip+fusion_drive+space_station': 'deep_space_ship',
     // Mars: Deep Space Ship + Space
@@ -2465,8 +2611,7 @@ const RECIPES = {
     'iron+motor+rifle': 'machine_gun',
     // Tank: Car (Chassis) + Cannon + Armor Plate + Caterpillar (Wheel+Iron??)
     'armor_plate+cannon+car': 'tank',
-    // Submarine: Ship (Steamship) + Iron Vessel + Screw + Battery
-    'iron_vessel+plante_battery+screw+steamship': 'submarine',
+    // Submarine: Moved to Submarine Roadmap section
     // Battleship: Steamship + Cannon + Armor Plate + Radar
     'armor_plate+cannon+radar+steamship': 'battleship',
 
@@ -2478,7 +2623,7 @@ const RECIPES = {
     // Missile: Rocket + Radar + TNT
     'radar+rocket+tnt': 'missile',
     // Armed Fighter: Fighter Jet + Missile
-    'fighter_jet+missile': 'fighter_jet', // Upgrade? Or just Fighter Jet creation above. Let's make Fighter Jet = Jet Plane + Machine Gun.
+    // 'fighter_jet+missile': 'fighter_jet', // Removed: Circular
     // ICBM: Rocket + Nuclear Fuel + Computer
     'computer+nuclear_fuel+rocket': 'icbm',
 
@@ -2496,11 +2641,93 @@ const RECIPES = {
     // Fundamentals
     // Nail: Iron + Hammer idea -> Iron + Stone Tool (or Iron Tool)
     'iron+iron_tool': 'nail',
-    // Screw: Iron + Lathe (or generic Iron Tool) -> Iron + Iron Tool (Differentiate? Or Iron Pipe + Lathe?)
+    // Screw: Iron + Lathe (or generic Iron Tool) -> Iron + Iron Pipe + Lathe?
     // Let's use Iron Wire (Wire) + Press Machine for Screw
     'press_machine+wire': 'screw_part',
     // Lumber: Wood + Saw (Iron Tool)
     'iron_tool+wood': 'lumber',
+
+    // Catapult Roadmap
+    'iron+wheel': 'gear', // Gear simplified
+    'gear+string+wood': 'catapult', // Wood(Frame) + Gear(Winch) + String(Spring/Rope)
+
+    // Pulley Roadmap
+    'rod+string+wheel': 'pulley', // Wheel + Axle(Rod) + Rope(String)
+
+    // Black Light Roadmap
+    'pentlandite+fire': ['nickel', 'sulfur_dioxide'], // Nickel refining
+    'nickel+oxygen': 'nickel_oxide',
+    'glass+nickel_oxide': 'woods_glass', // Filter
+    'glass+mercury+electricity': 'mercury_lamp', // UV Source
+    'mercury_lamp+woods_glass': 'black_light', // Final Assembly
+
+    // Japanese Sword Roadmap
+    'charcoal+fire+iron_sand': 'tamahagane', // Tatara Smelting
+    'clay+fire+fresh_water+tamahagane+wood': 'japanese_sword', // Forging (Clay for Hamon, Water for Quench)
+
+    // Blade Technology Tree
+    'aluminum+chromite+fire': 'chromium', // Thermite reduction
+    'chromium+iron': 'stainless_steel',
+    'iron+stone_tool+wood': 'knife', // Iron blade (sharpened) + Handle
+    'iron_plate+stone_tool': 'saw', // Serrating an iron plate
+    'knife+knife+screw_part': 'scissors', // Two blades + pivot
+    'stainless_steel+stone_tool': 'scalpel', // Precision sharpening
+
+    // Artificial Diamond Roadmap
+    'iron+rod': 'piston', // Basic Piston
+    'iron_plate+piston+vegetable_oil': 'hydraulic_press', // Using vegetable oil as hydraulic fluid
+    'fire+graphite+hydraulic_press+nickel': 'artificial_diamond', // HPHT Process (Heat + Pressure + Catalyst)
+
+    // === Food Expansion ===
+    // Ingredients
+    'plant+water+earth': 'rice', // Rice farming
+    'plant+stone_tool': ['vegetable', 'tomato'], // Harvesting vegetables
+    'animal+plant': 'milk', // Feeding animal -> Milk
+    'flour+water+salt': 'noodle', // Noodles
+
+    // Seasonings
+    'soybean+salt+moldy_bread': 'miso',
+    'fish+hot_water': 'dashi',
+    'seaweed+hot_water': 'dashi',
+    'egg+vinegar+vegetable_oil': 'mayonnaise',
+    'tomato+sugar+vinegar': 'ketchup',
+
+    // Japanese
+    'rice+fish+vinegar': 'sushi',
+    'fish+flour+vegetable_oil': 'tempura',
+    'vegetable+flour+vegetable_oil': 'tempura',
+    'dashi+miso+soybean': 'miso_soup',
+    'rice+salt+seaweed': 'rice_ball',
+
+    // Western
+    'meat+fire+spice': 'steak',
+    'meat+flour+vegetable+fire': 'hamburger',
+    'egg+milk+fire': 'omelet',
+
+    // Chinese
+    'noodle+dashi+soy_sauce': 'ramen',
+    'rice+egg+meat+fire': 'fried_rice',
+    'flour+meat+vegetable+fire': 'dumpling',
+
+    // Curry
+    'rice+meat+vegetable+spice': 'curry_rice',
+
+    // Tools
+    'copper+iron+wood': 'soldering_iron',
+
+    // Electronics Tech Tree
+    'charcoal+clay+wire': 'resistor', // Carbon composition resistor
+    'aluminum+paper+wire': 'capacitor', // Electrolytic capacitor logic
+    'glass+silicon+wire': 'diode',
+    'plastic+silicon+wire': 'led',
+    'copper+plastic': 'circuit_board',
+    'circuit_board+magnet+plastic+wire': 'radio', // Simple Radio
+
+    // Submarine Roadmap
+    'rutile+electricity': 'titanium', // Simplified reduction
+    'iron_plate+screw_part': 'propeller',
+    'glass+iron_pipe': 'periscope',
+    'titanium+motor+propeller+periscope+oxygen': 'submarine', // Steel hull + Power + Propulsion + Observation + Life Support
 
     // Level 1: Shelter
     // Tent: Cloth + Rod + String
@@ -2703,7 +2930,7 @@ const RECIPES = {
     // Crafted Items
     'copper+rod': 'copper_pipe',
     // 'naphtha+fire': 'plastic', // REMOVED: Too simple. Use polymerization.
-    'ethylene+ethylene': 'plastic', // Simplified polymerization
+    'polyethylene+press_machine': 'plastic', // Process polyethylene into generic plastic
     'iron_plate+iron_plate': 'pressure_vessel',
     'gear+iron_plate+motor': 'lathe',
     'iron_pipe+lathe': 'gun_barrel',
@@ -2731,7 +2958,7 @@ const RECIPES = {
 
 
     // === Future / High Tech Recipes ===
-    'computer+game_controller': 'game_console',
+    // 'computer+game_controller': 'game_console', // Duplicate removed
     'battery+motor+sensor': 'robot_vacuum',
     'ai_chip+electricity+speaker': 'smart_speaker',
     'lcd+plastic+sensor': 'vr_headset',
@@ -2742,8 +2969,8 @@ const RECIPES = {
     'living_module+rocket+solar_panel': 'space_station',
     'antenna+computer+satellite': 'satellite_data',
 
-    'aluminum+computer+rocket_engine': 'moon_lander',
-    'oxygen+spacesuit': 'astronaut',
+    // 'aluminum+computer+rocket_engine': 'moon_lander', // Duplicate removed
+    // 'oxygen+spacesuit': 'astronaut', // Duplicate removed
 
     // Moon Resource (Gatherable but also craftable for gameplay?)
     // Moon Resource
@@ -2754,9 +2981,9 @@ const RECIPES = {
     'regolith+wind': 'helium3', // Processing
 
     'airtight_fabric+aluminum+glass': 'living_module',
-    'iron_plate+pump+road': 'airlock', // Need switch?
+    // 'iron_plate+pump+road': 'airlock', // Removed nonsensical recipe
 
-    'battery+electric_drill': 'electric_drill', // Self-craft? No.
+    // 'battery+electric_drill': 'electric_drill', // Removed: Self-craft
     // Drill: Motor + Battery + Diamond(or Tungsten)
     'battery+motor+tungsten': 'electric_drill',
 
@@ -2774,6 +3001,26 @@ const RECIPES = {
     'cyano_bacteria+stone': 'lichen',
     'earth+lichen+water': 'forest', // Creating forest from lichen/earth
     'forest+liquid_water+mars': 'blue_mars',
+
+    // === Storage & Memory Roadmap ===
+    // Magnetic Disk: Aluminum + Magnet
+    'aluminum+magnet': 'magnetic_disk',
+    // HDD: Magnetic Disk + Motor + IC + Aluminum (Case)
+    'aluminum+ic+magnetic_disk+motor': 'hdd',
+
+    // DRAM Chip: Wafer + Transistor + Capacitor
+    'capacitor+transistor+wafer': 'dram_chip',
+    // RAM: DRAM Chip + DRAM Chip + Gold (Terminals)
+    'dram_chip+dram_chip+gold': 'ram',
+
+    // Flash Memory: Wafer + IC (Control)
+    'ic+wafer': 'flash_memory',
+    // SSD: Flash Memory + Flash Memory + IC (Controller)
+    'flash_memory+flash_memory+ic': 'ssd',
+
+    // Copper Smelting
+    'air+copper_ore+fire': 'copper_oxide_1',
+    'copper_ore+copper_oxide_1': 'copper',
 };
 
 // Normalize RECIPES keys (Ensure all keys are sorted to avoid matching issues)
@@ -2802,6 +3049,15 @@ const BASE_REUSABLE_ITEMS = [
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
 let unlockedFeats = new Set(); // Track shown notifications
+// Utility: Debounce
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
+
 let userInventoryOrder = []; // Stores IDs in user-defined order
 let playerMoney = 0; // New Shop
 let currentArea = 'japan';
@@ -2810,6 +3066,11 @@ let currentShopSearchQuery = ''; // New Shop Search
 let currentCivilizationLevel = 0; // Civilization Level
 let isLoading = false; // Flag to suppress logs during load
 let isLiteMode = false;
+
+// Optimized Save
+const debouncedSaveGame = debounce(() => {
+    saveGame();
+}, 2000); // Auto-save every 2s of inactivity or batch updates
 
 // Slots
 let slot1 = null;
@@ -3302,6 +3563,9 @@ function switchArea(area) {
     else if (area === 'australia') msg = "オーストラリアに到着しました。";
     else if (area === 'moon') msg = "月面に着陸しました。";
     else if (area === 'mars') msg = "火星に降り立ちました。";
+    else if (area === 'okinawa') msg = "沖縄に到着しました。めんそーれ！";
+    else if (area === 'hokkaido') msg = "北海道に到着しました。でっかいどう！";
+    else if (area === 'kagoshima') msg = "鹿児島に到着しました。おじゃったもんせ！";
 
     log(msg);
     updateGatherSpotDisplay();
@@ -3316,6 +3580,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
+            mapBtn.style.order = '-1'; // Ensure it is always first
             mapBtn.innerHTML = currentArea === 'japan' ? '🚢 出航' : '🗺️ 移動';
         }
     }
@@ -3325,6 +3590,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
+            mapBtn.style.order = '-1'; // Ensure it is always first
             mapBtn.innerHTML = '🚀 地球へ帰還';
         }
     }
@@ -3389,6 +3655,24 @@ function updateGatherSpotDisplay() {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
         });
+    } else if (currentArea === 'okinawa') {
+        const ids = ['water', 'sun', 'coral_reef', 'sugarcane_field'];
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
+    } else if (currentArea === 'hokkaido') {
+        const ids = ['land', 'snow_field', 'coal_mine', 'forest'];
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
+    } else if (currentArea === 'kagoshima') {
+        const ids = ['water', 'sun', 'onsen', 'gold_mine']; // Hot springs and Gold mine
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
     }
 }
 
@@ -3405,6 +3689,9 @@ function setupMapUI() {
     const destAustralia = document.getElementById('dest-australia');
     const destMoon = document.getElementById('dest-moon');
     const destMars = document.getElementById('dest-mars');
+    const destOkinawa = document.getElementById('dest-okinawa');
+    const destHokkaido = document.getElementById('dest-hokkaido');
+    const destKagoshima = document.getElementById('dest-kagoshima');
     const rocketMapSection = document.getElementById('rocket-map-section');
 
     // Unlock logic for Moon
@@ -3442,6 +3729,24 @@ function setupMapUI() {
         destLocal.addEventListener('click', () => {
             mapModal.style.display = 'none';
             switchArea('japan');
+        });
+    }
+    if (destOkinawa) {
+        destOkinawa.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+            switchArea('okinawa');
+        });
+    }
+    if (destHokkaido) {
+        destHokkaido.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+            switchArea('hokkaido');
+        });
+    }
+    if (destKagoshima) {
+        destKagoshima.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+            switchArea('kagoshima');
         });
     }
     if (destForeign) {
@@ -3556,17 +3861,14 @@ function setupGathering() {
                 else if (rand < 0.7) itemId = 'sand';
                 else itemId = 'water';
             } else if (spotType === 'forest') {
-                // Forest: Diverse vegetation including Flowers
                 const rand = Math.random();
-                if (rand < 0.30) itemId = 'wood';
-                else if (rand < 0.40) itemId = 'stone';
-                else if (rand < 0.50) itemId = 'grape';
+                if (rand < 0.40) itemId = 'wood';
                 else if (rand < 0.60) itemId = 'plant';
                 else if (rand < 0.70) itemId = 'flower';
-                else if (rand < 0.80) itemId = 'bamboo';
-                else if (rand < 0.90) itemId = 'animal'; // Added Animal
-                // else if (rand < 0.95) itemId = 'bird'; // Removed Bird (Moved to Air)
-                else itemId = 'lacquer';
+                else if (rand < 0.80) itemId = 'tea_leaf'; // Tea Leaf
+                else if (rand < 0.90) itemId = 'egg'; // Bird's Egg
+                else if (rand < 0.95) itemId = 'animal';
+                else itemId = 'earth';
             } else if (spotType === 'land') {
                 // Land: 60% Earth, 25% Clay, 15% Diatomaceous Earth
                 const rand = Math.random();
@@ -3584,6 +3886,7 @@ function setupGathering() {
                 const hasMagnet = (inventoryCounts['magnet'] > 0) || (inventoryCounts['electromagnet'] > 0);
 
                 if (rand < 0.001) itemId = 'platinum';
+                else if (rand < 0.05) itemId = 'rutile'; // Added Rutile
                 else if (rand < 0.101) itemId = 'gold_dust';
                 else if (hasMagnet && rand < 0.301) itemId = 'iron_sand';
                 else if (rand < 0.5) itemId = 'stone';
@@ -3602,7 +3905,7 @@ function setupGathering() {
                     const rand = Math.random();
                     if (rand < 0.04) oreItem = 'bismuth_ore';
                     else if (rand < 0.08) oreItem = 'antimony';
-                    else if (rand < 0.12) oreItem = 'copper_ore';
+                    else if (rand < 0.12) oreItem = 'gold_ore'; // Replaced copper_ore
                     else if (rand < 0.13) oreItem = 'palladium'; // Rare chance in cave
                     else if (rand < 0.14) oreItem = 'iridium';   // Rare chance in cave
                     else if (rand < 0.18) oreItem = 'cinnabar';
@@ -3649,7 +3952,10 @@ function setupGathering() {
             } else if (spotType === 'corn_field') {
                 itemId = 'corn';
             } else if (spotType === 'andes') {
-                itemId = 'potato';
+                // Andes: Potato, Copper Ore
+                const rand = Math.random();
+                if (rand < 0.7) itemId = 'potato';
+                else itemId = 'copper_ore';
             } else if (spotType === 'amazon') {
                 itemId = 'cacao';
             } else if (spotType === 'araxa_mine') {
@@ -3668,17 +3974,19 @@ function setupGathering() {
             } else if (spotType === 'spanish_coast') {
                 itemId = 'fluorite';
             } else if (spotType === 'savannah') {
-                // South Africa (Rare Metals)
+                // South Africa (Mn, Cr, V, Pt, Diamond?) 
+                // Adding Coffee here as "Origin of Coffee (Ethiopia)" logic
                 const rand = Math.random();
-                if (rand < 0.15) itemId = 'chromite';
-                else if (rand < 0.25) itemId = 'pentlandite';
-                else if (rand < 0.35) itemId = 'molybdenite';
-                else if (rand < 0.45) itemId = 'pyrochlore';
-                else if (rand < 0.55) itemId = 'palladium';
-                else if (rand < 0.65) itemId = 'rhodium'; // Added Rhodium
-                else if (rand < 0.80) itemId = 'platinum'; // Added Platinum
-                else itemId = 'rutile';
-                // Add chance for Uranium in South Africa too if desired, but Australia is famous for it.
+                if (rand < 0.30) itemId = 'earth';
+                else if (rand < 0.50) itemId = 'stone';
+                else if (rand < 0.65) itemId = 'animal'; // Zebra/Lion? -> Meat/Leather
+                else if (rand < 0.75) itemId = 'coffee_bean'; // New: Coffee Origin
+                else if (rand < 0.77) itemId = 'diamond'; // Diamond (Rare)
+                else if (rand < 0.82) itemId = 'chromite';
+                else if (rand < 0.88) itemId = 'pentlandite'; // Ni
+                else if (rand < 0.94) itemId = 'molybdenite'; // Mo
+                else if (rand < 0.98) itemId = 'rutile'; // Ti
+                else itemId = 'platinum'; // Pt
             } else if (spotType === 'red_desert') {
                 // Australia (Al, Fe, U, Co, Rare Earth, Lithium)
                 const rand = Math.random();
@@ -3707,6 +4015,40 @@ function setupGathering() {
                 else if (rand < 0.80) itemId = 'permafrost'; // Added Permafrost
                 else if (rand < 0.95) itemId = 'iron_ore';
                 else itemId = 'sand';
+            } else if (spotType === 'sugarcane_field') {
+                // Okinawa: Sugarcane
+                const rand = Math.random();
+                if (rand < 0.60) itemId = 'sugarcane';
+                else if (rand < 0.80) itemId = 'plant';
+                else itemId = 'earth';
+            } else if (spotType === 'coral_reef') {
+                // Okinawa: Coral Reef
+                const rand = Math.random();
+                if (rand < 0.40) itemId = 'shell';
+                else if (rand < 0.60) itemId = 'calcium_carbonate'; // Coral
+                else if (rand < 0.70) itemId = 'sand';
+                else itemId = 'water';
+            } else if (spotType === 'snow_field') {
+                // Hokkaido: Snow field
+                const rand = Math.random();
+                if (rand < 0.70) itemId = 'ice'; // Snow/Ice
+                else if (rand < 0.80) itemId = 'fresh_water';
+                else if (rand < 0.90) itemId = 'animal'; // Fox/Bear?
+                else itemId = 'wood';
+            } else if (spotType === 'coal_mine') {
+                // Hokkaido: Coal Mine
+                const rand = Math.random();
+                if (rand < 0.60) itemId = 'coal';
+                else if (rand < 0.80) itemId = 'stone';
+                else if (rand < 0.95) itemId = 'iron_ore';
+                else itemId = 'clay';
+            } else if (spotType === 'gold_mine') {
+                // Kagoshima: Hishikari Mine (High grade gold)
+                const rand = Math.random();
+                if (rand < 0.40) itemId = 'gold_ore'; // Gold Ore (High grade)
+                else if (rand < 0.55) itemId = 'gold_dust'; // Placer gold (less common in vein mines but possible nearby)
+                else if (rand < 0.80) itemId = 'stone'; // Host rock (Ryolite/Andesite)
+                else itemId = 'earth';
             }
 
             // Fallback (Sun, etc.)
@@ -3811,9 +4153,11 @@ function renderInventory() {
     }
 
     const query = ui.inventorySearch ? ui.inventorySearch.value.trim().toLowerCase() : '';
+    const fragment = document.createDocumentFragment();
 
     userInventoryOrder.forEach((id, index) => {
         const data = ELEMENTS[id];
+        if (!data) return; // Safety check
         const displayName = getItemName(id);
         // Filter by Search Query
         if (query && !displayName.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) {
@@ -3824,6 +4168,9 @@ function renderInventory() {
 
         const card = document.createElement('div');
         card.className = 'element-card pop-anim';
+        // Remove expensive animation class after render if possible, or keep it light.
+        // card.style.willChange = 'transform'; // Optimization hint
+
         if (isManualSortMode && selectedSortItemId === id) {
             card.classList.add('selected-sort');
         }
@@ -3835,44 +4182,32 @@ function renderInventory() {
         // Visual Selection Logic (Inline for safety)
         if (isManualSortMode && selectedSortItemId === id) {
             card.classList.add('selected-sort');
-            card.style.border = "3px solid #ff9800";
-            card.style.backgroundColor = "#fff3e0";
-            card.style.transform = "scale(1.05)";
-            console.log('Highlighting item:', id);
-        } else {
-            card.classList.remove('selected-sort');
-            card.style.border = "";
-            card.style.backgroundColor = "";
-            card.style.transform = "";
-        }
-
-        let badgeHtml = `<div class="count-badge">x${count}</div>`;
-
-        const isInfinite = BASE_REUSABLE_ITEMS.includes(id) ||
-            (id === 'nitric_acid' && discovered.has('nitric_acid')) ||
-            (id === 'sulfuric_acid' && discovered.has('contact_process_flag')) ||
-            (id === 'electricity' && discovered.has('hydroelectric_power')) ||
-            (id === 'ammonia' && discovered.has('high_pressure_reactor'));
-
-        if (isInfinite) {
-            badgeHtml = '';
         }
 
         card.innerHTML = `
-            <div class="element-emoji" style="pointer-events:none;">${data.emoji}</div>
-            <div class="element-name" style="pointer-events:none;">${displayName}</div>
-            ${badgeHtml}
+            <div class="element-emoji">${data.emoji}</div>
+            <div class="element-name">${data.name}</div>
+            <div class="count-badge">x${count}</div>
         `;
 
-        // Click Handler (Single definition)
-        card.onclick = function () {
-            onInventoryClick(id);
-        };
+        // Optimize click handler (use event delegation on container ideally, but per-card is OK if fragments used)
+        card.onclick = () => onInventoryClick(id);
 
-        // Drag events removed - manual sort button only
+        // Drag Events
+        if (!isManualSortMode) {
+            card.addEventListener('dragstart', handleDragStart);
+            card.addEventListener('dragenter', handleDragEnter);
+            card.addEventListener('dragover', handleDragOver);
+            card.addEventListener('dragleave', handleDragLeave);
+            card.addEventListener('drop', handleDropRobust); // Changed to Robust handler
+            card.addEventListener('dragend', handleDragEnd);
+        }
 
-        ui.inventory.appendChild(card);
+        fragment.appendChild(card);
     });
+
+    ui.inventory.appendChild(fragment);
+
 }
 
 // === Drag and Drop Logic ===
@@ -3983,12 +4318,12 @@ function addItem(id, amount) {
         updateCivilizationLevel();
     }
 
-    saveGame();
+    debouncedSaveGame(); // Optimized save
     renderInventory();
 }
 
 function consumeItem(id, amount) {
-    if (inventoryCounts[id] >= amount) {
+    if ((inventoryCounts[id] || 0) >= amount) {
         inventoryCounts[id] -= amount;
         if (inventoryCounts[id] <= 0) {
             delete inventoryCounts[id];
@@ -3998,7 +4333,7 @@ function consumeItem(id, amount) {
             userInventoryOrder = userInventoryOrder.filter(itemId => itemId !== id);
         }
 
-        saveGame();
+        debouncedSaveGame(); // Optimized save
         renderInventory();
         return true;
     }
@@ -4150,6 +4485,21 @@ function executeCraft() {
             log("✨ 【工業化学】 オストワルト法の実装に成功！硝酸が再利用可能になりました！");
             updateStats();
         }
+        if (!discovered.has('platinum_catalyst_flag')) {
+            discovered.add('platinum_catalyst_flag');
+            log("✨ 【工業化学】 オストワルト法の実装に成功！硝酸が再利用可能になりました！");
+            updateStats();
+        }
+    }
+
+    // Special Unlock for Sabatier Reaction
+    const sabatierProcessKey = ['carbon_dioxide', 'hydrogen', 'sabatier_reactor'].sort().join('+');
+    if (key === sabatierProcessKey) {
+        if (!discovered.has('sabatier_reaction_flag')) {
+            discovered.add('sabatier_reaction_flag');
+            log("✨ 【工業化学】 サバティエ反応の実装に成功！メタンが再利用可能になりました！");
+            updateStats();
+        }
     }
 
     // Dynamic Recipe: Battery (Electrode A + Electrode B + Salt Water)
@@ -4197,7 +4547,9 @@ function executeCraft() {
         if (discovered.has('platinum_catalyst_flag')) reusableIds.push('nitric_acid');
         if (discovered.has('contact_process_flag')) reusableIds.push('sulfuric_acid');
         if (discovered.has('hydroelectric_power')) reusableIds.push('electricity');
+        if (discovered.has('hydroelectric_power')) reusableIds.push('electricity');
         if (discovered.has('high_pressure_reactor')) reusableIds.push('ammonia');
+        if (discovered.has('sabatier_reaction_flag')) reusableIds.push('methane');
 
         currentInputs.forEach(id => {
             // Special Exception: Earthenware breaks when making Shards
@@ -4793,8 +5145,11 @@ function renderShop() {
         targetIds = visibleIds;
     } else {
         // Sell mode: items in inventory
-        targetIds = Object.keys(inventoryCounts).filter(id => inventoryCounts[id] > 0);
+        targetIds = Object.keys(inventoryCounts).filter(id => (inventoryCounts[id] || 0) > 0);
     }
+
+    // Filter out invalid IDs (stale data)
+    targetIds = targetIds.filter(id => ELEMENTS[id]);
 
     // Filter by Search Query
     if (currentShopSearchQuery) {
@@ -4901,14 +5256,17 @@ function buyItem(id, price) {
 }
 
 function sellItem(id, price) {
-    if (inventoryCounts[id] > 0) {
+    if ((inventoryCounts[id] || 0) > 0) {
         consumeItem(id, 1);
         playerMoney += price;
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
         log(`売却しました: [${getItemName(id)}] (+${price}G)`);
-        renderShop(); // Refresh inventory count
-        // renderInventory(); // Background update?
+
+        // Re-render only this card to prevent full flicker, or full renderShop
+        renderShop();
         saveGame();
+    } else {
+        log("在庫がありません！");
     }
 }
 
@@ -5155,6 +5513,7 @@ function showLockedElementHint(id) {
         'seaweed': '海',
         'fish': '海',
         'mercury': '洞窟',
+        'copper_ore': '南米（アンデス山脈）',
         'titanium_sponge': '月面'
     };
 
@@ -5284,6 +5643,11 @@ function showIndustrialDetail(procId) {
                         <strong>【工業化特典】</strong><br>
                         空中窒素の固定に成功！アンモニアが工業的に大量生産されるようになりました。合成に使用しても消費されません！
                      </div>`;
+    } else if (proc.id === 'sabatier') {
+        infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
+                        <strong>【工業化特典】</strong><br>
+                        サバティエ反応の実装に成功！メタンが燃料として大量生産されるようになりました。合成に使用しても消費されません！
+                     </div>`;
     }
 
     if (relatedElement) {
@@ -5316,7 +5680,7 @@ function showElementDetail(id) {
         'lightning', 'fresh_water', 'urine', 'scheelite', 'magnetite', 'galena', 'sphalerite', 'calcite',
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
         'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
-        'seaweed', 'fish', 'mercury', 'brine',
+        'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
         'titanium_sponge', 'flower', 'animal'
@@ -5349,6 +5713,7 @@ function showElementDetail(id) {
         'seaweed': 'フィールド（海）',
         'fish': 'フィールド（海）',
         'mercury': 'フィールド（洞窟）',
+        'copper_ore': '南米（アンデス山脈）',
         'titanium_sponge': '月面（クレーター）',
         'flower': 'フィールド（森）',
         'flower': 'フィールド（森）',

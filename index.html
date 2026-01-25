@@ -44,6 +44,7 @@
                         読込</button>
                 </div>
 
+
                 <div class="view-mode-controls" style="margin-top: 8px; font-size: 0.8rem; text-align: right;">
                     <span>表示:</span>
                     <button class="text-btn" id="btn-view-auto">Auto</button>
@@ -74,6 +75,7 @@
 
                     <div class="nature-scene">
                         <!-- Clickable Areas -->
+
                         <div class="gather-spot water-spot" data-id="water" title="海水を汲む / 貝殻を拾う">🌊 海</div>
                         <div class="gather-spot forest-spot" data-id="forest" title="森を探索する">🌲 森</div>
                         <div class="gather-spot earth-spot" data-id="land" title="土を掘る">🌱 大地</div>
@@ -91,6 +93,20 @@
                         <div class="gather-spot foreign-spot" data-id="foreign" title="世界へ旅立つ"
                             style="display:none; background: linear-gradient(135deg, #42a5f5, #1e88e5); color:white;">🚢
                             出航</div>
+
+
+                        <!-- Japan Local Spots -->
+                        <div class="gather-spot coral-spot" data-id="coral_reef" title="サンゴ礁に潜る"
+                            style="display:none; background: #00bcd4; color:white;">🪸 サンゴ礁</div>
+                        <div class="gather-spot sugar-spot" data-id="sugarcane_field" title="サトウキビを刈る"
+                            style="display:none; background: #8bc34a; color:white;">🎋 キビ畑</div>
+                        <div class="gather-spot snow-spot" data-id="snow_field" title="雪原を歩く"
+                            style="display:none; background: #e0f7fa; color:#006064;">❄️ 雪原</div>
+                        <div class="gather-spot coal-spot" data-id="coal_mine" title="石炭を掘る"
+                            style="display:none; background: #212121; color:white;">⛏️ 炭鉱</div>
+                        <div class="gather-spot gold-spot" data-id="gold_mine" title="金を掘る"
+                            style="display:none; background: #ffca28; color:black; border: 1px solid #ff6f00;">⛏️ 金山
+                        </div>
 
                         <!-- Southeast Asia Spots -->
                         <div class="gather-spot jungle-spot" data-id="jungle" title="ゴムノキを探す"
@@ -389,6 +405,7 @@
         </section>
     </div>
 
+
     <!-- Element Details Modal -->
     <div id="detail-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content glass-panel">
@@ -413,6 +430,27 @@
                     <div style="font-size: 3rem;">🗾</div>
                     <h3>日本 (拠点)</h3>
                     <p style="font-size: 0.8rem; color: #555;">いつもの採取場所</p>
+                </div>
+                <!-- Okinawa -->
+                <div id="dest-okinawa" class="map-destination"
+                    style="border: 2px solid #00bcd4; padding: 20px; border-radius: 10px; cursor: pointer; background: #e0f7fa;">
+                    <div style="font-size: 3rem;">🌺</div>
+                    <h3>沖縄</h3>
+                    <p style="font-size: 0.8rem; color: #555;">南国の海とサトウキビ</p>
+                </div>
+                <!-- Hokkaido -->
+                <div id="dest-hokkaido" class="map-destination"
+                    style="border: 2px solid #90a4ae; padding: 20px; border-radius: 10px; cursor: pointer; background: #eceff1;">
+                    <div style="font-size: 3rem;">❄️</div>
+                    <h3>北海道</h3>
+                    <p style="font-size: 0.8rem; color: #555;">北の大地と炭鉱</p>
+                </div>
+                <!-- Kagoshima -->
+                <div id="dest-kagoshima" class="map-destination"
+                    style="border: 2px solid #ffcc80; padding: 20px; border-radius: 10px; cursor: pointer; background: #fff3e0;">
+                    <div style="font-size: 3rem;">🌋</div>
+                    <h3>鹿児島</h3>
+                    <p style="font-size: 0.8rem; color: #555;">桜島と黄金の鉱脈</p>
                 </div>
                 <!-- Foreign -->
                 <div id="dest-foreign" class="map-destination"
