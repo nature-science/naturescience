@@ -855,6 +855,7 @@ body.lite-mode .crater-spot {
 body.lite-mode .modal-overlay {
     background: rgba(0, 0, 0, 0.7) !important;
 }
+<<<<<<< HEAD
 
 /* --- Dark Mode --- */
 body.dark-mode {
@@ -1124,3 +1125,5 @@ body.lite-mode.dark-mode .nav-btn.active {
     background: var(--accent-color) !important;
     color: #121212 !important;
 }
+=======
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284

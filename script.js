@@ -510,9 +510,12 @@ const ELEMENTS = {
     'nickel': { id: 'nickel', name: 'ニッケル', emoji: '⛓️', desc: '熱や腐食に強い銀白色の金属。', category: 'chemical' },
     'chromium': { id: 'chromium', name: 'クロム', emoji: '🛡️', desc: '非常に硬く、錆びにくい金属。メッキや合金に使われる。', category: 'chemical' },
     'molybdenum': { id: 'molybdenum', name: 'モリブデン', emoji: '⛓️', desc: '融点が非常に高い金属。', category: 'chemical' },
+<<<<<<< HEAD
     'nickel_matte': { id: 'nickel_matte', name: 'ニッケルマット', emoji: '🌑', desc: 'ニッケル精錬の中間生成物。硫化ニッケルが主成分。', category: 'chemical' },
     'slag': { id: 'slag', name: 'スラグ', emoji: '🪨', desc: '製錬の過程で出る不要なカス。鉱滓。', category: 'waste' },
     'nickel_chloride': { id: 'nickel_chloride', name: '塩化ニッケル', emoji: '🧪', desc: 'ニッケルマットを塩素処理して得られる塩。', category: 'chemical' },
+=======
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
 
     // Advanced Timekeeping
     'pendulum': { id: 'pendulum', name: '振り子', emoji: '⛓️', desc: '重りと紐を組み合わせた、一定の周期で揺れる機構。', category: 'part' },
@@ -533,10 +536,14 @@ const ELEMENTS = {
     'super_conductor': { id: 'super_conductor', name: '超伝導電磁石', emoji: '🧲', desc: 'ニオブチタン合金などを使った、電気抵抗ゼロの強力な磁石。', category: 'tool' },
 
     // New Metals: Cobalt, Neodymium, Indium
+<<<<<<< HEAD
     'cobalt_ore': { id: 'cobalt_ore', name: 'コバルト輝鉱', emoji: '🔵', desc: 'オーストラリアで採れるコバルトを含む鉱石。ヒ素を含んでいる。', category: 'natural' },
     'cobalt_oxide': { id: 'cobalt_oxide', name: '酸化コバルト', emoji: '🌑', desc: 'コバルト輝鉱を焙焼して得られる黒い粉末。', category: 'chemical' },
     'arsenic_trioxide': { id: 'arsenic_trioxide', name: '三酸化二ヒ素', emoji: '💀', desc: '亜砒酸。猛毒の白い粉末。取扱注意。', category: 'chemical' },
     'cobalt_sulfate': { id: 'cobalt_sulfate', name: '硫酸コバルト', emoji: '🔴', desc: '酸化コバルトを硫酸に溶かして得られる赤色の塩。', category: 'chemical' },
+=======
+    'cobalt_ore': { id: 'cobalt_ore', name: 'コバルト鉱石', emoji: '🔵', desc: '青い光沢を持つ価値の高い鉱石。電池や合金に使われる。', category: 'natural' },
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     'cobalt': { id: 'cobalt', name: 'コバルト', emoji: '🔵', desc: '青い光沢の金属。リチウムイオン電池の正極材や耐熱合金に不可欠。', category: 'chemical' },
     'monazite': { id: 'monazite', name: 'モナズ石', emoji: '🟠', desc: 'レアアース（希土類）を含む黄褐色の鉱石。', category: 'natural' },
     'neodymium': { id: 'neodymium', name: 'ネオジム', emoji: '🧲', desc: '最強の永久磁石を作れる希土類元素。モーターやスピーカーに使われる。', category: 'chemical' },
@@ -573,9 +580,13 @@ const ELEMENTS = {
     'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '🧑‍🚀', desc: '過酷な宇宙環境でも活動できるように作られた船外活動ユニット。', category: 'tool' },
 
     // Smartphone Materials
+<<<<<<< HEAD
     'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石(α)', emoji: '🪨', desc: 'リチウムを含む鉱石（α-スポジュメン）。非常に硬く、そのままでは成分を取り出せない。', category: 'natural' },
     'lithium_ore_beta': { id: 'lithium_ore_beta', name: 'リチウム鉱石(β)', emoji: '🧱', desc: '加熱処理して結晶構造が変化した鉱石（β-スポジュメン）。酸に溶けやすくなっている。', category: 'chemical' },
     'lithium_sulfate': { id: 'lithium_sulfate', name: '硫酸リチウム', emoji: '🧪', desc: 'リチウム鉱石(β)を硫酸で処理して得られる水溶性の塩。', category: 'chemical' },
+=======
+    'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石', emoji: '🪨', desc: 'リチウムを含む鉱石（スポジュメン）。電池の原料になる。', category: 'natural' },
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     'lithium_carbonate': { id: 'lithium_carbonate', name: '炭酸リチウム', emoji: '🧂', desc: 'リチウム鉱石を精製して得られる粉末。電池の原料。', category: 'chemical' },
     'lithium_ion_battery': { id: 'lithium_ion_battery', name: 'リチウムイオン電池', emoji: '🔋', desc: '小型で大容量の充電式電池。モバイル機器の必需品。', category: 'part' },
     'lcd': { id: 'lcd', name: '液晶ディスプレイ', emoji: '🖥️', desc: '電圧で光の透過を制御する薄型画面。', category: 'part' },
@@ -1334,8 +1345,11 @@ const RECIPES = {
     // 2-Element Recipes
     'charcoal+manganese_dioxide': 'manganese_monoxide', // First reduction
     'coke+manganese_dioxide': 'manganese_monoxide', // Better reduction
+<<<<<<< HEAD
     'arsenic_trioxide+charcoal+fire': ['arsenic', 'carbon_dioxide'],
     'arsenic_trioxide+coke+fire': ['arsenic', 'carbon_dioxide'],
+=======
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     'air+grape': 'wine', // Grape + Air -> Wine
     'air+wine': 'vinegar', // Wine + Air -> Vinegar
     'air+urine': 'ammonia', // Decomposition
@@ -1696,6 +1710,7 @@ const RECIPES = {
     // Ferronickel: Pentlandite + Coke + Oxygen -> Ferronickel + SO2
     'coke+oxygen+pentlandite': ['ferronickel', 'sulfur_dioxide'],
 
+<<<<<<< HEAD
     // Nickel Refining Process (New)
     // 1. Pentlandite + Fire + Air + Sand -> Nickel Matte + SO2 + Slag
     'air+fire+pentlandite+sand': ['nickel_matte', 'sulfur_dioxide', 'slag'],
@@ -1703,6 +1718,10 @@ const RECIPES = {
     'chlorine+nickel_matte': ['nickel_chloride', 'sulfur'],
     // 3. Nickel Chloride + Water + Electricity -> Nickel + Chlorine
     'electricity+fresh_water+nickel_chloride': ['nickel', 'chlorine'],
+=======
+    // Pure Nickel (Electrolysis)
+    'electricity+pentlandite': ['nickel', 'sulfur', 'iron'],
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
 
     // Titanium (Kroll Process)
     // 1. Rutile + Coke + Chlorine -> TiCl4 + CO2
@@ -1772,6 +1791,7 @@ const RECIPES = {
     'airtight_fabric+plss+space_helmet': 'spacesuit',
 
     // Smartphone Chain
+<<<<<<< HEAD
     // Lithium Ore Processing
     // 1. Alpha -> Beta (Calcination)
     'fire+lithium_ore': 'lithium_ore_beta',
@@ -1779,6 +1799,10 @@ const RECIPES = {
     'lithium_ore_beta+sulfuric_acid': 'lithium_sulfate',
     // 3. Lithium Sulfate + Sodium Carbonate -> Lithium Carbonate + Sodium Sulfate
     'lithium_sulfate+sodium_carbonate': ['lithium_carbonate', 'sodium_sulfate'],
+=======
+    // Lithium Carbonate: Lithium Ore + Fire + Sodium Carbonate
+    'fire+lithium_ore+sodium_carbonate': 'lithium_carbonate',
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     // Li-ion Battery: Lithium Carbonate + Cobalt + Graphite
     'cobalt+graphite+lithium_carbonate': 'lithium_ion_battery',
 
@@ -1954,6 +1978,7 @@ const RECIPES = {
     'fuel_cell+hydrogen+oxygen': ['electricity', 'fresh_water'],
 
     // New Metal Refining
+<<<<<<< HEAD
     // Cobalt Refining Process (New)
     // 1. Cobalt Ore + Fire + Oxygen -> Cobalt Oxide + Arsenic Trioxide + Sulfur Dioxide
     'cobalt_ore+fire+oxygen': ['cobalt_oxide', 'arsenic_trioxide', 'sulfur_dioxide'],
@@ -1961,6 +1986,10 @@ const RECIPES = {
     'cobalt_oxide+fire+sulfuric_acid': 'cobalt_sulfate',
     // 3. Cobalt Sulfate + Water + Electricity -> Cobalt + Oxygen
     'cobalt_sulfate+electricity+fresh_water': ['cobalt', 'oxygen'],
+=======
+    // Cobalt: Cobalt Ore + Fire + Oxygen -> Cobalt (Roasting + Reduction)
+    'cobalt_ore+coke+fire': 'cobalt',
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     // Neodymium: Monazite + Hydrochloric Acid + Electricity -> Neodymium
     'electricity+hydrochloric_acid+monazite': 'neodymium',
     // Indium: Sphalerite (Zinc Ore byproduct) + Acid + Electricity
@@ -2081,7 +2110,11 @@ const RECIPES = {
     // LED Roadmap
     // Elements: Gallium (from Aluminum process/Bauxite), Arsenic (from Zinc/Copper process)
     'aluminum+electricity': 'gallium', // Simplified byproduct
+<<<<<<< HEAD
 
+=======
+    'copper_ore+fire': 'arsenic', // Simplified byproduct from roasting
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
 
     // Compound Semiconductors
     'arsenic+gallium': 'gallium_arsenide',
@@ -2433,7 +2466,11 @@ const RECIPES = {
     'bicycle+engine+gasoline': 'motorcycle',
     // Refinement
     'cassiterite+coal': 'tin',
+<<<<<<< HEAD
 
+=======
+    'lithium_ore+sulfuric_acid': 'lithium_carbonate',
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     'animal+stone_tool': 'meat', // Changed from bird to animal
     'plant+plant': 'soybean',
     'soybean+corn+salt+moldy_bread': 'soy_sauce',
@@ -2680,7 +2717,11 @@ const RECIPES = {
     'rod+string+wheel': 'pulley', // Wheel + Axle(Rod) + Rope(String)
 
     // Black Light Roadmap
+<<<<<<< HEAD
 
+=======
+    'pentlandite+fire': ['nickel', 'sulfur_dioxide'], // Nickel refining
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
     'nickel+oxygen': 'nickel_oxide',
     'glass+nickel_oxide': 'woods_glass', // Filter
     'glass+mercury+electricity': 'mercury_lamp', // UV Source
@@ -5361,12 +5402,21 @@ function renderEncyclopedia() {
         // Set civInfo content
         civInfo.innerHTML = `
             <div style="text-align:center;">
+<<<<<<< HEAD
                 <div class="civ-info-header">
                     <span>文明レベル ${currentCiv.level}</span>
                     <span style="margin-left:15px;">${currentCiv.year}</span>
                 </div>
                 <div class="civ-info-title">${currentCiv.name}</div>
                 <div class="civ-info-desc">${currentCiv.desc}</div>
+=======
+                <div style="font-size:0.85rem; color:#d84315;">
+                    <span>文明レベル ${currentCiv.level}</span>
+                    <span style="margin-left:15px;">${currentCiv.year}</span>
+                </div>
+                <div style="font-size:1.3rem; font-weight:bold; color:#e65100; margin:5px 0;">${currentCiv.name}</div>
+                <div style="font-size:0.85rem; color:#bf360c;">${currentCiv.desc}</div>
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
             </div>
         `;
     }
@@ -5991,6 +6041,7 @@ function updateLanguageUI() {
 
 
 
+<<<<<<< HEAD
 
 // === Dark Mode Logic ===
 let isDarkMode = false;
@@ -6033,4 +6084,6 @@ if (btnToggleDark) {
     btnToggleDark.addEventListener('click', () => toggleDarkMode());
 }
 
+=======
+>>>>>>> 9b9c317daa63c88374cf948486d0d83caa0bb284
 init();
