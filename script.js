@@ -160,16 +160,12 @@ const ELEMENTS = {
     'coffee_powder': { id: 'coffee_powder', name: 'コーヒー粉', emoji: '🤎', desc: '豆を挽いて粉状にしたもの。お湯を注げばコーヒーになる。', category: 'chemical' },
     'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
     'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
-    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
-    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
     'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'chemical' },
-    'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'pulley': { id: 'pulley', name: '滑車', emoji: '🏗️', desc: 'ロープと車輪を組み合わせた装置。重いものを小さな力で持ち上げられる。', category: 'tool' },
     'nickel': { id: 'nickel', name: 'ニッケル', emoji: '🔗', desc: '銀白色の金属。錆びにくく、メッキや合金に使われる。', category: 'chemical' },
     'nickel_oxide': { id: 'nickel_oxide', name: '酸化ニッケル', emoji: '🌑', desc: 'ニッケルの酸化物。ガラスに着色すると可視光を吸収する。', category: 'chemical' },
     'mercury_lamp': { id: 'mercury_lamp', name: '水銀灯', emoji: '💡', desc: '水銀蒸気中の放電を利用した強い光源。紫外線も多く含む。', category: 'tool' },
-    'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
     'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
     'black_light': { id: 'black_light', name: 'ブラックライト', emoji: '🟣', desc: '紫外線を放出するライト。蛍光物質を光らせる。', category: 'tool' },
     'tamahagane': { id: 'tamahagane', name: '玉鋼', emoji: '💎', desc: 'たたら製鉄で作られた純度の高い鋼。日本刀の材料。', category: 'material' },
@@ -217,8 +213,6 @@ const ELEMENTS = {
     'diode': { id: 'diode', name: 'ダイオード', emoji: '▶️', desc: '電気を一方通行にする部品。', category: 'machine' },
     'led': { id: 'led', name: 'LED', emoji: '💡', desc: '電気を流すと光る半導体。省エネで長寿命。', category: 'machine' },
     'circuit_board': { id: 'circuit_board', name: '基板', emoji: '🟩', desc: '電子部品を配置するための板。銅の配線がある。', category: 'material' },
-    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
-
     'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
 
     // Submarine Tech
