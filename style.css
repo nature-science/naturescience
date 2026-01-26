@@ -1,0 +1,1126 @@
+:root {
+    --bg-color: #e8f5e9;
+    --accent-color: #2e7d32;
+    --secondary-color: #d84315;
+    /* Burnt Orange for refining */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --text-color: #1b5e20;
+    --slot-bg: rgba(0, 0, 0, 0.03);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background-color: var(--bg-color);
+    background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2544&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    color: var(--text-color);
+    height: 100vh;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(232, 245, 233, 0.85);
+    z-index: -1;
+}
+
+.app-container {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 1fr 220px;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nav & Sidebar */
+.sidebar h1 {
+    white-space: normal;
+    font-size: 1.6rem;
+    line-height: 1.2;
+}
+
+.sidebar {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    gap: 20px;
+}
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #555;
+}
+
+.nav-btn.active {
+    background: var(--accent-color);
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+}
+
+.nav-btn:hover:not(.active) {
+    background: white;
+}
+
+.message-log {
+    flex-grow: 1;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.message-log p {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed #ccc;
+}
+
+/* Workspace Views */
+.workspace {
+    grid-column: 2;
+    grid-row: 1;
+    position: relative;
+    overflow-y: auto;
+}
+
+.view-panel {
+    width: 100%;
+    min-height: 100%;
+    animation: fadeIn 0.3s ease;
+}
+
+.view-panel[style*="none"] {
+    display: none !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Field View */
+.field-container {
+    min-height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.field-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nature-scene {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 80px;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gather-spot {
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.gather-spot:active {
+    transform: scale(0.95);
+}
+
+.water-spot {
+    background: linear-gradient(135deg, #4fc3f7, #0288d1);
+}
+
+.forest-spot {
+    background: linear-gradient(135deg, #66bb6a, #2e7d32);
+}
+
+.earth-spot {
+    background: linear-gradient(135deg, #a1887f, #5d4037);
+}
+
+.tree-spot {
+    background: linear-gradient(135deg, #aed581, #558b2f);
+}
+
+.sun-spot {
+    background: linear-gradient(135deg, #ffb74d, #f57c00);
+}
+
+.cave-spot {
+    background: linear-gradient(135deg, #78909c, #37474f);
+}
+
+.onsen-spot {
+    background: linear-gradient(135deg, #81d4fa, #ffffff);
+    color: #0277bd;
+    text-shadow: none;
+}
+
+.river-spot {
+    background: linear-gradient(135deg, #4dd0e1, #00838f);
+}
+
+.home-spot {
+    background: linear-gradient(135deg, #a1887f, #4e342e);
+}
+
+.oil-spot {
+    background: linear-gradient(135deg, #3e2723, #000000);
+    color: #ffd700;
+}
+
+
+/* Lab View (Crafting) */
+.machine-section {
+    padding: 20px;
+    align-items: center;
+}
+
+.machine-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    opacity: 0.7;
+    width: 100%;
+}
+
+.slots-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.element-slot {
+    width: 100px;
+    height: 100px;
+    background: var(--slot-bg);
+    border: 3px dashed rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.element-slot.filled {
+    background: white;
+    border-style: solid;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.element-slot.result.filled {
+    background: #fffde7;
+    border-color: #fdd835;
+}
+
+.control-area {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+    transition: transform 0.1s;
+    font-weight: bold;
+}
+
+.action-btn.secondary {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
+}
+
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    color: #777;
+    cursor: pointer;
+}
+
+/* Refinery */
+.refinery-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.refinery-info {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Inventory */
+.inventory {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.element-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 5px;
+    align-content: flex-start;
+}
+
+.element-card {
+    width: 90px;
+    height: 100px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.element-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Drag and Drop Styles */
+.element-card.dragging {
+    opacity: 0.5;
+    transform: scale(0.95);
+    border: 2px dashed #4caf50;
+    box-shadow: none;
+}
+
+.element-card.drag-over {
+    border: 2px solid #2196f3;
+    background-color: #e3f2fd;
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.element-card[draggable="true"] {
+    cursor: grab;
+}
+
+.element-card[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.element-emoji {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    overflow: visible;
+    /* Ensure it stays within bounds */
+    white-space: nowrap;
+    /* Prevent wrapping for multi-character emojis */
+}
+
+.element-name {
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+/* Count Badge */
+.count-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ef5350;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pop-anim {
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.shake-anim {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    /* Default max-width, overridden by inline styles for map */
+    padding: 30px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    max-height: 85vh;
+    /* Limit height to 85% of viewport */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #888;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* Encyclopedia */
+.book-card {
+    width: 120px;
+    min-height: 130px;
+    flex: 0 0 120px;
+    background: white;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 6px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    gap: 5px;
+    overflow: hidden;
+}
+
+.book-card.unlocked {
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.book-card.unlocked:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+.book-card.locked {
+    background: rgba(0, 0, 0, 0.03);
+    color: #aaa;
+}
+
+.book-card .element-emoji {
+    font-size: 2rem;
+    width: 45px;
+    height: 45px;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    overflow: hidden;
+}
+
+.book-card .element-name {
+    font-size: 0.85rem;
+    font-weight: bold;
+    width: 100%;
+    overflow: visible;
+    white-space: normal;
+    padding: 0 4px;
+    line-height: 1.2;
+    min-height: 1.2em;
+}
+
+.book-card .element-desc {
+    font-size: 0.75rem;
+    color: #666;
+    line-height: 1.3;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 0 4px;
+}
+
+/* Encyclopedia */
+#encyclopedia-grid {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+/* --- Mobile Responsive --- */
+@media (max-width: 768px) {
+    .app-container {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+    }
+
+    .sidebar {
+        grid-column: auto;
+        grid-row: auto;
+        flex: 0 0 auto;
+        width: 100%;
+        border-radius: 0 0 15px 15px;
+        padding: 8px;
+        z-index: 20;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    .sidebar h1 {
+        font-size: 1.1rem;
+        margin: 0;
+        margin-right: auto;
+    }
+
+    .main-nav {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+        width: auto;
+    }
+
+    .nav-btn {
+        width: auto;
+        padding: 4px 8px;
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .stats {
+        width: 100%;
+        margin-top: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+    }
+
+    .message-log {
+        display: none;
+    }
+
+    .workspace {
+        grid-column: auto;
+        grid-row: auto;
+        flex: 1;
+        width: 100%;
+        padding: 10px;
+        padding-bottom: 240px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .field-container {
+        padding: 5px;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .nature-scene {
+        gap: 8px;
+    }
+
+    .gather-spot {
+        font-size: 1.1rem;
+        height: 70px;
+    }
+
+    .inventory {
+        grid-column: auto;
+        grid-row: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 220px;
+        border-radius: 15px 15px 0 0;
+        z-index: 100;
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .element-list {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .machine-section {
+        padding: 10px;
+    }
+
+    .slots-container {
+        transform: scale(0.9);
+        transform-origin: left top;
+        width: 110%;
+        /* Compensate scale */
+        margin-bottom: 0;
+    }
+}
+
+/* --- Lite Mode (Performance Optimization) --- */
+body.lite-mode {
+    background-image: none !important;
+    background-color: #f1f8e9 !important;
+}
+
+body.lite-mode::before {
+    display: none !important;
+}
+
+body.lite-mode * {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+    text-shadow: none !important;
+}
+
+/* Maintain usability with simplified styles */
+body.lite-mode .glass-panel {
+    background: white !important;
+    border: 1px solid #ddd !important;
+}
+
+body.lite-mode .element-card {
+    border: 1px solid #ddd !important;
+    background: white !important;
+}
+
+body.lite-mode .element-slot {
+    border: 2px dashed #bbb !important;
+    background: #f5f5f5 !important;
+}
+
+body.lite-mode .element-slot.filled {
+    border: 2px solid #ccc !important;
+    background: white !important;
+}
+
+body.lite-mode .nav-btn {
+    background: #f5f5f5 !important;
+    border: 1px solid #eee !important;
+}
+
+body.lite-mode .nav-btn.active {
+    background: var(--accent-color) !important;
+    color: white !important;
+    border: none !important;
+}
+
+body.lite-mode .gather-spot {
+    background: #999 !important;
+    border: 1px solid #777 !important;
+}
+
+body.lite-mode .water-spot {
+    background: #4fc3f7 !important;
+}
+
+body.lite-mode .forest-spot {
+    background: #66bb6a !important;
+}
+
+body.lite-mode .earth-spot {
+    background: #a1887f !important;
+}
+
+body.lite-mode .tree-spot {
+    background: #aed581 !important;
+}
+
+body.lite-mode .sun-spot {
+    background: #ffb74d !important;
+}
+
+body.lite-mode .cave-spot {
+    background: #90a4ae !important;
+}
+
+body.lite-mode .onsen-spot {
+    background: #81d4fa !important;
+    border-color: #0277bd !important;
+    color: #0277bd !important;
+}
+
+body.lite-mode .river-spot {
+    background: #4dd0e1 !important;
+}
+
+body.lite-mode .home-spot {
+    background: #8d6e63 !important;
+}
+
+body.lite-mode .oil-spot {
+    background: #5d4037 !important;
+    color: #ffca28 !important;
+}
+
+body.lite-mode .jungle-spot {
+    background: #66bb6a !important;
+}
+
+body.lite-mode .spice-spot {
+    background: #ffa726 !important;
+}
+
+body.lite-mode .corn-spot {
+    background: #fbc02d !important;
+    color: black !important;
+}
+
+body.lite-mode .andes-spot {
+    background: #795548 !important;
+}
+
+body.lite-mode .amazon-spot {
+    background: #388e3c !important;
+}
+
+body.lite-mode .salt-lake-spot {
+    background: #e0f7fa !important;
+    color: #006064 !important;
+}
+
+body.lite-mode .olive-spot {
+    background: #c0ca33 !important;
+}
+
+body.lite-mode .coast-spot {
+    background: #03a9f4 !important;
+}
+
+body.lite-mode .desert-spot {
+    background: #d32f2f !important;
+}
+
+body.lite-mode .savannah-spot {
+    background: #ffca28 !important;
+}
+
+body.lite-mode .crater-spot {
+    background: #37474f !important;
+}
+
+body.lite-mode .modal-overlay {
+    background: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* --- Dark Mode --- */
+body.dark-mode {
+    --bg-color: #121212;
+    --accent-color: #81c784;
+    /* Light Green */
+    --secondary-color: #ff8a65;
+    /* Light Orange */
+    --glass-bg: rgba(30, 30, 30, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-color: #e0e0e0;
+    --slot-bg: rgba(255, 255, 255, 0.05);
+}
+
+
+body.dark-mode {
+    /* background-image is kept, but let's darken it via ::before */
+    background-color: #121212 !important;
+}
+
+body.dark-mode::before {
+    background: rgba(10, 10, 10, 0.9) !important;
+}
+
+body.dark-mode * {
+    /* text-shadow: none !important; */
+    border-color: var(--glass-border);
+}
+
+/* Specific Overrides for Dark Mode */
+body.dark-mode .glass-panel {
+    background: var(--glass-bg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    color: var(--text-color);
+}
+
+body.dark-mode .nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+}
+
+body.dark-mode .nav-btn.active {
+    background: var(--accent-color);
+    color: #121212;
+    /* Dark text on light accent */
+    font-weight: bold;
+}
+
+body.dark-mode .nav-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark-mode .element-card {
+    background: #1e1e1e;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    color: var(--text-color);
+    border: 1px solid #333;
+}
+
+body.dark-mode .element-card:hover {
+    background: #2a2a2a;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-color);
+}
+
+body.dark-mode .element-slot {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .element-slot.filled {
+    background: #2a2a2a;
+    border-color: #555;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .element-slot.result.filled {
+    background: #424242;
+    /* Darker yellow/gray */
+    border-color: #fbc02d;
+}
+
+/* Modal */
+body.dark-mode .modal-content {
+    background: #212121;
+    color: #eee;
+}
+
+body.dark-mode .close-btn {
+    color: #aaa;
+}
+
+body.dark-mode .close-btn:hover {
+    color: white;
+}
+
+/* Text overrides */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #fff;
+}
+
+body.dark-mode .machine-title {
+    opacity: 0.9;
+    color: #aaa;
+}
+
+body.dark-mode .refinery-info {
+    color: #bbb;
+}
+
+body.dark-mode input[type="text"] {
+    background: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+body.dark-mode .message-log {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Book Card Dark Mode */
+body.dark-mode .book-card {
+    background: #1e1e1e;
+    color: var(--text-color);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .book-card .element-name {
+    color: #ddd;
+}
+
+body.dark-mode .book-card .element-desc {
+    color: #aaa;
+}
+
+body.dark-mode .book-card.locked {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .book-card.unlocked {
+    border: 1px solid #333;
+}
+
+body.dark-mode .book-card.unlocked:hover {
+    background: #2a2a2a;
+    border-color: var(--accent-color);
+}
+
+/* Civilization Info Card */
+.civ-info-card {
+    background: #fff3e0;
+    border: 1px solid #ffcc80;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    margin: 15px 10px;
+    color: #e65100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.civ-info-header {
+    font-size: 0.85rem;
+    color: #d84315;
+}
+
+.civ-info-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #e65100;
+    margin: 5px 0;
+}
+
+.civ-info-desc {
+    font-size: 0.85rem;
+    color: #bf360c;
+}
+
+/* Civilization Card Dark Mode */
+body.dark-mode .civ-info-card {
+    background: #1e1e1e;
+    /* Dark background matching other cards */
+    border-color: #333;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+}
+
+body.dark-mode .civ-info-header {
+    color: #aaa;
+}
+
+body.dark-mode .civ-info-title {
+    color: #fff;
+}
+
+body.dark-mode .civ-info-desc {
+    color: #ccc;
+}
+
+/* Shop Dark Mode */
+body.dark-mode #tab-buy.active,
+body.dark-mode #tab-sell.active {
+    background: var(--accent-color);
+    color: #121212;
+}
+
+/* Map Destinations */
+body.dark-mode .map-destination {
+    background: #333 !important;
+    border-color: #555 !important;
+}
+
+body.dark-mode .map-destination h3 {
+    color: #ddd !important;
+}
+
+body.dark-mode .map-destination p {
+    color: #aaa !important;
+}
+
+/* Inventory container in mobile */
+@media (max-width: 768px) {
+    body.dark-mode .inventory {
+        background: #1e1e1e;
+        border-top: 1px solid #333;
+    }
+
+
+
+    body.dark-mode .sidebar {
+        background: #1e1e1e;
+        border-bottom: 1px solid #333;
+    }
+}
+
+/* Dark + Lite Mode Compatibility */
+body.lite-mode.dark-mode .glass-panel {
+    background: #1e1e1e !important;
+    border-color: #333 !important;
+    color: #e0e0e0 !important;
+}
+
+body.lite-mode.dark-mode .element-card {
+    background: #1e1e1e !important;
+    border-color: #333 !important;
+    color: #e0e0e0 !important;
+}
+
+body.lite-mode.dark-mode .element-slot {
+    background: #333 !important;
+    border-color: #555 !important;
+}
+
+body.lite-mode.dark-mode .element-slot.filled {
+    background: #2a2a2a !important;
+}
+
+body.lite-mode.dark-mode .nav-btn {
+    background: #333 !important;
+    border-color: #444 !important;
+    color: #ccc !important;
+}
+
+body.lite-mode.dark-mode .nav-btn.active {
+    background: var(--accent-color) !important;
+    color: #121212 !important;
+}
