@@ -144,6 +144,14 @@ const ELEMENTS = {
     'manganese_monoxide': { id: 'manganese_monoxide', name: '一酸化マンガン', emoji: '🧪', desc: '軟マンガン鉱を炭素で還元して得られる緑色の粉末。', category: 'chemical' },
     'nickel_catalyst': { id: 'nickel_catalyst', name: 'ニッケル触媒', emoji: '🌑', desc: '微粉末状のニッケル。水素化反応などを促進する。', category: 'part' },
     'sabatier_reactor': { id: 'sabatier_reactor', name: 'サバティエ反応炉', emoji: '⚛️', desc: '二酸化炭素と水素からメタンを作る装置。宇宙での燃料生成に重要。', category: 'device' },
+
+    // === Shale Revolution ===
+    'shale_rock': { id: 'shale_rock', name: '頁岩', emoji: '🌑', desc: '古代の泥が固まってできた堆積岩。微細な隙間に石油やガスを閉じ込めている。', category: 'natural' },
+    'shale_oil': { id: 'shale_oil', name: 'シェールオイル', emoji: '🛢️', desc: '頁岩層から採取された原油。採掘技術の進歩により利用可能になった。', category: 'chemical' },
+    'natural_gas': { id: 'natural_gas', name: '天然ガス', emoji: '🔥', desc: 'メタンを主成分とする可燃性のガス。クリーンなエネルギー源。', category: 'chemical' },
+    'fracking_fluid': { id: 'fracking_fluid', name: 'フラッキング液', emoji: '🧪', desc: '水、砂、化学薬品の混合液。高圧で岩盤を破砕するために使う。', category: 'chemical' },
+    'diamond_drill_bit': { id: 'diamond_drill_bit', name: 'ダイヤモンドドリル', emoji: '💎', desc: '工業用ダイヤモンドを使用した超硬度ドリル。硬い岩盤を掘削できる。', category: 'tool' },
+    'horizontal_drilling_rig': { id: 'horizontal_drilling_rig', name: '水平掘削リグ', emoji: '🏗️', desc: '地下深くでドリルを水平に曲げ、広範囲のシェール層を掘削する巨大装置。', category: 'machine' },
     'methane': { id: 'methane', name: 'メタン', emoji: '🔥', desc: '最も単純な炭化水素。天然ガスの主成分で、燃料になる。', category: 'chemical' },
     'hydrogen_cyanide': { id: 'hydrogen_cyanide', name: 'シアン化水素', emoji: '☠️', desc: 'アンドルッソフ法で合成される猛毒の気体。青酸。工業原料として重要。', category: 'chemical' },
     'sodium_cyanide': { id: 'sodium_cyanide', name: 'シアン化ナトリウム', emoji: '💀', desc: '青酸ソーダ。金の製錬（青化法）に使われる。取り扱い注意。', category: 'chemical' },
@@ -160,16 +168,12 @@ const ELEMENTS = {
     'coffee_powder': { id: 'coffee_powder', name: 'コーヒー粉', emoji: '🤎', desc: '豆を挽いて粉状にしたもの。お湯を注げばコーヒーになる。', category: 'chemical' },
     'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
     'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
-    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
-    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
     'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'chemical' },
-    'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'pulley': { id: 'pulley', name: '滑車', emoji: '🏗️', desc: 'ロープと車輪を組み合わせた装置。重いものを小さな力で持ち上げられる。', category: 'tool' },
     'nickel': { id: 'nickel', name: 'ニッケル', emoji: '🔗', desc: '銀白色の金属。錆びにくく、メッキや合金に使われる。', category: 'chemical' },
     'nickel_oxide': { id: 'nickel_oxide', name: '酸化ニッケル', emoji: '🌑', desc: 'ニッケルの酸化物。ガラスに着色すると可視光を吸収する。', category: 'chemical' },
     'mercury_lamp': { id: 'mercury_lamp', name: '水銀灯', emoji: '💡', desc: '水銀蒸気中の放電を利用した強い光源。紫外線も多く含む。', category: 'tool' },
-    'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
     'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
     'black_light': { id: 'black_light', name: 'ブラックライト', emoji: '🟣', desc: '紫外線を放出するライト。蛍光物質を光らせる。', category: 'tool' },
     'tamahagane': { id: 'tamahagane', name: '玉鋼', emoji: '💎', desc: 'たたら製鉄で作られた純度の高い鋼。日本刀の材料。', category: 'material' },
@@ -219,8 +223,6 @@ const ELEMENTS = {
     'circuit_board': { id: 'circuit_board', name: '基板', emoji: '🟩', desc: '電子部品を配置するための板。銅の配線がある。', category: 'material' },
     'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
 
-    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
-
     // Submarine Tech
     'rutile': { id: 'rutile', name: 'ルチル', emoji: '🌑', desc: 'チタンを含む鉱石。金紅石。', category: 'natural' },
     'titanium': { id: 'titanium', name: 'チタン', emoji: '🛡️', desc: '軽くて強く、錆びない金属。潜水艦や航空機に使われる。', category: 'material' },
@@ -235,7 +237,7 @@ const ELEMENTS = {
     'gold': { id: 'gold', name: '金', emoji: '🥇', desc: '永遠に輝く貴金属の王。腐食せず、加工しやすい。', category: 'chemical' },
     'iron_sand': { id: 'iron_sand', name: '砂鉄', emoji: '✨', desc: '砂浜や川底に含まれる磁性を持つ鉄の粉末。たたら製鉄の原料になる。', category: 'natural' },
     'platinum': { id: 'platinum', name: 'プラチナ', emoji: '💍', desc: '川底で稀に見つかる非常に希少で安定した貴金属。白金。', category: 'natural' },
-    'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🌑', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
+    'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🔴', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
     'molybdenum_trioxide': { id: 'molybdenum_trioxide', name: '三酸化モリブデン', emoji: '🤍', desc: '輝水鉛鉱を焙焼して得られる白い粉末。モリブデンの原料。', category: 'chemical' },
     'molybdenum_dioxide': { id: 'molybdenum_dioxide', name: '二酸化モリブデン', emoji: '🟤', desc: '三酸化モリブデンを水素還元して得られる茶褐色の粉末。', category: 'chemical' },
     'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural' },
@@ -442,6 +444,8 @@ const ELEMENTS = {
     'iodine': { id: 'iodine', name: 'ヨウ素', emoji: '🟣', desc: '海藻灰から抽出される紫黒色の結晶。消毒液の原料。', category: 'chemical' },
     'flour': { id: 'flour', name: '穀粉', emoji: '🌾', desc: '穀物を挽いて粉にしたもの。パンの原料。', category: 'material' },
     'bread': { id: 'bread', name: 'パン', emoji: '🍞', desc: '粉を練って焼いた食品。放置するとカビる。', category: 'chemical' },
+    'yeast': { id: 'yeast', name: '酵母', emoji: '🍄', desc: '糖分を分解してアルコールと二酸化炭素を作る微生物。', category: 'life' },
+    'dough': { id: 'dough', name: 'パン生地', emoji: '🥟', desc: '小麦粉と水と酵母を混ぜた生地。膨らんでいる。', category: 'mixture' },
     'moldy_bread': { id: 'moldy_bread', name: 'カビたパン', emoji: '🤢', desc: '青カビが生えてしまったパン。', category: 'natural' },
     'blue_mold': { id: 'blue_mold', name: '青カビ', emoji: '🦠', desc: 'パンや果物に生えるカビ。ペニシリンを作る。', category: 'natural' },
     'agar': { id: 'agar', name: '寒天', emoji: '🍮', desc: '海藻を煮て固めたもの。微生物の培養基になる。', category: 'material' },
@@ -484,6 +488,7 @@ const ELEMENTS = {
     'hydraulic_jack': { id: 'hydraulic_jack', name: '油圧ジャッキ', emoji: '🏗️', desc: '油の圧力で重いものを持ち上げる装置。', category: 'tool' },
     'hydraulic_pump': { id: 'hydraulic_pump', name: '油圧ポンプ', emoji: '⛽', desc: '高圧の油を送り出す強力なポンプ。', category: 'tool' },
     'press_machine': { id: 'press_machine', name: 'プレス機', emoji: '🗜️', desc: '数トンの圧力をかけて物質を変形させる装置。', category: 'tool' },
+    'electric_furnace': { id: 'electric_furnace', name: '電気炉', emoji: '⚡', desc: '電気抵抗熱で金属を溶かす炉。アーク炉や誘導炉などがある。', category: 'machine' },
 
     // Acetylene
     'calcium_carbide': { id: 'calcium_carbide', name: 'カルシウムカーバイド', emoji: '🌑', desc: '生石灰とコークスを高温で反応させたもの。水と激しく反応する。', category: 'chemical' },
@@ -638,7 +643,38 @@ const ELEMENTS = {
 
     'uranium_ore': { id: 'uranium_ore', name: 'ウラン鉱石', emoji: '☢️', desc: '放射性物質を含む鉱石。原子力の燃料になる。', category: 'natural' },
     'nuclear_fuel': { id: 'nuclear_fuel', name: '核燃料', emoji: '☢️', desc: 'ウランを濃縮・加工した燃料。莫大なエネルギーを秘めている。', category: 'chemical' },
+    'uranium_hexafluoride': { id: 'uranium_hexafluoride', name: '六フッ化ウラン', emoji: '💨', desc: 'ウランをフッ素化してガス状にしたもの。遠心分離機で濃縮できる。', category: 'chemical' },
+    'centrifuge': { id: 'centrifuge', name: '遠心分離機', emoji: '🌪️', desc: '高速回転によって物質を比重ごとに分離する装置。', category: 'machine' },
     'nuclear_power_plant': { id: 'nuclear_power_plant', name: '原子力発電所', emoji: '🏭', desc: '核分裂の熱エネルギーを利用して巨大な電力を生み出す施設。', category: 'tool' },
+
+    // Fusion Power
+    'deuterium': { id: 'deuterium', name: '重水素', emoji: '💧', desc: '海水中から取り出せる、中性子を1つ持つ水素の同位体。未来の燃料。', category: 'chemical' },
+    'tritium': { id: 'tritium', name: 'トリチウム', emoji: '☢️', desc: 'リチウムに中性子を当てて作る、中性子を2つ持つ超重水素。', category: 'chemical' },
+    'superconducting_coil': { id: 'superconducting_coil', name: '超伝導コイル', emoji: '🌀', desc: '電気抵抗ゼロで強力な磁場を作るコイル。プラズマを閉じ込める檻。', category: 'part' },
+    'tokamak': { id: 'tokamak', name: '核融合炉', emoji: '🍩', desc: '地上の太陽。超高温のプラズマを磁場で閉じ込め、融合エネルギーを取り出す装置。', category: 'machine' },
+    'fusion_energy': { id: 'fusion_energy', name: '核融合エネルギー', emoji: '🌟', desc: '星の輝きの源。無限かつクリーンな究極のエネルギー。', category: 'phenomenon' },
+
+    // Genome Editing
+    'dna': { id: 'dna', name: 'DNA', emoji: '🧬', desc: '生命の設計図。A, T, G, Cの4文字で書かれている。', category: 'life' },
+    'rna': { id: 'rna', name: 'RNA', emoji: '🧬', desc: 'DNAの情報をコピーしてタンパク質を作る仲介役。', category: 'life' },
+    'cas9': { id: 'cas9', name: 'Cas9タンパク質', emoji: '✂️', desc: 'DNAの特定の場所を切断する酵素。「遺伝子のハサミ」。', category: 'chemical' },
+    'guide_rna': { id: 'guide_rna', name: 'ガイドRNA', emoji: '📍', desc: '切断したいDNAの場所までCas9を誘導する案内役。', category: 'chemical' },
+    'genome_editing_kit': { id: 'genome_editing_kit', name: 'ゲノム編集キット', emoji: '🧰', desc: 'CRISPR-Cas9技術を使って、生物の遺伝子を自在に書き換えるセット。', category: 'tool' },
+    'gmo_crop': { id: 'gmo_crop', name: '品種改良作物', emoji: '🌽', desc: 'ゲノム編集により、病気に強く栄養価を高めたスーパー作物。', category: 'life' },
+
+    // Quantum Computing
+    'qubit': { id: 'qubit', name: '量子ビット', emoji: '🐈', desc: '0と1の状態を同時に持つ不思議なビット。重ね合わせを利用する。', category: 'part' },
+    'dilution_refrigerator': { id: 'dilution_refrigerator', name: '希釈冷凍機', emoji: '❄️', desc: '絶対零度（-273.15℃）近くまで冷やす装置。量子の世界を安定させる。', category: 'machine' },
+    'superconducting_chip': { id: 'superconducting_chip', name: '超伝導チップ', emoji: '💾', desc: 'ジョセフソン接合を利用した、量子計算のための心臓部。', category: 'part' },
+    'quantum_computer': { id: 'quantum_computer', name: '量子コンピュータ', emoji: '💻', desc: '従来のスパコンで何万年もかかる計算を、一瞬で解く夢のマシン。', category: 'machine' },
+
+    // Blockchain
+    'gpu': { id: 'gpu', name: 'GPU', emoji: '🎮', desc: 'グラフィック処理装置。単純な並列計算が得意で、マイニングに使われる。', category: 'part' },
+    'mining_rig': { id: 'mining_rig', name: 'マイニングリグ', emoji: '⛏️', desc: '大量のGPUを並べて、暗号資産の計算競争を行う装置。', category: 'machine' },
+    'hash_value': { id: 'hash_value', name: 'ハッシュ値', emoji: '#️⃣', desc: 'データから生成される一意の文字列。改ざん検知に使われるデジタルの指紋。', category: 'data' },
+    'block': { id: 'block', name: 'ブロック', emoji: '🧱', desc: '取引データをハッシュ値で鎖のように繋いだ記録の塊。', category: 'data' },
+    'blockchain': { id: 'blockchain', name: 'ブロックチェーン', emoji: '🔗', desc: '分散型台帳技術。改ざん不可能で、中央管理者のいない信頼システムを作る。', category: 'concept' },
+    'cryptocurrency': { id: 'cryptocurrency', name: '暗号資産', emoji: '🪙', desc: 'ブロックチェーン技術によって価値が保証されたデジタル通貨。', category: 'data' },
 
     // Haber-Bosch Process
     'iron_catalyst': { id: 'iron_catalyst', name: '鉄触媒', emoji: '⬛', desc: '高純度の酸化鉄。ハーバー・ボッシュ法の心臓部。', category: 'chemical' },
@@ -1242,7 +1278,7 @@ const ELEMENTS = {
     'animal': { id: 'animal', name: '動物', emoji: '🐕', desc: '地球上の多様な生物たち。素材や力の源になる。', category: 'natural' },
     'biomass': { id: 'biomass', name: 'バイオマス', emoji: '🪵', desc: '生物由来の再生可能なエネルギー資源。', category: 'material' },
     'ocean': { id: 'ocean', name: '海洋', emoji: '🌊', desc: '地球の表面の大部分を覆う巨大な塩水の塊。', category: 'natural' },
-    'fossil': { id: 'fossil', name: '化石', emoji: '🦴', desc: '太古の生物が石化したもの。', category: 'natural' },
+    'fossil': { id: 'fossil', name: '化石', emoji: '🦴', desc: '太古の生物が石化したもの。大地で採れる。', category: 'natural' },
 
     // === Computer Storage & Memory ===
     'magnetic_disk': { id: 'magnetic_disk', name: '磁気ディスク', emoji: '💿', desc: '磁性体を塗布した円盤。データを磁気で記録する。', category: 'part' },
@@ -1336,7 +1372,8 @@ const RECIPES = {
     'coke+manganese_dioxide': 'manganese_monoxide', // Better reduction
     'arsenic_trioxide+charcoal+fire': ['arsenic', 'carbon_dioxide'],
     'arsenic_trioxide+coke+fire': ['arsenic', 'carbon_dioxide'],
-    'air+grape': 'wine', // Grape + Air -> Wine
+    'air+grape': 'yeast', // Wild Yeast (Natural fermentation source)
+    'grape+yeast': 'wine', // Fermentation
     'air+wine': 'vinegar', // Wine + Air -> Vinegar
     'air+urine': 'ammonia', // Decomposition
 
@@ -1388,7 +1425,8 @@ const RECIPES = {
     'sodium_hydroxide+sulfuric_acid': ['fresh_water', 'sodium_hydrogen_sulfate'], // Acid Salt Neutralization
     'calcium_hydroxide+fresh_water+plant_ash': 'potassium_hydroxide', // Potassium Hydroxide synthesis (causticization)
     'earthenware+plant_ash': 'ash_cupel', // Ash Hearth for cupellation
-    'nitric_acid+potassium_hydroxide': 'potassium_nitrate', // Neutralization
+    'earth+plant_ash+urine': 'potassium_nitrate', // Historical Niter Bed (Old method)
+    'nitric_acid+potassium_hydroxide': 'potassium_nitrate', // Neutralization (Modern method)
     'calcium_carbonate+hydrochloric_acid': ['calcium_chloride', 'carbon_dioxide'], // Acid + Carbonate
     'fire+iron+sulfur': 'iron_sulfide', // Iron + Sulfur + Fire -> Iron Sulfide
     'hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
@@ -1690,8 +1728,11 @@ const RECIPES = {
     'electricity+lead_plate+lead_plate+sulfuric_acid': 'plante_battery',
 
     // Rare Metal Recipes
-    // Ferrochrome: Chromite + Coke + Electric Furnace (Fire+Electricity) -> Ferrochrome + CO2
+    // Ferrochrome: Chromite + Coke + Electricity (Requires Electric Furnace concept)
     'chromite+coke+electricity': ['ferrochrome', 'carbon_dioxide'],
+
+    // Electric Furnace: Brick(Insulation) + Coil(Heater) + Steel(Body)
+    'brick+coil+steel': 'electric_furnace',
 
     // Ferronickel: Pentlandite + Coke + Oxygen -> Ferronickel + SO2
     'coke+oxygen+pentlandite': ['ferronickel', 'sulfur_dioxide'],
@@ -1827,8 +1868,13 @@ const RECIPES = {
     'lithium_ion_battery+soc+solar_panel+solar_panel': 'solar_power_plant',
 
     // Nuclear Chain
-    // Nuclear Fuel: Uranium Ore + Fluorite(Processing/HF) + Centrifuge(Motor/Cilinder) -> Simplified: Uranium + Acid
-    'hydrofluoric_acid+uranium_ore': 'nuclear_fuel',
+    // Nuclear Fuel: Uranium Ore + Fluorite(Processing/HF) + Centrifuge(Motor/Cilinder)
+    // 1. Chemicals: Hydrofluoric Acid + Uranium Ore -> Uranium Hexafluoride (Gas)
+    'hydrofluoric_acid+uranium_ore': 'uranium_hexafluoride',
+    // 2. Machine: Aluminum + Motor -> Centrifuge
+    'aluminum+motor': 'centrifuge',
+    // 3. Enrichment: Uranium Hexafluoride + Centrifuge -> Nuclear Fuel
+    'centrifuge+uranium_hexafluoride': 'nuclear_fuel',
     // Nuclear Plant: Nuclear Fuel + Concrete + Steam Engine(Turbine) + Lead(Shielding)
     'concrete+lead+nuclear_fuel+steam_engine': 'nuclear_power_plant',
 
@@ -1873,16 +1919,18 @@ const RECIPES = {
     'fresh_water+plant+earth': 'potato',
 
     // Foods & Products
-    // Bread: Wheat + Heat
-    'fire+wheat': 'bread',
+    // Bread: Wheat -> Flour(Stone Tool) -> Dough(Yeast+Water) -> Bread(Fire)
+    'stone_tool+wheat': 'flour',
+    'flour+fresh_water+yeast': 'dough',
+    'dough+fire': 'bread',
     // Chips: Potato + Oil + Heat. (Oil can be plant oil or simple fire for now)
     'fire+potato': 'potato_chips', // Simplified (Baked potato -> chips?)
     // Biofuel: Corn + Fermentation (Alcohol process)
     'corn+sulfuric_acid': 'biofuel', // Acid hydrolysis/fermentation simplified
 
     // Alcohol evolution
-    // Potato + Fermentation -> Vodka (Alcohol)
-    'fresh_water+potato': 'alcohol',
+    // Potato + Yeast + Water -> Alcohol (Fermentation)
+    'fresh_water+potato+yeast': 'alcohol',
 
 
     // Petroleum Refining (Atmospheric Distillation)
@@ -2242,7 +2290,57 @@ const RECIPES = {
     // Cassette Tape: Plastic + Magnetic Material (Iron Oxide)
     'iron_sulfide+plastic': 'cassette_tape', // Iron Sulfide/Oxide substitute
 
-    // Laser: Ruby + Light + Mirror? Or Diode + Lens
+    // Fusion Power Chain
+    // Deuterium: Water + Electricity + Centrifuge (Heavy water concentration) -> Simplified: Water + Electricity
+    'centrifuge+electricity+fresh_water': 'deuterium', // Isotope separation
+    // Tritium: Lithium + Neutron(Nuclear Reactor) -> Lithium + Nuclear Fuel
+    'lithium_ore+nuclear_fuel': 'tritium', // Breeding in reactor
+    // Superconducting Coil: Niobium + Titanium + Copper + Liquid Nitrogen (Cooling)
+    'copper+liquid_nitrogen+niobium+titanium': 'superconducting_coil',
+    // Tokamak: Vacuum Chamber + Superconducting Coil + Concrete (Shield)
+    'concrete+superconducting_coil+vacuum_apparatus': 'tokamak',
+    // Fusion Energy: Tokamak + Deuterium + Tritium
+    'deuterium+tokamak+tritium': 'fusion_energy',
+
+    // Genome Editing Chain
+    // DNA extraction: Animal/Plant + Alcohol + Detergent(Soap)
+    'alcohol+animal+soap': 'dna',
+    // RNA: DNA + Enzyme(Yeast?) -> DNA + Yeast
+    'dna+yeast': 'rna',
+    // Cas9: Bio-synthesis from bacteria (Yeast + Blue Mold?) -> Blue Mold + Protein?
+    // Simplified: Blue Mold + Yeast
+    'blue_mold+yeast': 'cas9',
+    // Guide RNA: RNA + Design(Computer)
+    'computer+rna': 'guide_rna',
+    // Kit: Cas9 + Guide RNA + Syringe
+    'cas9+guide_rna+syringe': 'genome_editing_kit',
+    // GMO: Kit + Corn/Potato
+    'corn+genome_editing_kit': 'gmo_crop',
+
+    // Quantum Computer Chain
+    // Dilution Refrigerator: Cooling Unit + Helium(Gas from Oil/Air?) -> Cooling Unit + Liquid Nitrogen + Vacuum Pump
+    'cooling_unit+liquid_nitrogen+vacuum_pump': 'dilution_refrigerator',
+    // Superconducting Chip: Silicon Wafer + Niobium + Lithography(Photo Resist)
+    'niobium+photo_resist+wafer': 'superconducting_chip',
+    // Qubit: Superconducting Chip + Dilution Refrigerator
+    'dilution_refrigerator+superconducting_chip': 'qubit',
+    // Quantum Computer: Qubit + Control System(Computer) + Shielding(Lead/Aluminum)
+    'aluminum+computer+qubit': 'quantum_computer',
+
+    // Blockchain Chain
+    // GPU: IC + Fan(Motor) + PCB(Circuit Board -> Plastic + Copper)
+    // Simplified: IC + Motor + Plastic
+    'ic+motor+plastic_container': 'gpu',
+    // Mining Rig: GPU + GPU + Power Supply(Electricity) + Frame(Steel)
+    'electricity+gpu+steel': 'mining_rig',
+    // Hash: Internet + Computer -> Data processing (Note: big_data+computer was conflicting with machine_learning)
+    'computer+internet': 'hash_value',
+    // Block: Hash + Hash
+    'hash_value+hash_value': 'block',
+    // Blockchain: Block + Mining Rig (Proof of Work)
+    'block+mining_rig': 'blockchain',
+    // Crypto: Blockchain + Electricity
+    'blockchain+electricity': 'cryptocurrency',
     // Simplified: Ruby + Diode
     // Ruby definition missing? Use 'aluminum_oxide' (Corundum) + 'chromium' (Trace) -> Ruby?
     // Let's assume Diode + Lens + Electricity -> Laser (Semiconductor laser)
@@ -2608,8 +2706,8 @@ const RECIPES = {
     'cyano_bacteria+liquid_water+martian_soil': 'lichen',
     // Forest: Lichen + Liquid Water + Plant
     'lichen+liquid_water+plant': 'forest',
-    // Blue Mars: Forest + Liquid Water + Mars + Oxygen
-    'forest+liquid_water+mars+oxygen': 'blue_mars',
+    // Blue Mars: Mars + Fusion Energy(Heat) + Liquid Water + Ozone(Atmosphere) + GMO Crop(Vegetation)
+    'fusion_energy+gmo_crop+liquid_water+mars+ozone': 'blue_mars',
 
     // === Military Tech Recipes ===
 
@@ -2900,6 +2998,36 @@ const RECIPES = {
     // Super Intelligence: AGI + Internet + Electricity
     'agi+electricity+internet': 'super_intelligence',
 
+    // === Shale Revolution Recipes ===
+    // 1. Tools & Materials
+    // Diamond Drill Bit: Diamond + Iron Pipe + Tungsten
+    'diamond+iron_pipe+tungsten': 'diamond_drill_bit',
+    // Fracking Fluid: Water + Sand + Soap (Surfactant wrapper)
+    'fresh_water+sand+soap': 'fracking_fluid',
+    // Horizontal Drilling Rig: Diamond Drill Bit + Iron Pipe + Motor + Computer
+    'computer+diamond_drill_bit+iron_pipe+motor': 'horizontal_drilling_rig',
+
+    // 2. Extraction
+    // Shale Oil Extraction: Shale Rock + Rig + Fluid -> Shale Oil + Natural Gas
+    // Note: Standard crafting produces 1 item. We need a special handling or just produce "Shale Oil Mixture" and distilling it.
+    // Or just "Shale Oil" which opens up Natural Gas later mechanisms?
+    // Let's make it produce 'shale_oil' and we can assume gas comes with it or separate recipe.
+    // Actually, splitting rocks? 
+    // Recipe: Shale Rock + Fracking Fluid + Horizontal Drilling Rig = Shale Oil
+    'fracking_fluid+horizontal_drilling_rig+shale_rock': 'shale_oil',
+
+    // 3. Processing
+    // Natural Gas: Shale Oil (Distilled/Separated) -> Methane + Propane etc.
+    // Let's allow Shale Oil in Refinery to make Gasoline etc.
+    // Or specific Natural Gas generation?
+    // Let's say Shale Oil -> Natural Gas + Light Oil in Distillery?
+    // For now, let's make a recipe to get Natural Gas from Shale Rock directly if extracted differently?
+    // No, let's keep it simple: Distill Shale Oil -> Natural Gas
+    'shale_oil+distillation_tower': 'natural_gas',
+
+    // Methane from Natural Gas
+    'natural_gas+distillation_tower': 'methane',
+
     // === Industrial Chemistry Tech Recipes ===
     // Level 1: Basic Industrial
     // Lead Chamber Process (Sulfuric Acid): Sulfur + Nitric Acid + Water + Lead (Chamber)
@@ -3161,6 +3289,7 @@ function init() {
     setupGathering();
     setupCraftingUI();
     updateGatherSpotDisplay(); // Initialize Area Display
+    setupMachineReordering(); // Setup Lab Reordering
 
     // Inject CSS for sort mode
     const style = document.createElement('style');
@@ -3206,6 +3335,12 @@ function init() {
     const extractBtn = document.getElementById('extract-btn');
     if (extractBtn) {
         extractBtn.addEventListener('click', performExtraction);
+    }
+
+    // Setup Electric Refining
+    const electricRefineBtn = document.getElementById('electric-refine-btn');
+    if (electricRefineBtn) {
+        electricRefineBtn.addEventListener('click', processElectricRefining);
     }
 
     // Setup Manual Sort
@@ -3303,35 +3438,11 @@ function init() {
         log("前回の続きから再開します。");
     }
 
-    // Setup debug unlock on title
-    const titleEl = document.querySelector('.sidebar h1');
-    if (titleEl) {
-        setupDebugUnlock(titleEl);
-    }
-
     updateStats();
     renderInventory();
 }
 
-function setupDebugUnlock(targetElement) {
-    let clickCount = 0;
-    // targetElement.style.cursor = 'help'; // Removed visible hint
-    targetElement.addEventListener('click', () => {
-        clickCount++;
-        if (clickCount >= 10) {
-            const password = prompt("デバッグ：パスワードを入力");
-            if (password === "H2SO4") {
-                unlockAllElements();
-                targetElement.style.color = '#4caf50';
-                showFloatText(targetElement, "全開放！");
-                log("🔧 デバッグ：全要素を解放しました。");
-            } else if (password !== null) {
-                alert("パスワードが違います。");
-            }
-            clickCount = 0;
-        }
-    });
-}
+
 
 function unlockAllElements() {
     Object.keys(ELEMENTS).forEach(id => {
@@ -3413,6 +3524,8 @@ function loadGame() {
             console.error(e);
         }
     }
+    // Always apply theme based on loaded/calculated level
+    updateCivilizationLevel(true);
     return true;
 }
 
@@ -3424,22 +3537,43 @@ function resetGameData() {
 }
 
 function exportSaveData() {
-    const data = localStorage.getItem('nature_science_save');
-    if (!data) {
-        alert("保存データが見つかりません。");
-        return;
+    // Minify Data Keys for Export
+    const minData = {
+        i: inventoryCounts,
+        d: Array.from(discovered),
+        f: Array.from(unlockedFeats),
+        c: currentCivilizationLevel,
+        m: playerMoney,
+        // o: userInventoryOrder // Optional: Include order if needed, but skipping saves space
+    };
+    if (userInventoryOrder && userInventoryOrder.length > 0) {
+        minData.o = userInventoryOrder;
     }
-    // Simple Base64 encode
+
     try {
-        const encoded = btoa(encodeURIComponent(data));
+        const json = JSON.stringify(minData);
+
+        // Better Compression: UTF-8 Bytes -> Base64
+        // (Avoids encodeURIComponent which triples size of Japanese text)
+        const encoder = new TextEncoder();
+        const data = encoder.encode(json);
+
+        let binary = '';
+        const chunkSize = 0x8000; // Safe chunk size
+        for (let i = 0; i < data.length; i += chunkSize) {
+            binary += String.fromCharCode.apply(null, data.subarray(i, i + chunkSize));
+        }
+
+        const encoded = btoa(binary);
+
         navigator.clipboard.writeText(encoded).then(() => {
-            alert("セーブコードをクリップボードにコピーしました！\nメモ帳などに貼り付けて保存してください。");
+            alert("短縮セーブコードをクリップボードにコピーしました！\n（日本語の圧縮効率が改善されました）");
         }).catch(() => {
             prompt("以下のコードをコピーしてください：", encoded);
         });
     } catch (e) {
-        alert("エクスポートに失敗しました。");
         console.error(e);
+        alert("エクスポートに失敗しました。データが大きすぎる可能性があります。");
     }
 }
 
@@ -3448,19 +3582,126 @@ function importSaveData() {
     if (!input) return;
 
     try {
-        const decoded = decodeURIComponent(atob(input));
-        // Verify JSON
-        JSON.parse(decoded);
-
-        if (confirm("本当にこのデータをロードしますか？\n現在の進行状況は失われます。")) {
-            localStorage.setItem('nature_science_save', decoded);
-            alert("ロード成功！リロードします。");
+        // --- Debug Cheat ---
+        const val = input.trim();
+        if (val.toLowerCase() === 'all') {
+            unlockAllElements();
+            alert("🔧 デバッグ: 全要素を解放しました。");
             location.reload();
+            return;
         }
+
+        const match = val.match(/^Lv(\d+)$/i);
+        if (match) {
+            const targetLevel = parseInt(match[1], 10);
+            if (!isNaN(targetLevel) && targetLevel >= 0) {
+                // (Debug Level Skip Logic omitted for brevity, but kept in spirit if needed, or just let users play normally)
+                // Re-implementing simple level jump for debug convenience
+                updateLevelDebug(targetLevel);
+                return;
+            }
+        }
+        // -------------------
+
+        let loadedData = null;
+        let decoded = "";
+
+        // Base64 Decode
+        try {
+            decoded = atob(input.trim());
+        } catch (e) {
+            alert("無効なコードです（Base64デコード失敗）。");
+            return;
+        }
+
+        // Attempt 1: New Format (UTF-8 Binary)
+        try {
+            const bytes = new Uint8Array(decoded.length);
+            for (let i = 0; i < decoded.length; i++) {
+                bytes[i] = decoded.charCodeAt(i);
+            }
+            const json = new TextDecoder().decode(bytes);
+            const data = JSON.parse(json);
+
+            // Check if it acts like minified data
+            if (data.i || data.d) {
+                loadedData = {
+                    inventory: data.i || {},
+                    discovered: new Set(data.d || []),
+                    unlockedFeats: new Set(data.f || []),
+                    civLevel: data.c || 0,
+                    money: data.m || 0,
+                    order: data.o || []
+                };
+            } else {
+                // Maybe it was raw JSON without minified keys?
+                loadedData = parseLegacyData(data);
+            }
+        } catch (e) {
+            // Attempt 2: Legacy Format (URI Encoded)
+            try {
+                const legacyJson = decodeURIComponent(decoded);
+                const data = JSON.parse(legacyJson);
+                loadedData = parseLegacyData(data);
+            } catch (e2) {
+                console.error(e, e2);
+                alert("データの読み込みに失敗しました。形式が古いか破損しています。");
+                return;
+            }
+        }
+
+        if (loadedData && confirm("データをロードしますか？")) {
+            applyLoadedData(loadedData);
+        }
+
     } catch (e) {
-        alert("無効なデータコードです。");
         console.error(e);
+        alert("予期せぬエラーが発生しました。");
     }
+}
+
+function parseLegacyData(data) {
+    return {
+        inventory: data.inventory || {},
+        discovered: new Set(data.discovered || []),
+        unlockedFeats: new Set(data.unlockedFeats || []),
+        civLevel: data.civLevel || 0,
+        money: data.money || 0,
+        order: data.order || []
+    };
+}
+
+function applyLoadedData(data) {
+    inventoryCounts = data.inventory;
+    discovered = data.discovered;
+    unlockedFeats = data.unlockedFeats;
+    currentCivilizationLevel = data.civLevel;
+    playerMoney = data.money;
+    userInventoryOrder = data.order.length > 0 ? data.order : Object.keys(inventoryCounts).sort();
+
+    updateCivilizationLevel(true);
+    if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
+
+    // Refresh UI
+    renderInventory();
+    renderShop(); // Update shop
+    alert("ロードが完了しました！");
+    saveGame(); // Save immediately to local storage
+    location.reload(); // Reload to refresh everything cleanly
+}
+
+function updateLevelDebug(targetLevel) {
+    CIVILIZATION_LEVELS.forEach(civ => {
+        if (civ.level <= targetLevel) {
+            if (civ.trigger && !discovered.has(civ.trigger)) {
+                discovered.add(civ.trigger);
+            }
+        }
+    });
+    updateCivilizationLevel();
+    alert(`🔧 デバッグ: 文明レベルを Lv.${targetLevel} に変更しました。`);
+    saveGame();
+    location.reload();
 }
 
 // === Navigation ===
@@ -3561,6 +3802,7 @@ function switchView(mode) {
     if (mode === 'field') {
         ui.fieldView.style.display = 'block';
         ui.navField.classList.add('active');
+        updateGatherSpotDisplay();
     } else if (mode === 'lab') {
         ui.labView.style.display = 'flex';
         ui.labView.style.flexDirection = 'column';
@@ -3584,6 +3826,7 @@ function switchArea(area) {
     else if (area === 'america') msg = "北米に到着しました。";
     else if (area === 'south_america') msg = "南米に到着しました。";
     else if (area === 'europe') msg = "スペインに到着しました。";
+    else if (area === 'china') msg = "中国に到着しました。歴史の深さを感じます。";
     else if (area === 'south_africa') msg = "南アフリカに到着しました。";
     else if (area === 'australia') msg = "オーストラリアに到着しました。";
     else if (area === 'moon') msg = "月面に着陸しました。";
@@ -3605,7 +3848,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.style.order = '-1'; // Ensure it is always first
+            // mapBtn.style.order = '-1'; // Ensure it is always first
             mapBtn.innerHTML = currentArea === 'japan' ? '🚢 出航' : '🗺️ 移動';
         }
     }
@@ -3615,7 +3858,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            mapBtn.style.order = '-1'; // Ensure it is always first
+            // mapBtn.style.order = '-1'; // Ensure it is always first
             mapBtn.innerHTML = '🚀 地球へ帰還';
         }
     }
@@ -3627,7 +3870,7 @@ function updateGatherSpotDisplay() {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
         });
-        // Oil check
+        // 油田は蒸気機関が発見された後に表示
         if (discovered.has('steam_engine')) {
             const oil = document.querySelector('.gather-spot[data-id="oil"]');
             if (oil) oil.style.display = 'flex';
@@ -3640,6 +3883,9 @@ function updateGatherSpotDisplay() {
         });
     } else if (currentArea === 'america') {
         const ids = ['corn_field'];
+        if (discovered.has('steam_engine')) {
+            ids.push('oil_field'); // Texas Oil appears after Steam Engine
+        }
         ids.forEach(id => {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
@@ -3692,6 +3938,12 @@ function updateGatherSpotDisplay() {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
         });
+    } else if (currentArea === 'china') {
+        const ids = ['china', 'china_mine']; // Bamboo/Tea + Mine
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
     } else if (currentArea === 'kagoshima') {
         const ids = ['water', 'sun', 'onsen', 'gold_mine']; // Hot springs and Gold mine
         ids.forEach(id => {
@@ -3712,6 +3964,7 @@ function setupMapUI() {
     const destEurope = document.getElementById('dest-europe');
     const destSouthAfrica = document.getElementById('dest-south-africa');
     const destAustralia = document.getElementById('dest-australia');
+    const destChina = document.getElementById('dest-china'); // New
     const destMoon = document.getElementById('dest-moon');
     const destMars = document.getElementById('dest-mars');
     const destOkinawa = document.getElementById('dest-okinawa');
@@ -3796,6 +4049,12 @@ function setupMapUI() {
         destEurope.addEventListener('click', () => {
             mapModal.style.display = 'none';
             switchArea('europe');
+        });
+    }
+    if (destChina) {
+        destChina.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+            switchArea('china');
         });
     }
     if (destSouthAfrica) {
@@ -3887,18 +4146,21 @@ function setupGathering() {
                 else itemId = 'water';
             } else if (spotType === 'forest') {
                 const rand = Math.random();
-                if (rand < 0.40) itemId = 'wood';
-                else if (rand < 0.60) itemId = 'plant';
-                else if (rand < 0.70) itemId = 'flower';
-                else if (rand < 0.80) itemId = 'tea_leaf'; // Tea Leaf
-                else if (rand < 0.90) itemId = 'egg'; // Bird's Egg
-                else if (rand < 0.95) itemId = 'animal';
-                else itemId = 'earth';
+                if (rand < 0.30) itemId = 'wood';
+                else if (rand < 0.50) itemId = 'plant';
+                else if (rand < 0.60) itemId = 'grape';      // ブドウ復活！
+                else if (rand < 0.65) itemId = 'flower';
+                else if (rand < 0.75) itemId = 'bamboo'; // Bamboo (Replacing Tea Leaf)
+                else if (rand < 0.80) itemId = 'egg'; // Bird's Egg
+                else if (rand < 0.85) itemId = 'lacquer'; // 漆を追加（エナメル線用）
+                else if (rand < 0.95) itemId = 'stone'; // Morimori Stone! (Probability UP!)
+                else itemId = 'animal'; // Animal is back!
             } else if (spotType === 'land') {
-                // Land: 60% Earth, 25% Clay, 15% Diatomaceous Earth
+                // Land: Earth, Clay, Diatomaceous Earth, Fossil (New!)
                 const rand = Math.random();
                 if (rand < 0.15) itemId = 'diatomaceous_earth';
-                else if (rand < 0.4) itemId = 'clay';
+                else if (rand < 0.40) itemId = 'clay';
+                else if (rand < 0.50) itemId = 'fossil'; // Added Fossil
                 else itemId = 'earth';
             } else if (spotType === 'air') {
                 // Sky: Lightning, Air
@@ -3929,7 +4191,7 @@ function setupGathering() {
                     let oreItem = 'iron_ore';
                     const rand = Math.random();
                     if (rand < 0.04) oreItem = 'bismuth_ore';
-                    else if (rand < 0.08) oreItem = 'antimony';
+                    // else if (rand < 0.08) oreItem = 'antimony'; // Removed from Japan Cave
                     else if (rand < 0.12) oreItem = 'gold_ore'; // Replaced copper_ore
                     else if (rand < 0.13) oreItem = 'palladium'; // Rare chance in cave
                     else if (rand < 0.14) oreItem = 'iridium';   // Rare chance in cave
@@ -3944,8 +4206,8 @@ function setupGathering() {
                     else if (rand < 0.70) oreItem = 'magnetite';
                     else if (rand < 0.77) oreItem = 'scheelite';
                     else if (rand < 0.85) oreItem = 'calcite';
-                    else if (rand < 0.90) oreItem = 'barite';
-                    else oreItem = 'fossil'; // Added Fossil
+                    else if (rand < 0.95) oreItem = 'barite';
+                    else oreItem = 'tungsten'; // Very rare tungsten
 
                     addItem(oreItem, 1);
                     // Slight delay for visual or just show all
@@ -3975,7 +4237,21 @@ function setupGathering() {
             } else if (spotType === 'spice_field') {
                 itemId = 'spice';
             } else if (spotType === 'corn_field') {
-                itemId = 'corn';
+                // USA: Corn, Wheat, Cotton, Shale Oil
+                const rand = Math.random();
+                if (rand < 0.45) itemId = 'corn';
+                else if (rand < 0.65) itemId = 'wheat'; // Wheat belt
+                else if (rand < 0.85) itemId = 'cotton'; // Cotton belt
+                else if (rand < 0.95) itemId = 'animal'; // Livestock
+                else itemId = 'earth';
+            } else if (spotType === 'oil_field') {
+                // Texas: Black Gold!
+                const rand = Math.random();
+                if (rand < 0.60) itemId = 'crude_oil';
+                else if (rand < 0.75) itemId = 'shale_rock'; // Shale Revolution Source
+                else if (rand < 0.85) itemId = 'earth';
+                else if (rand < 0.95) itemId = 'coal';
+                else itemId = 'stone';
             } else if (spotType === 'andes') {
                 // Andes: Potato, Copper Ore
                 const rand = Math.random();
@@ -4074,6 +4350,25 @@ function setupGathering() {
                 else if (rand < 0.55) itemId = 'gold_dust'; // Placer gold (less common in vein mines but possible nearby)
                 else if (rand < 0.80) itemId = 'stone'; // Host rock (Ryolite/Andesite)
                 else itemId = 'earth';
+            } else if (spotType === 'china') {
+                // China (Bamboo Forest): Tea, Bamboo, Plant
+                const rand = Math.random();
+                if (rand < 0.40) itemId = 'tea_leaf';
+                else if (rand < 0.70) itemId = 'bamboo';
+                else if (rand < 0.85) itemId = 'plant';
+                else itemId = 'flower';
+            } else if (spotType === 'china_mine') {
+                // China (Mine): Rare Earth Kingdom!
+                const rand = Math.random();
+                if (rand < 0.20) itemId = 'coal';
+                else if (rand < 0.35) itemId = 'scheelite'; // Tungsten
+                else if (rand < 0.50) itemId = 'antimony'; // Antimony
+                else if (rand < 0.60) itemId = 'molybdenite'; // Molybdenum
+                else if (rand < 0.70) itemId = 'monazite'; // Rare Earths
+                else if (rand < 0.80) itemId = 'clay'; // Porcelain clay
+                else if (rand < 0.88) itemId = 'fluorite';
+                else if (rand < 0.96) itemId = 'barite';
+                else itemId = 'stone';
             }
 
             // Fallback (Sun, etc.)
@@ -4345,6 +4640,11 @@ function addItem(id, amount) {
 
     debouncedSaveGame(); // Optimized save
     renderInventory();
+
+    // Tutorial Trigger
+    if (id === 'water' || id === 'fresh_water' || id === 'wood' || id === 'earth') {
+        checkTutorialTrigger('click');
+    }
 }
 
 function consumeItem(id, amount) {
@@ -4367,15 +4667,193 @@ function consumeItem(id, amount) {
 
 
 // === Crafting ===
+// === Crafting ===
+let selectedSortSlotNum = null; // For slot sorting
+
+function getSlotVar(n) {
+    if (n === 1) return slot1;
+    if (n === 2) return slot2;
+    if (n === 3) return slot3;
+    if (n === 4) return slot4;
+    if (n === 5) return slot5;
+    return null;
+}
+
+function setSlotVar(n, id) {
+    if (n === 1) slot1 = id;
+    if (n === 2) slot2 = id;
+    if (n === 3) slot3 = id;
+    if (n === 4) slot4 = id;
+    if (n === 5) slot5 = id;
+    renderSlot(n); // Ensure renderSlot is available or call setSlot logic
+}
+
+function handleSlotClick(n) {
+    if (isManualSortMode) {
+        if (selectedSortSlotNum === null) {
+            // Select first slot
+            const item = getSlotVar(n);
+            if (item) {
+                selectedSortSlotNum = n;
+                updateSlotSortVisuals();
+                log(`スロット${n}を選択中... 入れ替え先を選んでください。`);
+            }
+        } else {
+            // Swap
+            if (selectedSortSlotNum === n) {
+                // Cancel
+                selectedSortSlotNum = null;
+                updateSlotSortVisuals();
+                log("選択を解除しました。");
+            } else {
+                // Perform swap
+                const itemA = getSlotVar(selectedSortSlotNum);
+                const itemB = getSlotVar(n);
+
+                // Swap variables
+                setSlotVar(selectedSortSlotNum, itemB);
+                setSlotVar(n, itemA);
+
+                // Update UI for both
+                // The setSlotVar calls renderSlot theoretically, but let's ensure we use the explicit setter used elsewhere if needed.
+                // Looking at code, setSlot(n, id) does UI update. Let's use setSlot(n, id).
+                setSlot(selectedSortSlotNum, itemB);
+                setSlot(n, itemA);
+
+                log("素材を入れ替えました。");
+                selectedSortSlotNum = null;
+                updateSlotSortVisuals();
+            }
+        }
+    } else {
+        clearSlot(n);
+    }
+}
+
+function updateSlotSortVisuals() {
+    for (let i = 1; i <= 5; i++) {
+        const slotEl = ui[`slot${i}`];
+        if (slotEl) {
+            if (selectedSortSlotNum === i) {
+                slotEl.classList.add('selected-sort');
+                slotEl.style.border = '2px solid #ff9800';
+                slotEl.style.background = '#fff3e0';
+            } else {
+                slotEl.classList.remove('selected-sort');
+                slotEl.style.border = '1px dashed #ccc'; // Reset to default style (approx)
+                slotEl.style.background = 'var(--slot-bg)';
+            }
+        }
+    }
+}
+
 function setupCraftingUI() {
-    ui.slot1.addEventListener('click', () => clearSlot(1));
-    ui.slot2.addEventListener('click', () => clearSlot(2));
-    ui.slot3.addEventListener('click', () => clearSlot(3));
-    ui.slot4.addEventListener('click', () => clearSlot(4));
-    ui.slot5.addEventListener('click', () => clearSlot(5));
+    ui.slot1.addEventListener('click', () => handleSlotClick(1));
+    ui.slot2.addEventListener('click', () => handleSlotClick(2));
+    ui.slot3.addEventListener('click', () => handleSlotClick(3));
+    ui.slot4.addEventListener('click', () => handleSlotClick(4));
+    ui.slot5.addEventListener('click', () => handleSlotClick(5));
 
     document.getElementById('craft-btn').addEventListener('click', executeCraft);
     document.getElementById('reset-slots-btn').addEventListener('click', resetSlots);
+}
+
+// === Machine Reordering ===
+function setupMachineReordering() {
+    const labView = document.getElementById('view-lab');
+    const sections = labView.querySelectorAll('.machine-section');
+
+    // Restore order first
+    restoreMachineOrder();
+
+    sections.forEach(section => {
+        // Skip Crafting Section (Fixed at top)
+        if (section.id === 'crafting-section') return;
+
+        const title = section.querySelector('.machine-title');
+        if (!title) return;
+
+        title.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', section.id);
+            section.classList.add('dragging-section');
+            e.dataTransfer.effectAllowed = 'move';
+        });
+
+        title.addEventListener('dragend', () => {
+            section.classList.remove('dragging-section');
+            saveMachineOrder();
+        });
+
+        // Add dragover to section itself to allow dropping
+        section.addEventListener('dragover', (e) => {
+            e.preventDefault(); // Allow dropping
+            e.dataTransfer.dropEffect = 'move';
+
+            const draggingSection = labView.querySelector('.dragging-section');
+            if (!draggingSection || draggingSection === section) return;
+
+            // Determine insert position (above or below)
+            const rect = section.getBoundingClientRect();
+            const offset = e.clientY - rect.top;
+
+            // Logic: Insert relative to THIS section
+            if (offset < rect.height / 2) {
+                // Insert before this section
+                labView.insertBefore(draggingSection, section);
+            } else {
+                // Insert after this section
+                labView.insertBefore(draggingSection, section.nextSibling);
+            }
+        });
+    });
+}
+
+function saveMachineOrder() {
+    const labView = document.getElementById('view-lab');
+    const sections = labView.querySelectorAll('.machine-section');
+    // Save order excluding crafting-section (or include it, doesn't matter much if restore handles it)
+    // Let's include all for simplicity, but restore will enforce crafting at top.
+    const order = Array.from(sections).map(s => s.id).filter(id => id && id !== 'crafting-section');
+    localStorage.setItem('nature_science_lab_order', JSON.stringify(order));
+}
+
+function restoreMachineOrder() {
+    const savedOrder = localStorage.getItem('nature_science_lab_order');
+    const labView = document.getElementById('view-lab');
+    const craftingSection = document.getElementById('crafting-section');
+    const currentSections = {};
+
+    // Ensure crafting section is at the top
+    if (craftingSection) {
+        labView.prepend(craftingSection);
+    }
+
+    if (!savedOrder) return;
+
+    try {
+        const orderIds = JSON.parse(savedOrder);
+
+        // Map current sections (excluding crafting)
+        labView.querySelectorAll('.machine-section').forEach(s => {
+            if (s.id && s.id !== 'crafting-section') currentSections[s.id] = s;
+        });
+
+        // Reorder based on save
+        orderIds.forEach(id => {
+            if (currentSections[id]) {
+                labView.appendChild(currentSections[id]);
+                delete currentSections[id];
+            }
+        });
+
+        // Append remaining (newly added features not in save)
+        Object.values(currentSections).forEach(s => {
+            labView.appendChild(s);
+        });
+
+    } catch (e) {
+        console.error("Failed to restore machine order", e);
+    }
 }
 
 function putToSlot(id) {
@@ -4416,6 +4894,7 @@ function putToSlot(id) {
         clearSlot(5);
         clearResult();
     }
+    checkTutorialSlots();
 }
 
 function setSlot(num, id) {
@@ -4602,7 +5081,14 @@ function executeCraft() {
             <div class="element-name">${getItemName(mainResId)}${results.length > 1 ? ' など' : ''}</div>
         `;
         ui.result.classList.add('filled');
+        ui.result.classList.add('filled');
         ui.result.parentElement.classList.add('pop-anim');
+
+        // Fail-safe: If tutorial is stuck at 'set_slot' despite crafting, force next
+        if (tutorialActive && TUTORIAL_STEPS[currentTutorialStep] && TUTORIAL_STEPS[currentTutorialStep].id === 'set_slot') {
+            nextTutorialStep();
+        }
+        checkTutorialTrigger('craft_success');
 
         if (results.length > 1) {
             const names = results.map(r => getItemName(r)).join(' と ');
@@ -4619,7 +5105,7 @@ function executeCraft() {
 
     } else {
         log("合成失敗...何も起こりませんでした。");
-        [ui.slot1, ui.slot2, ui.slot3, ui.slot4].forEach(slot => {
+        [ui.slot1, ui.slot2, ui.slot3, ui.slot4, ui.slot5].forEach(slot => {
             slot.parentElement.classList.add('shake-anim');
             setTimeout(() => {
                 slot.parentElement.classList.remove('shake-anim');
@@ -4630,21 +5116,25 @@ function executeCraft() {
 
 // === Refining ===
 function refineOre() {
-    const FUEL_ID = 'charcoal';
     const FIRE_ID = 'fire';
     const OVEN_ID = 'earthenware';
 
-    // 1. Check for Fuel, Fire, and Oven first
-    if (!inventoryCounts[FUEL_ID] || inventoryCounts[FUEL_ID] < 1) {
-        log("燃料の[木炭]がありません。乾留所で作りましょう。");
-        return;
-    }
+    // 1. Check for Equipment first
     if (!inventoryCounts[FIRE_ID] || inventoryCounts[FIRE_ID] < 1) {
-        log("炉を熱するための[火]が必要です。");
+        log("加熱するための[火🔥]が必要です。");
         return;
     }
     if (!inventoryCounts[OVEN_ID] || inventoryCounts[OVEN_ID] < 1) {
-        log("炉として使う[土器]が必要です。");
+        log("炉として使う[土器🏺]が必要です。");
+        return;
+    }
+
+    // Check fuel availability
+    const hasCharcoal = inventoryCounts['charcoal'] && inventoryCounts['charcoal'] > 0;
+    const hasCoke = inventoryCounts['coke'] && inventoryCounts['coke'] > 0;
+
+    if (!hasCharcoal && !hasCoke) {
+        log("燃料が必要です。[コークス⬛]または[木炭⬛]を用意してください。");
         return;
     }
 
@@ -4664,7 +5154,6 @@ function refineOre() {
     const possible = [];
     candidates.forEach(c => {
         if (inventoryCounts[c.id] && inventoryCounts[c.id] > 0) {
-            // Check specific requirements
             let met = true;
             if (c.req) {
                 c.req.forEach(r => {
@@ -4682,8 +5171,51 @@ function refineOre() {
         return;
     }
 
+    // Helper to proceed to fuel selection or execution
+    const proceedToFuel = (targetOre) => {
+        if (hasCharcoal && hasCoke) {
+            // Ask for fuel choice
+            const msgP = log(`使用する燃料を選択 (${getItemName(targetOre.id)}):`);
+            const btnContainer = document.createElement('div');
+            btnContainer.className = 'choice-container';
+            btnContainer.style.display = 'flex';
+            btnContainer.style.gap = '8px';
+            btnContainer.style.padding = '8px 0';
+
+            // Charcoal Button
+            const btnChar = document.createElement('button');
+            btnChar.className = 'choice-btn';
+            btnChar.innerText = `木炭で製錬`;
+            btnChar.style.cssText = "padding:4px 12px; border-radius:15px; border:1px solid #795548; background:white; cursor:pointer;";
+            btnChar.onclick = () => {
+                executeRefining(targetOre, 'charcoal');
+                btnContainer.remove();
+                msgP.remove();
+            };
+
+            // Coke Button
+            const btnCoke = document.createElement('button');
+            btnCoke.className = 'choice-btn';
+            btnCoke.innerText = `コークスで製錬`;
+            btnCoke.style.cssText = "padding:4px 12px; border-radius:15px; border:1px solid #333; background:white; cursor:pointer;";
+            btnCoke.onclick = () => {
+                executeRefining(targetOre, 'coke');
+                btnContainer.remove();
+                msgP.remove();
+            };
+
+            btnContainer.appendChild(btnChar);
+            btnContainer.appendChild(btnCoke);
+            ui.msgLog.prepend(btnContainer);
+        } else {
+            // Only one fuel available
+            const fuelId = hasCoke ? 'coke' : 'charcoal';
+            executeRefining(targetOre, fuelId);
+        }
+    };
+
     if (possible.length === 1) {
-        executeRefining(possible[0]);
+        proceedToFuel(possible[0]);
     } else {
         const msgP = log("製錬する鉱石を選択：");
         const btnContainer = document.createElement('div');
@@ -4705,7 +5237,7 @@ function refineOre() {
             btn.innerText = getItemName(p.id);
 
             btn.onclick = () => {
-                executeRefining(p);
+                proceedToFuel(p);
                 btnContainer.remove();
                 msgP.remove();
             };
@@ -4715,16 +5247,35 @@ function refineOre() {
     }
 }
 
-function executeRefining(target) {
-    const FUEL_ID = 'charcoal';
+function executeRefining(target, fuelId) {
+    if (!fuelId) {
+        // Fallback check if not passed (though it should be)
+        if (inventoryCounts['coke'] > 0) fuelId = 'coke';
+        else if (inventoryCounts['charcoal'] > 0) fuelId = 'charcoal';
+        else {
+            log("燃料がなくなりました！");
+            return;
+        }
+    }
+
     consumeItem(target.id, 1);
-    consumeItem(FUEL_ID, 1);
+    consumeItem(fuelId, 1);
+    if (target.req) {
+        // Consume extra requirements like ash_cupel if needed? 
+        // Original code didn't consume 'ash_cupel', only checked it. 
+        // Assuming tools are reusable unless specified. 
+        // Wait, 'ash_cupel' is a consumable tool in reality (absorbs lead).
+        // But let's stick to original behavior (check only) or consume if logic implies.
+        // Original code: no consume loop for requirements.
+    }
+
     addItem(target.result, 1);
 
     const resData = ELEMENTS[target.result];
     const srcName = getItemName(target.id);
     const resName = getItemName(target.result);
-    log(`${getText('refined')} ${srcName} -> [${resName}${resData.emoji}]`);
+    const fuelName = getItemName(fuelId);
+    log(`${getText('refined')} (${fuelName}消費) ${srcName} -> [${resName}${resData.emoji}]`);
 }
 
 function distillWater() {
@@ -5029,6 +5580,130 @@ function refineCrudeOil() {
     log(msg);
 }
 
+function processElectricRefining() {
+    // Candidates for Electric Refining (Electricity cost is ignored)
+    const candidates = [];
+
+    // 1. Aluminum (Alumina + Carbon Rod)
+    if (inventoryCounts['alumina'] > 0 && inventoryCounts['carbon_rod'] > 0) {
+        candidates.push({
+            name: 'アルミニウム精錬 (アルミナ + 炭素棒)',
+            req: ['alumina', 'carbon_rod'],
+            result: 'aluminum'
+        });
+    }
+
+    // 2. Silicon (Sand + Coke)
+    if (inventoryCounts['sand'] > 0 && inventoryCounts['coke'] > 0) {
+        candidates.push({
+            name: 'シリコン精錬 (砂 + コークス)',
+            req: ['sand', 'coke'],
+            result: 'silicon'
+        });
+    }
+
+    // 3. Ferrochrome (Chromite + Coke)
+    if (inventoryCounts['chromite'] > 0 && inventoryCounts['coke'] > 0) {
+        candidates.push({
+            name: 'フェロクロム精錬 (クロム鉄鉱 + コークス)',
+            req: ['chromite', 'coke'],
+            result: 'ferrochrome'
+        });
+    }
+
+    // 4. Titanium (Titanium Sponge)
+    if (inventoryCounts['titanium_sponge'] > 0) {
+        candidates.push({
+            name: 'チタン溶解 (チタンスポンジ)',
+            req: ['titanium_sponge'],
+            result: 'titanium'
+        });
+    }
+
+    // 5. Zinc (Zinc Sulfate)
+    if (inventoryCounts['zinc_sulfate'] > 0) {
+        candidates.push({
+            name: '亜鉛電解 (硫酸亜鉛)',
+            req: ['zinc_sulfate'],
+            result: 'zinc'
+        });
+    }
+
+    // 6. Magnesium (Magnesium Chloride)
+    if (inventoryCounts['magnesium_chloride'] > 0) {
+        candidates.push({
+            name: 'マグネシウム電解 (塩化マグネシウム)',
+            req: ['magnesium_chloride'],
+            result: 'magnesium'
+        });
+    }
+
+    if (candidates.length === 0) {
+        log("電気精錬できる素材が足りません（アルミナ、砂、クロム鉄鉱など）。");
+        return;
+    }
+
+    if (candidates.length === 1) {
+        executeElectricRefining(candidates[0]);
+    } else {
+        const msgP = log("精錬するプロセスを選択：");
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'choice-container';
+        btnContainer.style.display = 'flex';
+        btnContainer.style.gap = '8px';
+        btnContainer.style.padding = '8px 0';
+        btnContainer.style.flexWrap = 'wrap';
+
+        candidates.forEach(p => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.style.padding = '4px 12px';
+            btn.style.borderRadius = '15px';
+            btn.style.border = '1px solid #fb8c00';
+            btn.style.background = 'white';
+            btn.style.cursor = 'pointer';
+            btn.style.fontSize = '0.85rem';
+            btn.innerText = p.name;
+
+            btn.onclick = () => {
+                executeElectricRefining(p);
+                btnContainer.remove();
+                msgP.remove();
+            };
+            btnContainer.appendChild(btn);
+        });
+        ui.msgLog.prepend(btnContainer);
+    }
+}
+
+function executeElectricRefining(target) {
+    // Consume materials (Electricity is free!)
+    target.req.forEach(r => consumeItem(r, 1));
+
+    // Special Output Handling for Byproducts
+    if (target.result === 'silicon') {
+        addItem('silicon', 1);
+        addItem('carbon_monoxide', 1); // Byproduct
+        log(`⚡ 精錬成功！ [シリコン💾] と [一酸化炭素☁️] を生産しました！`);
+    } else if (target.result === 'aluminum') {
+        addItem('aluminum', 1);
+        addItem('carbon_dioxide', 1); // Byproduct
+        log(`⚡ 精錬成功！ [アルミニウム✈️] と [二酸化炭素☁️] を生産しました！`);
+    } else if (target.result === 'ferrochrome') {
+        addItem('ferrochrome', 1);
+        addItem('carbon_dioxide', 1);
+        log(`⚡ 精錬成功！ [フェロクロム🛡️] と [二酸化炭素☁️] を生産しました！`);
+    } else if (target.result === 'magnesium') {
+        addItem('magnesium', 1);
+        addItem('chlorine', 1); // MgCl2 -> Mg + Cl2
+        log(`⚡ 電解成功！ [マグネシウム🔥] と [塩素🧪] を生産しました！`);
+    } else {
+        addItem(target.result, 1);
+        const d = ELEMENTS[target.result];
+        log(`⚡ 精錬成功！ [${d.name}${d.emoji}] を生産しました！`);
+    }
+}
+
 function log(msg) {
     const p = document.createElement('p');
     p.innerHTML = msg;
@@ -5087,6 +5762,19 @@ function updateStats() {
         }
     }
 
+    // Check for Electric Refinery Unlock (Hydroelectric Power)
+    if (discovered.has('hydroelectric_power')) {
+        const elecSection = document.getElementById('electric-refinery-section');
+        if (elecSection && elecSection.style.display === 'none') {
+            elecSection.style.display = 'block';
+            if (!isLoading && !unlockedFeats.has('electric_refinery_unlock')) {
+                log("【産業革命】 水力発電による無限電力で[電気精錬所]が稼働しました！");
+                unlockedFeats.add('electric_refinery_unlock');
+                saveGame();
+            }
+        }
+    }
+
     // Check for Foreign Land Unlock (Steamship)
     if (discovered.has('steamship')) {
         const foreignSpot = document.querySelector('.gather-spot[data-id="foreign"]');
@@ -5117,6 +5805,41 @@ function updateStats() {
                 saveGame();
             }
         }
+    }
+
+    updateNextGoalDisplay();
+}
+
+function updateNextGoalDisplay() {
+    const nextGoalEl = document.getElementById('next-civ-goal');
+    if (!nextGoalEl) return;
+
+    // Find next level
+    let nextLevel = null;
+    // Find the current level object first
+    const currentIdx = CIVILIZATION_LEVELS.findIndex(c => c.level === currentCivilizationLevel);
+    if (currentIdx !== -1 && currentIdx < CIVILIZATION_LEVELS.length - 1) {
+        nextLevel = CIVILIZATION_LEVELS[currentIdx + 1];
+    } else {
+        // Fallback: search by level number
+        nextLevel = CIVILIZATION_LEVELS.find(c => c.level === currentCivilizationLevel + 1);
+    }
+
+    if (nextLevel) {
+        if (nextLevel.trigger) {
+            const triggerInfo = ELEMENTS[nextLevel.trigger];
+            if (triggerInfo) {
+                const emoji = triggerInfo.emoji;
+                const name = triggerInfo.name;
+                nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明`;
+            } else {
+                nextGoalEl.innerHTML = `Lv.${nextLevel.level} 未知の技術`;
+            }
+        } else {
+            nextGoalEl.innerText = `Lv.${nextLevel.level} 新たな時代へ`;
+        }
+    } else {
+        nextGoalEl.innerText = "🏆 文明の頂点に到達";
     }
 }
 
@@ -5303,18 +6026,34 @@ function updateCivilizationLevel(silent = false) {
         }
     });
 
-    if (maxLevel > currentCivilizationLevel) {
-        currentCivilizationLevel = maxLevel;
-        if (!silent && !isLoading) {
-            const civData = CIVILIZATION_LEVELS.find(c => c.level === maxLevel);
-            log(`🎉 **文明レベルアップ！** [Lv.${maxLevel} ${civData.name}] に到達しました！`);
-            log(`📜 ${civData.desc}`);
+    if (maxLevel > currentCivilizationLevel || !document.body.classList.contains('theme-ancient') && maxLevel >= 0) { // Initial application or update
+        // Theme Update Logic
+        document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
 
-            // Notification effect
-            const btn = document.getElementById('nav-book');
-            if (btn) {
-                btn.style.animation = 'pulse 1s infinite';
-                setTimeout(() => btn.style.animation = '', 5000);
+        let newTheme = 'theme-ancient';
+        if (maxLevel >= 17) newTheme = 'theme-future';
+        else if (maxLevel >= 15) newTheme = 'theme-digital'; // New: Digital Era (Electronics)
+        else if (maxLevel >= 12) newTheme = 'theme-modern';
+        else if (maxLevel >= 8) newTheme = 'theme-industrial';
+        else if (maxLevel >= 6) newTheme = 'theme-medieval'; // New: Middle Ages
+        else if (maxLevel >= 4) newTheme = 'theme-classical';
+        else if (maxLevel >= 2) newTheme = 'theme-iceage';   // New: Ice Age survival
+
+        document.body.classList.add(newTheme);
+
+        if (maxLevel > currentCivilizationLevel) {
+            currentCivilizationLevel = maxLevel;
+            if (!silent && !isLoading) {
+                const civData = CIVILIZATION_LEVELS.find(c => c.level === maxLevel);
+                log(`🎉 **文明レベルアップ！** [Lv.${maxLevel} ${civData.name}] に到達しました！`);
+                log(`📜 ${civData.desc}`);
+
+                // Notification effect
+                const btn = document.getElementById('nav-book');
+                if (btn) {
+                    btn.style.animation = 'pulse 1s infinite';
+                    setTimeout(() => btn.style.animation = '', 5000);
+                }
             }
         }
     }
@@ -5708,7 +6447,7 @@ function showElementDetail(id) {
         'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
-        'titanium_sponge', 'flower', 'animal'
+        'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg'
     ];
 
     const locationMap = {
@@ -5736,13 +6475,15 @@ function showElementDetail(id) {
         'lithium_ore': 'オーストラリア（赤い砂漠）',
         'uranium_ore': 'オーストラリア（赤い砂漠）',
         'seaweed': 'フィールド（海）',
-        'fish': 'フィールド（海）',
+
         'mercury': 'フィールド（洞窟）',
         'copper_ore': '南米（アンデス山脈）',
         'titanium_sponge': '月面（クレーター）',
         'flower': 'フィールド（森）',
         'flower': 'フィールド（森）',
-        'animal': 'フィールド（森）'
+        'animal': 'フィールド（森）',
+        'tea_leaf': 'フィールド（森）',
+        'egg': 'フィールド（森）'
     };
 
     if (gatherables.includes(id)) {
@@ -5784,6 +6525,10 @@ function showElementDetail(id) {
     // 5. Oil Refinery
     else if (['lp_gas', 'gasoline', 'naphtha', 'kerosene', 'asphalt'].includes(id)) {
         recipeHtml += `<p>入手方法：製油所で「原油」を精製する</p>`;
+    }
+    // Cowrie (Shop Currency Unlock)
+    else if (id === 'cowrie') {
+        recipeHtml += `<p>採取可能：フィールドで探そう</p>`;
     }
     // 5. Extraction Facility?
     else if (['benzene', 'phenoxide', 'crude_naphthalene', 'naphthalene'].includes(id)) {
@@ -6033,4 +6778,308 @@ if (btnToggleDark) {
     btnToggleDark.addEventListener('click', () => toggleDarkMode());
 }
 
+// === Tutorial System ===
+const TUTORIAL_STEPS = [
+    {
+        id: 'intro',
+        text: '<h3>ようこそ！</h3><p>自然と科学の世界へようこそ。<br>この世界にはたくさんの素材が隠されています。<br>まずは<b>「海」</b>ボタンをクリックして、海水を採取してみましょう！</p>',
+        target: '.water-spot', // Changed to class selector from index.html
+        trigger: 'click'
+    },
+    {
+        id: 'check_inventory',
+        text: '<h3>素材を入手しました！</h3><p>採取した素材は画面下の<b>インベントリ</b>に保存されます。<br>ここからいつでも素材を使うことができます。</p>',
+        target: '#inventory',
+        trigger: 'next_btn' // User clicks "Next" or specific action handled manually
+    },
+    {
+        id: 'go_to_lab',
+        text: '<h3>合成ラボへ移動</h3><p>次は集めた素材を組み合わせて、新しい物質を作り出しましょう。<br>画面上の<b>「⚗️ 合成ラボ」</b>タブをクリックしてください。</p>',
+        target: '#nav-lab', // Corrected ID
+        trigger: 'tab_switch_lab'
+    },
+    {
+        id: 'set_slot',
+        text: '<h3>素材をセット研究</h3><p>インベントリの素材をクリックすると、<b>合成スロット</b>にセットされます。<br>まずは適当な素材を2つセットしてみましょう。</p>',
+        target: '.machine-container',
+        trigger: 'slots_filled'
+    },
+    {
+        id: 'craft',
+        text: '<h3>実験開始！</h3><p>スロットに素材がセットされました。<br><b>「合成する！」</b>ボタンを押して、化学反応を起こしましょう！</p>',
+        target: '#craft-btn',
+        trigger: 'craft_success' // Changed to explicit trigger
+    },
+    {
+        id: 'success',
+        text: '<h3>大発見！</h3><p>おめでとうございます！新しいアイテムを作り出しました。<br>このように、様々な組み合わせを試して文明を発展させていきましょう。<br>発見したアイテムは<b>「図鑑」</b>で確認できます。</p>',
+        target: '#nav-book', // Corrected ID
+        trigger: 'finish'
+    }
+];
+
+let currentTutorialStep = -1;
+let tutorialActive = true;
+
+function initTutorial() {
+    // Load state
+    const savedStep = localStorage.getItem('nature_science_tutorial_step');
+    if (savedStep !== null) {
+        currentTutorialStep = parseInt(savedStep, 10);
+    } else {
+        currentTutorialStep = 0; // Start from beginning for new players
+    }
+
+    // Skip if tutorial is already finished
+    if (currentTutorialStep >= TUTORIAL_STEPS.length) {
+        tutorialActive = false;
+        return;
+    }
+
+    // Create Tutorial Elements if not exist
+    if (!document.getElementById('tutorial-box')) {
+        createTutorialUI();
+    }
+
+    // Attach Navigation Listeners for Tutorial
+    const labBtn = document.getElementById('nav-lab');
+    if (labBtn) {
+        labBtn.addEventListener('click', () => checkTutorialTrigger('tab_switch_lab'));
+    }
+
+    // Also attach to craft button just in case
+    const craftBtn = document.getElementById('craft-btn'); // Assuming ID
+    if (craftBtn) {
+        // Already handled in executeCraft but good for redundancy or highlight cleanups
+    }
+
+    // Show current step after a short delay to ensure UI is ready
+    setTimeout(() => {
+        showTutorialStep(currentTutorialStep);
+    }, 1000);
+}
+
+function createTutorialUI() {
+    const overlay = document.createElement('div');
+    overlay.className = 'tutorial-overlay';
+    overlay.id = 'tutorial-overlay';
+    document.body.appendChild(overlay);
+
+    const box = document.createElement('div');
+    box.className = 'tutorial-box';
+    box.id = 'tutorial-box';
+    box.innerHTML = `
+        <div id="tutorial-content"></div>
+        <div class="tutorial-controls">
+            <button class="tutorial-btn tutorial-btn-skip" onclick="skipTutorial()">スキップ</button>
+            <button class="tutorial-btn tutorial-btn-next" id="tutorial-next-btn" onclick="nextTutorialStep()">次へ</button>
+        </div>
+    `;
+    document.body.appendChild(box);
+
+    setupTutorialDrag(box);
+}
+
+// Tutorial Drag Logic
+let isDraggingTutorial = false;
+let tutorialDragOffset = { x: 0, y: 0 };
+
+function setupTutorialDrag(box) {
+    const startDrag = (e) => {
+        // Drag handle is the header (h3)
+        // Check if target is h3 or inside h3
+        let target = e.target;
+        let isHeader = false;
+        while (target && target !== box) {
+            if (target.tagName.toLowerCase() === 'h3') {
+                isHeader = true;
+                break;
+            }
+            target = target.parentElement;
+        }
+
+        if (!isHeader) return;
+
+        isDraggingTutorial = true;
+
+        // Get pointer position
+        const clientX = e.clientX || e.touches[0].clientX;
+        const clientY = e.clientY || e.touches[0].clientY;
+
+        // Get box position
+        const rect = box.getBoundingClientRect();
+        tutorialDragOffset.x = clientX - rect.left;
+        tutorialDragOffset.y = clientY - rect.top;
+
+        // Reset transform to allow absolute positioning via top/left
+        box.style.transform = 'none';
+        box.style.bottom = 'auto'; // Clear bottom positioning
+        box.style.left = rect.left + 'px';
+        box.style.top = rect.top + 'px';
+
+        e.preventDefault(); // Prevent text selection
+    };
+
+    const doDrag = (e) => {
+        if (!isDraggingTutorial) return;
+
+        const clientX = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+        const clientY = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+
+        const box = document.getElementById('tutorial-box');
+        if (box) {
+            box.style.left = (clientX - tutorialDragOffset.x) + 'px';
+            box.style.top = (clientY - tutorialDragOffset.y) + 'px';
+        }
+    };
+
+    const endDrag = () => {
+        isDraggingTutorial = false;
+    };
+
+    // Mouse Events
+    box.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', doDrag);
+    document.addEventListener('mouseup', endDrag);
+
+    // Touch Events
+    box.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', doDrag, { passive: false });
+    document.addEventListener('touchend', endDrag);
+}
+
+function showTutorialStep(stepIndex) {
+    if (!tutorialActive || stepIndex >= TUTORIAL_STEPS.length) return;
+
+    const step = TUTORIAL_STEPS[stepIndex];
+    if (!step) return;
+
+    const box = document.getElementById('tutorial-box');
+    const content = document.getElementById('tutorial-content');
+    const nextBtn = document.getElementById('tutorial-next-btn');
+
+    // Update text
+    content.innerHTML = step.text;
+
+    // Show navigation button only if trigger is manual
+    nextBtn.style.display = step.trigger === 'next_btn' || step.trigger === 'finish' ? 'block' : 'none';
+    if (step.trigger === 'finish') nextBtn.innerText = '完了';
+    else nextBtn.innerText = '次へ';
+
+    // Highlight target
+    removeHighlights();
+    let targetEl = null;
+    if (step.target) {
+        targetEl = document.querySelector(step.target);
+    }
+
+    if (targetEl) {
+        targetEl.classList.add('tutorial-highlight');
+        // Scroll into view if needed
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    box.style.display = 'flex';
+}
+
+function nextTutorialStep() {
+    removeHighlights();
+    currentTutorialStep++;
+    localStorage.setItem('nature_science_tutorial_step', currentTutorialStep);
+
+    if (currentTutorialStep >= TUTORIAL_STEPS.length) {
+        endTutorial();
+    } else {
+        showTutorialStep(currentTutorialStep);
+    }
+}
+
+function checkTutorialTrigger(triggerName) {
+    if (!tutorialActive) return;
+    const step = TUTORIAL_STEPS[currentTutorialStep];
+    if (step && step.trigger === triggerName) {
+        // Special delay for some actions to let user see result
+        if (triggerName === 'click' || triggerName === 'tab_switch_lab') {
+            setTimeout(() => nextTutorialStep(), 500);
+        } else {
+            nextTutorialStep();
+        }
+    }
+}
+
+// Special check for slot filling
+function checkTutorialSlots() {
+    if (!tutorialActive) return;
+    if (TUTORIAL_STEPS[currentTutorialStep].id === 'set_slot') {
+        // Check if at least 2 slots are filled
+        let filledCount = 0;
+        if (document.getElementById('slot1').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot2').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot3').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot4').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot5').classList.contains('filled')) filledCount++;
+
+        if (filledCount >= 2) {
+            nextTutorialStep();
+        }
+    }
+}
+
+function skipTutorial() {
+    if (!confirm('チュートリアルを終了しますか？')) return;
+    currentTutorialStep = TUTORIAL_STEPS.length;
+    localStorage.setItem('nature_science_tutorial_step', currentTutorialStep);
+    endTutorial();
+}
+
+function endTutorial() {
+    tutorialActive = false;
+    const box = document.getElementById('tutorial-box');
+    const overlay = document.getElementById('tutorial-overlay');
+    if (box) box.style.display = 'none';
+    if (overlay) overlay.style.display = 'none';
+    removeHighlights();
+}
+
+function removeHighlights() {
+    const highlights = document.querySelectorAll('.tutorial-highlight');
+    highlights.forEach(el => el.classList.remove('tutorial-highlight'));
+}
+
+
 init();
+initTutorial();
+
+// === Debug Feature ===
+// Enter 'LvX' (e.g., Lv5) in inventory search to advance civilization
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('inventory-search');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            const match = val.match(/^Lv(\d+)$/i);
+            if (match) {
+                const targetLevel = parseInt(match[1], 10);
+                if (!isNaN(targetLevel) && targetLevel >= 0) {
+                    console.log('Debug: Setting Civ Level to', targetLevel);
+                    // Unlock triggers for all levels up to target
+                    let changed = false;
+                    CIVILIZATION_LEVELS.forEach(civ => {
+                        if (civ.level <= targetLevel) {
+                            if (civ.trigger && !discovered.has(civ.trigger)) {
+                                discovered.add(civ.trigger);
+                                changed = true;
+                            }
+                        }
+                    });
+
+                    if (changed || currentCivilizationLevel !== targetLevel) {
+                        updateCivilizationLevel();
+                        log('🔧 デバッグ: 文明レベルを Lv.' + targetLevel + ' に変更しました。');
+                        saveGame();
+                    }
+                }
+            }
+        });
+    }
+});

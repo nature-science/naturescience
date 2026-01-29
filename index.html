@@ -46,6 +46,12 @@
                 </div>
 
 
+                <div class="next-goal"
+                    style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; font-size: 0.85rem; border: 1px dashed #81c784;">
+                    <strong>🎯 次の目標:</strong>
+                    <div id="next-civ-goal" style="margin-top: 5px; color: #2e7d32; font-weight: bold;">---</div>
+                </div>
+
                 <div class="view-mode-controls" style="margin-top: 8px; font-size: 0.8rem; text-align: right;">
                     <span>表示:</span>
                     <button class="text-btn" id="btn-view-auto">Auto</button>
@@ -119,6 +125,8 @@
                         <!-- America Spots -->
                         <div class="gather-spot corn-spot" data-id="corn_field" title="トウモロコシを収穫する"
                             style="display:none; background: #fbc02d; color:black;">🌽 大農園</div>
+                        <div class="gather-spot oil-spot" data-id="oil_field" title="石油を採掘する"
+                            style="display:none; background: #3e2723; color:white;">🛢️ テキサス油田</div>
 
                         <!-- South America Spots -->
                         <div class="gather-spot andes-spot" data-id="andes" title="ジャガイモを探す"
@@ -140,13 +148,20 @@
                         <div class="gather-spot desert-spot" data-id="red_desert" title="ボーキサイトを採掘する"
                             style="display:none; background: #d32f2f; color:white;">🏜️ 赤い荒野</div>
 
+                        <!-- China Spot -->
+                        <div class="gather-spot china-spot" data-id="china" title="中国を探索する"
+                            style="display:none; background: #ffcdd2; color:#bf360c;">🐼 竹林</div>
+                        <div class="gather-spot china-mine-spot" data-id="china_mine" title="レアアースを採掘する"
+                            style="display:none; background: #5d4037; color:white; border: 1px solid #795548;">🏔️ 五台山
+                        </div>
+
                         <!-- South Africa Spots -->
                         <div class="gather-spot savannah-spot" data-id="savannah" title="レアメタルを探す"
                             style="display:none; background: #ffca28; color:black;">🦁 サバンナ</div>
 
                         <!-- Moon Spots -->
                         <div class="gather-spot crater-spot" data-id="crater" title="月面を調査する"
-                            style="display:none; background: #37474f; color:white; border: 1px solid #78909c;">🌑 クレーター
+                            style="display:none; background: #37474f; color:white; border: 1px solid #78909c;">🌕 クレーター
                         </div>
                         <div class="gather-spot mars-spot" data-id="mars_surface" title="火星を探査する"
                             style="display:none; background: #d84315; color:white; border: 1px solid #ff5722;">🪐 火星地表
@@ -159,7 +174,7 @@
             <div id="view-lab" class="view-panel" style="display: none;">
 
                 <!-- Section 1: Crafting -->
-                <div class="machine-section glass-panel">
+                <div id="crafting-section" class="machine-section glass-panel">
                     <div class="machine-title">合成ラボ</div>
 
                     <div class="slots-container">
@@ -206,20 +221,21 @@
                     </div>
                 </div>
 
-                <!-- Section 2: Smeltery -->
-                <div class="machine-section glass-panel" style="margin-top: 20px;">
-                    <div class="machine-title" style="margin-bottom: 10px;">製錬所</div>
+                <!-- Section 2: Smelter -->
+                <div id="smelter-section" class="machine-section glass-panel" style="margin-top: 20px;">
+                    <div class="machine-title" draggable="true" style="cursor: grab;">製錬所 ≡</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
-                            <p>鉱石・木炭・火・土器を使って金属を製錬する。</p>
+                            <p>鉱石・燃料(木炭/コークス)・火・土器を使って金属を製錬する。</p>
                         </div>
-                        <button id="refine-btn" class="action-btn secondary">🔥 製錬 (鉱石+木炭)</button>
+                        <button id="refine-btn" class="action-btn"
+                            style="background: #e65100; box-shadow: 0 4px 10px rgba(230, 81, 0, 0.3);">🔥 製錬する</button>
                     </div>
                 </div>
 
                 <!-- Section 3: Distillery -->
-                <div class="machine-section glass-panel" style="margin-top: 20px;">
-                    <div class="machine-title" style="margin-bottom: 10px;">蒸留所</div>
+                <div id="distillery-section" class="machine-section glass-panel" style="margin-top: 20px;">
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">蒸留所 ≡</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
                             <p>液体を土器で沸騰させて成分を分離する。</p>
@@ -232,8 +248,8 @@
                 </div>
 
                 <!-- Section 4: Carbonization Facility -->
-                <div class="machine-section glass-panel" style="margin-top: 20px;">
-                    <div class="machine-title" style="margin-bottom: 10px;">乾留所</div>
+                <div id="carbonization-section" class="machine-section glass-panel" style="margin-top: 20px;">
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">乾留所 ≡</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
                             <p>火を使って木材・石炭・薬品を蒸し焼き（乾留）にする。</p>
@@ -245,8 +261,8 @@
                 </div>
 
                 <!-- Section 5: Extraction Facility -->
-                <div class="machine-section glass-panel" style="margin-top: 20px;">
-                    <div class="machine-title" style="margin-bottom: 10px;">抽出所</div>
+                <div id="extraction-section" class="machine-section glass-panel" style="margin-top: 20px;">
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">抽出所 ≡</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
                             <p>化学反応を利用して混合物から成分を取り出す。</p>
@@ -260,7 +276,7 @@
                 <!-- Section 6: Oil Refinery (Hidden by default) -->
                 <div id="oil-refinery-section" class="machine-section glass-panel"
                     style="margin-top: 20px; display: none;">
-                    <div class="machine-title" style="margin-bottom: 10px;">製油所</div>
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">製油所 ≡</div>
                     <div class="refinery-container">
                         <div class="refinery-info">
                             <p>蒸留塔を使って原油を様々な石油製品に分離する。</p>
@@ -269,6 +285,22 @@
                         <button id="oil-refine-btn" class="action-btn"
                             style="background: #ef5350; box-shadow: 0 4px 10px rgba(239, 83, 80, 0.3);">🛢️
                             石油精製</button>
+                    </div>
+                </div>
+
+                <!-- Section 7: Electric Refinery (Hidden by default) -->
+                <div id="electric-refinery-section" class="machine-section glass-panel"
+                    style="margin-top: 20px; display: none;">
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">⚡ 電気精錬所 ≡
+                    </div>
+                    <div class="refinery-container">
+                        <div class="refinery-info">
+                            <p>水力発電による無限電力を使用し、高度な素材を一括生産する。</p>
+                            <p style="font-size: 0.8rem; color: #1976d2;">※電気消費なし</p>
+                        </div>
+                        <button id="electric-refine-btn" class="action-btn"
+                            style="background: #fb8c00; box-shadow: 0 4px 10px rgba(251, 140, 0, 0.3);">⚡
+                            電気精錬実行</button>
                     </div>
                 </div>
 
@@ -331,6 +363,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- VIEW 4: Shop -->
             <div id="view-shop" class="view-panel" style="display: none;">
@@ -445,6 +478,13 @@
                     <h3>鹿児島</h3>
                     <p style="font-size: 0.8rem; color: #555;">桜島と黄金の鉱脈</p>
                 </div>
+                <!-- China (New) -->
+                <div id="dest-china" class="map-destination"
+                    style="border: 2px solid #d32f2f; padding: 20px; border-radius: 10px; cursor: pointer; background: #ffebee;">
+                    <div style="font-size: 3rem;">🐼</div>
+                    <h3>中国</h3>
+                    <p style="font-size: 0.8rem; color: #555;">火薬と茶の歴史</p>
+                </div>
                 <!-- Foreign -->
                 <div id="dest-foreign" class="map-destination"
                     style="border: 2px solid #2196f3; padding: 20px; border-radius: 10px; cursor: pointer; background: #e3f2fd;">
@@ -496,7 +536,7 @@
                 <div class="map-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
                     <div id="dest-moon" class="map-destination"
                         style="border: 2px solid #546e7a; padding: 20px; border-radius: 10px; cursor: pointer; background: #eceff1; text-align: center;">
-                        <div style="font-size: 3rem;">🌑</div>
+                        <div style="font-size: 3rem;">🌕</div>
                         <h3>月面</h3>
                         <p style="font-size: 0.8rem; color: #555;">静寂の世界</p>
                     </div>

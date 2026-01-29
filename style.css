@@ -19,9 +19,11 @@
 body {
     font-family: 'Zen Maru Gothic', sans-serif;
     background-color: var(--bg-color);
-    background-image: url('https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?q=80&w=2544&auto=format&fit=crop');
+    /* Background image removed for Ancient/Default era as requested */
+    background-image: none;
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     color: var(--text-color);
     height: 100vh;
     overflow: hidden;
@@ -34,8 +36,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(232, 245, 233, 0.85);
+    /* Use variable for dynamic themes, fallback to original */
+    /* Drastically reduced opacity to make background pop like the user image */
+    background: var(--bg-overlay, rgba(232, 245, 233, 0.2));
     z-index: -1;
+    transition: background 0.5s ease;
+    /* Smooth transition for overlay color */
 }
 
 .app-container {
@@ -98,7 +104,26 @@ body::before {
 }
 
 .nav-btn:hover:not(.active) {
-    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+.lite-mode-container {
+    padding: 10px;
+    /* background: rgba(255,255,255,0.3); */
+    /* border-radius: 10px; */
+    margin-top: auto;
+    text-align: center;
+}
+
+.lite-mode-btn {
+    border: 1px solid #aaa;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 4px 8px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: #555;
 }
 
 .message-log {
@@ -116,6 +141,16 @@ body::before {
     border-bottom: 1px dashed #ccc;
 }
 
+/* Main Content Area */
+main {
+    grid-column: 2;
+    grid-row: 1;
+    overflow: hidden;
+    /* Internal scroll */
+    position: relative;
+    /* For absolute positioning inside if needed */
+}
+
 /* Workspace Views */
 .workspace {
     grid-column: 2;
@@ -124,9 +159,18 @@ body::before {
     overflow-y: auto;
 }
 
+/* 
+   View Switching Logic 
+   Instead of one big column, we have multiple 'view-panel' divs.
+   Only one is visible at a time.
+*/
 .view-panel {
+    height: 100%;
     width: 100%;
-    min-height: 100%;
+    overflow-y: auto;
+    /* Scrollable content */
+    display: flex;
+    flex-direction: column;
     animation: fadeIn 0.3s ease;
 }
 
@@ -298,6 +342,43 @@ body::before {
 .action-btn.secondary {
     background: var(--secondary-color);
     box-shadow: 0 4px 10px rgba(216, 67, 21, 0.3);
+}
+
+/* Shop tabs - Buy/Sell buttons */
+.action-btn.small {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.5);
+    color: #555;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.action-btn.small:hover {
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* Base Active Style (Buy button) */
+.action-btn.small.active {
+    background: #2e7d32;
+    color: white;
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
+    border: none;
+}
+
+/* Secondary Active Style (Sell button) */
+.action-btn.small.secondary.active {
+    background: #d84315;
+    color: white;
+    box-shadow: 0 4px 10px rgba(216, 67, 21, 0.4);
+    border: none;
+}
+
+/* Ensure non-active secondary buttons are also greyed out */
+.action-btn.small.secondary:not(.active) {
+    background: rgba(255, 255, 255, 0.5);
+    color: #555;
+    box-shadow: none;
 }
 
 .action-btn:active {
@@ -1123,4 +1204,430 @@ body.lite-mode.dark-mode .nav-btn {
 body.lite-mode.dark-mode .nav-btn.active {
     background: var(--accent-color) !important;
     color: #121212 !important;
+}
+
+/* Tutorial Styles */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+    pointer-events: none;
+    /* Allow clicking through to highlighted elements if needed, but usually we block */
+}
+
+/* Specific highlight for tutorial target */
+.tutorial-highlight {
+    position: relative;
+    z-index: 1000 !important;
+    background: white;
+    box-shadow: 0 0 0 4px #ff9800, 0 0 20px rgba(255, 152, 0, 0.5) !important;
+    transition: all 0.3s ease;
+    animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+    0% {
+        box-shadow: 0 0 0 2px #ff9800, 0 0 10px rgba(255, 152, 0, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px #ff9800, 0 0 20px rgba(255, 152, 0, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 0 2px #ff9800, 0 0 10px rgba(255, 152, 0, 0.5);
+    }
+}
+
+.tutorial-box {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    animation: slideUp 0.3s ease;
+    border-left: 5px solid #ff9800;
+}
+
+.tutorial-box h3 {
+    margin: 0;
+    color: #e65100;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: move;
+    /* Indicate draggable */
+    user-select: none;
+    /* Prevent text selection while dragging */
+}
+
+.tutorial-box p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+}
+
+.tutorial-controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.tutorial-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: transform 0.1s;
+}
+
+.tutorial-btn-next {
+    background: #ff9800;
+    color: white;
+}
+
+.tutorial-btn-skip {
+    background: transparent;
+    color: #999;
+    border: 1px solid #ddd;
+}
+
+.tutorial-btn:active {
+    transform: scale(0.95);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* === Civilization Themes === */
+
+/* Level 0-4: Ancient (Nature & Harmony) */
+/* Subtle earth tones and natural greens, staying close to the original feel */
+body.theme-ancient {
+    --bg-color: #f1f8e9;
+    /* Very light green-white */
+    --accent-color: #2e7d32;
+    /* Strong forest green */
+    --secondary-color: #ef6c00;
+    /* Muted orange */
+    --glass-bg: #ffffff;
+    /* Solid white */
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --text-color: #33691e;
+    --bg-overlay: rgba(255, 255, 255, 0.3);
+    /* Very subtle nature peek */
+    background-image: none !important;
+}
+
+/* Level 5-7: Classical (History & Craft) */
+/* Warm cream/beige tones, evoked by parchment/wood but minimal */
+body.theme-classical {
+    --bg-color: #fafafa;
+    /* Modern off-white */
+    --accent-color: #8d6e63;
+    /* Wood brown */
+    --secondary-color: #ffca28;
+    /* Amber/Gold */
+    --glass-bg: rgba(255, 253, 231, 0.9);
+    /* Very faint cream */
+    --glass-border: #d7ccc8;
+    --text-color: #4e342e;
+    --bg-overlay: rgba(250, 250, 250, 0.2);
+    /* Bright Greek Architecture */
+    background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2544&auto=format&fit=crop') !important;
+}
+
+body.theme-classical .glass-panel {
+    border: 1px solid #d7ccc8;
+    box-shadow: 0 4px 20px rgba(141, 110, 99, 0.1);
+    /* Softer shadow */
+}
+
+/* Level 8-11: Industrial (Structure & Steel) */
+/* Cool grays and slate blues, clean and constructed */
+body.theme-industrial {
+    --bg-color: #eceff1;
+    /* Light cool gray */
+    --accent-color: #546e7a;
+    /* Blue Grey */
+    --secondary-color: #ff7043;
+    /* Softer industrial orange */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: #b0bec5;
+    --text-color: #37474f;
+    --bg-overlay: rgba(236, 240, 241, 0.3);
+    /* Industrial Gears / Steam */
+    background-image: url('https://images.unsplash.com/photo-1565610222-5b8437320b3f?q=80&w=2544&auto=format&fit=crop') !important;
+}
+
+body.theme-industrial .glass-panel {
+    border-radius: 12px;
+    border: 1px solid #cfd8dc;
+    box-shadow: 0 4px 15px rgba(55, 71, 79, 0.1);
+}
+
+/* Level 2-3: Ice Age (Survival) */
+body.theme-iceage {
+    --bg-color: #e3f2fd;
+    --accent-color: #0277bd;
+    --secondary-color: #00bcd4;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: #b3e5fc;
+    --text-color: #01579b;
+    --bg-overlay: rgba(227, 242, 253, 0.2);
+    background-image: url('https://images.unsplash.com/photo-1516466723877-e462d73008e9?q=80&w=2544&auto=format&fit=crop') !important;
+    /* Snowy mountains bright */
+}
+
+/* Level 6-7: Medieval (Craft & Commerce) */
+body.theme-medieval {
+    --bg-color: #efebe9;
+    --accent-color: #5d4037;
+    --secondary-color: #8d6e63;
+    --glass-bg: rgba(253, 245, 230, 0.95);
+    /* Old paper */
+    --glass-border: #d7ccc8;
+    --text-color: #3e2723;
+    --bg-overlay: rgba(239, 235, 233, 0.3);
+    background-image: url('https://images.unsplash.com/photo-1463130456064-28a277dc4463?q=80&w=2544&auto=format&fit=crop') !important;
+    /* Foggy majestic landscape */
+}
+
+/* Level 14-16: Digital (Information Age) */
+body.theme-digital {
+    --bg-color: #1a1a1a;
+    /* Dark background */
+    --accent-color: #00e676;
+    /* Matrix Green */
+    --secondary-color: #2979ff;
+    /* Electric Blue */
+    --glass-bg: rgba(20, 20, 20, 0.9);
+    --glass-border: #333;
+    --text-color: #e0e0e0;
+    --slot-bg: rgba(255, 255, 255, 0.1);
+    --bg-overlay: rgba(10, 10, 10, 0.4);
+    background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2544&auto=format&fit=crop') !important;
+    /* Cyberpunk City */
+}
+
+body.theme-digital .glass-panel {
+    border: 1px solid #444;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.1);
+}
+
+body.theme-digital .element-name {
+    color: #00e676;
+}
+
+body.theme-digital .machine-title {
+    color: #2979ff;
+    text-shadow: 0 0 5px rgba(41, 121, 255, 0.5);
+}
+
+/* Level 12-16: Modern (Technology & Science) */
+/* The default clean, blue-based look (Glassmorphism) */
+body.theme-modern {
+    --bg-color: #f5f9fc;
+    /* Very clean, almost white blue */
+    --accent-color: #0277bd;
+    /* Intelligent, crisp blue */
+    --secondary-color: #e57373;
+    /* Soft red accent */
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    /* High clarity */
+    --glass-border: #e1f5fe;
+    --text-color: #01579b;
+    --bg-overlay: rgba(245, 249, 252, 0.2);
+    /* Clean white lab / City */
+    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2301&auto=format&fit=crop') !important;
+}
+
+/* Level 17+: Future (Innovation & Evolution) */
+/* Dark mode base, but refined and elegant. Not neon-blasting. */
+/* Level 17+: Future (Innovation & Evolution) */
+/* Whitish sleek design, "Laboratory/Clean" feel */
+body.theme-future {
+    --bg-color: #f5fafd;
+    /* Very light cyan-white */
+    --accent-color: #00bcd4;
+    /* Cyan */
+    --secondary-color: #673ab7;
+    /* Deep Purple */
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 188, 212, 0.3);
+    --text-color: #37474f;
+    --slot-bg: rgba(0, 0, 0, 0.05);
+    --bg-overlay: rgba(255, 255, 255, 0.2);
+    /* Earth Sunrise from Space */
+    background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21cd?q=80&w=2544&auto=format&fit=crop') !important;
+}
+
+
+
+body.theme-future .glass-panel {
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--text-color);
+}
+
+body.theme-future .element-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    color: #37474f;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+body.theme-future .book-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 188, 212, 0.2);
+    color: #37474f;
+}
+
+body.theme-future .element-name,
+body.theme-future .book-card .element-name {
+    color: #0097a7;
+    font-weight: bold;
+}
+
+body.theme-future .book-card .element-desc {
+    color: #78909c;
+}
+
+body.theme-future .book-card.unlocked:hover {
+    background: #e0f7fa;
+    box-shadow: 0 5px 15px rgba(0, 188, 212, 0.2);
+    border-color: #00bcd4;
+    transform: translateY(-3px);
+}
+
+body.theme-future .book-card.locked {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.05);
+    color: #aaa;
+}
+
+body.theme-future .nav-btn.active {
+    box-shadow: 0 0 10px rgba(0, 188, 212, 0.2);
+    background: rgba(0, 188, 212, 0.1);
+    border: 1px solid rgba(0, 188, 212, 0.5);
+    color: #00838f;
+}
+
+/* Future Theme Detail Modal - Light Version */
+body.theme-future #detail-modal .modal-content {
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    color: #37474f;
+    box-shadow: 0 0 40px rgba(0, 188, 212, 0.15);
+}
+
+body.theme-future #detail-modal h2 {
+    color: #00838f;
+    text-shadow: none;
+}
+
+body.theme-future #detail-modal p {
+    color: #546e7a;
+}
+
+body.theme-future #detail-modal .modal-section h4 {
+    color: #0097a7;
+    border-bottom: 1px solid rgba(0, 188, 212, 0.2);
+}
+
+body.theme-future #detail-modal .recipe-row {
+    background: #f1f8e9;
+    /* Slight tint difference or generic light gray */
+    background: rgba(240, 250, 255, 0.8);
+    border: 1px solid rgba(0, 188, 212, 0.1);
+}
+
+body.theme-future #detail-modal .close-btn {
+    color: #00bcd4;
+}
+
+body.theme-future #detail-modal .close-btn:hover {
+    color: #00838f;
+    text-shadow: none;
+}
+
+/* Refining Buttons Only */
+body.theme-future #refine-btn,
+body.theme-future #distill-btn,
+body.theme-future #carbonize-btn,
+body.theme-future #extract-btn {
+    background: linear-gradient(135deg, #ef5350, #c62828);
+    box-shadow: 0 4px 10px rgba(198, 40, 40, 0.3);
+    border: none;
+}
+
+body.theme-future #refine-btn:hover,
+body.theme-future #distill-btn:hover,
+body.theme-future #carbonize-btn:hover,
+body.theme-future #extract-btn:hover {
+    background: linear-gradient(135deg, #e53935, #b71c1c);
+}
+
+/* Shop Buttons - Restoration for Future Theme */
+body.theme-future #tab-buy {
+    background: rgba(46, 125, 50, 0.2);
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+    font-weight: bold;
+}
+
+body.theme-future #tab-buy.active {
+    background: #2e7d32 !important;
+    color: white !important;
+}
+
+body.theme-future #tab-sell {
+    background: rgba(198, 40, 40, 0.2);
+    color: #c62828;
+    border: 1px solid #c62828;
+    font-weight: bold;
+}
+
+body.theme-future #tab-sell.active {
+    background: #c62828 !important;
+    color: white !important;
+}/* Dragging Section Style */
+.dragging-section {
+    opacity: 0.5;
+    border: 2px dashed #4caf50 !important;
+    background: #e8f5e9 !important;
+}
+
+.machine-title {
+    user-select: none;
+    /* Prevent text selection while dragging */
 }
