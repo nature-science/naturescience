@@ -86,6 +86,8 @@ const ELEMENTS = {
     'circle': { id: 'circle', name: '円', emoji: '⭕', desc: 'コンパスで描かれた完璧な曲線。', category: 'concept' },
     'calcium_oxide': { id: 'calcium_oxide', name: '酸化カルシウム', emoji: '⚪', desc: '生石灰。炭酸カルシウムを熱分解して得られる白い粉末。水と激しく反応して熱を出す。', category: 'chemical' },
     'calcium_hydroxide': { id: 'calcium_hydroxide', name: '水酸化カルシウム', emoji: '🧪', desc: '消石灰。酸化カルシウムに水を加えて作られる。石灰水の原料。', category: 'chemical' },
+    'limewater': { id: 'limewater', name: '石灰水', emoji: '🧪', desc: '水酸化カルシウムの飽和水溶液。二酸化炭素を通すと白く濁る。', category: 'chemical' },
+    'calcium_hydrogen_carbonate': { id: 'calcium_hydrogen_carbonate', name: '炭酸水素カルシウム', emoji: '🧪', desc: '炭酸カルシウムが二酸化炭素を含む水に溶けたもの。加熱すると再び沈殿する。', category: 'chemical' },
     'hand_warmer': { id: 'hand_warmer', name: 'ホッカイロ', emoji: '🔥', desc: '鉄の酸化反応を利用して熱を出す使い捨ての暖房具。', category: 'chemical' },
     'wheel': { id: 'wheel', name: '車輪', emoji: '🛞', desc: '円を木材から切り出して作った、移動や動力の伝達に不可欠な発明。', category: 'tool' },
     'water_wheel': { id: 'water_wheel', name: '水車', emoji: '🎡', desc: '流れる水の力を回転エネルギーに変える装置。', category: 'tool' },
@@ -100,6 +102,7 @@ const ELEMENTS = {
     'nitrogen_dioxide': { id: 'nitrogen_dioxide', name: '二酸化窒素', emoji: '💨', desc: '一酸化窒素がさらに酸化してできる赤褐色の気体。', category: 'chemical' },
     'nitric_acid': { id: 'nitric_acid', name: '硝酸', emoji: '🧪', desc: '二酸化窒素を水に溶かしてできる強力な酸。', category: 'chemical' },
     'potassium_nitrate': { id: 'potassium_nitrate', name: '硝酸カリウム', emoji: '🧪', desc: '水酸化カリウムと硝酸が中和してできた塩。火薬の原料。', category: 'chemical' },
+    'potassium_hydrogen_sulfate': { id: 'potassium_hydrogen_sulfate', name: '硫酸水素カリウム', emoji: '🧪', desc: '硝酸カリウムと硫酸の反応で得られる酸性塩。', category: 'chemical' },
     'black_powder': { id: 'black_powder', name: '黒色火薬', emoji: '💥', desc: '硝酸カリウム、硫黄、木炭を混ぜて作った爆発性の粉末。', category: 'chemical' },
     'copper_sulfate': { id: 'copper_sulfate', name: '硫酸銅', emoji: '💎', desc: '洞窟で採れる美しい青色の結晶。電気分解や実験に広く使われる。', category: 'natural' },
     'iron_sulfate': { id: 'iron_sulfate', name: '硫酸鉄', emoji: '🟢', desc: '淡緑色の結晶。鉄と硫酸銅の置換反応などで得られる。', category: 'chemical' },
@@ -801,6 +804,9 @@ const ELEMENTS = {
 
     // Chemical Industries
     'coke_oven': { id: 'coke_oven', name: 'コークス炉', emoji: '🏭', desc: '酸素を遮断して石炭を乾留する炉。製鉄に必須のコークスを作る。', category: 'tool' },
+    'naphtha': { id: 'naphtha', name: 'ナフサ', emoji: '🛢️', desc: '粗製ガソリン。原油やシェールオイルを蒸留して得られる。化学産業のまたとない原料。', category: 'chemical' },
+    'benzene': { id: 'benzene', name: 'ベンゼン', emoji: '⌬', desc: '六角形の構造を持つ最も単純な芳香族炭化水素。産業の米。', category: 'chemical' },
+    'cumene': { id: 'cumene', name: 'クメン', emoji: '🧪', desc: 'ベンゼンとプロピレンから作られる特有の香りの液体。フェノールとアセトンの原料。', category: 'chemical' },
     'propylene': { id: 'propylene', name: 'プロピレン', emoji: '☁️', desc: 'ナフサの熱分解で得られる気体。プラスチックの原料。', category: 'chemical' },
     'polypropylene': { id: 'polypropylene', name: 'ポリプロピレン', emoji: '📦', desc: 'PP。軽くて熱に強いプラスチック。自動車部品や容器に使われる。', category: 'material' },
     'naphthalene': { id: 'naphthalene', name: 'ナフタレン', emoji: '⌬', desc: 'コールタールから得られる昇華性の白い結晶。防虫剤の匂い。', category: 'chemical' },
@@ -850,6 +856,12 @@ const ELEMENTS = {
     'bone_meal': { id: 'bone_meal', name: '骨粉', emoji: '🦴', desc: '骨を砕いて作った粉末。肥料の原料になる。', category: 'material' },
     'superphosphate': { id: 'superphosphate', name: '過リン酸石灰', emoji: '🌫️', desc: '骨粉を硫酸で処理して作った速効性のリン酸肥料。', category: 'chemical' },
     'soap_bubbles': { id: 'soap_bubbles', name: 'シャボン玉', emoji: '🫧', desc: '石鹸とお湯を混ぜて作った、虹色に輝く儚い泡。', category: 'material' },
+    'colored_water': { id: 'colored_water', name: '色水', emoji: '🟣', desc: 'ヨウ素デンプン反応によって紫色に染まった水。', category: 'chemical' },
+    'sodium_phenoxide': { id: 'sodium_phenoxide', name: 'ナトリウムフェノキシド', emoji: '🧪', desc: 'フェノールの中和で得られる塩。', category: 'chemical' },
+    'sodium_salicylate': { id: 'sodium_salicylate', name: 'サリチル酸ナトリウム', emoji: '🧪', desc: '鎮痛作用を持つ白い粉末。サリチル酸の前駆体。', category: 'chemical' },
+    'potassium_iodide': { id: 'potassium_iodide', name: 'ヨウ化カリウム', emoji: '🧪', desc: 'ヨウ素とカリウムの塩。試薬や医薬品として重要。', category: 'chemical' },
+    'potassium_iodate': { id: 'potassium_iodate', name: 'ヨウ素酸カリウム', emoji: '⚪', desc: 'ヨウ素のオキソ酸塩。酸化剤。', category: 'chemical' },
+    'phenol': { id: 'phenol', name: 'フェノール', emoji: '🧪', desc: '特有の臭気を持つ無色の結晶。樹脂や医薬品の原料。', category: 'chemical' },
     'diethyl_ether': { id: 'diethyl_ether', name: 'ジエチルエーテル', emoji: '🧪', desc: 'エタノールを硫酸で脱水して作る揮発性の液体。強力な麻酔薬や溶剤。', category: 'chemical' },
 
     // Firearms & Military Tech
@@ -926,6 +938,7 @@ const ELEMENTS = {
     'plastic': { id: 'plastic', name: 'プラスチック', emoji: '🥤', desc: '合成樹脂の総称。自由な形に加工できる。', category: 'material' },
     'wire': { id: 'wire', name: 'ワイヤー', emoji: '〰️', desc: '金属を細く伸ばした線。', category: 'material' },
     'aluminum': { id: 'aluminum', name: 'アルミニウム', emoji: '⚪', desc: '軽くて加工しやすい金属。', category: 'material' },
+    'aluminum_oxide': { id: 'aluminum_oxide', name: '酸化アルミニウム', emoji: '⚪', desc: 'アルミナ。非常に硬く融点が高い白い粉末。サファイアやルビーの主成分。', category: 'chemical' },
     'tin': { id: 'tin', name: 'スズ', emoji: '⚪', desc: '融点が低い金属。メッキや合金に使われる。', category: 'material' },
     'zinc_sulfide': { id: 'zinc_sulfide', name: '硫化亜鉛', emoji: '✨', desc: '発光材料として使われる化合物。', category: 'chemical' },
     'photodiode': { id: 'photodiode', name: 'フォトダイオード', emoji: '🔅', desc: '光を電気に変える半導体素子。', category: 'part' },
@@ -1030,7 +1043,7 @@ const ELEMENTS = {
     'pvc_pipe': { id: 'pvc_pipe', name: '塩ビ管', emoji: '🚰', desc: 'PVCで作られたパイプ。', category: 'part' },
     'picric_acid': { id: 'picric_acid', name: 'ピクリン酸', emoji: '💥', desc: '黄色い爆薬。かつては火傷の薬にも使われた。', category: 'chemical' },
     'salicylic_acid': { id: 'salicylic_acid', name: 'サリチル酸', emoji: '🧪', desc: '柳の皮に含まれる成分。鎮痛作用がある。', category: 'chemical' },
-    'aspirin': { id: 'aspirin', name: 'アスピリン', emoji: '💊', desc: '世界で最も有名な鎮痛剤のひとつ。', category: 'chemical' },
+
     'methyl_salicylate': { id: 'methyl_salicylate', name: 'サリチル酸メチル', emoji: '🌿', desc: '湿布のような匂いのする液体。消炎鎮痛剤。', category: 'chemical' },
     'chloroform': { id: 'chloroform', name: 'クロロホルム', emoji: '🧪', desc: '甘い香りのする麻酔薬。', category: 'chemical' },
     'sodium': { id: 'sodium', name: 'ナトリウム', emoji: '⚪', desc: '水と激しく反応する金属。', category: 'material' },
@@ -1420,6 +1433,7 @@ const RECIPES = {
     'iron_sulfate+sulfurous_acid+sun': 'sulfuric_acid', // Sulfurous Acid + Sun + Iron Sulfate -> Sulfuric Acid (Catalytic)
     'air+fire+sulfur': 'sulfur_dioxide', // Updated
     'salt+sulfuric_acid': ['hydrogen_chloride', 'sodium_hydrogen_sulfate'], // Salt + Sulfuric Acid -> HCl gas
+    'calcium_hydroxide+fresh_water': 'limewater', // Calcium Hydroxide + Water -> Limewater
     'calcium_hydroxide+water': 'magnesium_hydroxide', // Seawater + Lime -> Mg(OH)2
     'hydrochloric_acid+magnesium_hydroxide': 'magnesium_chloride',
     'sodium_hydroxide+sulfuric_acid': ['fresh_water', 'sodium_hydrogen_sulfate'], // Acid Salt Neutralization
@@ -1427,6 +1441,7 @@ const RECIPES = {
     'earthenware+plant_ash': 'ash_cupel', // Ash Hearth for cupellation
     'earth+plant_ash+urine': 'potassium_nitrate', // Historical Niter Bed (Old method)
     'nitric_acid+potassium_hydroxide': 'potassium_nitrate', // Neutralization (Modern method)
+    'fire+potassium_nitrate+sulfuric_acid': ['potassium_hydrogen_sulfate', 'nitric_acid'], // Ostwald process alternative (Laboratory method)
     'calcium_carbonate+hydrochloric_acid': ['calcium_chloride', 'carbon_dioxide'], // Acid + Carbonate
     'fire+iron+sulfur': 'iron_sulfide', // Iron + Sulfur + Fire -> Iron Sulfide
     'hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
@@ -1440,7 +1455,7 @@ const RECIPES = {
     'carbon_dioxide+fresh_water+plant+sun': ['starch', 'oxygen'], // Photosynthesis (4 slots)
     'electricity+enameled_wire+glass_vessel': 'ozone',
     'iron+rod': 'iron_pipe',
-    // 'carbon_dioxide+fresh_water': 'carbonated_water', // Duplicate removed
+    'carbon_dioxide+fresh_water': 'carbonated_water', // Restored
     'carbonated_water+sodium_hydroxide': 'sodium_bicarbonate', // Reaction to bicarbonate
     'ammonia+nitric_acid': 'ammonium_nitrate',
     'ammonia+oxygen+platinum': 'nitric_acid',
@@ -1452,6 +1467,18 @@ const RECIPES = {
     'magnet+needle': 'compass',
     'fire+vinegar': 'ketene',
     'ketene+vinegar': 'acetic_anhydride',
+    'acetic_anhydride+fresh_water': 'vinegar',
+    'salicylic_acid+acetic_anhydride': ['aspirin', 'vinegar'], // Aspirin Synthesis
+    'salicylic_acid+methanol': ['methyl_salicylate', 'fresh_water'], // Methyl Salicylate Synthesis
+    // 'phenol+sodium_hydroxide+carbon_dioxide': 'salicylic_acid', // Old simplified recipe removed
+    'phenol+sodium_hydroxide': ['sodium_phenoxide', 'fresh_water'], // Neutralization
+    'carbon_dioxide+sodium_phenoxide': 'sodium_salicylate', // Kolbe-Schmitt Reaction (Step 1)
+    'sodium_salicylate+sulfuric_acid': ['salicylic_acid', 'sodium_sulfate'], // Acidification (Step 2)
+    'iodine+potassium_hydroxide': ['potassium_iodide', 'potassium_iodate', 'fresh_water'], // Disproportionation
+    'charcoal+fire+potassium_iodate': ['potassium_iodide', 'carbon_dioxide'], // Reduction with Carbon
+    'magnetite+fire+aluminum': ['iron', 'aluminum_oxide'], // Thermite Reaction
+    'iodine+starch': 'colored_water', // Iodine Starch Reaction
+    'cumene+oxygen+sulfuric_acid': ['phenol', 'acetone'], // Cumene Process (Simplified)
     'alcohol+nitric_acid': 'nital',
     'methanol+nitric_acid': 'nital',
     'circle+circle': 'sphere',
@@ -1465,6 +1492,8 @@ const RECIPES = {
     'sodium_carbonate+vanadium_slag': 'sodium_metavanadate',
     'ammonia+fresh_water': 'ammonia_water',
     'ammonia_water+tungstic_acid': 'apt',
+    'ammonia_water+fire': 'ammonia',
+    'ammonia_water+calcium_oxide': ['ammonia', 'calcium_hydroxide'],
     'apt+fire': 'tungsten_trioxide',
     'iron+wheel_hub': 'gear',
     'bismuth+fire': 'bismuth_crystal', // Melting and cooling for crystallization
@@ -1579,6 +1608,8 @@ const RECIPES = {
     'calcium_carbonate+fire': ['calcium_oxide', 'carbon_dioxide'], // Thermal Decomposition
     'calcium_oxide+fresh_water': 'calcium_hydroxide', // Slaking
     'calcium_hydroxide+carbon_dioxide': ['calcium_carbonate', 'fresh_water'], // Lime water test
+    'limewater+carbon_dioxide': ['calcium_carbonate', 'fresh_water'], // Limewater reaction
+    'calcium_carbonate+carbonated_water': 'calcium_hydrogen_carbonate', // Dissolution of limestone
     'air+fire+galena': 'lead_oxide', // Roasting
     'air+fire+sphalerite': 'zinc_oxide', // Roasting
     'iron_tool+piston+rubber': 'vacuum_pump', // Precision mechanism
@@ -1612,8 +1643,10 @@ const RECIPES = {
     'fluorite+sulfuric_acid': 'hydrogen_fluoride',
     'hydrogen_fluoride+fresh_water': 'hydrofluoric_acid',
     'hydrofluoric_acid+glass': 'etched_glass',
-    'fire+naphtha': 'ethylene',
-    // 'ethylene+ethylene': 'polyethylene', // Old simplified recipe
+    'shale_oil+distillation_tower': 'naphtha', // Distillation
+    'naphtha+fire': ['ethylene', 'propylene'], // Steam Cracking
+    'coal_tar+distillation_tower': ['benzene', 'naphthalene'],
+    'benzene+propylene': 'cumene', // Alkylation
     'polyethylene+polyethylene': 'plastic_container',
     'ethylene+hydrogen_fluoride': 'teflon',
     'iron_vessel+teflon': 'frying_pan',
@@ -2466,11 +2499,9 @@ const RECIPES = {
 
     // Advanced Chemistry Recipes
     'nitric_acid+phenol+sulfuric_acid': 'picric_acid',
-    'carbon_dioxide+phenol+sodium_hydroxide': 'salicylic_acid',
-    'acetic_anhydride+salicylic_acid': 'aspirin',
-
-    // Methyl Salicylate: Salicylic Acid + Methanol + Sulfuric Acid (Catalyst)
-    'methanol+salicylic_acid+sulfuric_acid': 'methyl_salicylate',
+    // 'carbon_dioxide+phenol+sodium_hydroxide': 'salicylic_acid', // Duplicate
+    // 'acetic_anhydride+salicylic_acid': 'aspirin', // Duplicate
+    // 'methanol+salicylic_acid+sulfuric_acid': 'methyl_salicylate', // Duplicate
     'alcohol+sodium_hypochlorite': 'chloroform',
     'acetone+sodium_hypochlorite': 'chloroform',
     'electricity+sodium_hydroxide': 'sodium',
