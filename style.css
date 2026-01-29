@@ -1620,7 +1620,9 @@ body.theme-future #tab-sell {
 body.theme-future #tab-sell.active {
     background: #c62828 !important;
     color: white !important;
-}/* Dragging Section Style */
+}
+
+/* Dragging Section Style */
 .dragging-section {
     opacity: 0.5;
     border: 2px dashed #4caf50 !important;
