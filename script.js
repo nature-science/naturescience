@@ -269,7 +269,6 @@ const ELEMENTS = {
     'ammonium_nitrate': { id: 'ammonium_nitrate', name: '硝酸アンモニウム', emoji: '🧪', desc: '硝酸とアンモニアの中和で得られる塩。肥料や爆薬、寒冷剤として使われる。', category: 'chemical' },
     'cold_pack': { id: 'cold_pack', name: '瞬間冷却パック', emoji: '❄️', desc: '硝酸アンモニウムが水に溶ける際の吸熱反応を利用した冷却パック。', category: 'tool' },
     'sodium_acetate': { id: 'sodium_acetate', name: '酢酸ナトリウム', emoji: '🧪', desc: '酢酸と水酸化ナトリウムが反応してできる塩。', category: 'chemical' },
-    'methane': { id: 'methane', name: 'メタン', emoji: '♨️', desc: '最も単純な構造の炭化水素。天然ガスの主成分で、非常に燃えやすい気体。', category: 'chemical' },
     'gas_burner': { id: 'gas_burner', name: 'ガスバーナー', emoji: '🔥', desc: 'メタンガスと空気を混合して高温の炎を出す加熱器具。ゴムチューブでガスを供給する。', category: 'tool' },
     'sundial': { id: 'sundial', name: '日時計', emoji: '🕰️', desc: '棒と日光を使って時間を計るための道具。', category: 'tool' },
     'triangle': { id: 'triangle', name: '三角形', emoji: '📐', desc: '3本の棒を組み合わせた基本の図形。', category: 'concept' },
@@ -698,13 +697,10 @@ const ELEMENTS = {
 
     'bicycle': { id: 'bicycle', name: '自転車', emoji: '🚲', desc: '自分の力で進む二輪車。環境に優しい移動手段。', category: 'tool' },
     'motorcycle': { id: 'motorcycle', name: 'オートバイ', emoji: '🏍️', desc: 'エンジンを搭載した二輪車。風を切って走る。', category: 'tool' },
-    'iron_pipe': { id: 'iron_pipe', name: '鉄パイプ', emoji: '🔧', desc: '鉄で作られた丈夫な管。自転車のフレームなどに使われる。', category: 'part' },
 
     // Communication & Broadcast
     'vacuum_tube': { id: 'vacuum_tube', name: '真空管', emoji: '💡', desc: '電気信号を増幅したり整えたりするガラスの電子部品。', category: 'part' },
-    'diode': { id: 'diode', name: 'ダイオード', emoji: '⏯️', desc: '電流を一方通行にする半導体素子。整流作用を持つ。', category: 'part' },
     'transistor': { id: 'transistor', name: 'トランジスタ', emoji: '🐜', desc: '電気信号を増幅・スイッチングする半導体素子。電子時代の主役。', category: 'part' },
-    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音声を流す装置。情報の架け橋。', category: 'tool' },
     'telephone': { id: 'telephone', name: '電話機', emoji: '☎️', desc: '遠く離れた人と声で会話できる発明。', category: 'tool' },
     'crt': { id: 'crt', name: 'ブラウン管', emoji: '📺', desc: '電子ビームで画面を光らせる装置。テレビの心臓部。', category: 'part' },
     'television': { id: 'television', name: 'テレビ', emoji: '📺', desc: '動く映像と音声を映し出す魔法の箱。', category: 'tool' },
@@ -805,7 +801,6 @@ const ELEMENTS = {
     // Chemical Industries
     'coke_oven': { id: 'coke_oven', name: 'コークス炉', emoji: '🏭', desc: '酸素を遮断して石炭を乾留する炉。製鉄に必須のコークスを作る。', category: 'tool' },
     'naphtha': { id: 'naphtha', name: 'ナフサ', emoji: '🛢️', desc: '粗製ガソリン。原油やシェールオイルを蒸留して得られる。化学産業のまたとない原料。', category: 'chemical' },
-    'benzene': { id: 'benzene', name: 'ベンゼン', emoji: '⌬', desc: '六角形の構造を持つ最も単純な芳香族炭化水素。産業の米。', category: 'chemical' },
     'cumene': { id: 'cumene', name: 'クメン', emoji: '🧪', desc: 'ベンゼンとプロピレンから作られる特有の香りの液体。フェノールとアセトンの原料。', category: 'chemical' },
     'propylene': { id: 'propylene', name: 'プロピレン', emoji: '☁️', desc: 'ナフサの熱分解で得られる気体。プラスチックの原料。', category: 'chemical' },
     'polypropylene': { id: 'polypropylene', name: 'ポリプロピレン', emoji: '📦', desc: 'PP。軽くて熱に強いプラスチック。自動車部品や容器に使われる。', category: 'material' },
@@ -861,7 +856,7 @@ const ELEMENTS = {
     'sodium_salicylate': { id: 'sodium_salicylate', name: 'サリチル酸ナトリウム', emoji: '🧪', desc: '鎮痛作用を持つ白い粉末。サリチル酸の前駆体。', category: 'chemical' },
     'potassium_iodide': { id: 'potassium_iodide', name: 'ヨウ化カリウム', emoji: '🧪', desc: 'ヨウ素とカリウムの塩。試薬や医薬品として重要。', category: 'chemical' },
     'potassium_iodate': { id: 'potassium_iodate', name: 'ヨウ素酸カリウム', emoji: '⚪', desc: 'ヨウ素のオキソ酸塩。酸化剤。', category: 'chemical' },
-    'phenol': { id: 'phenol', name: 'フェノール', emoji: '🧪', desc: '特有の臭気を持つ無色の結晶。樹脂や医薬品の原料。', category: 'chemical' },
+    'iodine_solution': { id: 'iodine_solution', name: 'ヨウ素液', emoji: '🟤', desc: 'ヨウ素とヨウ化カリウムの水溶液。デンプンと反応して紫色になる。', category: 'chemical' },
     'diethyl_ether': { id: 'diethyl_ether', name: 'ジエチルエーテル', emoji: '🧪', desc: 'エタノールを硫酸で脱水して作る揮発性の液体。強力な麻酔薬や溶剤。', category: 'chemical' },
 
     // Firearms & Military Tech
@@ -939,9 +934,6 @@ const ELEMENTS = {
     'wire': { id: 'wire', name: 'ワイヤー', emoji: '〰️', desc: '金属を細く伸ばした線。', category: 'material' },
     'aluminum': { id: 'aluminum', name: 'アルミニウム', emoji: '⚪', desc: '軽くて加工しやすい金属。', category: 'material' },
     'aluminum_oxide': { id: 'aluminum_oxide', name: '酸化アルミニウム', emoji: '⚪', desc: 'アルミナ。非常に硬く融点が高い白い粉末。サファイアやルビーの主成分。', category: 'chemical' },
-    'tin': { id: 'tin', name: 'スズ', emoji: '⚪', desc: '融点が低い金属。メッキや合金に使われる。', category: 'material' },
-    'zinc_sulfide': { id: 'zinc_sulfide', name: '硫化亜鉛', emoji: '✨', desc: '発光材料として使われる化合物。', category: 'chemical' },
-    'photodiode': { id: 'photodiode', name: 'フォトダイオード', emoji: '🔅', desc: '光を電気に変える半導体素子。', category: 'part' },
     'copper_plate': { id: 'copper_plate', name: '銅板', emoji: '🛡️', desc: '銅を薄く延ばした板。熱伝導率が高い。', category: 'material' },
     'acetaldehyde': { id: 'acetaldehyde', name: 'アセトアルデヒド', emoji: '🧪', desc: '刺激臭のある液体。酢酸などの原料になる。', category: 'chemical' },
     'gun_barrel': { id: 'gun_barrel', name: '銃身', emoji: '🔩', desc: '弾丸が通るための丈夫な筒。', category: 'part' },
@@ -999,7 +991,6 @@ const ELEMENTS = {
     'telephone': { id: 'telephone', name: '電話機', emoji: '☎️', desc: '離れた場所と声をやり取りする装置。', category: 'machine' },
     'crt': { id: 'crt', name: 'ブラウン管', emoji: '📺', desc: '電子ビームで映像を映し出す装置。', category: 'part' },
     'television': { id: 'television', name: 'テレビ', emoji: '📺', desc: '電波に乗って送られてくる映像を受信する装置。', category: 'machine' },
-    'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を聞く装置。', category: 'machine' },
     'transceiver': { id: 'transceiver', name: 'トランシーバー', emoji: '📟', desc: '無線で声を送受信できる携帯端末。', category: 'tool' },
     'radar': { id: 'radar', name: 'レーダー', emoji: '📡', desc: '電波の反射を利用して物体の位置を知る装置。', category: 'machine' },
     'microwave_oven': { id: 'microwave_oven', name: '電子レンジ', emoji: '🍳', desc: '電波で水の分子を振動させて温める調理家電。', category: 'machine' },
@@ -1042,8 +1033,6 @@ const ELEMENTS = {
     'bakelite': { id: 'bakelite', name: 'ベークライト', emoji: '🟤', desc: '世界初の合成樹脂。熱に強く絶縁性が高い。', category: 'material' },
     'pvc_pipe': { id: 'pvc_pipe', name: '塩ビ管', emoji: '🚰', desc: 'PVCで作られたパイプ。', category: 'part' },
     'picric_acid': { id: 'picric_acid', name: 'ピクリン酸', emoji: '💥', desc: '黄色い爆薬。かつては火傷の薬にも使われた。', category: 'chemical' },
-    'salicylic_acid': { id: 'salicylic_acid', name: 'サリチル酸', emoji: '🧪', desc: '柳の皮に含まれる成分。鎮痛作用がある。', category: 'chemical' },
-
     'methyl_salicylate': { id: 'methyl_salicylate', name: 'サリチル酸メチル', emoji: '🌿', desc: '湿布のような匂いのする液体。消炎鎮痛剤。', category: 'chemical' },
     'chloroform': { id: 'chloroform', name: 'クロロホルム', emoji: '🧪', desc: '甘い香りのする麻酔薬。', category: 'chemical' },
     'sodium': { id: 'sodium', name: 'ナトリウム', emoji: '⚪', desc: '水と激しく反応する金属。', category: 'material' },
@@ -1300,6 +1289,14 @@ const ELEMENTS = {
     'ram': { id: 'ram', name: 'メモリ', emoji: '🟩', desc: 'PCの作業領域。多いほど同時にたくさんの仕事ができる。', category: 'part' },
     'flash_memory': { id: 'flash_memory', name: 'フラッシュメモリ', emoji: '⬛', desc: '電源を切ってもデータが消えない半導体メモリ。', category: 'part' },
     'ssd': { id: 'ssd', name: 'SSD', emoji: '💾', desc: 'ソリッドステートドライブ。HDDより高速で衝撃に強い記憶装置。', category: 'part' },
+
+    // === Anthraquinone Process ===
+    'anthracene': { id: 'anthracene', name: 'アントラセン', emoji: '⬜', desc: 'コールタールから得られる多環芳香族炭化水素。', category: 'chemical' },
+    'palladium': { id: 'palladium', name: 'パラジウム', emoji: '⛓️', desc: '水素を吸蔵する性質を持つ白金族元素。優れた触媒になる。', category: 'chemical' },
+    'palladium_catalyst': { id: 'palladium_catalyst', name: 'パラジウム触媒', emoji: '🌑', desc: '表面積を広げた微細なパラジウム。水素化反応を促進する。', category: 'chemical' },
+    'anthraquinone': { id: 'anthraquinone', name: 'アントラキノン', emoji: '🟨', desc: 'アントラセンを酸化させた黄色い結晶。染料や触媒に使われる。', category: 'chemical' },
+    'anthrahydroquinone': { id: 'anthrahydroquinone', name: 'アントラヒドロキノン', emoji: '🟫', desc: 'アントラキノンを還元したもの。酸素に触れると過酸化水素を放出して元に戻る。', category: 'chemical' },
+    'hydrogen_peroxide': { id: 'hydrogen_peroxide', name: '過酸化水素', emoji: '💧', desc: '強力な酸化剤。消毒薬や漂白剤、ロケット燃料になる。', category: 'chemical' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1322,11 +1319,10 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'steam_cracking', name: 'スチームクラッキング', key: 'ethylene', req: 'naphtha', desc: 'ナフサを高温の水蒸気で熱分解し、プラスチック原料を作る石油化学の核。' },
     { id: 'sohio', name: 'ソハイオ法', key: 'acrylonitrile', req: 'propylene', desc: 'プロピレンとアンモニアを反応させ、アクリロニトリルを合成する。' },
     { id: 'kraft', name: 'クラフト法', key: 'pulp', req: 'sodium_hydroxide', desc: '木材チップを薬品で煮て、強靭な紙パルプを取り出す製法。' },
-    { id: 'kraft', name: 'クラフト法', key: 'pulp', req: 'sodium_hydroxide', desc: '木材チップを薬品で煮て、強靭な紙パルプを取り出す製法。' },
-    { id: 'photolithography', name: 'フォトリソグラフィ', key: 'ic', req: 'photo_resist', desc: '光を使ってシリコンウェハー上に極微細な回路パターンを転写する技術。' },
     { id: 'photolithography', name: 'フォトリソグラフィ', key: 'ic', req: 'photo_resist', desc: '光を使ってシリコンウェハー上に極微細な回路パターンを転写する技術。' },
     { id: 'sabatier', name: 'サバティエ反応', key: 'methane', req: 'sabatier_reactor', desc: '二酸化炭素と水素を反応させ、メタンと水を生成する。宇宙での燃料調達に必須の技術。' },
-    { id: 'andrussow', name: 'アンドルッソフ法', key: 'hydrogen_cyanide', req: 'platinum', desc: 'メタン、アンモニア、酸素を白金触媒で反応させ、シアン化水素を合成する。' }
+    { id: 'andrussow', name: 'アンドルッソフ法', key: 'hydrogen_cyanide', req: 'platinum', desc: 'メタン、アンモニア、酸素を白金触媒で反応させ、シアン化水素を合成する。' },
+    { id: 'anthraquinone_process', name: 'アントラキノン法', key: 'hydrogen_peroxide', req: 'anthraquinone', desc: 'アントラキノンを媒体としたサイクル反応により、水素と酸素から過酸化水素を効率的に製造する。' }
 ];
 
 const GREAT_INVENTIONS = {
@@ -1380,13 +1376,21 @@ const CIVILIZATION_LEVELS = [
 
 
 const RECIPES = {
+    // Anthraquinone Process
+    'anthracene_oil+cooling_unit': 'anthracene', // Extraction
+    'aqua_regia+platinum': 'palladium', // Palladium extraction
+    'palladium+stone_tool': 'palladium_catalyst', // Powdering
+    'anthracene+oxygen+vanadium_pentoxide': ['anthraquinone', 'vanadium_pentoxide'], // Oxidation (Catalyst returned)
+    'anthraquinone+hydrogen+palladium_catalyst': ['anthrahydroquinone', 'palladium_catalyst'], // Hydrogenation (Catalyst returned)
+    'anthrahydroquinone+oxygen': ['anthraquinone', 'hydrogen_peroxide'], // Auto-oxidation (Cycle)
+
     // 2-Element Recipes
     'charcoal+manganese_dioxide': 'manganese_monoxide', // First reduction
     'coke+manganese_dioxide': 'manganese_monoxide', // Better reduction
     'arsenic_trioxide+charcoal+fire': ['arsenic', 'carbon_dioxide'],
     'arsenic_trioxide+coke+fire': ['arsenic', 'carbon_dioxide'],
     'air+grape': 'yeast', // Wild Yeast (Natural fermentation source)
-    'grape+yeast': 'wine', // Fermentation
+    'air+grape+yeast': 'wine', // Fermentation
     'air+wine': 'vinegar', // Wine + Air -> Vinegar
     'air+urine': 'ammonia', // Decomposition
 
@@ -1431,6 +1435,7 @@ const RECIPES = {
     'compass_tool+paper': 'circle', // Compass + Paper -> Circle
     'fresh_water+sulfur_dioxide': 'sulfurous_acid', // Water + SO2 -> Sulfurous Acid
     'iron_sulfate+sulfurous_acid+sun': 'sulfuric_acid', // Sulfurous Acid + Sun + Iron Sulfate -> Sulfuric Acid (Catalytic)
+    'fuming_sulfuric_acid+fresh_water': 'sulfuric_acid', // Contact Process (Final Step)
     'air+fire+sulfur': 'sulfur_dioxide', // Updated
     'salt+sulfuric_acid': ['hydrogen_chloride', 'sodium_hydrogen_sulfate'], // Salt + Sulfuric Acid -> HCl gas
     'calcium_hydroxide+fresh_water': 'limewater', // Calcium Hydroxide + Water -> Limewater
@@ -1458,7 +1463,8 @@ const RECIPES = {
     'carbon_dioxide+fresh_water': 'carbonated_water', // Restored
     'carbonated_water+sodium_hydroxide': 'sodium_bicarbonate', // Reaction to bicarbonate
     'ammonia+nitric_acid': 'ammonium_nitrate',
-    'ammonia+oxygen+platinum': 'nitric_acid',
+    // 'ammonia+oxygen+platinum': 'nitric_acid', // RECIPE REMOVED
+    'ammonia+fire+platinum': 'nitrogen_monoxide', // Ostwald Process Step 1
     'ammonium_nitrate+fresh_water': 'cold_pack',
     'sodium_hydroxide+vinegar': 'sodium_acetate',
     'rod+sun': 'sundial',
@@ -1475,9 +1481,10 @@ const RECIPES = {
     'carbon_dioxide+sodium_phenoxide': 'sodium_salicylate', // Kolbe-Schmitt Reaction (Step 1)
     'sodium_salicylate+sulfuric_acid': ['salicylic_acid', 'sodium_sulfate'], // Acidification (Step 2)
     'iodine+potassium_hydroxide': ['potassium_iodide', 'potassium_iodate', 'fresh_water'], // Disproportionation
+    'fresh_water+iodine+potassium_iodide': 'iodine_solution', // Lugol's Iodine
     'charcoal+fire+potassium_iodate': ['potassium_iodide', 'carbon_dioxide'], // Reduction with Carbon
     'magnetite+fire+aluminum': ['iron', 'aluminum_oxide'], // Thermite Reaction
-    'iodine+starch': 'colored_water', // Iodine Starch Reaction
+    'iodine_solution+starch': 'colored_water', // Iodine Starch Reaction
     'cumene+oxygen+sulfuric_acid': ['phenol', 'acetone'], // Cumene Process (Simplified)
     'alcohol+nitric_acid': 'nital',
     'methanol+nitric_acid': 'nital',
@@ -1681,7 +1688,7 @@ const RECIPES = {
     // Recipe: `camera+photographic_film`: `exposed_film`.
     // Then `exposed_film` + `developer`: `negative`.
     // `developer` recipe needed. 
-    'phenol+sodium_hydroxide': 'developer', // Hydroquinone substitute
+    'phenol+sodium_sulfite': 'developer', // Hydroquinone-based developer (simplified)
     // 'camera+photographic_film': 'exposed_film', // Moved above
     'developer+exposed_film': 'negative', // Developing
     'negative+paper': 'photo', // Printing
@@ -3063,7 +3070,7 @@ const RECIPES = {
     // Level 1: Basic Industrial
     // Lead Chamber Process (Sulfuric Acid): Sulfur + Nitric Acid + Water + Lead (Chamber)
     // Simplified: Sulfur + Nitric Acid + Water (Classic method before Contact Process)
-    'fresh_water+nitric_acid+sulfur': 'sulfuric_acid',
+    // Recipe removed per user request: fresh_water+nitric_acid+sulfur -> sulfuric_acid
     // Leblanc Process (Soda Ash): Salt + Sulfuric Acid + Coal + Limestone (Calcium Carbonate)
     // Simplified: Salt + Sulfuric Acid + Coal + Calcium Carbonate
     'calcium_carbonate+coal+salt+sulfuric_acid': 'sodium_carbonate',
@@ -3252,9 +3259,7 @@ let isLoading = false; // Flag to suppress logs during load
 let isLiteMode = false;
 
 // Optimized Save
-const debouncedSaveGame = debounce(() => {
-    saveGame();
-}, 2000); // Auto-save every 2s of inactivity or batch updates
+// (Older definition removed to resolve conflict)
 
 // Slots
 let slot1 = null;
@@ -3512,6 +3517,11 @@ function showFloatText(element, text) {
 }
 
 // === Save/Load System ===
+// Reverted debounce due to reported bug. Back to direct save.
+function debouncedSaveGame() {
+    saveGame();
+}
+
 function saveGame() {
     const data = {
         inventory: inventoryCounts,
@@ -3563,6 +3573,7 @@ function loadGame() {
 function resetGameData() {
     if (confirm("本当にデータを削除してリスタートしますか？\n（この操作は取り消せません）")) {
         localStorage.removeItem('nature_science_save');
+        localStorage.removeItem('nature_science_tutorial_step'); // Reset tutorial
         location.reload();
     }
 }
@@ -4517,8 +4528,19 @@ function renderInventory() {
 
         const count = inventoryCounts[id];
 
+        // Infinite Check
+        let isInfinite = false;
+        // Logic: Infinite if the Industrial Process ID is discovered
+        if (id === 'nitric_acid' && discovered.has('ostwald')) isInfinite = true;
+        if (id === 'sulfuric_acid' && discovered.has('contact')) isInfinite = true;
+        if (id === 'electricity' && discovered.has('hydroelectric')) isInfinite = true;
+        if (id === 'ammonia' && discovered.has('haber_bosch')) isInfinite = true;
+        if (id === 'hydrogen_peroxide' && discovered.has('anthraquinone_process')) isInfinite = true;
+        if (id === 'methane' && discovered.has('sabatier')) isInfinite = true;
+
         const card = document.createElement('div');
-        card.className = 'element-card pop-anim';
+        card.className = 'element-card'; // Removed pop-anim for performance
+        // card.className = 'element-card pop-anim'; 
         // Remove expensive animation class after render if possible, or keep it light.
         // card.style.willChange = 'transform'; // Optimization hint
 
@@ -4535,10 +4557,15 @@ function renderInventory() {
             card.classList.add('selected-sort');
         }
 
+        let countHtml = `<div class="count-badge">x${count}</div>`;
+        if (isInfinite) {
+            countHtml = ``; // Hide count completely for infinite items
+        }
+
         card.innerHTML = `
             <div class="element-emoji">${data.emoji}</div>
             <div class="element-name">${data.name}</div>
-            <div class="count-badge">x${count}</div>
+            ${countHtml}
         `;
 
         // Optimize click handler (use event delegation on container ideally, but per-card is OK if fragments used)
@@ -4646,7 +4673,11 @@ function handleDropRobust(e) {
         userInventoryOrder.splice(targetIndex, 0, srcId);
 
         console.log('New Order:', userInventoryOrder);
-        saveGame();
+        checkDiscoveries();
+
+        // Optimize: Use debounced save instead of direct save
+        debouncedSaveGame();
+
         renderInventory();
     }
     return false;
@@ -4679,6 +4710,17 @@ function addItem(id, amount) {
 }
 
 function consumeItem(id, amount) {
+    // === Infinite Resource Check based on Industrial Processes ===
+    // Check if player has the specific Process ID unlocked (Catalyst+Product acquired)
+    if ((inventoryCounts[id] || 0) > 0) {
+        if (id === 'nitric_acid' && discovered.has('ostwald')) return true;
+        if (id === 'sulfuric_acid' && discovered.has('contact')) return true;
+        if (id === 'electricity' && discovered.has('hydroelectric')) return true;
+        if (id === 'ammonia' && discovered.has('haber_bosch')) return true;
+        if (id === 'hydrogen_peroxide' && discovered.has('anthraquinone_process')) return true;
+        if (id === 'methane' && discovered.has('sabatier')) return true;
+    }
+
     if ((inventoryCounts[id] || 0) >= amount) {
         inventoryCounts[id] -= amount;
         if (inventoryCounts[id] <= 0) {
@@ -5838,7 +5880,62 @@ function updateStats() {
         }
     }
 
+
+
     updateNextGoalDisplay();
+
+    // === Check Industrial Process Unlocks ===
+    // === Check Industrial Process Unlocks ===
+    // Unlock process based on specific conditions (Raw Material + Catalyst/Device)
+    INDUSTRIAL_PROCESSES.forEach(proc => {
+        if (!discovered.has(proc.id)) {
+            let canUnlock = false;
+
+            // Define unlocking materials for specific infinite processes
+            // Strategy: Raw Material (Input) + Catalyst/Device (Requirement)
+            if (proc.id === 'ostwald') { // Nitric Acid
+                // Check for Nitrogen Monoxide (Step 1 product) + Platinum (Catalyst)
+                if (discovered.has('nitrogen_monoxide') && discovered.has('platinum')) canUnlock = true;
+            } else if (proc.id === 'contact') { // Sulfuric Acid
+                // Requirement: Discover Sulfuric Acid via Fuming Sulfuric Acid + Water
+                if (discovered.has('fuming_sulfuric_acid') && discovered.has('fresh_water') && discovered.has('sulfuric_acid')) canUnlock = true;
+            } else if (proc.id === 'hydroelectric') { // Electricity
+                // Hydroelectric Power Element
+                if (discovered.has('hydroelectric_power')) canUnlock = true;
+            } else if (proc.id === 'haber_bosch') { // Ammonia
+                // Hydrogen + Iron Catalyst
+                if (discovered.has('hydrogen') && discovered.has('iron_catalyst')) canUnlock = true;
+            } else if (proc.id === 'anthraquinone_process') { // Hydrogen Peroxide
+                // Hydrogen + Anthraquinone
+                if (discovered.has('hydrogen') && discovered.has('anthraquinone')) canUnlock = true;
+            } else if (proc.id === 'sabatier') { // Methane
+                // Hydrogen + Sabatier Reactor
+                if (discovered.has('hydrogen') && discovered.has('sabatier_reactor')) canUnlock = true;
+            } else {
+                // Default fallback for other processes (Key Output + Requirement)
+                // If we want to keep them unlockable by just having the key item (as before)
+                if (discovered.has(proc.key) && discovered.has(proc.req)) canUnlock = true;
+            }
+
+            if (canUnlock) {
+                discovered.add(proc.id);
+                // Log special message for infinite resources
+                if (['ostwald', 'contact', 'hydroelectric', 'haber_bosch', 'anthraquinone_process', 'sabatier'].includes(proc.id)) {
+                    log(`🏭 【工業化達成】 [${proc.name}]の実用化に成功！対応する資源が無限に使用可能になりました。`);
+                    // Specifically adding the infinite product to discovered if not yet found?
+                    // No, let the user craft it first using the now-infinite method, OR auto-discover it?
+                    // Let's AUTO-DISCOVER the product to avoid confusion, since they mastered the process.
+                    if (!discovered.has(proc.key)) {
+                        discovered.add(proc.key);
+                        log(`🎁 製法確立により [${getItemName(proc.key)}] の生産が可能になりました！`);
+                    }
+                } else {
+                    log(`💡 【技術革新】 新しい工業プロセス [${proc.name}] を習得しました！`);
+                }
+                saveGame();
+            }
+        }
+    });
 }
 
 function updateNextGoalDisplay() {
@@ -5987,10 +6084,26 @@ function renderShop() {
             // Sell Mode
             const sellPrice = Math.floor(price / 5) || 1; // Sell price is 1/5
             const count = inventoryCounts[id] || 0;
+
+            // Infinite Check for Shop
+            let isInfinite = false;
+            // Logic: Infinite if the Industrial Process ID is discovered
+            if (id === 'nitric_acid' && discovered.has('ostwald')) isInfinite = true;
+            if (id === 'sulfuric_acid' && discovered.has('contact')) isInfinite = true;
+            if (id === 'electricity' && discovered.has('hydroelectric')) isInfinite = true;
+            if (id === 'ammonia' && discovered.has('haber_bosch')) isInfinite = true;
+            if (id === 'hydrogen_peroxide' && discovered.has('anthraquinone_process')) isInfinite = true;
+            if (id === 'methane' && discovered.has('sabatier')) isInfinite = true;
+
+            let countHtml = `<div class="count-badge">x${count}</div>`;
+            if (isInfinite) {
+                countHtml = ``; // Hide count completely
+            }
+
             card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
                 <div class="element-name">${data.name}</div>
-                <div class="count-badge">x${count}</div>
+                ${countHtml}
                 <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${sellPrice} G</div>
             `;
             card.onclick = () => sellItem(id, sellPrice);
@@ -6369,7 +6482,9 @@ function showLockedElementHint(id) {
 function renderIndustrialEncyclopedia(grid) {
     grid.innerHTML = ''; // Clear grid
     INDUSTRIAL_PROCESSES.forEach(proc => {
-        const isUnlocked = discovered.has(proc.key);
+        // Unlock condition: Process ID itself must be in discovered
+        // (This happens in checkDiscoveries if item + req are found)
+        const isUnlocked = discovered.has(proc.id);
 
         // Filter
         if (currentBookSearchQuery) {
@@ -6437,6 +6552,11 @@ function showIndustrialDetail(procId) {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
                         <strong>【工業化特典】</strong><br>
                         空中窒素の固定に成功！アンモニアが工業的に大量生産されるようになりました。合成に使用しても消費されません！
+                     </div>`;
+    } else if (proc.id === 'anthraquinone_process') {
+        infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
+                        <strong>【工業化特典】</strong><br>
+                        自動サイクルによる連続生産に成功！過酸化水素が無限に使用可能になりました（消費されません）。
                      </div>`;
     } else if (proc.id === 'sabatier') {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
@@ -7079,6 +7199,9 @@ function removeHighlights() {
 
 
 init();
+
+
+
 initTutorial();
 
 // === Debug Feature ===
