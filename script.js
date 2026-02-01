@@ -52,7 +52,7 @@ const ELEMENTS = {
     'salt_water': { id: 'salt_water', name: '食塩水', emoji: '🧪', desc: '水に塩を溶かしたもの。', category: 'chemical' },
     'battery': { id: 'battery', name: '電池', emoji: '🔋', desc: '食塩水に異なる2種類の電極を浸すことで、化学エネルギーを電気エネルギーに変換する装置。', category: 'chemical' },
     'electricity': { id: 'electricity', name: '電気', emoji: '🔌', desc: '電池から取り出された動力源。', category: 'phenomenon' },
-    'sea_water_imitation': { id: 'sea_water_imitation', name: '人工海水', emoji: '🧪', desc: '水にお酢と塩を混ぜた実験的な液体。', category: 'chemical' },
+
     'shards': { id: 'shards', name: '土器の破片', emoji: '🧩', desc: '割れてしまった土器の破片。', category: 'chemical' },
     'iron_tool': { id: 'iron_tool', name: '鉄器', emoji: '⚔️', desc: '鉄を加工して作った頑丈な道具。', category: 'tool' },
     'glass_vessel': { id: 'glass_vessel', name: 'ガラス容器', emoji: '🍶', desc: 'ガラスと土器を組み合わせて作った高度な容器。', category: 'chemical' },
@@ -66,6 +66,7 @@ const ELEMENTS = {
     'sulfur_dioxide': { id: 'sulfur_dioxide', name: '二酸化硫黄', emoji: '💨', desc: '硫黄を燃焼させて発生する刺激臭のある気体。', category: 'chemical' },
     'sulfurous_acid': { id: 'sulfurous_acid', name: '亜硫酸', emoji: '🧪', desc: '二酸化硫黄が水に溶けてできる酸性。漂白や防腐に使われる。', category: 'chemical' },
     'sulfuric_acid': { id: 'sulfuric_acid', name: '硫酸', emoji: '🧪', desc: '亜硫酸が酸化してできる強力な酸。', category: 'chemical' },
+    'hot_concentrated_sulfuric_acid': { id: 'hot_concentrated_sulfuric_acid', name: '熱濃硫酸', emoji: '🔥', desc: '加熱して水分を飛ばした高濃度の硫酸。銅や銀も溶かす強力な酸化力を持つ。', category: 'chemical' },
     'sodium_sulfate': { id: 'sodium_sulfate', name: '硫酸ナトリウム', emoji: '🧪', desc: '硫酸と水酸化ナトリウムが中和してできた塩。', category: 'chemical' },
     'sodium_hydrogen_sulfate': { id: 'sodium_hydrogen_sulfate', name: '硫酸水素ナトリウム', emoji: '🧪', desc: '硫酸と水酸化ナトリウムが1:1で反応してできた酸性塩。', category: 'chemical' },
     'hydrochloric_acid': { id: 'hydrochloric_acid', name: '塩酸', emoji: '🧪', desc: '塩と硫酸を反応させて得られる強力な酸。', category: 'chemical' },
@@ -105,7 +106,9 @@ const ELEMENTS = {
     'potassium_hydrogen_sulfate': { id: 'potassium_hydrogen_sulfate', name: '硫酸水素カリウム', emoji: '🧪', desc: '硝酸カリウムと硫酸の反応で得られる酸性塩。', category: 'chemical' },
     'black_powder': { id: 'black_powder', name: '黒色火薬', emoji: '💥', desc: '硝酸カリウム、硫黄、木炭を混ぜて作った爆発性の粉末。', category: 'chemical' },
     'copper_sulfate': { id: 'copper_sulfate', name: '硫酸銅', emoji: '💎', desc: '洞窟で採れる美しい青色の結晶。電気分解や実験に広く使われる。', category: 'natural' },
-    'iron_sulfate': { id: 'iron_sulfate', name: '硫酸鉄', emoji: '🟢', desc: '淡緑色の結晶。鉄と硫酸銅の置換反応などで得られる。', category: 'chemical' },
+    'copper_sulfate_solution': { id: 'copper_sulfate_solution', name: '硫酸銅水溶液', emoji: '🧪', desc: '硫酸銅を水に溶かした青い液体。', category: 'chemical' },
+    'iron_sulfate': { id: 'iron_sulfate', name: '硫酸鉄(II)', emoji: '🟢', desc: '淡緑色の結晶。鉄と硫酸銅の置換反応などで得られる。', category: 'chemical' },
+    'iron_sulfate_iii': { id: 'iron_sulfate_iii', name: '硫酸鉄(III)', emoji: '🟤', desc: '黄色っぽい粉末。水に溶けると酸性を示す。', category: 'chemical' },
     'iron_sulfide': { id: 'iron_sulfide', name: '硫化鉄', emoji: '🌑', desc: '鉄と硫黄を反応させて作った黒い固形物。', category: 'chemical' },
     'hydrogen_sulfide': { id: 'hydrogen_sulfide', name: '硫化水素', emoji: '💨', desc: '腐った卵のような臭いがする有毒な気体。硫化鉄と塩酸から発生する。', category: 'chemical' },
     'iron_chloride': { id: 'iron_chloride', name: '塩化鉄', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
@@ -206,6 +209,7 @@ const ELEMENTS = {
     'ketchup': { id: 'ketchup', name: 'ケチャップ', emoji: '🥫', desc: 'トマトを煮詰めた甘酸っぱいソース。', category: 'chemical' },
 
     // Dishes
+    'rice_ball': { id: 'rice_ball', name: 'おにぎり', emoji: '🍙', desc: 'ご飯を塩と海苔で握ったシンプルな携帯食。', category: 'chemical' },
     'sushi': { id: 'sushi', name: '寿司', emoji: '🍣', desc: '酢飯と新鮮な魚の芸術的な組み合わせ。', category: 'chemical' },
     'tempura': { id: 'tempura', name: '天ぷら', emoji: '🍤', desc: '食材に衣をつけてカラッと揚げた料理。', category: 'chemical' },
     'miso_soup': { id: 'miso_soup', name: '味噌汁', emoji: '🍲', desc: '出汁と味噌の香りが落ち着く日本のお吸い物。', category: 'chemical' },
@@ -235,11 +239,18 @@ const ELEMENTS = {
 
     'manganese': { id: 'manganese', name: 'マンガン', emoji: '⛓️', desc: '硬くて脆い銀白色の金属。鉄の脱硫や合金の添加剤として重要。', category: 'chemical' },
     'calcium_chloride': { id: 'calcium_chloride', name: '塩化カルシウム', emoji: '🧪', desc: '炭酸カルシウムと塩酸の反応で得られる塩。除湿剤や凍結防止剤に使われる。', category: 'chemical' },
+    'calcium_sulfide': { id: 'calcium_sulfide', name: '硫化カルシウム', emoji: '🌑', desc: 'ルブラン法の副産物として大量に発生する厄介な廃棄物。', category: 'chemical' },
+    'sodium_sulfate': { id: 'sodium_sulfate', name: '硫酸ナトリウム', emoji: '🧂', desc: '芒硝（ぼうしょう）とも呼ばれる。ルブラン法の中間生成物。', category: 'chemical' },
+    'hydrogen_chloride': { id: 'hydrogen_chloride', name: '塩化水素', emoji: '☁️', desc: '刺激臭のある気体。水に溶かすと塩酸になる。', category: 'chemical' },
     'gold_ore': { id: 'gold_ore', name: '金鉱石', emoji: '🌑', desc: '金や銀を含んだ岩石。菱刈鉱山などの熱水鉱脈で見つかる。', category: 'natural' },
     'gold_dust': { id: 'gold_dust', name: '砂金', emoji: '✨', desc: '川底に溜まっていた重い金の粒。集めれば価値のある金属になる。', category: 'natural' },
     'gold': { id: 'gold', name: '金', emoji: '🥇', desc: '永遠に輝く貴金属の王。腐食せず、加工しやすい。', category: 'chemical' },
     'iron_sand': { id: 'iron_sand', name: '砂鉄', emoji: '✨', desc: '砂浜や川底に含まれる磁性を持つ鉄の粉末。たたら製鉄の原料になる。', category: 'natural' },
     'platinum': { id: 'platinum', name: 'プラチナ', emoji: '💍', desc: '川底で稀に見つかる非常に希少で安定した貴金属。白金。', category: 'natural' },
+    'sponge_platinum': { id: 'sponge_platinum', name: 'スポンジ白金', emoji: '🧽', desc: '多孔質の灰色のプラチナ。表面積が大きく、強力な触媒能力を持つ。', category: 'material' },
+    'chloroauric_acid': { id: 'chloroauric_acid', name: 'テトラクロロ金(III)酸', emoji: '🔶', desc: '金を王水に溶かしたオレンジ色の結晶。塩化金酸。', category: 'chemical' },
+    'chloroplatinic_acid': { id: 'chloroplatinic_acid', name: 'ヘキサクロロ白金(IV)酸', emoji: '🟤', desc: 'プラチナを王水に溶かした赤褐色の結晶。塩化白金酸。', category: 'chemical' },
+    'ammonium_hexachloroplatinate': { id: 'ammonium_hexachloroplatinate', name: 'ヘキサクロロ白金(IV)酸アンモニウム', emoji: '🟡', desc: '塩化白金酸アンモニウム。黄色い沈殿。加熱すると純粋なプラチナになる。', category: 'chemical' },
     'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🔴', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
     'molybdenum_trioxide': { id: 'molybdenum_trioxide', name: '三酸化モリブデン', emoji: '🤍', desc: '輝水鉛鉱を焙焼して得られる白い粉末。モリブデンの原料。', category: 'chemical' },
     'molybdenum_dioxide': { id: 'molybdenum_dioxide', name: '二酸化モリブデン', emoji: '🟤', desc: '三酸化モリブデンを水素還元して得られる茶褐色の粉末。', category: 'chemical' },
@@ -253,6 +264,8 @@ const ELEMENTS = {
     'sodium_bicarbonate': { id: 'sodium_bicarbonate', name: '炭酸水素ナトリウム', emoji: '🧪', desc: '重曹。炭酸水と水酸化ナトリウムの反応で得られる白い粉末。加熱すると二酸化炭素を放出する。', category: 'chemical' },
     'ammonium_chloride': { id: 'ammonium_chloride', name: '塩化アンモニウム', emoji: '🧪', desc: 'アンモニアと塩酸から得られる白い塩。ソルベー法の副産物。', category: 'chemical' },
     'sodium_carbonate': { id: 'sodium_carbonate', name: '炭酸ナトリウム', emoji: '🧪', desc: '炭酸ソーダ。石鹸やガラスの工業的原料。重曹を熱分解すると得られる。', category: 'chemical' },
+    'potassium_hydrogen_tartrate': { id: 'potassium_hydrogen_tartrate', name: '酒石酸水素カリウム', emoji: '⚪', desc: 'ワインの樽底に沈殿する結晶。クリーム・オブ・ターター。', category: 'chemical' },
+    'rochelle_salt': { id: 'rochelle_salt', name: 'ロッシェル塩', emoji: '💎', desc: '酒石酸カリウムナトリウム。圧電効果を示す無色の結晶。', category: 'chemical' },
     'light_bulb': { id: 'light_bulb', name: '電球', emoji: '💡', desc: '真空容器の中で竹のフィラメントを熱して光らせる装置。', category: 'tool' },
     'activated_carbon': { id: 'activated_carbon', name: '活性炭', emoji: '⬛', desc: '石炭を化学処理して吸着力を高めた炭。脱臭やろ液に使われる。', category: 'chemical' },
     'cylinder': { id: 'cylinder', name: 'シリンダー', emoji: '🧪', desc: '竹とガラスを組み合わせた筒状の部品。', category: 'tool' },
@@ -326,6 +339,7 @@ const ELEMENTS = {
     'dynamite': { id: 'dynamite', name: 'ダイナマイト', emoji: '🧨', desc: 'ニトログリセリンを土に染み込ませて安定化させた爆薬。ノーベルの発明。', category: 'tool' },
     'match': { id: 'match', name: 'マッチ', emoji: '🔥', desc: '赤リンを側薬に使った安全な着火具。', category: 'tool' },
     'silver_nitrate': { id: 'silver_nitrate', name: '硝酸銀', emoji: '🧪', desc: '銀を硝酸に溶かした無色の結晶。感光性がある。', category: 'chemical' },
+    'silver_sulfate': { id: 'silver_sulfate', name: '硫酸銀', emoji: '⚪', desc: '銀と熱濃硫酸の反応で得られる白い結晶。水にはあまり溶けない。', category: 'chemical' },
     'silver_chloride': { id: 'silver_chloride', name: '塩化銀', emoji: '⚪', desc: '光に当たると黒く変色する性質を持つ白い粉末。写真の感光材。', category: 'chemical' },
     'camera': { id: 'camera', name: 'カメラ', emoji: '📷', desc: 'レンズと感光材を組み合わせ、一瞬の景色を切り取る装置。', category: 'tool' },
     'photo': { id: 'photo', name: '写真', emoji: '🖼️', desc: 'カメラで撮影された風景の記録。', category: 'tool' },
@@ -1264,6 +1278,7 @@ const ELEMENTS = {
     // === Industrial Chemistry Tech Tree ===
     'zeolite': { id: 'zeolite', name: 'ゼオライト', emoji: '🪨', desc: '微細な穴を多数持つ石。触媒や吸着剤として使われる沸石。', category: 'natural' },
     'rhodium': { id: 'rhodium', name: 'ロジウム', emoji: '⚪', desc: 'プラチナに似た非常に希少な貴金属。強力な触媒になる。', category: 'material' },
+    'lead_chamber': { id: 'lead_chamber', name: '鉛室', emoji: '🏭', desc: '鉛の板で作られた巨大な反応容器。硫酸の製造に使われる。', category: 'machine' },
 
     // Information Technology (Barcodes)
     'barcode': { id: 'barcode', name: 'バーコード', emoji: '║▌', desc: 'レーザーで読み取る縞模様の識別符号。商品の管理に使われる。', category: 'tool' },
@@ -1304,13 +1319,15 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'amalgam', name: 'アマルガム法', key: 'gold_plating', req: 'mercury', desc: '水銀を使ったメッキ技術。' },
     { id: 'carbonization', name: '乾留', key: 'coke', req: 'coal', desc: '石炭の高温処理技術。' },
     { id: 'electrolysis', name: '電気分解', key: 'sodium_hydroxide', req: 'salt_water', desc: '食塩水からソーダと塩素を得る技術。' },
+    { id: 'leblanc', name: 'ルブラン法', key: 'sodium_carbonate', req: 'calcium_sulfide', desc: '硫酸ナトリウムと炭酸カルシウムと炭素を加熱して炭酸ナトリウムを得る古い工業的製法。' },
     { id: 'solvay', name: 'ソルベー法', key: 'sodium_bicarbonate', req: 'ammonia', desc: 'アンモニアソーダ法による重曹製造。' },
     { id: 'ostwald', name: 'オストワルト法', key: 'nitric_acid', req: 'platinum', desc: 'アンモニア酸化による硝酸製造。' },
+    { id: 'lead_chamber_process', name: '鉛室法', key: 'sulfuric_acid', req: 'lead_chamber', desc: '鉛でできた部屋の中で、二酸化硫黄と水を反応させて硫酸を作る古い製法。' },
     { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'fuming_sulfuric_acid', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
     { id: 'vanadium', name: 'バナジウム精錬', key: 'vanadium_pentoxide', req: 'magnetite', desc: '磁鉄鉱からの希少金属抽出。' },
     { id: 'hydroelectric', name: '水力発電', key: 'hydroelectric_power', req: 'gear', desc: '自然のエネルギーを持続可能な電気に変える技術。' },
     { id: 'cryogenic', name: '深冷分離法', key: 'liquid_air', req: 'cooling_unit', desc: '空気を極低温で液化し、蒸留によって窒素と酸素に分離する技術。' },
-    { id: 'haber_bosch', name: 'ハーバー・ボッシュ法', key: 'high_pressure_reactor', req: 'iron_catalyst', desc: '空気中の窒素を固定し、アンモニアを大量生産する革命的技術。' },
+    { id: 'haber_bosch', name: 'ハーバー・ボッシュ法', key: 'ammonia', req: 'iron_catalyst', desc: '空気中の窒素を固定し、アンモニアを大量生産する革命的技術。' },
     { id: 'hall_heroult', name: 'ホール・エルー法', key: 'aluminum', req: 'electricity', desc: '溶融氷晶石中でアルミナを電気分解し、アルミニウムを得る方法。' },
     { id: 'kroll', name: 'クロール法', key: 'titanium_sponge', req: 'magnesium', desc: '塩化チタンをマグネシウムで還元してチタンを得る製錬法。' },
     { id: 'converter', name: '転炉法', key: 'steel', req: 'oxygen', desc: '溶けた鉄に酸素を吹き込み、不純物を燃焼させて鋼を作る。' },
@@ -1376,9 +1393,20 @@ const CIVILIZATION_LEVELS = [
 
 
 const RECIPES = {
+    // Lead Chamber Process
+    'box+lead': 'lead_chamber',
+    'nitrogen_monoxide+oxygen': 'nitrogen_dioxide',
+    'nitrogen_dioxide+sulfur_dioxide': ['sulfur_trioxide', 'nitrogen_monoxide'], // Nitrogen oxides cycle
+    'fresh_water+lead_chamber+sulfur_trioxide': ['sulfuric_acid', 'lead_chamber'], // Interaction requiring lead chamber
+
+    'aqua_regia+gold': ['chloroauric_acid', 'nitrogen_monoxide', 'fresh_water'], // Gold dissolution
+    'aqua_regia+platinum': ['chloroplatinic_acid', 'nitrogen_monoxide', 'fresh_water'], // Platinum dissolution
+    'chloroauric_acid+iron_sulfate+fresh_water': ['gold', 'iron_chloride', 'iron_sulfate_iii', 'hydrochloric_acid'], // Gold reduction
+    'chloroplatinic_acid+ammonium_chloride+fresh_water': ['ammonium_hexachloroplatinate', 'hydrochloric_acid'], // Platinum precipitation
+    'ammonium_hexachloroplatinate+fire': ['sponge_platinum', 'nitrogen', 'ammonium_chloride', 'hydrogen_chloride'], // Calcination
+
     // Anthraquinone Process
     'anthracene_oil+cooling_unit': 'anthracene', // Extraction
-    'aqua_regia+platinum': 'palladium', // Palladium extraction
     'palladium+stone_tool': 'palladium_catalyst', // Powdering
     'anthracene+oxygen+vanadium_pentoxide': ['anthraquinone', 'vanadium_pentoxide'], // Oxidation (Catalyst returned)
     'anthraquinone+hydrogen+palladium_catalyst': ['anthrahydroquinone', 'palladium_catalyst'], // Hydrogenation (Catalyst returned)
@@ -1437,11 +1465,13 @@ const RECIPES = {
     'iron_sulfate+sulfurous_acid+sun': 'sulfuric_acid', // Sulfurous Acid + Sun + Iron Sulfate -> Sulfuric Acid (Catalytic)
     'fuming_sulfuric_acid+fresh_water': 'sulfuric_acid', // Contact Process (Final Step)
     'air+fire+sulfur': 'sulfur_dioxide', // Updated
-    'salt+sulfuric_acid': ['hydrogen_chloride', 'sodium_hydrogen_sulfate'], // Salt + Sulfuric Acid -> HCl gas
+    'salt+salt+sulfuric_acid': ['sodium_sulfate', 'hydrogen_chloride'], // Leblanc Step 1
+    'sodium_sulfate+coal+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Coal)
+    'sodium_sulfate+charcoal+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Charcoal)
+    'sodium_sulfate+coke+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Coke)
     'calcium_hydroxide+fresh_water': 'limewater', // Calcium Hydroxide + Water -> Limewater
     'calcium_hydroxide+water': 'magnesium_hydroxide', // Seawater + Lime -> Mg(OH)2
     'hydrochloric_acid+magnesium_hydroxide': 'magnesium_chloride',
-    'sodium_hydroxide+sulfuric_acid': ['fresh_water', 'sodium_hydrogen_sulfate'], // Acid Salt Neutralization
     'calcium_hydroxide+fresh_water+plant_ash': 'potassium_hydroxide', // Potassium Hydroxide synthesis (causticization)
     'earthenware+plant_ash': 'ash_cupel', // Ash Hearth for cupellation
     'earth+plant_ash+urine': 'potassium_nitrate', // Historical Niter Bed (Old method)
@@ -1507,6 +1537,7 @@ const RECIPES = {
 
     // Triple Element Recipes
     'rod+rod+rod': 'triangle',
+    'calcium_hydroxide+hot_water+sodium_carbonate': ['sodium_hydroxide', 'calcium_carbonate'], // Causticization
     'earth+fresh_water+sand': 'clay',    // Earth + Sand + Water -> Clay
     'fire+sand+sodium_carbonate': ['sodium_silicate', 'carbon_dioxide'],
     'air+hydrogel+sun': 'xerogel',
@@ -1607,7 +1638,6 @@ const RECIPES = {
     'lens+lens': 'glasses', // Lens + Lens -> Glasses
     'fire+plant+sodium_hydroxide': 'paper', // Soda Pulping process
     'bamboo_powder+fire+sodium_hydroxide': 'bamboo_filament', // Bamboo Filament process
-    'fresh_water+salt+vinegar': 'sea_water_imitation', // Water + Salt + Vinegar -> (Experimental)
     'glass_vessel+lens+wood': 'telescope', // Lens + Vessel/Tube + Body
     'glass_vessel+lens+lens': 'microscope', // Multiple lenses for magnification
     'circle+wood': 'wheel', // Circle + Wood -> Wheel
@@ -1632,7 +1662,15 @@ const RECIPES = {
     'sulfuric_acid+zinc_oxide': 'zinc_sulfate', // Oxide + Acid -> Salt
     'electricity+zinc_sulfate': 'zinc', // Electrowinning
     'alcohol+glass_vessel+string': 'alcohol_lamp', // Alcohol + Glass Vessel + String -> Lamp
-    'copper_sulfate+fresh_water+iron': ['iron_sulfate', 'copper'], // Displacement reaction
+    'copper_sulfate+fresh_water': 'copper_sulfate_solution',
+    'sulfuric_acid+fire': 'hot_concentrated_sulfuric_acid', // Concentrate and heat
+    'hot_concentrated_sulfuric_acid+copper': ['copper_sulfate', 'sulfur_dioxide', 'fresh_water'], // Oxidative dissolution
+    'hot_concentrated_sulfuric_acid+silver': ['silver_sulfate', 'sulfur_dioxide', 'fresh_water'], // Silver reaction
+    'copper_sulfate_solution+iron': ['iron_sulfate', 'copper'], // Displacement reaction
+    'copper_sulfate_solution+charcoal+copper+electricity': ['sulfuric_acid', 'copper', 'oxygen', 'charcoal'],
+    'copper_sulfate_solution+coke+copper+electricity': ['sulfuric_acid', 'copper', 'oxygen', 'coke'],
+    'copper_sulfate_solution+carbon_rod+copper+electricity': ['sulfuric_acid', 'copper', 'oxygen', 'carbon_rod'],
+    'copper_sulfate_solution+platinum+copper+electricity': ['sulfuric_acid', 'copper', 'oxygen', 'platinum'],
     'copper+lacquer+string': 'enameled_wire', // Copper + String + Lacquer -> Enameled Wire
     'enameled_wire+iron+lightning': 'magnet', // Magnetizing with lightning
     'copper+wheel': 'copper_disk', // Fabricating a disk
@@ -1642,6 +1680,8 @@ const RECIPES = {
     'coil+electricity': 'electromagnet', // Induced magnetism
     'rubber_tree+stone_tool': 'latex', // Latex gathering
     'latex+vinegar': 'rubber', // Coagulation
+    'refrigerator+wine': 'potassium_hydrogen_tartrate', // Crystallization from wine in cold
+    'hot_water+potassium_hydrogen_tartrate+sodium_carbonate': 'rochelle_salt', // Neutralization to Rochelle Salt
     'quadrilateral+quadrilateral': 'box', // Box
     'box+iron_vessel': 'container', // Container
     'container+locomotive': 'freight_train', // Freight Train
@@ -2191,7 +2231,7 @@ const RECIPES = {
 
     // Textile Industry Recipes
     // Materials
-    'fresh_water+plant+sun': 'cotton', // Simplified agriculture
+
     'animal+fossil': 'wool', // Removed: Unscientific
     // Let's deduce wool from Animal + Knife or something
     'animal+iron_tool': 'wool',
@@ -3071,9 +3111,7 @@ const RECIPES = {
     // Lead Chamber Process (Sulfuric Acid): Sulfur + Nitric Acid + Water + Lead (Chamber)
     // Simplified: Sulfur + Nitric Acid + Water (Classic method before Contact Process)
     // Recipe removed per user request: fresh_water+nitric_acid+sulfur -> sulfuric_acid
-    // Leblanc Process (Soda Ash): Salt + Sulfuric Acid + Coal + Limestone (Calcium Carbonate)
-    // Simplified: Salt + Sulfuric Acid + Coal + Calcium Carbonate
-    'calcium_carbonate+coal+salt+sulfuric_acid': 'sodium_carbonate',
+
 
     // Level 2: Ammonia & Fertilizer (Reinforcement)
     // Haber-Bosch is already defined via 'high_pressure_reactor'.
@@ -3191,7 +3229,7 @@ const RECIPES = {
     'fresh_water+sun': 'cyano_bacteria',
     'cyano_bacteria+stone': 'lichen',
     'earth+lichen+water': 'forest', // Creating forest from lichen/earth
-    'forest+liquid_water+mars': 'blue_mars',
+
 
     // === Storage & Memory Roadmap ===
     // Magnetic Disk: Aluminum + Magnet
@@ -3212,6 +3250,12 @@ const RECIPES = {
     // Copper Smelting
     'air+copper_ore+fire': 'copper_oxide_1',
     'copper_ore+copper_oxide_1': 'copper',
+    'copper_ore+copper_oxide_1': 'copper',
+
+    // Detailed Textile
+    'cotton+spinning_wheel': 'thread',
+    'loom+thread': 'denim',
+    'denim+sewing_machine': 'jeans',
 };
 
 // Normalize RECIPES keys (Ensure all keys are sorted to avoid matching issues)
@@ -3981,7 +4025,7 @@ function updateGatherSpotDisplay() {
             if (el) el.style.display = 'flex';
         });
     } else if (currentArea === 'china') {
-        const ids = ['china', 'china_mine']; // Bamboo/Tea + Mine
+        const ids = ['china', 'china_mine', 'uyghur_field']; // Bamboo/Tea + Mine + Uyghur
         ids.forEach(id => {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
@@ -4399,6 +4443,13 @@ function setupGathering() {
                 else if (rand < 0.70) itemId = 'bamboo';
                 else if (rand < 0.85) itemId = 'plant';
                 else itemId = 'flower';
+            } else if (spotType === 'uyghur_field') {
+                // Uyghur: Cotton and Grapes
+                const rand = Math.random();
+                if (rand < 0.50) itemId = 'cotton';
+                else if (rand < 0.70) itemId = 'grape';
+                else if (rand < 0.90) itemId = 'sand';
+                else itemId = 'stone';
             } else if (spotType === 'china_mine') {
                 // China (Mine): Rare Earth Kingdom!
                 const rand = Math.random();
@@ -6598,7 +6649,7 @@ function showElementDetail(id) {
         'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
-        'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg'
+        'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton'
     ];
 
     const locationMap = {
@@ -6634,7 +6685,8 @@ function showElementDetail(id) {
         'flower': 'フィールド（森）',
         'animal': 'フィールド（森）',
         'tea_leaf': 'フィールド（森）',
-        'egg': 'フィールド（森）'
+        'egg': 'フィールド（森）',
+        'cotton': '中国（ウイグル）'
     };
 
     if (gatherables.includes(id)) {
@@ -6747,8 +6799,10 @@ function showElementDetail(id) {
         }
     });
 
-    if (usages.length > 0) {
-        usagesHtml = `<div style="margin-top:15px; padding-top:10px; border-top:1px dashed #ccc;"><strong>${getText('uses')}</strong><div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:2px;">${usages.join('')}</div></div>`;
+    const uniqueUsages = [...new Set(usages)]; // Remove duplicates
+
+    if (uniqueUsages.length > 0) {
+        usagesHtml = `<div style="margin-top:15px; padding-top:10px; border-top:1px dashed #ccc;"><strong>${getText('uses')}</strong><div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:2px;">${uniqueUsages.join('')}</div></div>`;
     }
 
     ui.modalBody.innerHTML = `
