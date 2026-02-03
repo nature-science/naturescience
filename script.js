@@ -60,6 +60,7 @@ const ELEMENTS = {
     'sodium_hypochlorite': { id: 'sodium_hypochlorite', name: '次亜塩素酸ナトリウム', emoji: '🧪', desc: '食塩水を電気分解して得られる酸化剤。除菌などに使われる。', category: 'chemical' },
     'hydrogen': { id: 'hydrogen', name: '水素', emoji: '🎈', desc: '非常に軽く燃えやすい気体。電気分解などで発生する。', category: 'chemical' },
     'chlorine': { id: 'chlorine', name: '塩素', emoji: '💨', desc: '強い刺激臭のある黄緑色の気体。漂白や除菌に使われる。', category: 'chemical' },
+    'hypochlorous_acid': { id: 'hypochlorous_acid', name: '次亜塩素酸', emoji: '🧪', desc: '塩素を水に溶かしてできる酸。強力な酸化作用を持ち、殺菌剤になる。', category: 'chemical' },
     'oxygen': { id: 'oxygen', name: '酸素', emoji: '🌬️', desc: '生命の呼吸に不可欠な気体。水の電気分解などで得られる。', category: 'chemical' },
     'carbon_dioxide': { id: 'carbon_dioxide', name: '二酸化炭素', emoji: '☁️', desc: '木炭を燃焼させて発生する気体。温室効果ガスの一つ。', category: 'chemical' },
     'sulfur': { id: 'sulfur', name: '硫黄', emoji: '🟡', desc: '火山地帯で採れる黄色い結晶。火薬の原料になる。', category: 'natural' },
@@ -111,7 +112,8 @@ const ELEMENTS = {
     'iron_sulfate_iii': { id: 'iron_sulfate_iii', name: '硫酸鉄(III)', emoji: '🟤', desc: '黄色っぽい粉末。水に溶けると酸性を示す。', category: 'chemical' },
     'iron_sulfide': { id: 'iron_sulfide', name: '硫化鉄', emoji: '🌑', desc: '鉄と硫黄を反応させて作った黒い固形物。', category: 'chemical' },
     'hydrogen_sulfide': { id: 'hydrogen_sulfide', name: '硫化水素', emoji: '💨', desc: '腐った卵のような臭いがする有毒な気体。硫化鉄と塩酸から発生する。', category: 'chemical' },
-    'iron_chloride': { id: 'iron_chloride', name: '塩化鉄', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
+    'iron_chloride': { id: 'iron_chloride', name: '塩化鉄(II)', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
+    'iron_chloride_iii': { id: 'iron_chloride_iii', name: '塩化鉄(III)', emoji: '🟤', desc: '塩化第二鉄。腐食性のある黒褐色の結晶。', category: 'chemical' },
     'coal': { id: 'coal', name: '石炭', emoji: '🪨', desc: '太古の植物が地中で変化してできた可燃性の岩石。', category: 'natural' },
     'coal_gas': { id: 'coal_gas', name: '石炭ガス', emoji: '💨', desc: '石炭の乾留時に発生する可燃性の気体。都市ガスの原料。', category: 'chemical' },
     'coal_tar': { id: 'coal_tar', name: 'コールタール', emoji: '🏺', desc: '石炭の乾留時に出る黒い粘り気のある液体。染料や薬品の原料。', category: 'chemical' },
@@ -257,6 +259,7 @@ const ELEMENTS = {
     'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural' },
     'cassiterite': { id: 'cassiterite', name: 'スズ石', emoji: '🌑', desc: 'スズを含む鉱石。製錬するとスズを取り出せる。', category: 'natural' },
     'tin': { id: 'tin', name: 'スズ', emoji: '⛓️', desc: '低融点で加工しやすい銀白色の金属。青銅の材料やハンダに使われる。', category: 'chemical' },
+    'tin_chloride': { id: 'tin_chloride', name: '塩化スズ(II)', emoji: '🧪', desc: 'スズを塩酸に溶かして得られる白い結晶。還元剤として使われる。', category: 'chemical' },
     'potassium_carbonate': { id: 'potassium_carbonate', name: '炭酸カリウム', emoji: '🧪', desc: '水酸化カリウムが二酸化炭素を吸収してできた白い粉末。植物の灰の主成分でもある。', category: 'chemical' },
     'urine': { id: 'urine', name: '尿', emoji: '🏺', desc: '生物の排泄物。古くからリンや窒素の原料として利用されてきた。', category: 'natural' },
     'ammonia': { id: 'ammonia', name: 'アンモニア', emoji: '💨', desc: '強い刺激臭のある気体。尿の分解などで発生し、肥料や火薬の原料になる。', category: 'chemical' },
@@ -567,6 +570,11 @@ const ELEMENTS = {
     'bauxite': { id: 'bauxite', name: 'ボーキサイト', emoji: '🟤', desc: 'アルミニウムの原料となる赤褐色の鉱石。', category: 'natural' },
     'alumina': { id: 'alumina', name: 'アルミナ', emoji: '⚪', desc: '酸化アルミニウム。白い粉末。これを電気分解してアルミを作る。', category: 'chemical' },
     'aluminum': { id: 'aluminum', name: 'アルミニウム', emoji: '🪙', desc: '軽くて加工しやすい銀白色の金属。', category: 'chemical' },
+    'aluminum_chloride': { id: 'aluminum_chloride', name: '塩化アルミニウム', emoji: '🧪', desc: 'アルミニウムと塩酸の反応で得られる塩。有機合成の触媒として重要。', category: 'chemical' },
+    'sodium_aluminate': { id: 'sodium_aluminate', name: 'アルミン酸ナトリウム', emoji: '🧪', desc: 'ボーキサイトを処理して得られる中間生成物。水に溶ける。', category: 'chemical' },
+    'aluminum_hydroxide': { id: 'aluminum_hydroxide', name: '水酸化アルミニウム', emoji: '⚪', desc: 'アルミン酸ナトリウムを加水分解して得られる白い沈殿。', category: 'chemical' },
+    'cryolite': { id: 'cryolite', name: '氷晶石', emoji: '🧊', desc: 'アルミナを溶かすための融剤。アルミナの融点を下げる。', category: 'chemical' },
+    'molten_alumina': { id: 'molten_alumina', name: 'アルミナ溶融液', emoji: '🔥', desc: '氷晶石に溶かして電気分解できるようにしたアルミナ。', category: 'chemical' },
     'duralumin': { id: 'duralumin', name: 'ジュラルミン', emoji: '✈️', desc: 'アルミニウムに銅などを混ぜて強度を高めた合金。航空機やロケットの材料。', category: 'material' },
 
     'silicon': { id: 'silicon', name: '金属ケイ素', emoji: '⬛', desc: 'シリコン。半導体の基板となる物質。', category: 'chemical' },
@@ -1401,7 +1409,7 @@ const RECIPES = {
 
     'aqua_regia+gold': ['chloroauric_acid', 'nitrogen_monoxide', 'fresh_water'], // Gold dissolution
     'aqua_regia+platinum': ['chloroplatinic_acid', 'nitrogen_monoxide', 'fresh_water'], // Platinum dissolution
-    'chloroauric_acid+iron_sulfate+fresh_water': ['gold', 'iron_chloride', 'iron_sulfate_iii', 'hydrochloric_acid'], // Gold reduction
+    'chloroauric_acid+iron_sulfate+fresh_water': ['gold', 'iron_chloride_iii', 'iron_sulfate_iii', 'hydrochloric_acid'], // Gold reduction
     'chloroplatinic_acid+ammonium_chloride+fresh_water': ['ammonium_hexachloroplatinate', 'hydrochloric_acid'], // Platinum precipitation
     'ammonium_hexachloroplatinate+fire': ['sponge_platinum', 'nitrogen', 'ammonium_chloride', 'hydrogen_chloride'], // Calcination
 
@@ -1559,6 +1567,7 @@ const RECIPES = {
     'battery+energy': 'electricity',       // Battery + Energy -> Electricity
     'air+electricity+electricity': 'nitrogen_monoxide', // Birkeland-Eyde process simplified
     'ammonia+fire+platinum': 'nitrogen_monoxide', // Ostwald process
+    'fresh_water+nitrogen_dioxide': ['nitric_acid', 'nitrogen_monoxide'], // Ostwald process step 3
     'fire+sodium_acetate+sodium_hydroxide': ['methane', 'sodium_carbonate'], // Decarboxylation
     'gear+generator+water_wheel': ['electricity', 'hydroelectric_power'],
     'air+methane+rubber_tube': 'gas_burner',
@@ -1625,6 +1634,7 @@ const RECIPES = {
     'wood+wood+wood': 'raft',
     'raft+sail': 'yacht',
     'fire+lead+tin': 'solder',
+    'chlorine+fresh_water': 'hypochlorous_acid',
     'electricity+salt_water': 'sodium_hypochlorite', // Electricity + Salt Water -> Sodium Hypochlorite
     'electricity+salt_water+shards': ['sodium_hydroxide', 'hydrogen', 'chlorine'], // Multiple outputs
     'sodium_hydroxide+sodium_hydroxide+sulfuric_acid': ['fresh_water', 'sodium_sulfate'], // Normal Salt Neutralization
@@ -1849,10 +1859,21 @@ const RECIPES = {
     'copper+niobium+titanium': 'super_conductor',
 
     // Aluminum Chain
-    // Bauxite + Sodium Hydroxide + Heat -> Alumina (Bayer Process simplified)
-    'bauxite+fire+sodium_hydroxide': 'alumina',
-    // Alumina + Electricity + Carbon Electrode -> Aluminum (Hall-Heroult simplified)
-    'alumina+carbon_rod+electricity': ['aluminum', 'carbon_dioxide'],
+    // Aluminum Chain (Bayer Process & Hall-Heroult Process)
+    // 1. Extraction: Bauxite + Sodium Carbonate + Heat -> Sodium Aluminate + CO2
+    'bauxite+fire+sodium_carbonate': ['sodium_aluminate', 'carbon_dioxide'],
+    // 2. Precipitation: Sodium Aluminate + Water + CO2 -> Aluminum Hydroxide + Sodium Carbonate (Recycled)
+    'carbon_dioxide+fresh_water+sodium_aluminate': ['aluminum_hydroxide', 'sodium_carbonate'],
+    // 3. Calcination: Aluminum Hydroxide + Heat -> Alumina + Water
+    'aluminum_hydroxide+fire': ['alumina', 'fresh_water'],
+
+    // Cryolite Synthesis: HF + Al(OH)3 + NaOH -> Cryolite + Water
+    'aluminum_hydroxide+hydrofluoric_acid+sodium_hydroxide': ['cryolite', 'fresh_water'],
+
+    // 4. Melting: Alumina + Cryolite + Heat -> Molten Alumina
+    'alumina+cryolite+fire': 'molten_alumina',
+    // 5. Electrolysis: Molten Alumina + Carbon Rod (Anode) + Carbon Rod (Cathode) + Electricity -> Aluminum + CO2
+
     // Duralumin: Al + Cu + Mg
     'aluminum+copper+magnesium': 'duralumin',
 
@@ -2572,7 +2593,7 @@ const RECIPES = {
     'glass+sand': 'quartz_crucible',
     'silicon+quartz_crucible+fire': 'silicon_ingot',
     'silicon_ingot+iron_tool': 'wafer',
-    'alumina+fluorite+electricity': 'aluminum',
+
     // Maglev Recipes
     'air+cooling_unit': 'liquid_air',
     'nitrogen+cooling_unit': 'liquid_nitrogen',
@@ -3256,6 +3277,14 @@ const RECIPES = {
     'cotton+spinning_wheel': 'thread',
     'loom+thread': 'denim',
     'denim+sewing_machine': 'jeans',
+
+    // User Requested Chemical Reactions
+    'carbonated_water+sodium_carbonate': 'sodium_bicarbonate', // Na2CO3 + H2O + CO2 -> 2NaHCO3
+    'hydrochloric_acid+magnesium': ['magnesium_chloride', 'hydrogen'], // Mg + 2HCl -> MgCl2 + H2
+    'aluminum+hydrochloric_acid': ['aluminum_chloride', 'hydrogen'], // 2Al + 6HCl -> 2AlCl3 + 3H2
+    'hydrochloric_acid+iron': ['iron_chloride', 'hydrogen'], // Fe + 2HCl -> FeCl2 + H2
+    'hydrochloric_acid+nickel': ['nickel_chloride', 'hydrogen'], // Ni + 2HCl -> NiCl2 + H2
+    'hydrochloric_acid+tin': ['tin_chloride', 'hydrogen'], // Sn + 2HCl -> SnCl2 + H2
 };
 
 // Normalize RECIPES keys (Ensure all keys are sorted to avoid matching issues)
@@ -5573,11 +5602,9 @@ function executeCarbonization(target) {
         log("乾留完了！石炭から[コークス⬛]、[コールタール🏺]、[石炭ガス💨]を抽出しました。");
     } else if (target.type === 'wood') {
         addItem('charcoal', 1);
-        let resultLog = `乾留完了！木材から[木炭⬛]を作成しました。`;
-        if (Math.random() < 0.5) {
-            addItem('wood_vinegar', 1);
-            resultLog += `[木酢液🏺]も採取できました！`;
-        }
+        addItem('wood_vinegar', 1);
+        let resultLog = `乾留完了！木材から[木炭⬛]と[木酢液🏺]を作成しました。`;
+
         log(resultLog);
     } else if (target.type === 'calcium_acetate') {
         addItem('acetone', 1);
@@ -5708,11 +5735,11 @@ function processElectricRefining() {
     // Candidates for Electric Refining (Electricity cost is ignored)
     const candidates = [];
 
-    // 1. Aluminum (Alumina + Carbon Rod)
-    if (inventoryCounts['alumina'] > 0 && inventoryCounts['carbon_rod'] > 0) {
+    // 1. Aluminum (Molten Alumina + Carbon Rod x2)
+    if (inventoryCounts['molten_alumina'] > 0 && inventoryCounts['carbon_rod'] > 1) {
         candidates.push({
-            name: 'アルミニウム精錬 (アルミナ + 炭素棒)',
-            req: ['alumina', 'carbon_rod'],
+            name: 'アルミニウム精錬 (アルミナ溶融液 + 炭素棒x2)',
+            req: ['molten_alumina', 'carbon_rod', 'carbon_rod'],
             result: 'aluminum'
         });
     }
