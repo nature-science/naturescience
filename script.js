@@ -3963,8 +3963,13 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            // mapBtn.style.order = '-1'; // Ensure it is always first
-            mapBtn.innerHTML = currentArea === 'japan' ? '🚢 出航' : '🗺️ 移動';
+            if (currentArea === 'japan') {
+                mapBtn.style.order = ''; // Reset for Japan
+                mapBtn.innerHTML = '🚢 出航';
+            } else {
+                mapBtn.style.order = '-1'; // Top left for other areas
+                mapBtn.innerHTML = '🗺️ 移動';
+            }
         }
     }
 
@@ -3973,7 +3978,7 @@ function updateGatherSpotDisplay() {
         const mapBtn = document.querySelector('.gather-spot[data-id="foreign"]');
         if (mapBtn) {
             mapBtn.style.display = 'flex';
-            // mapBtn.style.order = '-1'; // Ensure it is always first
+            mapBtn.style.order = '-1'; // Ensure it is always first
             mapBtn.innerHTML = '🚀 地球へ帰還';
         }
     }
