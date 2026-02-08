@@ -43,23 +43,20 @@ const GATHER_DATA = {
     ],
     'ore': [
         // Special logic: multiplied by 3 if minecart exists
-        { th: 0.04, id: 'stone' }, // Previously bismuth, replaced by stone
-        { th: 0.12, id: 'gold_ore' },
+
         // { th: 0.13, id: 'palladium' }, // Removed
         // { th: 0.14, id: 'iridium' },   // Removed
         { th: 0.16, id: 'cinnabar' },
         { th: 0.18, id: 'copper_sulfate' },
         { th: 0.23, id: 'cassiterite' },
-        { th: 0.28, id: 'manganese_dioxide' },
         { th: 0.35, id: 'galena' },
         { th: 0.42, id: 'sphalerite' },
         { th: 0.53, id: 'coal' },
         { th: 0.61, id: 'graphite' },
         { th: 0.68, id: 'magnetite' },
         { th: 0.75, id: 'scheelite' },
-        { th: 0.83, id: 'calcite' },
-        { th: 0.93, id: 'barite' },
-        { th: 1.00, id: 'tungsten' }
+        { th: 0.85, id: 'calcite' },
+        { th: 1.00, id: 'stone' }
     ],
     'onsen': [{ th: 1.0, id: 'sulfur' }],
     'home': [{ th: 1.0, id: 'urine' }],
@@ -114,14 +111,16 @@ const GATHER_DATA = {
         { th: 0.75, id: 'coffee_bean' },
         { th: 0.77, id: 'diamond' },
         { th: 0.82, id: 'chromite' },
+        { th: 0.85, id: 'manganese_dioxide' },
         { th: 0.88, id: 'pentlandite' },
         { th: 0.94, id: 'molybdenite' },
         { th: 0.98, id: 'rutile' },
-        { th: 1.00, id: 'platinum' }
+        { th: 1.00, id: 'pgm_ore' }
     ],
     'red_desert': [
         { th: 0.30, id: 'bauxite' },
         { th: 0.50, id: 'iron_ore' },
+        { th: 0.60, id: 'manganese_dioxide' },
         { th: 0.65, id: 'cobalt_ore' },
         { th: 0.78, id: 'monazite' },
         { th: 0.88, id: 'lithium_ore' },
@@ -173,6 +172,12 @@ const GATHER_DATA = {
         { th: 0.80, id: 'stone' },
         { th: 1.00, id: 'earth' }
     ],
+    'turkey': [
+        { th: 0.50, id: 'borax' },
+        { th: 0.70, id: 'chromite' },
+        { th: 0.85, id: 'olive' },
+        { th: 1.00, id: 'stone' }
+    ],
     'china': [
         { th: 0.40, id: 'tea_leaf' },
         { th: 0.70, id: 'bamboo' },
@@ -188,7 +193,8 @@ const GATHER_DATA = {
     'china_mine': [
         { th: 0.20, id: 'coal' },
         { th: 0.35, id: 'scheelite' },
-        { th: 0.50, id: 'antimony' },
+        { th: 0.50, id: 'stibnite' },
+        { th: 0.55, id: 'manganese_dioxide' },
         { th: 0.60, id: 'molybdenite' },
         { th: 0.70, id: 'monazite' },
         { th: 0.80, id: 'clay' },

@@ -62,7 +62,6 @@ const ELEMENTS = {
     'chlorine': { id: 'chlorine', name: '塩素', emoji: '💨', desc: '強い刺激臭のある黄緑色の気体。漂白や除菌に使われる。', category: 'chemical' },
     'hypochlorous_acid': { id: 'hypochlorous_acid', name: '次亜塩素酸', emoji: '🧪', desc: '塩素を水に溶かしてできる酸。強力な酸化作用を持ち、殺菌剤になる。', category: 'chemical' },
     'oxygen': { id: 'oxygen', name: '酸素', emoji: '🌬️', desc: '生命の呼吸に不可欠な気体。水の電気分解などで得られる。', category: 'chemical' },
-    'liquid_air': { id: 'liquid_air', name: '液体空気', emoji: '💧', desc: '空気を極低温で冷却して液体にしたもの。青みを帯びている。', category: 'chemical' },
     'argon': { id: 'argon', name: 'アルゴン', emoji: '💨', desc: '空気中にわずかに含まれる貴ガス。反応性が低く、電球や溶接に使われる。', category: 'chemical' },
     'carbon_dioxide': { id: 'carbon_dioxide', name: '二酸化炭素', emoji: '☁️', desc: '木炭を燃焼させて発生する気体。温室効果ガスの一つ。', category: 'chemical' },
     'sulfur': { id: 'sulfur', name: '硫黄', emoji: '🟡', desc: '火山地帯で採れる黄色い結晶。火薬の原料になる。', category: 'natural' },
@@ -70,7 +69,6 @@ const ELEMENTS = {
     'sulfurous_acid': { id: 'sulfurous_acid', name: '亜硫酸', emoji: '🧪', desc: '二酸化硫黄が水に溶けてできる酸性。漂白や防腐に使われる。', category: 'chemical' },
     'sulfuric_acid': { id: 'sulfuric_acid', name: '硫酸', emoji: '🧪', desc: '亜硫酸が酸化してできる強力な酸。', category: 'chemical' },
     'hot_concentrated_sulfuric_acid': { id: 'hot_concentrated_sulfuric_acid', name: '熱濃硫酸', emoji: '🔥', desc: '加熱して水分を飛ばした高濃度の硫酸。銅や銀も溶かす強力な酸化力を持つ。', category: 'chemical' },
-    'sodium_sulfate': { id: 'sodium_sulfate', name: '硫酸ナトリウム', emoji: '🧪', desc: '硫酸と水酸化ナトリウムが中和してできた塩。', category: 'chemical' },
     'sodium_hydrogen_sulfate': { id: 'sodium_hydrogen_sulfate', name: '硫酸水素ナトリウム', emoji: '🧪', desc: '硫酸と水酸化ナトリウムが1:1で反応してできた酸性塩。', category: 'chemical' },
     'hydrochloric_acid': { id: 'hydrochloric_acid', name: '塩酸', emoji: '🧪', desc: '塩と硫酸を反応させて得られる強力な酸。', category: 'chemical' },
     'aqua_regia': { id: 'aqua_regia', name: '王水', emoji: '👑', desc: '塩酸と硝酸を3:1で混ぜた最強の酸。金やプラチナすら溶かす。', category: 'chemical' },
@@ -78,7 +76,6 @@ const ELEMENTS = {
     'sodium_sulfite': { id: 'sodium_sulfite', name: '亜硫酸ナトリウム', emoji: '🧪', desc: '亜硫酸と水酸化ナトリウムが反応してできた塩。還元剤として使われる。', category: 'chemical' },
     'graphite': { id: 'graphite', name: '黒鉛', emoji: '✏️', desc: '洞窟で採れる黒い鉱物。炭素の結晶。', category: 'natural' },
     'manganese_dioxide': { id: 'manganese_dioxide', name: '軟マンガン鉱', emoji: '🌑', desc: '洞窟で稀に採れる黒い鉱石。過マンガン酸カリウムの原料になる。', category: 'natural' },
-    'potassium_hydroxide': { id: 'potassium_hydroxide', name: '水酸化カリウム', emoji: '🧪', desc: '灰と石灰から作られる強アルカリ性の物質。', category: 'chemical' },
     'potassium_permanganate': { id: 'potassium_permanganate', name: '過マンガン酸カリウム', emoji: '🟣', desc: '強力な酸化作用を持つ紫色の結晶。', category: 'chemical' },
     'graphene_oxide': { id: 'graphene_oxide', name: '酸化グラフェン', emoji: '🍂', desc: '黒鉛を強力に酸化させて得られるシート状の物質。', category: 'chemical' },
     'graphite_shards': { id: 'graphite_shards', name: '黒鉛の破片', emoji: '🧩', desc: '黒鉛を細かく砕いたもの。', category: 'chemical' },
@@ -115,9 +112,7 @@ const ELEMENTS = {
     'iron_sulfide': { id: 'iron_sulfide', name: '硫化鉄', emoji: '🌑', desc: '鉄と硫黄を反応させて作った黒い固形物。', category: 'chemical' },
     'hydrogen_sulfide': { id: 'hydrogen_sulfide', name: '硫化水素', emoji: '💨', desc: '腐った卵のような臭いがする有毒な気体。硫化鉄と塩酸から発生する。', category: 'chemical' },
     'iron_chloride': { id: 'iron_chloride', name: '塩化鉄(II)', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
-    'iron_chloride_iii': { id: 'iron_chloride_iii', name: '塩化鉄(III)', emoji: '🟤', desc: '塩化第二鉄。腐食性のある黒褐色の結晶。', category: 'chemical' },
     'coal': { id: 'coal', name: '石炭', emoji: '🪨', desc: '太古の植物が地中で変化してできた可燃性の岩石。', category: 'natural' },
-    'coal_gas': { id: 'coal_gas', name: '石炭ガス', emoji: '💨', desc: '石炭の乾留時に発生する可燃性の気体。都市ガスの原料。', category: 'chemical' },
     'coal_tar': { id: 'coal_tar', name: 'コールタール', emoji: '🏺', desc: '石炭の乾留時に出る黒い粘り気のある液体。染料や薬品の原料。', category: 'chemical' },
     'coke': { id: 'coke', name: 'コークス', emoji: '⬛', desc: '石炭を乾留して不純物を取り除いた高純度の炭素燃料。強力な火力を持つ。', category: 'chemical' },
     'bamboo_powder': { id: 'bamboo_powder', name: '竹の粉末', emoji: '🎋', desc: '竹を石器で細かく砕いた粉末。', category: 'chemical' },
@@ -127,6 +122,12 @@ const ELEMENTS = {
     'mercury': { id: 'mercury', name: '水銀', emoji: '💧', desc: '常温で液体の重い金属。真空の発見や温度計に使われた。', category: 'natural' },
     'vacuum_pump': { id: 'vacuum_pump', name: '真空ポンプ', emoji: '💨', desc: 'ピストンとゴムを使って容器内の空気を排出し、真空を作る道具。', category: 'tool' },
     'vacuum_apparatus': { id: 'vacuum_apparatus', name: '真空装置', emoji: '🌌', desc: '空気が完全に取り除かれた空間を作り出す装置。', category: 'tool' },
+    'borax': { id: 'borax', name: 'ホウ砂', emoji: '⚪', desc: 'トルコなどで採れる鉱物。ガラスや釉薬の原料になる。', category: 'natural' },
+    'boric_acid': { id: 'boric_acid', name: 'ホウ酸', emoji: '⚪', desc: '殺菌作用のある白い粉末。目薬や防腐剤、ガラスの原料になる。', category: 'chemical' },
+    'borosilicate_glass': { id: 'borosilicate_glass', name: 'ホウケイ酸ガラス', emoji: '⚗️', desc: '熱膨張率が低く、熱衝撃に強いガラス。理化学実験器具や耐熱食器に使われる。', category: 'material' },
+    'crystal_glass': { id: 'crystal_glass', name: 'クリスタルガラス', emoji: '🍷', desc: '酸化鉛を含む、透明度と屈折率が高い美しいガラス。', category: 'material' },
+    'ruby': { id: 'ruby', name: 'ルビー', emoji: '🔴', desc: 'クロムを含んで赤く輝くコランダム。宝石の女王。', category: 'material' },
+    'sapphire': { id: 'sapphire', name: 'サファイア', emoji: '🔵', desc: '鉄とチタンを含んで青く輝くコランダム。', category: 'material' },
     'boiler': { id: 'boiler', name: 'ボイラー', emoji: '♨️', desc: '水を加熱して高圧の蒸気を蓄える頑丈な装置。', category: 'tool' },
     'steam_engine': { id: 'steam_engine', name: '蒸気機関', emoji: '⚙️', desc: '蒸気の力を運動エネルギーに変える熱機関。', category: 'tool' },
     'rail': { id: 'rail', name: 'レール', emoji: '🛤️', desc: '鉄の道と木製の枕木で作られた軌道。', category: 'tool' },
@@ -145,7 +146,6 @@ const ELEMENTS = {
     'zinc': { id: 'zinc', name: '亜鉛', emoji: '⛓️', desc: '青みがかった白色の金属。電池の電極やメッキに使われる。', category: 'chemical' },
     'lightning': { id: 'lightning', name: '雷', emoji: '⚡', desc: '雲から放たれる巨大な電気エネルギー。', category: 'phenomenon' },
     'lacquer': { id: 'lacquer', name: '漆', emoji: '🏺', desc: '漆の木から採れる天然の樹脂。塗料や接着剤として使われる。', category: 'natural' },
-    'enameled_wire': { id: 'enameled_wire', name: 'エナメル線', emoji: '🧵', desc: '銅線に漆を塗って絶縁したもの。コイルの材料になる。', category: 'chemical' },
     'magnet': { id: 'magnet', name: '磁石', emoji: '🧲', desc: '鉄にエナメル線を巻き、雷の強力な電気を流して作った永久磁石。', category: 'tool' },
     'copper_disk': { id: 'copper_disk', name: '銅の円盤', emoji: '💿', desc: '銅を車輪の形に加工した円盤。発電機の部品になる。', category: 'chemical' },
     'generator': { id: 'generator', name: '発電機', emoji: '⚙️', desc: '磁石と回転する銅の円盤を組み合わせ、運動エネルギーを電気に変える装置。', category: 'tool' },
@@ -170,7 +170,6 @@ const ELEMENTS = {
     'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'chemical' },
     'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'chemical' },
     'milk_tea': { id: 'milk_tea', name: 'ミルクティー', emoji: '🧋', desc: '紅茶にミルクと砂糖を入れた濃厚な飲み物。', category: 'chemical' },
-    'flour': { id: 'flour', name: '小麦粉', emoji: '🌾', desc: '小麦を挽いて粉にしたもの。お菓子やパンの材料。', category: 'chemical' },
     'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'chemical' },
     'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'chemical' },
     'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural' },
@@ -181,19 +180,15 @@ const ELEMENTS = {
     'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'chemical' },
     'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'pulley': { id: 'pulley', name: '滑車', emoji: '🏗️', desc: 'ロープと車輪を組み合わせた装置。重いものを小さな力で持ち上げられる。', category: 'tool' },
-    'nickel': { id: 'nickel', name: 'ニッケル', emoji: '🔗', desc: '銀白色の金属。錆びにくく、メッキや合金に使われる。', category: 'chemical' },
     'nickel_oxide': { id: 'nickel_oxide', name: '酸化ニッケル', emoji: '🌑', desc: 'ニッケルの酸化物。ガラスに着色すると可視光を吸収する。', category: 'chemical' },
     'mercury_lamp': { id: 'mercury_lamp', name: '水銀灯', emoji: '💡', desc: '水銀蒸気中の放電を利用した強い光源。紫外線も多く含む。', category: 'tool' },
     'woods_glass': { id: 'woods_glass', name: 'ウッドガラス', emoji: '🔮', desc: '酸化ニッケルを含んだ濃い紫色のガラス。可視光をカットし紫外線だけを通す。', category: 'material' },
     'black_light': { id: 'black_light', name: 'ブラックライト', emoji: '🟣', desc: '紫外線を放出するライト。蛍光物質を光らせる。', category: 'tool' },
     'tamahagane': { id: 'tamahagane', name: '玉鋼', emoji: '💎', desc: 'たたら製鉄で作られた純度の高い鋼。日本刀の材料。', category: 'material' },
     'japanese_sword': { id: 'japanese_sword', name: '日本刀', emoji: '⚔️', desc: '玉鋼を鍛え上げた芸術的な美しさを持つ刀剣。折れず曲がらずよく切れる。', category: 'tool' },
-    'chromium': { id: 'chromium', name: 'クロム', emoji: '🔗', desc: '銀白色の硬い金属。光沢があり、錆びにくい。', category: 'chemical' },
-    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🍴', desc: '鉄にクロムを混ぜて錆びにくくした合金。', category: 'material' },
     'knife': { id: 'knife', name: 'ナイフ', emoji: '🔪', desc: '物を切るための基本的な道具。料理や工作に必須。', category: 'tool' },
     'saw': { id: 'saw', name: 'ノコギリ', emoji: '🪚', desc: '木材を切断するためのギザギザの刃がついた道具。', category: 'tool' },
     'scissors': { id: 'scissors', name: 'ハサミ', emoji: '✂️', desc: '2枚の刃で挟んで切る道具。紙や布の加工に便利。', category: 'tool' },
-    'scalpel': { id: 'scalpel', name: 'メス', emoji: '⚕️', desc: '医療用の極めて鋭利な刃物。ステンレス製で清潔。', category: 'tool' },
     'diamond': { id: 'diamond', name: 'ダイヤモンド', emoji: '💎', desc: 'もっとも硬い天然の鉱物。炭素の結晶。', category: 'natural' },
     'artificial_diamond': { id: 'artificial_diamond', name: '人工ダイヤモンド', emoji: '💠', desc: '高温高圧法（HPHT）で合成されたダイヤモンド。天然と化学組成は同じ。', category: 'chemical' },
     'hydraulic_press': { id: 'hydraulic_press', name: '油圧プレス機', emoji: '🚜', desc: 'パスカルの原理を利用して巨大な圧力を生み出す装置。', category: 'machine' },
@@ -201,7 +196,6 @@ const ELEMENTS = {
     // Food & Ingredients
     'rice': { id: 'rice', name: '米', emoji: '🍚', desc: '日本人の主食。炊くとふっくら美味しい。', category: 'natural' },
     'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'natural' },
-    'milk': { id: 'milk', name: '牛乳', emoji: '🥛', desc: 'カルシウムたっぷりの白い飲み物。', category: 'natural' },
     'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'natural' },
     'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'natural' },
     'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'chemical' },
@@ -228,44 +222,33 @@ const ELEMENTS = {
 
     // Electronics
     'resistor': { id: 'resistor', name: '抵抗器', emoji: '➖', desc: '電流の流れを制限する部品。', category: 'machine' },
-    'capacitor': { id: 'capacitor', name: 'コンデンサ', emoji: '🔋', desc: '電気を蓄えたり放出したりする部品。', category: 'machine' },
     'diode': { id: 'diode', name: 'ダイオード', emoji: '▶️', desc: '電気を一方通行にする部品。', category: 'machine' },
     'led': { id: 'led', name: 'LED', emoji: '💡', desc: '電気を流すと光る半導体。省エネで長寿命。', category: 'machine' },
     'circuit_board': { id: 'circuit_board', name: '基板', emoji: '🟩', desc: '電子部品を配置するための板。銅の配線がある。', category: 'material' },
     'radio': { id: 'radio', name: 'ラジオ', emoji: '📻', desc: '電波を受信して音を出す装置。情報の架け橋。', category: 'machine' },
 
     // Submarine Tech
-    'rutile': { id: 'rutile', name: 'ルチル', emoji: '🌑', desc: 'チタンを含む鉱石。金紅石。', category: 'natural' },
-    'titanium': { id: 'titanium', name: 'チタン', emoji: '🛡️', desc: '軽くて強く、錆びない金属。潜水艦や航空機に使われる。', category: 'material' },
-    'propeller': { id: 'propeller', name: 'スクリュー', emoji: '🌀', desc: '水をかいて推進力を生み出す羽根。', category: 'machine' },
     'periscope': { id: 'periscope', name: '潜望鏡', emoji: '🔭', desc: '海中から海上を偵察するための光学装置。', category: 'tool' },
-    'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '海中を自由に航行できる船。チタン製の船体で深海へ。', category: 'machine' },
 
     'manganese': { id: 'manganese', name: 'マンガン', emoji: '⛓️', desc: '硬くて脆い銀白色の金属。鉄の脱硫や合金の添加剤として重要。', category: 'chemical' },
     'calcium_chloride': { id: 'calcium_chloride', name: '塩化カルシウム', emoji: '🧪', desc: '炭酸カルシウムと塩酸の反応で得られる塩。除湿剤や凍結防止剤に使われる。', category: 'chemical' },
     'calcium_sulfide': { id: 'calcium_sulfide', name: '硫化カルシウム', emoji: '🌑', desc: 'ルブラン法の副産物として大量に発生する厄介な廃棄物。', category: 'chemical' },
     'sodium_sulfate': { id: 'sodium_sulfate', name: '硫酸ナトリウム', emoji: '🧂', desc: '芒硝（ぼうしょう）とも呼ばれる。ルブラン法の中間生成物。', category: 'chemical' },
-    'hydrogen_chloride': { id: 'hydrogen_chloride', name: '塩化水素', emoji: '☁️', desc: '刺激臭のある気体。水に溶かすと塩酸になる。', category: 'chemical' },
     'gold_ore': { id: 'gold_ore', name: '金鉱石', emoji: '🌑', desc: '金や銀を含んだ岩石。菱刈鉱山などの熱水鉱脈で見つかる。', category: 'natural' },
     'gold_dust': { id: 'gold_dust', name: '砂金', emoji: '✨', desc: '川底に溜まっていた重い金の粒。集めれば価値のある金属になる。', category: 'natural' },
     'gold': { id: 'gold', name: '金', emoji: '🥇', desc: '永遠に輝く貴金属の王。腐食せず、加工しやすい。', category: 'chemical' },
     'iron_sand': { id: 'iron_sand', name: '砂鉄', emoji: '✨', desc: '砂浜や川底に含まれる磁性を持つ鉄の粉末。たたら製鉄の原料になる。', category: 'natural' },
     'platinum': { id: 'platinum', name: 'プラチナ', emoji: '💍', desc: '川底で稀に見つかる非常に希少で安定した貴金属。白金。', category: 'natural' },
-    'sponge_platinum': { id: 'sponge_platinum', name: 'スポンジ白金', emoji: '🧽', desc: '多孔質の灰色のプラチナ。表面積が大きく、強力な触媒能力を持つ。', category: 'material' },
     'chloroauric_acid': { id: 'chloroauric_acid', name: 'テトラクロロ金(III)酸', emoji: '🔶', desc: '金を王水に溶かしたオレンジ色の結晶。塩化金酸。', category: 'chemical' },
     'chloroplatinic_acid': { id: 'chloroplatinic_acid', name: 'ヘキサクロロ白金(IV)酸', emoji: '🟤', desc: 'プラチナを王水に溶かした赤褐色の結晶。塩化白金酸。', category: 'chemical' },
-    'ammonium_hexachloroplatinate': { id: 'ammonium_hexachloroplatinate', name: 'ヘキサクロロ白金(IV)酸アンモニウム', emoji: '🟡', desc: '塩化白金酸アンモニウム。黄色い沈殿。加熱すると純粋なプラチナになる。', category: 'chemical' },
     'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🔴', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
-    'molybdenum_trioxide': { id: 'molybdenum_trioxide', name: '三酸化モリブデン', emoji: '🤍', desc: '輝水鉛鉱を焙焼して得られる白い粉末。モリブデンの原料。', category: 'chemical' },
     'molybdenum_dioxide': { id: 'molybdenum_dioxide', name: '二酸化モリブデン', emoji: '🟤', desc: '三酸化モリブデンを水素還元して得られる茶褐色の粉末。', category: 'chemical' },
     'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural' },
     'cassiterite': { id: 'cassiterite', name: 'スズ石', emoji: '🌑', desc: 'スズを含む鉱石。製錬するとスズを取り出せる。', category: 'natural' },
     'tin': { id: 'tin', name: 'スズ', emoji: '⛓️', desc: '低融点で加工しやすい銀白色の金属。青銅の材料やハンダに使われる。', category: 'chemical' },
     'tin_chloride': { id: 'tin_chloride', name: '塩化スズ(II)', emoji: '🧪', desc: 'スズを塩酸に溶かして得られる白い結晶。還元剤として使われる。', category: 'chemical' },
-    'potassium_carbonate': { id: 'potassium_carbonate', name: '炭酸カリウム', emoji: '🧪', desc: '水酸化カリウムが二酸化炭素を吸収してできた白い粉末。植物の灰の主成分でもある。', category: 'chemical' },
     'urine': { id: 'urine', name: '尿', emoji: '🏺', desc: '生物の排泄物。古くからリンや窒素の原料として利用されてきた。', category: 'natural' },
     'ammonia': { id: 'ammonia', name: 'アンモニア', emoji: '💨', desc: '強い刺激臭のある気体。尿の分解などで発生し、肥料や火薬の原料になる。', category: 'chemical' },
-    'carbonated_water': { id: 'carbonated_water', name: '炭酸水', emoji: '🫧', desc: '二酸化炭素が水に溶け込んだもの。シュワシュワとはじける感覚がある。', category: 'chemical' },
     'sodium_bicarbonate': { id: 'sodium_bicarbonate', name: '炭酸水素ナトリウム', emoji: '🧪', desc: '重曹。炭酸水と水酸化ナトリウムの反応で得られる白い粉末。加熱すると二酸化炭素を放出する。', category: 'chemical' },
     'ammonium_chloride': { id: 'ammonium_chloride', name: '塩化アンモニウム', emoji: '🧪', desc: 'アンモニアと塩酸から得られる白い塩。ソルベー法の副産物。', category: 'chemical' },
     'sodium_carbonate': { id: 'sodium_carbonate', name: '炭酸ナトリウム', emoji: '🧪', desc: '炭酸ソーダ。石鹸やガラスの工業的原料。重曹を熱分解すると得られる。', category: 'chemical' },
@@ -276,7 +259,6 @@ const ELEMENTS = {
     'cylinder': { id: 'cylinder', name: 'シリンダー', emoji: '🧪', desc: '竹とガラスを組み合わせた筒状の部品。', category: 'tool' },
     'rod': { id: 'rod', name: '棒', emoji: '🪵', desc: 'シリンダーと合わせて使うための精密な木の棒。', category: 'tool' },
     'top': { id: 'top', name: 'コマ', emoji: '🎯', desc: '車輪と棒を組み合わせた回転する玩具。', category: 'tool' },
-    'iron_pipe': { id: 'iron_pipe', name: '鉄パイプ', emoji: '🔧', desc: '棒を芯にして鉄を成形した管状のパーツ。', category: 'tool' },
     'bronze': { id: 'bronze', name: '青銅', emoji: '🥉', desc: '銅とスズの合金。硬くて腐食しにくい。', category: 'chemical' },
     'brass': { id: 'brass', name: '真鍮', emoji: '🎺', desc: '銅と亜鉛の合金。五円玉の材料。', category: 'chemical' },
     'solder': { id: 'solder', name: 'はんだ', emoji: '🧵', desc: '鉛とスズの合金。低融点で金属の接合に使われる。', category: 'chemical' },
@@ -327,7 +309,6 @@ const ELEMENTS = {
     'syringe': { id: 'syringe', name: '注射器', emoji: '💉', desc: '針、シリンダー、ピストンを組み合わせた、液体の注入や採取に使われる器具。', category: 'tool' },
     'magnesium_hydroxide': { id: 'magnesium_hydroxide', name: '水酸化マグネシウム', emoji: '🧪', desc: '海水中のマグネシウム分と石灰が反応して沈殿した白い泥状の物質。', category: 'chemical' },
     'magnesium_chloride': { id: 'magnesium_chloride', name: '塩化マグネシウム', emoji: '🧪', desc: '水酸化マグネシウムを塩酸に溶かして濃縮した塩。にがりの成分。', category: 'chemical' },
-    'magnesium': { id: 'magnesium', name: 'マグネシウム', emoji: '⛓️', desc: '実用金属の中で最も軽い銀白色の金属。燃やすとまぶしい光を放つ。', category: 'chemical' },
     'hydrogen_chloride': { id: 'hydrogen_chloride', name: '塩化水素', emoji: '💨', desc: '刺激臭のある無色の気体。水に溶けると塩酸になる。', category: 'chemical' },
     'chlorosulfuric_acid': { id: 'chlorosulfuric_acid', name: 'クロロ硫酸', emoji: '🧪', desc: '発煙硫酸と塩化水素から作られる、極めて強い酸性を持つ液体。', category: 'chemical' },
     'struvite': { id: 'struvite', name: 'ストラバイト', emoji: '💎', desc: '尿由来の成分から生成される透明な結晶。肥料の原料。', category: 'chemical' },
@@ -374,10 +355,8 @@ const ELEMENTS = {
     'crude_naphthalene': { id: 'crude_naphthalene', name: '粗製ナフタレン', emoji: '⚪', desc: '中油から油分を除いた固形分。まだ不純物が多い。', category: 'chemical' },
     'crude_phenol': { id: 'crude_phenol', name: '粗フェノール', emoji: '🧪', desc: 'フェノキシドを酸で処理して油層として分離させたもの。', category: 'chemical' },
     'phenol': { id: 'phenol', name: 'フェノール', emoji: '🧪', desc: '特有の臭気を持つ殺菌作用のある物質。樹脂や染料の原料。', category: 'chemical' },
-    'naphthalene': { id: 'naphthalene', name: 'ナフタレン', emoji: '⚪', desc: '防虫剤のにおいがする白い結晶。昇華性がある。', category: 'chemical' },
     'industrial_naphthalene': { id: 'industrial_naphthalene', name: '工業用ナフタレン', emoji: '🏭', desc: '高度に精製されたナフタレン。化学工業の基礎原料。', category: 'material' },
     'box': { id: 'box', name: '箱', emoji: '📦', desc: '四角形を組み合わせて作った丈夫な入れ物。物を運ぶのに便利。', category: 'tool' },
-    'cart': { id: 'cart', name: '荷車', emoji: '🛒', desc: '箱にタイヤを取り付けた運搬具。重い物も楽に運べる。', category: 'tool' },
     'minecart': { id: 'minecart', name: 'トロッコ', emoji: '🚃', desc: 'レールの上を走るための車輪がついた運搬車。鉱山で活躍する。', category: 'tool' },
     'raw_brick': { id: 'raw_brick', name: '生レンガ', emoji: '🧱', desc: '混和材を型に入れて固めたもの。まだ脆い。', category: 'material' },
     'brick': { id: 'brick', name: 'レンガ', emoji: '🧱', desc: '生レンガを焼き固めた丈夫な建築資材。', category: 'material' },
@@ -398,7 +377,6 @@ const ELEMENTS = {
     'barium_chloride': { id: 'barium_chloride', name: '塩化バリウム', emoji: '🧂', desc: 'バリウムの塩化物。毒性がある。', category: 'chemical' },
     'barium': { id: 'barium', name: 'バリウム', emoji: '⚪', desc: '銀白色のアルカリ土類金属。反応性が高い。', category: 'chemical' },
     'barite': { id: 'barite', name: '重晶石', emoji: '💎', desc: 'バリウムを含む非常に重い鉱石。X線の造影剤などに使われる。', category: 'natural' },
-    'naphtha': { id: 'naphtha', name: 'ナフサ', emoji: '🧪', desc: '粗製ガソリン。プラスチックや化学繊維の原料になる重要な石油製品。', category: 'chemical' },
     'kerosene': { id: 'kerosene', name: '灯油', emoji: '🔥', desc: 'ストーブやジェット機の燃料に使われる油。', category: 'chemical' },
     'refined_brine': { id: 'refined_brine', name: '精製かん水', emoji: '💧', desc: '不純物を取り除いた塩湖かん水。リチウムの濃度が高まっている。', category: 'material' },
     'lithium_hydroxide': { id: 'lithium_hydroxide', name: '水酸化リチウム', emoji: '🧪', desc: 'リチウムの水酸化物。電池の電解質やグリースの原料になる。', category: 'chemical' },
@@ -411,8 +389,6 @@ const ELEMENTS = {
     'steamship': { id: 'steamship', name: '機帆船', emoji: '🚢', desc: '蒸気機関と帆の両方で進む船。近代航海の幕開け。', category: 'tool' },
     'rubber_tree': { id: 'rubber_tree', name: 'ゴムノキ', emoji: '🌳', desc: '樹液からゴムが採れる熱帯の木。', category: 'natural' },
     'spice': { id: 'spice', name: '香辛料', emoji: '🌶️', desc: '東南アジア原産のスパイス。料理に風味を加える。', category: 'natural' },
-    'corn': { id: 'corn', name: 'トウモロコシ', emoji: '🌽', desc: 'アメリカ大陸原産の穀物。甘くて栄養豊富。', category: 'natural' },
-    'potato': { id: 'potato', name: 'ジャガイモ', emoji: '🥔', desc: '南米アンデス原産の芋。荒地でも育つ。', category: 'natural' },
     'cacao': { id: 'cacao', name: 'カカオ', emoji: '🍫', desc: '南米アマゾン原産の豆。チョコレートの原料。', category: 'natural' },
 
     // Chocolate & Sweets
@@ -462,9 +438,7 @@ const ELEMENTS = {
     'fish': { id: 'fish', name: '魚', emoji: '🐟', desc: '海や川を泳ぐ生き物。', category: 'natural' },
     'seaweed': { id: 'seaweed', name: '海藻', emoji: '🌿', desc: '海に生える藻類。寒天の原料。', category: 'natural' },
     'kelp_ash': { id: 'kelp_ash', name: '海藻灰', emoji: '🍂', desc: '海藻を焼いて作った灰。炭酸ナトリウムやヨウ素を含んでいる。', category: 'material' },
-    'iodine': { id: 'iodine', name: 'ヨウ素', emoji: '🟣', desc: '海藻灰から抽出される紫黒色の結晶。消毒液の原料。', category: 'chemical' },
     'flour': { id: 'flour', name: '穀粉', emoji: '🌾', desc: '穀物を挽いて粉にしたもの。パンの原料。', category: 'material' },
-    'bread': { id: 'bread', name: 'パン', emoji: '🍞', desc: '粉を練って焼いた食品。放置するとカビる。', category: 'chemical' },
     'yeast': { id: 'yeast', name: '酵母', emoji: '🍄', desc: '糖分を分解してアルコールと二酸化炭素を作る微生物。', category: 'life' },
     'dough': { id: 'dough', name: 'パン生地', emoji: '🥟', desc: '小麦粉と水と酵母を混ぜた生地。膨らんでいる。', category: 'mixture' },
     'moldy_bread': { id: 'moldy_bread', name: 'カビたパン', emoji: '🤢', desc: '青カビが生えてしまったパン。', category: 'natural' },
@@ -504,7 +478,6 @@ const ELEMENTS = {
     'car': { id: 'car', name: '自動車', emoji: '🚗', desc: 'ガソリンで走る夢の乗り物。行動範囲が広がる。', category: 'tool' },
 
     // Pressure
-    'iron_plate': { id: 'iron_plate', name: '鉄板', emoji: '🛡️', desc: '叩いて平らにした鉄の板。', category: 'material' },
     'pump': { id: 'pump', name: 'ポンプ', emoji: '⛽', desc: '気体や液体を吸い上げる装置。', category: 'tool' },
     'hydraulic_jack': { id: 'hydraulic_jack', name: '油圧ジャッキ', emoji: '🏗️', desc: '油の圧力で重いものを持ち上げる装置。', category: 'tool' },
     'hydraulic_pump': { id: 'hydraulic_pump', name: '油圧ポンプ', emoji: '⛽', desc: '高圧の油を送り出す強力なポンプ。', category: 'tool' },
@@ -541,11 +514,6 @@ const ELEMENTS = {
     'nickel_chloride': { id: 'nickel_chloride', name: '塩化ニッケル', emoji: '🧪', desc: 'ニッケルマットを塩素処理して得られる塩。', category: 'chemical' },
 
     // Advanced Timekeeping
-    'pendulum': { id: 'pendulum', name: '振り子', emoji: '⛓️', desc: '重りと紐を組み合わせた、一定の周期で揺れる機構。', category: 'part' },
-    'pendulum_clock': { id: 'pendulum_clock', name: '振り子時計', emoji: '🕰️', desc: '振り子の等時性を利用した高精度な置時計。', category: 'tool' },
-    'chronometer': { id: 'chronometer', name: 'クロノメーター', emoji: '⌚', desc: '船の揺れや温度変化に影響されない、極めて精密な機械式時計。', category: 'tool' },
-    'quartz_clock': { id: 'quartz_clock', name: 'クォーツ時計', emoji: '⌚', desc: '水晶の振動を利用した、現代の標準的な時計。', category: 'tool' },
-    'atomic_clock': { id: 'atomic_clock', name: '原子時計', emoji: '⚛️', desc: '原子の振動を基準にした、宇宙で最も正確な時計の一つ。', category: 'tool' },
     'molybdenum_trioxide': { id: 'molybdenum_trioxide', name: '三酸化モリブデン', emoji: '⚪', desc: 'モリブデンを焙焼して得られる粉末。', category: 'chemical' },
     'niobium': { id: 'niobium', name: 'ニオブ', emoji: '⛓️', desc: '極低温で超伝導を示す金属。', category: 'chemical' },
     'titanium': { id: 'titanium', name: 'チタン', emoji: '🛡️', desc: '軽くて強く、錆びない夢の金属。加工は難しい。', category: 'chemical' },
@@ -556,7 +524,6 @@ const ELEMENTS = {
     'titanium_tetrachloride': { id: 'titanium_tetrachloride', name: '四塩化チタン', emoji: '💨', desc: 'チタン精錬の中間体。発煙性の液体。', category: 'chemical' },
     'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🍴', desc: '鉄、クロム、ニッケルの合金。錆びにくい。', category: 'chemical' },
     'inconel': { id: 'inconel', name: 'インコネル', emoji: '🚀', desc: 'ニッケルをベースにした超耐熱合金。ロケットエンジンなどに使われる。', category: 'chemical' },
-    'super_conductor': { id: 'super_conductor', name: '超伝導電磁石', emoji: '🧲', desc: 'ニオブチタン合金などを使った、電気抵抗ゼロの強力な磁石。', category: 'tool' },
 
     // New Metals: Cobalt, Neodymium, Indium
     'cobalt_ore': { id: 'cobalt_ore', name: 'コバルト輝鉱', emoji: '🔵', desc: 'オーストラリアで採れるコバルトを含む鉱石。ヒ素を含んでいる。', category: 'natural' },
@@ -568,22 +535,18 @@ const ELEMENTS = {
     'neodymium': { id: 'neodymium', name: 'ネオジム', emoji: '🧲', desc: '最強の永久磁石を作れる希土類元素。モーターやスピーカーに使われる。', category: 'chemical' },
     'indium': { id: 'indium', name: 'インジウム', emoji: '📱', desc: '透明導電膜（ITO）の原料。タッチパネルに不可欠な希少金属。', category: 'chemical' },
 
-    // Aluminum & Silicon (Rocket Materials)
+    // Aluminum & Silicon
     'bauxite': { id: 'bauxite', name: 'ボーキサイト', emoji: '🟤', desc: 'アルミニウムの原料となる赤褐色の鉱石。', category: 'natural' },
-    'alumina': { id: 'alumina', name: 'アルミナ', emoji: '⚪', desc: '酸化アルミニウム。白い粉末。これを電気分解してアルミを作る。', category: 'chemical' },
-    'aluminum': { id: 'aluminum', name: 'アルミニウム', emoji: '🪙', desc: '軽くて加工しやすい銀白色の金属。', category: 'chemical' },
-    'aluminum_chloride': { id: 'aluminum_chloride', name: '塩化アルミニウム', emoji: '🧪', desc: 'アルミニウムと塩酸の反応で得られる塩。有機合成の触媒として重要。', category: 'chemical' },
-    'sodium_aluminate': { id: 'sodium_aluminate', name: 'アルミン酸ナトリウム', emoji: '🧪', desc: 'ボーキサイトを処理して得られる中間生成物。水に溶ける。', category: 'chemical' },
+    'alumina': { id: 'alumina', name: 'α-アルミナ', emoji: '💎', desc: '高温で焼成して安定化した酸化アルミニウム。非常に硬い。', category: 'chemical' },
+    'gamma_alumina': { id: 'gamma_alumina', name: 'γ-アルミナ', emoji: '⚪', desc: '低温で脱水して得られる多孔質の酸化アルミニウム。触媒担体に使われる。', category: 'chemical' },
+    'aluminum_chloride': { id: 'aluminum_chloride', name: '塩化アルミニウム', emoji: '🧪', desc: 'アルミニウムと塩素の化合物。有機合成の触媒として重要。', category: 'chemical' },
+    'sodium_aluminate': { id: 'sodium_aluminate', name: 'アルミン酸ナトリウム', emoji: '🧪', desc: 'ボーキサイトを水酸化ナトリウムで煮溶かした溶液。', category: 'chemical' },
     'aluminum_hydroxide': { id: 'aluminum_hydroxide', name: '水酸化アルミニウム', emoji: '⚪', desc: 'アルミン酸ナトリウムを加水分解して得られる白い沈殿。', category: 'chemical' },
     'cryolite': { id: 'cryolite', name: '氷晶石', emoji: '🧊', desc: 'アルミナを溶かすための融剤。アルミナの融点を下げる。', category: 'chemical' },
-    'molten_alumina': { id: 'molten_alumina', name: 'アルミナ溶融液', emoji: '🔥', desc: '氷晶石に溶かして電気分解できるようにしたアルミナ。', category: 'chemical' },
+    'molten_alumina': { id: 'molten_alumina', name: '溶融アルミナ', emoji: '🔥', desc: '氷晶石に溶かして電気分解できるようにしたアルミナ。', category: 'chemical' },
     'duralumin': { id: 'duralumin', name: 'ジュラルミン', emoji: '✈️', desc: 'アルミニウムに銅などを混ぜて強度を高めた合金。航空機やロケットの材料。', category: 'material' },
 
     'silicon': { id: 'silicon', name: '金属ケイ素', emoji: '⬛', desc: 'シリコン。半導体の基板となる物質。', category: 'chemical' },
-    'quartz_crucible': { id: 'quartz_crucible', name: '石英ルツボ', emoji: '🥣', desc: '高純度の石英ガラスで作られた耐熱容器。シリコン単結晶の育成に使われる。', category: 'tool' },
-    'silicon_ingot': { id: 'silicon_ingot', name: 'シリコンインゴット', emoji: '💎', desc: '石英ルツボから引き上げられた巨大な単結晶シリコンの塊。', category: 'material' },
-    'wafer': { id: 'wafer', name: 'シリコンウェハー', emoji: '💿', desc: '高純度のシリコンを薄くスライスした円盤。', category: 'part' },
-    'ic': { id: 'ic', name: '集積回路', emoji: '💾', desc: '多数の素子を組み込んだ電子回路。コンピュータの頭脳。', category: 'part' },
     'computer': { id: 'computer', name: 'コンピュータ', emoji: '💻', desc: '高度な計算を行う電子計算機。ロケットの制御に不可欠。', category: 'tool' },
 
     // Rocket Parts
@@ -601,12 +564,67 @@ const ELEMENTS = {
     'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '🧑‍🚀', desc: '過酷な宇宙環境から身を守るための生命維持装置付きの服。', category: 'tool' },
 
     // Bismuth Chain
-    'bismuth_ore': { id: 'bismuth_ore', name: '輝蒼鉛鉱', emoji: '🌑', desc: 'ビスマスを含む硫化鉱物。虹色に輝くこともある。', category: 'natural' },
     'bismuth_oxide': { id: 'bismuth_oxide', name: '三酸化二ビスマス', emoji: '🟡', desc: '輝蒼鉛鉱を焙焼して得られる黄色の粉末。', category: 'chemical' },
-    'bismuth': { id: 'bismuth', name: 'ビスマス', emoji: '🌈', desc: '融点が低く、虹色の酸化皮膜を持つ金属。', category: 'chemical' },
+    'pgm_ore': { id: 'pgm_ore', name: 'PGM鉱石', emoji: '🪨', desc: '南アフリカで採掘される、白金族元素(Pt, Pd, Rhなど)を含む貴重な鉱石。', category: 'natural' },
+    'iron_rod': { id: 'iron_rod', name: '鉄の棒', emoji: '➖', desc: '鉄を細長く加工した棒。', category: 'part' },
+    'iron_plate': { id: 'iron_plate', name: '鉄板', emoji: '⬜', desc: '鉄を平たく伸ばしたもの。加工しやすい。', category: 'part' },
+    'enameled_wire': { id: 'enameled_wire', name: 'エナメル線', emoji: '🧶', desc: '銅線に絶縁体の漆を塗ったもの。コイルの材料。', category: 'part' },
+    'iron_pipe': { id: 'iron_pipe', name: '鉄パイプ', emoji: '🚇', desc: '中空の鉄の棒。液体や気体を通す。', category: 'part' },
     'airtight_fabric': { id: 'airtight_fabric', name: '気密布', emoji: '🥋', desc: 'ナイロンにテフロン加工を施した、空気を通さない特殊な布。', category: 'material' },
     'space_helmet': { id: 'space_helmet', name: '宇宙ヘルメット', emoji: '🪖', desc: '金メッキされたバイザーを持つ、頑丈なヘルメット。紫外線をカットする。', category: 'part' },
     'plss': { id: 'plss', name: '生命維持装置', emoji: '🎒', desc: '酸素供給や体温調節を行う、宇宙服の心臓部バックパック。', category: 'part' },
+
+    // PGM Refining Chain
+    'molten_pgm_matte': { id: 'molten_pgm_matte', name: '溶融PGMマット', emoji: '🌋', desc: 'PGM鉱石を還元溶融したもの。', category: 'chemical' },
+    'pgm_high_grade_matte': { id: 'pgm_high_grade_matte', name: 'PGM高品位マット', emoji: '🌑', desc: '鉄分を除去して品位を高めたPGMマット。', category: 'chemical' },
+    'pgm_concentrate': { id: 'pgm_concentrate', name: 'PGM濃縮物', emoji: '📦', desc: 'ニッケルや銅を除去し、貴金属を濃縮したもの。', category: 'chemical' },
+    'nickel_sulfate': { id: 'nickel_sulfate', name: '硫酸ニッケル', emoji: '🧪', desc: '緑色の結晶。', category: 'chemical' },
+    'precious_metal_solution': { id: 'precious_metal_solution', name: '貴金属溶液', emoji: '🧪', desc: '王水に溶けた貴金属の混合液。', category: 'chemical' },
+    'insoluble_residue': { id: 'insoluble_residue', name: '不溶性残渣', emoji: '🌑', desc: '王水にも溶け残ったロジウムやルテニウムを含む残渣。', category: 'chemical' },
+    'iron_chloride_iii': { id: 'iron_chloride_iii', name: '塩化鉄(III)', emoji: '🧪', desc: '塩化第二鉄。', category: 'chemical' },
+    'pgm_mother_liquor': { id: 'pgm_mother_liquor', name: 'PGM母液', emoji: '🧪', desc: '金を除去した後の貴金属溶液。', category: 'chemical' },
+    'alkyl_mercaptan': { id: 'alkyl_mercaptan', name: 'アルキルメルカプタン', emoji: '💨', desc: '特異な悪臭を持つ硫黄化合物。', category: 'chemical' },
+    'dialkyl_sulfide': { id: 'dialkyl_sulfide', name: 'ジアルキルスルフィド', emoji: '🧪', desc: '有機溶媒に溶けやすい硫黄化合物。抽出剤として利用。', category: 'chemical' },
+    'extractant_solution': { id: 'extractant_solution', name: '抽出液', emoji: '🧪', desc: 'PGMを抽出するための有機溶媒混合液。', category: 'chemical' },
+    'raffinate': { id: 'raffinate', name: '抽残液', emoji: '💧', desc: '抽出工程で目的成分を取り除かれた残液。', category: 'chemical' },
+    'loaded_organic_phase': { id: 'loaded_organic_phase', name: '負荷有機相', emoji: '🧪', desc: '目的成分を取り込んだ有機溶媒。', category: 'chemical' },
+    'ammonium_hexachloroplatinate': { id: 'ammonium_hexachloroplatinate', name: '塩化白金酸アンモニウム', emoji: '🟡', desc: '黄色の沈殿。白金の精製中間体。', category: 'chemical' },
+    'sponge_platinum': { id: 'sponge_platinum', name: 'スポンジ白金', emoji: '🧽', desc: '多孔質の金属白金。触媒として非常に活性が高い。', category: 'material' },
+    'regenerated_organic_phase': { id: 'regenerated_organic_phase', name: '再生有機層', emoji: '♻️', desc: '逆抽出を行い、再利用可能になった有機溶媒。', category: 'chemical' },
+    'palladium_ammine_solution': { id: 'palladium_ammine_solution', name: 'パラジウムアンミン溶液', emoji: '🧪', desc: 'パラジウムがアンモニアと錯体を形成した溶液。', category: 'chemical' },
+    'dichlorodiammine_palladium': { id: 'dichlorodiammine_palladium', name: 'ジクロロジアンミンパラジウム', emoji: '🟡', desc: '黄色の結晶。パラジウムの精製中間体。', category: 'chemical' },
+    'rhodium_sulfate': { id: 'rhodium_sulfate', name: '硫酸ロジウム(III)', emoji: '🔴', desc: '赤色の塩。', category: 'chemical' },
+    'pentaammine_chlororhodium': { id: 'pentaammine_chlororhodium', name: '塩化ペンタアンミンロジウム', emoji: '🧪', desc: 'ロジウムの精製中間体。', category: 'chemical' },
+    'sodium_nitrate': { id: 'sodium_nitrate', name: '硝酸ナトリウム', emoji: '⚪', desc: 'チリ硝石。酸化剤として使われる。', category: 'chemical' },
+    'sodium_ruthenate': { id: 'sodium_ruthenate', name: 'ルテニウム酸ナトリウム', emoji: '🧪', desc: 'ルテニウムを含む塩。', category: 'chemical' },
+    'sodium_osmate': { id: 'sodium_osmate', name: 'オスミウム酸ナトリウム', emoji: '🧪', desc: 'オスミウムを含む塩。', category: 'chemical' },
+    'ruthenium_tetroxide': { id: 'ruthenium_tetroxide', name: '四酸化ルテニウム', emoji: '💨', desc: '揮発性の高いルテニウム酸化物。強い酸化力を持つ。', category: 'chemical' },
+    'osmium_tetroxide': { id: 'osmium_tetroxide', name: '四酸化オスミウム', emoji: '☠️', desc: '猛毒で揮発しやすいオスミウム酸化物。取り扱い厳重注意。', category: 'chemical' },
+    'ruthenium_dioxide': { id: 'ruthenium_dioxide', name: '二酸化ルテニウム', emoji: '⬛', desc: '黒色の粉末。電極材料などに使われる。', category: 'chemical' },
+    'osmate_solution': { id: 'osmate_solution', name: 'オスミウム酸塩溶液', emoji: '🧪', desc: 'オスミウムを含む溶液。', category: 'chemical' },
+    'ammonium_hexachloroosmate': { id: 'ammonium_hexachloroosmate', name: '塩化オスミウムアンモニウム', emoji: '🔴', desc: '赤黒い結晶。', category: 'chemical' },
+    'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🧽', desc: '多孔質の金属オスミウム。', category: 'material' },
+    'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🧽', desc: '多孔質の金属ルテニウム。', category: 'material' },
+    'ruthenium': { id: 'ruthenium', name: 'ルテニウム', emoji: '⚪', desc: '硬くてもろい白金族元素。', category: 'chemical' },
+    'osmium': { id: 'osmium', name: 'オスミウム', emoji: '🔵', desc: '最も密度の高い元素。非常に硬い。', category: 'chemical' },
+
+    // Iridium Refining Chain
+    'sodium_peroxide': { id: 'sodium_peroxide', name: '過酸化ナトリウム', emoji: '⚪', desc: '強力な酸化剤。水と激しく反応して酸素を発生する。', category: 'chemical' },
+    'nickel_crucible': { id: 'nickel_crucible', name: 'ニッケル製ルツボ', emoji: '🥣', desc: 'アルカリ融解に耐えるニッケル製の容器。', category: 'tool' },
+    'sodium_iridate': { id: 'sodium_iridate', name: 'イリジウム酸ナトリウム', emoji: '⬛', desc: '過酸化ナトリウム融解で生成する黒色の酸化物。', category: 'chemical' },
+    'hexachloroiridic_acid': { id: 'hexachloroiridic_acid', name: 'ヘキサクロロイリジウム(IV)酸', emoji: '🧪', desc: '暗褐色の液体。', category: 'chemical' },
+    'ammonium_hexachloroiridate': { id: 'ammonium_hexachloroiridate', name: 'ヘキサクロロイリジウム(IV)酸アンモニウム', emoji: '🔴', desc: '黒紫色の結晶。難溶性。', category: 'chemical' },
+
+    // Chromium Refining Chain
+    'sodium_dichromate': { id: 'sodium_dichromate', name: '二クロム酸ナトリウム', emoji: '🟧', desc: '鮮やかなオレンジ色の結晶。強力な酸化剤。六価クロムを含むため有害。', category: 'chemical' },
+    'chromium_oxide': { id: 'chromium_oxide', name: '酸化クロム(III)', emoji: '🟩', desc: '緑色の粉末。顔料や研磨剤としても使われる。', category: 'chemical' },
+
+    // Oxalic Acid Synthesis Chain
+    'sodium_formate': { id: 'sodium_formate', name: 'ギ酸ナトリウム', emoji: '⚪', desc: 'ギ酸のナトリウム塩。', category: 'chemical' },
+    'sodium_oxalate': { id: 'sodium_oxalate', name: 'シュウ酸ナトリウム', emoji: '⚪', desc: 'シュウ酸のナトリウム塩。', category: 'chemical' },
+    'calcium_oxalate': { id: 'calcium_oxalate', name: 'シュウ酸カルシウム', emoji: '⚪', desc: '水に難溶な白い沈殿。', category: 'chemical' },
+    'oxalic_acid': { id: 'oxalic_acid', name: 'シュウ酸', emoji: '🧪', desc: '強い還元性を持つ有機酸。毒性がある。', category: 'chemical' },
+    'calcium_sulfate': { id: 'calcium_sulfate', name: '硫酸カルシウム', emoji: '🧱', desc: '石膏の主成分。建築材料などに使われる。', category: 'material' },
 
 
     // Iodide Chain
@@ -618,6 +636,9 @@ const ELEMENTS = {
     // Potassium Chain
     'potassium_hydroxide': { id: 'potassium_hydroxide', name: '水酸化カリウム', emoji: '⚪', desc: '苛性カリ。タンパク質を溶かす強力なアルカリ。', category: 'chemical' },
     'potassium_chloride': { id: 'potassium_chloride', name: '塩化カリウム', emoji: '🧂', desc: 'カリウムの塩化物。肥料や溶融塩電解の融剤に使われる。', category: 'chemical' },
+    'potassium_sulfate': { id: 'potassium_sulfate', name: '硫酸カリウム', emoji: '⚪', desc: 'カリウム肥料の主な原料。苦土肥料とも呼ばれる。', category: 'chemical' },
+    'aluminum_sulfate': { id: 'aluminum_sulfate', name: '硫酸アルミニウム', emoji: '🧂', desc: '浄水や紙の製造に使われる。硫酸バンドとも呼ばれる。', category: 'chemical' },
+    'alum': { id: 'alum', name: 'ミョウバン', emoji: '💎', desc: '美しい正八面体の結晶。染色や皮なめし、消臭に使われる。', category: 'chemical' },
     'potassium_carbonate': { id: 'potassium_carbonate', name: '炭酸カリウム', emoji: '⚪', desc: '草木灰の主成分。ガラスや石鹸の原料。', category: 'chemical' },
 
     // Lithium Chain
@@ -629,7 +650,6 @@ const ELEMENTS = {
     'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石(α)', emoji: '🪨', desc: 'リチウムを含む鉱石（α-スポジュメン）。非常に硬く、そのままでは成分を取り出せない。', category: 'natural' },
     'lithium_ore_beta': { id: 'lithium_ore_beta', name: 'リチウム鉱石(β)', emoji: '🧱', desc: '加熱処理して結晶構造が変化した鉱石（β-スポジュメン）。酸に溶けやすくなっている。', category: 'chemical' },
     'lithium_sulfate': { id: 'lithium_sulfate', name: '硫酸リチウム', emoji: '🧪', desc: 'リチウム鉱石(β)を硫酸で処理して得られる水溶性の塩。', category: 'chemical' },
-    'lithium_ion_battery': { id: 'lithium_ion_battery', name: 'リチウムイオン電池', emoji: '🔋', desc: '小型で大容量の充電式電池。モバイル機器の必需品。', category: 'part' },
     'lcd': { id: 'lcd', name: '液晶ディスプレイ', emoji: '🖥️', desc: '電圧で光の透過を制御する薄型画面。', category: 'part' },
     'touch_panel': { id: 'touch_panel', name: 'タッチパネル', emoji: '📱', desc: '指の動きを感知する入力装置と画面を一体化したもの。', category: 'part' },
     'soc': { id: 'soc', name: 'SoC', emoji: '🔲', desc: 'CPUや通信機能などを1つのチップにまとめた超小型コンピュータ。', category: 'part' },
@@ -648,33 +668,11 @@ const ELEMENTS = {
 
 
     // Maglev
-    'liquid_nitrogen': { id: 'liquid_nitrogen', name: '液体窒素', emoji: '❄️', desc: '極低温の液体。超伝導状態を作る冷却材。', category: 'chemical' },
-    'guideway': { id: 'guideway', name: 'ガイドウェイ', emoji: '🛤️', desc: '推進用コイルが埋め込まれたリニアモーターカーの軌道。', category: 'tool' },
-    'maglev_train': { id: 'maglev_train', name: 'リニアモーターカー', emoji: '🚅', desc: '超伝導磁石の力で浮上・走行する夢の超特急。', category: 'tool' },
 
     // AC Evolution
     'copper': { id: 'copper', name: '銅', emoji: '🥉', desc: '赤みを帯びた金属。電気や熱をよく通す。', category: 'chemical' },
-    'copper_pipe': { id: 'copper_pipe', name: '銅管', emoji: '🧶', desc: '銅で作られたパイプ。熱交換器などに使われる。', category: 'part' },
-    'heat_exchanger': { id: 'heat_exchanger', name: '熱交換器', emoji: '⚙️', desc: '温度の異なる流体の間で熱を移動させる装置。', category: 'part' },
-    'refrigerant': { id: 'refrigerant', name: '冷媒', emoji: '❄️', desc: '熱を運ぶための流体。蒸発と凝縮を繰り返して熱を移動させる。', category: 'chemical' },
-    'heat_pump': { id: 'heat_pump', name: 'ヒートポンプ', emoji: '🔄', desc: '空気中の熱を集めて移動させる高効率なシステム。', category: 'part' },
-    'air_conditioner': { id: 'air_conditioner', name: 'エアコン', emoji: '🍃', desc: 'ヒートポンプを使って室内の温度を調節する快適な家電。', category: 'tool' },
-    'peltier_element': { id: 'peltier_element', name: 'ペルチェ素子', emoji: '⏹️', desc: '電気を流すと片面が冷え、もう片面が熱くなる半導体素子。', category: 'part' },
-    'wearable_thermo_device': { id: 'wearable_thermo_device', name: '着るクーラー', emoji: '👕', desc: 'ペルチェ素子を利用して体を直接冷やすウェアラブルデバイス。', category: 'tool' },
 
     // Food Tech
-    'tin_plate': { id: 'tin_plate', name: 'ブリキ板', emoji: '⬜', desc: '鉄板にスズをメッキしたもの。錆びにくい。', category: 'material' },
-    'can': { id: 'can', name: '空き缶', emoji: '🥫', desc: 'ブリキで作られた保存容器。', category: 'tool' },
-    'canned_food': { id: 'canned_food', name: '缶詰', emoji: '🥘', desc: '加熱殺菌して密閉した保存食。長期保存が可能。', category: 'tool' },
-    'soybean': { id: 'soybean', name: '大豆', emoji: '🫘', desc: '畑の肉と呼ばれる栄養豊富な豆。', category: 'natural' },
-    'soy_sauce': { id: 'soy_sauce', name: '醤油', emoji: '🍶', desc: '大豆を発酵させて作った万能調味料。', category: 'chemical' },
-    'retort_pouch': { id: 'retort_pouch', name: 'レトルトパウチ', emoji: '🧧', desc: 'アルミとプラスチックを張り合わせた、耐熱・遮光性の袋。', category: 'part' },
-    'retort_food': { id: 'retort_food', name: 'レトルト食品', emoji: '🍛', desc: '加圧加熱殺菌された便利な食品。宇宙にも持って行ける。', category: 'tool' },
-    'culture_medium': { id: 'culture_medium', name: '培養液', emoji: '🧪', desc: '細胞を育てるための栄養を含んだ液体。', category: 'chemical' },
-    'cultured_meat': { id: 'cultured_meat', name: '培養肉', emoji: '🥩', desc: '動物の細胞を培養して作った人工肉。未来の食糧。', category: 'tool' },
-    'meat': { id: 'meat', name: '肉', emoji: '🍖', desc: '動物の肉。貴重なタンパク源。', category: 'natural' },
-    'freeze_dryer': { id: 'freeze_dryer', name: 'フリーズドライ機', emoji: '🥶', desc: '食品を凍らせて真空中で乾燥させる装置。', category: 'tool' },
-    'space_food': { id: 'space_food', name: '宇宙食', emoji: '🚀', desc: '究極の保存技術で作られた食事。水で戻して食べる。', category: 'tool' },
 
     // Agriculture & Crops
     'plow': { id: 'plow', name: '鋤（すき）', emoji: '🚜', desc: '土を耕すための道具。農業の基本。', category: 'tool' },
@@ -696,7 +694,6 @@ const ELEMENTS = {
 
     // Fusion Power
     'deuterium': { id: 'deuterium', name: '重水素', emoji: '💧', desc: '海水中から取り出せる、中性子を1つ持つ水素の同位体。未来の燃料。', category: 'chemical' },
-    'tritium': { id: 'tritium', name: 'トリチウム', emoji: '☢️', desc: 'リチウムに中性子を当てて作る、中性子を2つ持つ超重水素。', category: 'chemical' },
     'superconducting_coil': { id: 'superconducting_coil', name: '超伝導コイル', emoji: '🌀', desc: '電気抵抗ゼロで強力な磁場を作るコイル。プラズマを閉じ込める檻。', category: 'part' },
     'tokamak': { id: 'tokamak', name: '核融合炉', emoji: '🍩', desc: '地上の太陽。超高温のプラズマを磁場で閉じ込め、融合エネルギーを取り出す装置。', category: 'machine' },
     'fusion_energy': { id: 'fusion_energy', name: '核融合エネルギー', emoji: '🌟', desc: '星の輝きの源。無限かつクリーンな究極のエネルギー。', category: 'phenomenon' },
@@ -713,69 +710,39 @@ const ELEMENTS = {
     'qubit': { id: 'qubit', name: '量子ビット', emoji: '🐈', desc: '0と1の状態を同時に持つ不思議なビット。重ね合わせを利用する。', category: 'part' },
     'dilution_refrigerator': { id: 'dilution_refrigerator', name: '希釈冷凍機', emoji: '❄️', desc: '絶対零度（-273.15℃）近くまで冷やす装置。量子の世界を安定させる。', category: 'machine' },
     'superconducting_chip': { id: 'superconducting_chip', name: '超伝導チップ', emoji: '💾', desc: 'ジョセフソン接合を利用した、量子計算のための心臓部。', category: 'part' },
-    'quantum_computer': { id: 'quantum_computer', name: '量子コンピュータ', emoji: '💻', desc: '従来のスパコンで何万年もかかる計算を、一瞬で解く夢のマシン。', category: 'machine' },
 
     // Blockchain
     'gpu': { id: 'gpu', name: 'GPU', emoji: '🎮', desc: 'グラフィック処理装置。単純な並列計算が得意で、マイニングに使われる。', category: 'part' },
     'mining_rig': { id: 'mining_rig', name: 'マイニングリグ', emoji: '⛏️', desc: '大量のGPUを並べて、暗号資産の計算競争を行う装置。', category: 'machine' },
     'hash_value': { id: 'hash_value', name: 'ハッシュ値', emoji: '#️⃣', desc: 'データから生成される一意の文字列。改ざん検知に使われるデジタルの指紋。', category: 'data' },
     'block': { id: 'block', name: 'ブロック', emoji: '🧱', desc: '取引データをハッシュ値で鎖のように繋いだ記録の塊。', category: 'data' },
-    'blockchain': { id: 'blockchain', name: 'ブロックチェーン', emoji: '🔗', desc: '分散型台帳技術。改ざん不可能で、中央管理者のいない信頼システムを作る。', category: 'concept' },
-    'cryptocurrency': { id: 'cryptocurrency', name: '暗号資産', emoji: '🪙', desc: 'ブロックチェーン技術によって価値が保証されたデジタル通貨。', category: 'data' },
 
     // Haber-Bosch Process
     'iron_catalyst': { id: 'iron_catalyst', name: '鉄触媒', emoji: '⬛', desc: '高純度の酸化鉄。ハーバー・ボッシュ法の心臓部。', category: 'chemical' },
+    'pressure_reactor': { id: 'pressure_reactor', name: '加圧反応釜', emoji: '🍲', desc: '内部を加圧して化学反応を促進させる頑丈な釜。', category: 'tool' },
     'high_pressure_reactor': { id: 'high_pressure_reactor', name: '高圧反応器', emoji: '🏭', desc: '200気圧以上の超高圧に耐える合成炉。', category: 'tool' },
     'fuel_cell': { id: 'fuel_cell', name: '燃料電池', emoji: '🔋', desc: '水素と酸素を反応させて電気を取り出すクリーンな発電装置。白金触媒が必要。', category: 'tool' },
+    'mixer': { id: 'mixer', name: '撹拌機', emoji: '🌀', desc: '液体を強力にかき混ぜる装置。モーターとプロペラでできている。', category: 'tool' },
+    'mixer_settler': { id: 'mixer_settler', name: 'ミキサーセトラー', emoji: '⚗️', desc: '互いに混じり合わない液体を混合・分離する装置。溶媒抽出法に利用される。', category: 'machine' },
 
     // Vehicle Evolution
-    'propeller': { id: 'propeller', name: 'プロペラ', emoji: '߷', desc: '回転して推力を生み出す羽根。', category: 'part' },
-    'hot_air_balloon': { id: 'hot_air_balloon', name: '熱気球', emoji: '🎈', desc: '熱した空気の浮力で空を飛ぶ乗り物。', category: 'tool' },
-    'airship': { id: 'airship', name: '飛行船', emoji: '🚀', desc: '水素ガスなどを詰めた巨大な風船で飛ぶ船。', category: 'tool' },
-    'airplane': { id: 'airplane', name: '飛行機', emoji: '🛩️', desc: '翼とプロペラで空を飛ぶ機械。ライト兄弟の夢。', category: 'tool' },
-    'titanium_plate': { id: 'titanium_plate', name: 'チタン板', emoji: '🛡️', desc: '軽くて強いチタンを加工した板。航空機のエンジンなどに使われる。', category: 'material' },
-    'jet_engine': { id: 'jet_engine', name: 'ジェットエンジン', emoji: '🔥', desc: '空気を圧縮・燃焼させて超高速のガスを噴出する強力なエンジン。', category: 'part' },
-    'jet_plane': { id: 'jet_plane', name: 'ジェット機', emoji: '✈️', desc: '音速に近い速度で空を飛ぶ現代の航空機。', category: 'tool' },
     'lithium_ion_battery': { id: 'lithium_ion_battery', name: 'リチウムイオン電池', emoji: '🔋', desc: '軽量で大容量な蓄電池。モバイル機器やEVの主力電源。', category: 'part' },
-    'electric_car': { id: 'electric_car', name: '電気自動車', emoji: '🚙', desc: '電気モーターで走る静かでクリーンな車。EV。', category: 'tool' },
-    'drone': { id: 'drone', name: 'ドローン', emoji: '🚁', desc: '遠隔操作で飛ぶ無人航空機。空撮や点検に活躍。', category: 'tool' },
 
-    'bicycle': { id: 'bicycle', name: '自転車', emoji: '🚲', desc: '自分の力で進む二輪車。環境に優しい移動手段。', category: 'tool' },
-    'motorcycle': { id: 'motorcycle', name: 'オートバイ', emoji: '🏍️', desc: 'エンジンを搭載した二輪車。風を切って走る。', category: 'tool' },
 
     // Communication & Broadcast
-    'vacuum_tube': { id: 'vacuum_tube', name: '真空管', emoji: '💡', desc: '電気信号を増幅したり整えたりするガラスの電子部品。', category: 'part' },
     'transistor': { id: 'transistor', name: 'トランジスタ', emoji: '🐜', desc: '電気信号を増幅・スイッチングする半導体素子。電子時代の主役。', category: 'part' },
-    'telephone': { id: 'telephone', name: '電話機', emoji: '☎️', desc: '遠く離れた人と声で会話できる発明。', category: 'tool' },
-    'crt': { id: 'crt', name: 'ブラウン管', emoji: '📺', desc: '電子ビームで画面を光らせる装置。テレビの心臓部。', category: 'part' },
-    'television': { id: 'television', name: 'テレビ', emoji: '📺', desc: '動く映像と音声を映し出す魔法の箱。', category: 'tool' },
 
     // FAX & Image Transmission
     'photodiode': { id: 'photodiode', name: 'フォトダイオード', emoji: '🔅', desc: '光を電気に変える半導体。光センサーの基本。', category: 'part' },
-    'scanner': { id: 'scanner', name: 'スキャナー', emoji: '📸', desc: '写真や書類を読み取ってデジタルデータにする装置。', category: 'tool' },
-    'printer': { id: 'printer', name: 'プリンター', emoji: '🖨️', desc: 'デジタルデータを紙に印刷する装置。', category: 'tool' },
-    'modem': { id: 'modem', name: 'モデム', emoji: '📼', desc: 'ピーヒョロロ。デジタル信号を電話回線の音に変換する装置。', category: 'part' },
-    'fax_machine': { id: 'fax_machine', name: 'FAX', emoji: '📠', desc: '電話回線を使って書類を送受信する装置。ファクシミリ。', category: 'tool' },
 
     // Printing Technology
-    'ink': { id: 'ink', name: 'インク', emoji: '⚫', desc: '煤や染料を溶かした液体。文字や絵を描くのに使う。', category: 'material' },
-    'movable_type': { id: 'movable_type', name: '活字', emoji: '🔣', desc: '鉛合金で作られた文字の型。活版印刷の基礎。', category: 'part' },
     'printing_press': { id: 'printing_press', name: '印刷機', emoji: '📰', desc: '活字を使って紙にインクを転写する機械。知識の革命。', category: 'tool' },
     'typewriter': { id: 'typewriter', name: 'タイプライター', emoji: '⌨️', desc: 'キーを押して活字を紙に打ち付ける機械。カチャカチャッ、チーン！', category: 'tool' },
     'toner': { id: 'toner', name: 'トナー', emoji: '⚫', desc: 'レーザープリンター用の微細なプラスチック粉末インク。', category: 'material' },
     'laser_printer': { id: 'laser_printer', name: 'レーザープリンター', emoji: '🖨️', desc: 'レーザーと静電気を使って高速に印刷するオフィス用プリンター。', category: 'tool' },
 
     // Recording Media & Optoelectronics
-    'record': { id: 'record', name: 'レコード', emoji: '⚫', desc: '塩化ビニルの円盤に溝を刻んで音を記録したもの。アナログの暖かみ。', category: 'tool' },
-    'phonograph': { id: 'phonograph', name: '蓄音機', emoji: '📢', desc: 'エジソンが発明した、音を記録・再生する装置。', category: 'tool' },
-    'cassette_tape': { id: 'cassette_tape', name: 'カセットテープ', emoji: '📼', desc: '磁気テープに音を記録するメディア。A面とB面がある。', category: 'tool' },
 
-    'laser': { id: 'laser', name: 'レーザー', emoji: '🔴', desc: '誘導放出によって増幅された光。CDの読み取りや加工に使われる。', category: 'part' },
-    'polycarbonate': { id: 'polycarbonate', name: 'ポリカーボネート', emoji: '💿', desc: '透明で衝撃に強いプラスチック。CDやDVDの基盤。', category: 'material' },
-    'compact_disc': { id: 'compact_disc', name: 'CD', emoji: '💿', desc: 'デジタル情報を記録した光沢のある円盤。音楽業界を変えた。', category: 'tool' },
-    'cd_player': { id: 'cd_player', name: 'CDプレーヤー', emoji: '🎧', desc: 'レーザーを使ってCDの音楽を再生する装置。', category: 'tool' },
-    'dvd': { id: 'dvd', name: 'DVD', emoji: '📀', desc: 'CDよりも高密度な光ディスク。映画一本がまるごと入る。', category: 'tool' },
-    'blu_ray': { id: 'blu_ray', name: 'ブルーレイ', emoji: '🔵', desc: '青色レーザーを使った大容量ディスク。ハイビジョン映像も余裕。', category: 'tool' },
 
     // Radio Tech Components
     'capacitor': { id: 'capacitor', name: 'コンデンサ', emoji: '🔋', desc: '電気を一時的に蓄える部品。電子回路の基本要素。', category: 'part' },
@@ -787,35 +754,14 @@ const ELEMENTS = {
     'ic': { id: 'ic', name: '集積回路', emoji: '💾', desc: '多数の素子を一つのチップに収めた電子回路。', category: 'part' },
 
     // Radio Tech Products
-    'transceiver': { id: 'transceiver', name: 'トランシーバー', emoji: '📟', desc: '無線で会話できる携帯無線機。もしもし。', category: 'tool' },
-    'radar': { id: 'radar', name: 'レーダー', emoji: '🟢', desc: '電波の反射を利用して、遠くの物体の位置を知る装置。', category: 'tool' },
-    'microwave_oven': { id: 'microwave_oven', name: '電子レンジ', emoji: '🍱', desc: '強力なマイクロ波で水の分子を振動させ、食品を温める調理器具。', category: 'tool' },
 
     // Radar & Sonar Technology
-    'magnetron': { id: 'magnetron', name: 'マグネトロン', emoji: '🔘', desc: '強力なマイクロ波を発生させる真空管。レーダーと電子レンジの心臓部。', category: 'part' },
-    'radome': { id: 'radome', name: 'レードーム', emoji: '⚪', desc: 'レーダーアンテナを保護するドーム状のカバー。電波を通す素材で作られる。', category: 'part' },
-    'hydrophone': { id: 'hydrophone', name: '水中マイク', emoji: '🎤', desc: '水中の音を拾うためのマイク。ソナーの耳。', category: 'part' },
-    'sonar': { id: 'sonar', name: 'ソナー', emoji: '💠', desc: '音波の反射を利用して水中の物体を探知する装置。潜水艦の目。', category: 'tool' },
-    'fish_finder': { id: 'fish_finder', name: '魚群探知機', emoji: '🐟', desc: 'ソナーを使って魚の群れを見つける漁業用機器。', category: 'tool' },
-    'depth_sounder': { id: 'depth_sounder', name: '深度計', emoji: '⚓', desc: '音波で水深を測る装置。航海の安全に欠かせない。', category: 'tool' },
-    'ultrasound': { id: 'ultrasound', name: '超音波診断装置', emoji: '🫀', desc: '高周波の音波で体内を映像化する医療機器。胎児の画像など。', category: 'tool' },
 
     // Modern Medicine
     'penicillin': { id: 'penicillin', name: 'ペニシリン', emoji: '💊', desc: 'カビから発見された世界初の抗生物質。多くの命を救った。', category: 'chemical' },
-    'vaccine': { id: 'vaccine', name: 'ワクチン', emoji: '💉', desc: '弱毒化した病原体を使って免疫を作る予防薬。', category: 'chemical' },
-    'scalpel': { id: 'scalpel', name: 'メス', emoji: '🩸', desc: '精密な外科手術用のナイフ。', category: 'tool' },
-    'anesthesia': { id: 'anesthesia', name: '麻酔', emoji: '💤', desc: '痛みを感じさせずに手術を可能にする薬剤。', category: 'chemical' },
-    'ct_scanner': { id: 'ct_scanner', name: 'CTスキャナー', emoji: '🎯', desc: 'X線を使って体の断面画像を撮影する装置。', category: 'tool' },
-    'endoscope': { id: 'endoscope', name: '内視鏡', emoji: '🔭', desc: '体内を直接観察できるカメラ付きチューブ。', category: 'tool' },
     'defibrillator': { id: 'defibrillator', name: '除細動器', emoji: '⚡', desc: '心臓に電気ショックを与えて正常なリズムに戻す装置。AED。', category: 'tool' },
-    'artificial_heart': { id: 'artificial_heart', name: '人工心臓', emoji: '❤️', desc: '心臓の代わりに血液を送るポンプ。移植までの橋渡し。', category: 'tool' },
-    'dialysis_machine': { id: 'dialysis_machine', name: '人工透析機', emoji: '🫀', desc: '腘臓の代わりに血液をろ過する装置。', category: 'tool' },
-    'dna_sequencer': { id: 'dna_sequencer', name: 'DNAシーケンサー', emoji: '🧬', desc: '遺伝子の塩基配列を読み取る装置。個別化医療の基盤。', category: 'tool' },
 
-    'stethoscope': { id: 'stethoscope', name: '聴診器', emoji: '❤️‍🩹', desc: '心音や呼吸音を聞くための医療器具。', category: 'tool' },
 
-    'wifi_router': { id: 'wifi_router', name: 'Wi-Fiルーター', emoji: '📶', desc: '無線でインターネットに接続するための基地局。', category: 'tool' },
-    'gps_receiver': { id: 'gps_receiver', name: 'GPS受信機', emoji: '📍', desc: '人工衛星からの電波を受信し、現在位置を正確に割り出す装置。', category: 'tool' },
 
     // Thermometer Tree
     'galileo_thermometer': { id: 'galileo_thermometer', name: 'ガリレオ温度計', emoji: '🌡️', desc: '液体の比重変化を利用した美しい温度計。ガラス球が浮き沈みする。', category: 'tool' },
@@ -826,22 +772,10 @@ const ELEMENTS = {
     'infrared_thermometer': { id: 'infrared_thermometer', name: '赤外線温度計', emoji: '🔫', desc: '非接触で物体の温度を測れるハイテク温度計。', category: 'tool' },
 
     // Advanced Medicine
-    'mri': { id: 'mri', name: 'MRI', emoji: '🏥', desc: '強力な磁場を使って体の内部を撮影する医療機器。', category: 'tool' },
-    'x_ray_machine': { id: 'x_ray_machine', name: 'X線撮影機', emoji: '💀', desc: 'X線を使って骨などを透視する装置。レントゲン。', category: 'tool' },
-    'bed': { id: 'bed', name: 'ベッド', emoji: '🛏️', desc: '快適な睡眠のための家具。', category: 'tool' },
 
     // Urban Development
-    'reinforced_concrete': { id: 'reinforced_concrete', name: '鉄筋コンクリート', emoji: '🏢', desc: 'コンクリートの中に鉄筋を入れて強度を高めた建材。', category: 'material' },
-    'wire': { id: 'wire', name: 'ワイヤー', emoji: '➰', desc: '鋼鉄を撚り合わせた丈夫なロープ。', category: 'part' },
-    'elevator': { id: 'elevator', name: 'エレベーター', emoji: '🛗', desc: '重いものを垂直に運ぶ昇降機。高層建築に不可欠。', category: 'tool' },
-    'skyscraper': { id: 'skyscraper', name: '高層ビル', emoji: '🏙️', desc: '鉄とガラスとコンクリートで作られた摩天楼。', category: 'tool' },
 
     // Advanced Materials & Processes
-    'acrylonitrile': { id: 'acrylonitrile', name: 'アクリロニトリル', emoji: '☠️', desc: 'プロピレンとアンモニアから作られる液体。', category: 'chemical' },
-    'carbon_fiber': { id: 'carbon_fiber', name: '炭素繊維', emoji: '🧵', desc: 'アクリル繊維を蒸し焼きにして炭素化したもの。鉄より強くアルミより軽い。', category: 'material' },
-    'wood_chip': { id: 'wood_chip', name: '木材チップ', emoji: '🪵', desc: '木材を細かく砕いたもの。紙の原料。', category: 'material' },
-    'pulp': { id: 'pulp', name: 'パルプ', emoji: '📄', desc: '木材の繊維を取り出したもの。紙の元。', category: 'material' },
-    'photo_resist': { id: 'photo_resist', name: 'フォトレジスト', emoji: '🧴', desc: '光に反応する樹脂。半導体の微細加工に使われる。', category: 'chemical' },
 
     // Chemical Industries
     'coke_oven': { id: 'coke_oven', name: 'コークス炉', emoji: '🏭', desc: '酸素を遮断して石炭を乾留する炉。製鉄に必須のコークスを作る。', category: 'tool' },
@@ -854,8 +788,6 @@ const ELEMENTS = {
     'butadiene': { id: 'butadiene', name: 'ブタジエン', emoji: '🧬', desc: 'ナフサ分解で得られる気体。合成ゴムの主原料。', category: 'chemical' },
     'toluene': { id: 'toluene', name: 'トルエン', emoji: '🧪', desc: '芳香族炭化水素。溶剤や爆薬の原料になる。', category: 'chemical' },
     'xylene': { id: 'xylene', name: 'キシレン', emoji: '❌', desc: '芳香族炭化水素。ペットボトルの原料になる。', category: 'chemical' },
-    'anthracene': { id: 'anthracene', name: 'アントラセン', emoji: '🌑', desc: 'コールタールから得られる成分。染料の原料。', category: 'chemical' },
-    'creosote_oil': { id: 'creosote_oil', name: 'クレオソート油', emoji: '🪵', desc: 'コールタールの留分。強力な木材防腐剤。', category: 'chemical' },
     'synthetic_rubber': { id: 'synthetic_rubber', name: '合成ゴム', emoji: '🍩', desc: '石油から人工的に作られたゴム。品質が安定している。', category: 'material' },
     'tnt': { id: 'tnt', name: 'TNT火薬', emoji: '🧨', desc: 'トリニトロトルエン。非常に安定かつ強力な爆薬。', category: 'chemical' },
     'pet_resin': { id: 'pet_resin', name: 'PET樹脂', emoji: '🧴', desc: 'ポリエチレンテレフタレート。丈夫で透明なプラスチック。', category: 'material' },
@@ -879,43 +811,24 @@ const ELEMENTS = {
     'zinc_sulfide': { id: 'zinc_sulfide', name: '硫化亜鉛', emoji: '✨', desc: '亜鉛と硫黄の化合物。刺激を与えると発光する蛍光体。', category: 'chemical' },
 
     // Plastics & Petrochemicals
-    'vinyl_chloride': { id: 'vinyl_chloride', name: '塩化ビニル', emoji: '💨', desc: 'アセチレンと塩化水素を反応させて得られる気体。プラスチックの原料。', category: 'chemical' },
-    'pvc': { id: 'pvc', name: 'ポリ塩化ビニル', emoji: '🧱', desc: '塩ビ。水や薬品に強く、加工しやすいプラスチック。', category: 'material' },
-    'bakelite': { id: 'bakelite', name: 'ベークライト', emoji: '🟫', desc: '世界初の完全合成プラスチック。熱に強く、電気を通さない硬い樹脂。', category: 'material' },
-    'pvc_pipe': { id: 'pvc_pipe', name: '塩ビパイプ', emoji: '🔧', desc: 'ポリ塩化ビニル製の管。水道や配線に使われる。', category: 'tool' },
 
     // Advanced Chemicals & Pharmaceuticals
-    'picric_acid': { id: 'picric_acid', name: 'ピクリン酸', emoji: '🟨', desc: '強力な爆薬であり、黄色い染料。非常に苦い。', category: 'chemical' },
     'salicylic_acid': { id: 'salicylic_acid', name: 'サリチル酸', emoji: '🧪', desc: '鎮痛作用を持つ無色の結晶。アスピリンの原料。', category: 'chemical' },
     'aspirin': { id: 'aspirin', name: 'アスピリン', emoji: '💊', desc: '世界で最も有名な解熱鎮痛剤。アセチルサリチル酸。', category: 'chemical' },
-    'methyl_salicylate': { id: 'methyl_salicylate', name: 'サリチル酸メチル', emoji: '🌿', desc: '特有の清涼感ある香りを持つ液体。湿布薬に使われる。', category: 'chemical' },
-    'chloroform': { id: 'chloroform', name: 'クロロホルム', emoji: '💤', desc: '甘い臭いを持つ液体。かつて麻酔薬として使われた。', category: 'chemical' },
-    'sodium': { id: 'sodium', name: '金属ナトリウム', emoji: '🪙', desc: '銀白色の非常に柔らかい金属。水と激しく反応する。', category: 'chemical' },
-    'fluorine': { id: 'fluorine', name: 'フッ素', emoji: '🟡', desc: '淡黄色の気体。全元素中で最強の酸化力を持つ。', category: 'chemical' },
-    'urea': { id: 'urea', name: '尿素', emoji: '❄️', desc: '無機物から初めて合成された有機化合物。重要な窒素肥料。', category: 'chemical' },
-    'bone_meal': { id: 'bone_meal', name: '骨粉', emoji: '🦴', desc: '骨を砕いて作った粉末。肥料の原料になる。', category: 'material' },
-    'superphosphate': { id: 'superphosphate', name: '過リン酸石灰', emoji: '🌫️', desc: '骨粉を硫酸で処理して作った速効性のリン酸肥料。', category: 'chemical' },
-    'soap_bubbles': { id: 'soap_bubbles', name: 'シャボン玉', emoji: '🫧', desc: '石鹸とお湯を混ぜて作った、虹色に輝く儚い泡。', category: 'material' },
     'colored_water': { id: 'colored_water', name: '色水', emoji: '🟣', desc: 'ヨウ素デンプン反応によって紫色に染まった水。', category: 'chemical' },
     'sodium_phenoxide': { id: 'sodium_phenoxide', name: 'ナトリウムフェノキシド', emoji: '🧪', desc: 'フェノールの中和で得られる塩。', category: 'chemical' },
     'sodium_salicylate': { id: 'sodium_salicylate', name: 'サリチル酸ナトリウム', emoji: '🧪', desc: '鎮痛作用を持つ白い粉末。サリチル酸の前駆体。', category: 'chemical' },
     'potassium_iodide': { id: 'potassium_iodide', name: 'ヨウ化カリウム', emoji: '🧪', desc: 'ヨウ素とカリウムの塩。試薬や医薬品として重要。', category: 'chemical' },
     'potassium_iodate': { id: 'potassium_iodate', name: 'ヨウ素酸カリウム', emoji: '⚪', desc: 'ヨウ素のオキソ酸塩。酸化剤。', category: 'chemical' },
     'iodine_solution': { id: 'iodine_solution', name: 'ヨウ素液', emoji: '🟤', desc: 'ヨウ素とヨウ化カリウムの水溶液。デンプンと反応して紫色になる。', category: 'chemical' },
-    'diethyl_ether': { id: 'diethyl_ether', name: 'ジエチルエーテル', emoji: '🧪', desc: 'エタノールを硫酸で脱水して作る揮発性の液体。強力な麻酔薬や溶剤。', category: 'chemical' },
 
     // Firearms & Military Tech
-    'nitrocellulose': { id: 'nitrocellulose', name: '無煙火薬', emoji: '☁️', desc: 'ニトロセルロース。綿を硝酸と硫酸で処理した強力な爆薬。燃えカスが残らない。', category: 'chemical' },
-    'mercury_fulminate': { id: 'mercury_fulminate', name: '雷酸水銀', emoji: '💥', desc: '衝撃で爆発する敏感な起爆剤。水銀を硝酸とアルコールで処理して作る。', category: 'chemical' },
-    'bullet': { id: 'bullet', name: '弾丸', emoji: '🌑', desc: '鉛をプレスして作った弾。', category: 'part' },
     'cartridge': { id: 'cartridge', name: '弾薬筒', emoji: '🧨', desc: '弾丸、火薬、雷管を一体化した近代的な弾薬。', category: 'part' },
     'matchlock_gun': { id: 'matchlock_gun', name: '火縄銃', emoji: '🔫', desc: '鉄パイプとマッチ（火縄）を用いた初期の銃火器。', category: 'tool' },
     'cannon': { id: 'cannon', name: '大砲', emoji: '💣', desc: '鉄パイプと車輪を組み合わせた強力な重火器。', category: 'tool' },
-    'rifled_barrel': { id: 'rifled_barrel', name: 'ライフル銃身', emoji: '🌀', desc: '内側に旋条（ライフリング）を刻み、弾の直進性を高めた銃身。', category: 'part' },
     'rifle': { id: 'rifle', name: 'ライフル銃', emoji: '🔫', desc: 'ライフリングと弾薬筒により、長射程と高い精度を実現した近代銃。', category: 'tool' },
 
     // 3D Printing & Digital Fabrication
-    'stepper_motor': { id: 'stepper_motor', name: 'ステッピングモーター', emoji: '⚙️', desc: 'パルス信号で正確に回転角を制御できるモーター。精密機械の心臓部。', category: 'part' },
     'nozzle': { id: 'nozzle', name: 'ノズル', emoji: '💧', desc: '液体や溶けた樹脂を吐出する先端部品。', category: 'part' },
     'filament': { id: 'filament', name: 'フィラメント', emoji: '🧵', desc: '3Dプリンター用の樹脂素材。熱で溶かして積層する。', category: 'material' },
     '3d_printer': { id: '3d_printer', name: '3Dプリンター', emoji: '🖨️', desc: 'デジタルデータから立体物を造形する魔法の箱。', category: 'tool' },
@@ -935,9 +848,7 @@ const ELEMENTS = {
 
     // Missing definitions fix
     'flower': { id: 'flower', name: '花', emoji: '🌸', desc: '植物が咲かせる美しい器官。染料や香料の原料にもなる。', category: 'natural' },
-    'plastic': { id: 'plastic', name: 'プラスチック', emoji: '🧱', desc: '石油から作られた合成樹脂の総称。軽くて加工しやすい。', category: 'material' },
     'clothes': { id: 'clothes', name: '衣服', emoji: '👕', desc: '布で作られた着るもの。人類の生活必需品。', category: 'tool' },
-    'lumber': { id: 'lumber', name: '材木', emoji: '🪵', desc: '建築や家具に使える、加工された木材。', category: 'material' },
     'pressure_vessel': { id: 'pressure_vessel', name: '圧力容器', emoji: '🛢️', desc: '高圧に耐える特別な容器。化学プラントや発電所で使われる。', category: 'tool' },
 
     'sewing_machine': { id: 'sewing_machine', name: 'ミシン', emoji: '🪡', desc: '機械的に縫い目を作る装置。服の大量生産を可能にした。', category: 'tool' },
@@ -951,7 +862,6 @@ const ELEMENTS = {
 
     // Music & Arts
     'guitar': { id: 'guitar', name: 'ギター', emoji: '🎸', desc: '弦を弾いて音を出す楽器。', category: 'tool' },
-    'electric_guitar': { id: 'electric_guitar', name: 'エレキギター', emoji: '🎸', desc: '弦の振動を電気信号に変えて大音量を出すギター。ロックの魂。', category: 'tool' },
     'piano': { id: 'piano', name: 'ピアノ', emoji: '🎹', desc: '鍵盤を叩いてハンマーで弦を打つ鍵盤楽器の王様。', category: 'tool' },
     'synthesizer': { id: 'synthesizer', name: 'シンセサイザー', emoji: '🎛️', desc: '電気的に音を合成してあらゆる音色を作り出す電子楽器。', category: 'tool' },
 
@@ -1004,9 +914,9 @@ const ELEMENTS = {
     'bismuth_ore': { id: 'bismuth_ore', name: '輝蒼鉛鉱', emoji: '🪨', desc: 'ビスマスを含む鉱石。加熱すると溶けやすい。', category: 'natural' },
     'bismuth': { id: 'bismuth', name: 'ビスマス', emoji: '🌈', desc: '虹色に輝く奇妙な金属。骸骨のような結晶を作る。', category: 'material' },
     'bismuth_crystal': { id: 'bismuth_crystal', name: 'ビスマス結晶', emoji: '💎', desc: '人工的に作られたビスマスの美しい結晶。', category: 'material' },
-    'palladium': { id: 'palladium', name: 'パラジウム', emoji: '💍', desc: 'プラチナに似た貴金属。水素を吸い込む性質がある。', category: 'material' },
     'iridium': { id: 'iridium', name: 'イリジウム', emoji: '☄️', desc: '隕石に含まれる非常に硬く重い金属。恐竜絶滅の証拠？', category: 'material' },
     'antimony': { id: 'antimony', name: 'アンチモン', emoji: '💄', desc: '毒性があるが、合金を硬くするのに使われる半金属。', category: 'material' },
+    'stibnite': { id: 'stibnite', name: '輝安鉱', emoji: '🗡️', desc: 'アンチモンの原材料。中国の鉱山で採れる。', category: 'natural' },
     'magnesium': { id: 'magnesium', name: 'マグネシウム', emoji: '⚪️', desc: '軽く、激しく燃える金属。', category: 'material' },
     'magnesium_ribbon': { id: 'magnesium_ribbon', name: 'マグネシウムリボン', emoji: '➰', desc: '薄く帯状に加工されたマグネシウム。着火しやすい。', category: 'part' },
     'white_gold': { id: 'white_gold', name: 'ホワイトゴールド', emoji: '💍', desc: '金とパラジウムの合金。プラチナのような輝き。', category: 'material' },
@@ -1359,10 +1269,11 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'hydroelectric', name: '水力発電', key: 'hydroelectric_power', req: 'gear', desc: '自然のエネルギーを持続可能な電気に変える技術。' },
     { id: 'cryogenic', name: '深冷分離法', key: 'liquid_air', req: 'cooling_unit', desc: '空気を極低温で液化し、蒸留によって窒素と酸素に分離する技術。' },
     { id: 'haber_bosch', name: 'ハーバー・ボッシュ法', key: 'ammonia', req: 'iron_catalyst', desc: '空気中の窒素を固定し、アンモニアを大量生産する革命的技術。' },
+    { id: 'downs_process', name: 'ダウンズ法', key: 'sodium', req: 'calcium_chloride', desc: '溶融塩化ナトリウムを電気分解し、金属ナトリウムを得る工業的製法。' },
     { id: 'hall_heroult', name: 'ホール・エルー法', key: 'aluminum', req: 'electricity', desc: '溶融氷晶石中でアルミナを電気分解し、アルミニウムを得る方法。' },
     { id: 'kroll', name: 'クロール法', key: 'titanium_sponge', req: 'magnesium', desc: '塩化チタンをマグネシウムで還元してチタンを得る製錬法。' },
     { id: 'converter', name: '転炉法', key: 'steel', req: 'oxygen', desc: '溶けた鉄に酸素を吹き込み、不純物を燃焼させて鋼を作る。' },
-    { id: 'cyanidation', name: '青化法', key: 'gold', req: 'sodium_hydroxide', desc: 'シアン化合物（ゲーム内では代用）を用いて金銀を溶かし出す製錬法。' },
+    { id: 'cyanidation', name: '青化法', key: 'gold', req: 'sodium_hydroxide', desc: 'シアン化合物を用いて金銀を溶かし出す製錬法。' },
     { id: 'zone_melting', name: 'ゾーンメルティング法', key: 'silicon_ingot', req: 'electricity', desc: '局所加熱で不純物を移動させ、超高純度シリコン結晶を作る。' },
     { id: 'steam_cracking', name: 'スチームクラッキング', key: 'ethylene', req: 'naphtha', desc: 'ナフサを高温の水蒸気で熱分解し、プラスチック原料を作る石油化学の核。' },
     { id: 'sohio', name: 'ソハイオ法', key: 'acrylonitrile', req: 'propylene', desc: 'プロピレンとアンモニアを反応させ、アクリロニトリルを合成する。' },
@@ -1434,7 +1345,6 @@ const RECIPES = {
     'aqua_regia+platinum': ['chloroplatinic_acid', 'nitrogen_monoxide', 'fresh_water'], // Platinum dissolution
     'chloroauric_acid+iron_sulfate+fresh_water': ['gold', 'iron_chloride_iii', 'iron_sulfate_iii', 'hydrochloric_acid'], // Gold reduction
     'chloroplatinic_acid+ammonium_chloride+fresh_water': ['ammonium_hexachloroplatinate', 'hydrochloric_acid'], // Platinum precipitation
-    'ammonium_hexachloroplatinate+fire': ['sponge_platinum', 'nitrogen', 'ammonium_chloride', 'hydrogen_chloride'], // Calcination
 
     // Anthraquinone Process
     'anthracene_oil+cooling_unit': 'anthracene', // Extraction
@@ -1448,8 +1358,9 @@ const RECIPES = {
     'coke+manganese_dioxide': 'manganese_monoxide', // Better reduction
     'arsenic_trioxide+charcoal+fire': ['arsenic', 'carbon_dioxide'],
     'arsenic_trioxide+coke+fire': ['arsenic', 'carbon_dioxide'],
-    'air+grape': 'yeast', // Wild Yeast (Natural fermentation source)
-    'air+grape+yeast': 'wine', // Fermentation
+    'air+grape': 'wine', // Natural fermentation: Grape + Air -> Wine
+    // 'air+grape+yeast': 'wine', // Removed old recipe
+    'air+flour+fresh_water': 'yeast', // Culturing wild yeast from flour
     'air+wine': 'vinegar', // Wine + Air -> Vinegar
     'air+urine': 'ammonia', // Decomposition
 
@@ -1464,7 +1375,6 @@ const RECIPES = {
     'stone+wood': 'stone_tool', // Wood + Stone -> Stone Tool
     'stone+stone_tool': 'stone_plate', // Stone + Stone Tool -> Stone Plate
     'shell+stone_tool': 'calcium_carbonate', // Shell + Stone Tool -> Calcium Carbonate
-    'plant+stone_tool': 'fiber', // Plant + Stone Tool -> Fiber
     'fiber+fiber': 'string', // Fiber + Fiber -> String
     'string+wood': 'bow', // String + Wood -> Bow
     'bow+wood': 'fire', // Bow + Wood -> Fire (Primitive fire making)
@@ -1482,20 +1392,29 @@ const RECIPES = {
     'fresh_water+glass_vessel': 'cup', // Water + Vessel -> Cup
     'cup+wine': 'wine_glass', // Cup + Wine -> Wine Glass
     'fresh_water+nitrogen_monoxide': 'nitrogen_dioxide', // (Simplified)
-    'fresh_water+nitrogen_dioxide': 'nitric_acid', // Nitrogen Dioxide + Water -> Nitric Acid
     'graphite+stone_tool': 'graphite_shards', // Graphite + Stone Tool -> Shards
+    'fire+graphite': 'carbon_rod', // Sintering graphite into a rod
     'bamboo+stone_tool': 'bamboo_powder', // Bamboo + Stone Tool -> Powder
     'earthenware+stone_tool': 'shards', // Earthenware + Stone Tool -> Shards
     'iron+wood': 'iron_tool', // Iron + Wood -> Iron Tool
-    'iron_pipe+iron_plate': 'piston', // Changed to resolve conflict with iron_pipe
+
+    // Mechanics Roadmap
+    'iron+fire': 'iron_rod', // Iron Rod
+    'copper+lacquer': 'enameled_wire', // Enameled Wire (Copper + Lacquer)
+    'enameled_wire+iron_rod': 'coil', // Coil
+    'magnetite+stone_tool': 'magnet', // Magnet
+    'iron_plate+iron_rod': 'iron_pipe', // Iron Pipe
+    'iron_pipe+iron_plate': 'cylinder', // Cylinder (Iron)
+    'iron_rod+iron_plate': 'piston', // Piston (Rod + Plate)
+
     'earthenware+glass': 'glass_vessel', // Earthenware + Glass -> Glass Vessel
     'iron_tool+pencil': 'needle', // Iron Tool + Pencil -> Needle (Pencil used as guide or holder?)
-    'glass+stone_tool': 'lens', // Grinding glass into a lens
+    'crystal_glass+stone_tool': 'lens', // Grinding glass into a lens
     'compass_tool+paper': 'circle', // Compass + Paper -> Circle
     'fresh_water+sulfur_dioxide': 'sulfurous_acid', // Water + SO2 -> Sulfurous Acid
     'iron_sulfate+sulfurous_acid+sun': 'sulfuric_acid', // Sulfurous Acid + Sun + Iron Sulfate -> Sulfuric Acid (Catalytic)
-    'fuming_sulfuric_acid+fresh_water': 'sulfuric_acid', // Contact Process (Final Step)
     'air+fire+sulfur': 'sulfur_dioxide', // Updated
+    'salt+sulfuric_acid': ['sodium_hydrogen_sulfate', 'hydrogen_chloride'], // NaCl + H2SO4 -> NaHSO4 + HCl (Low Temp)
     'salt+salt+sulfuric_acid': ['sodium_sulfate', 'hydrogen_chloride'], // Leblanc Step 1
     'sodium_sulfate+coal+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Coal)
     'sodium_sulfate+charcoal+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Charcoal)
@@ -1504,6 +1423,14 @@ const RECIPES = {
     'calcium_hydroxide+water': 'magnesium_hydroxide', // Seawater + Lime -> Mg(OH)2
     'hydrochloric_acid+magnesium_hydroxide': 'magnesium_chloride',
     'calcium_hydroxide+fresh_water+plant_ash': 'potassium_hydroxide', // Potassium Hydroxide synthesis (causticization)
+
+    // Alum Production Chain
+    // 1. Alumina + Sulfuric Acid -> Aluminum Sulfate + Water
+    'alumina+sulfuric_acid': ['aluminum_sulfate', 'fresh_water'],
+    // 2. Potassium Chloride + Sulfuric Acid -> Potassium Sulfate + Hydrogen Chloride
+    'potassium_chloride+sulfuric_acid': ['potassium_sulfate', 'hydrogen_chloride'],
+    // 3. Aluminum Sulfate + Potassium Sulfate + Hot Water -> Alum
+    'aluminum_sulfate+hot_water+potassium_sulfate': 'alum',
     'earthenware+plant_ash': 'ash_cupel', // Ash Hearth for cupellation
     'earth+plant_ash+urine': 'potassium_nitrate', // Historical Niter Bed (Old method)
     'nitric_acid+potassium_hydroxide': 'potassium_nitrate', // Neutralization (Modern method)
@@ -1513,19 +1440,17 @@ const RECIPES = {
     'hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
     'carbon_dioxide+potassium_hydroxide': 'potassium_carbonate', // CO2 absorption
     'ammonia+hydrochloric_acid': 'ammonium_chloride', // Reaction
-    'bamboo+glass_vessel': 'cylinder',
+    // 'bamboo+glass_vessel': 'cylinder',
     'stone_tool+wood': 'rod',
     'rod+wheel': 'top',
     'acetone+chlorine': 'chloroacetone',
     'glass_vessel+glass_vessel+sand': 'hourglass',
     'carbon_dioxide+fresh_water+plant+sun': ['starch', 'oxygen'], // Photosynthesis (4 slots)
     'electricity+enameled_wire+glass_vessel': 'ozone',
-    'iron+rod': 'iron_pipe',
-    'carbon_dioxide+fresh_water': 'carbonated_water', // Restored
+    // 'iron+rod': 'iron_pipe',
     'carbonated_water+sodium_hydroxide': 'sodium_bicarbonate', // Reaction to bicarbonate
     'ammonia+nitric_acid': 'ammonium_nitrate',
     // 'ammonia+oxygen+platinum': 'nitric_acid', // RECIPE REMOVED
-    'ammonia+fire+platinum': 'nitrogen_monoxide', // Ostwald Process Step 1
     'ammonium_nitrate+fresh_water': 'cold_pack',
     'sodium_hydroxide+vinegar': 'sodium_acetate',
     'rod+sun': 'sundial',
@@ -1653,7 +1578,6 @@ const RECIPES = {
     'string+string': 'cloth',
     'cloth+string+wood': 'sail',
     'brass+iron_tool': 'screw',
-    'iron+wheel': 'rudder',
     'rudder+screw+steam_engine': 'marine_engine',
     'marine_engine+sail+steel': 'steamship',
     'wood+wood+wood': 'raft',
@@ -1737,9 +1661,7 @@ const RECIPES = {
     'fluorite+sulfuric_acid': 'hydrogen_fluoride',
     'hydrogen_fluoride+fresh_water': 'hydrofluoric_acid',
     'hydrofluoric_acid+glass': 'etched_glass',
-    'shale_oil+distillation_tower': 'naphtha', // Distillation
     'naphtha+fire': ['ethylene', 'propylene'], // Steam Cracking
-    'coal_tar+distillation_tower': ['benzene', 'naphthalene'],
     'benzene+propylene': 'cumene', // Alkylation
     'polyethylene+polyethylene': 'plastic_container',
     'ethylene+hydrogen_fluoride': 'teflon',
@@ -1876,7 +1798,7 @@ const RECIPES = {
     // 1. Rutile + Coke + Chlorine -> TiCl4 + CO2
     'chlorine+coke+rutile': ['titanium_tetrachloride', 'carbon_dioxide'],
     // 2. TiCl4 + Magnesium -> Titanium Sponge + MgCl2
-    'magnesium+titanium_tetrachloride': ['titanium_sponge', 'magnesium_chloride'],
+    'fire+magnesium+titanium_tetrachloride': ['titanium_sponge', 'magnesium_chloride'],
     // 3. Sponge + Electricity (Arc Melting) -> Titanium
     'electricity+titanium_sponge': 'titanium',
 
@@ -1901,8 +1823,9 @@ const RECIPES = {
     'bauxite+fire+sodium_carbonate': ['sodium_aluminate', 'carbon_dioxide'],
     // 2. Precipitation: Sodium Aluminate + Water + CO2 -> Aluminum Hydroxide + Sodium Carbonate (Recycled)
     'carbon_dioxide+fresh_water+sodium_aluminate': ['aluminum_hydroxide', 'sodium_carbonate'],
-    // 3. Calcination: Aluminum Hydroxide + Heat -> Alumina + Water
-    'aluminum_hydroxide+fire': ['alumina', 'fresh_water'],
+    // 3. Calcination: Aluminum Hydroxide + Heat -> Gamma Alumina (Low Temp) / Alpha Alumina (High Temp)
+    'aluminum_hydroxide+fire': ['gamma_alumina', 'fresh_water'],
+    'aluminum_hydroxide+fire+fire': ['alumina', 'fresh_water'],
 
     // Cryolite Synthesis: HF + Al(OH)3 + NaOH -> Cryolite + Water
     'aluminum_hydroxide+hydrofluoric_acid+sodium_hydroxide': ['cryolite', 'fresh_water'],
@@ -2026,10 +1949,9 @@ const RECIPES = {
     // 'fire+mercury+gold_dust': 'gold', // Removed per user request
     'cinnabar+fire': 'mercury',
     'fire+gold_dust+iron_plate+mercury': 'gold_plating',
-    'copper+press_machine': 'copper_plate',
 
-    // Chromium (from Ferrochrome with Electrolysis)
-    'electricity+ferrochrome': ['chromium', 'iron'],
+    // Chromium (from Ferrochrome with Electrolysis) - Removed
+    // 'electricity+ferrochrome': ['chromium', 'iron'],
 
     // Agriculture Recipes
     // Plow: Wood + Iron
@@ -2058,7 +1980,6 @@ const RECIPES = {
 
     // Foods & Products
     // Bread: Wheat -> Flour(Stone Tool) -> Dough(Yeast+Water) -> Bread(Fire)
-    'stone_tool+wheat': 'flour',
     'flour+fresh_water+yeast': 'dough',
     'dough+fire': 'bread',
     // Chips: Potato + Oil + Heat. (Oil can be plant oil or simple fire for now)
@@ -2102,7 +2023,121 @@ const RECIPES = {
     'coal_tar+distillation_tower': ['light_oil', 'naphthalene', 'creosote_oil', 'anthracene', 'pitch'],
 
     // Benzene Extraction
-    'light_oil+distillation_tower': 'benzene',
+    // Benzene & Kerosene Extraction
+    'light_oil+distillation_tower': ['benzene', 'kerosene'],
+
+    // PGM Refining Process
+    // 1. Smelting
+    'carbon_rod+carbon_rod+fire+pgm_ore': 'molten_pgm_matte', // Electric Smelting (Simulated)
+    'molten_pgm_matte+oxygen+sand': 'pgm_high_grade_matte',
+
+    // 2. Leaching (MC Process)
+    'fire+oxygen+pgm_high_grade_matte+pressure_reactor+sulfuric_acid': ['pgm_concentrate', 'copper_sulfate', 'nickel_sulfate'], // Pressure Leaching
+
+    // 3. PGM Separation
+    'aqua_regia+fire+pgm_concentrate': ['precious_metal_solution', 'insoluble_residue'],
+    'iron_sulfate+precious_metal_solution': ['gold', 'iron_sulfate_iii', 'iron_chloride_iii', 'hydrochloric_acid', 'pgm_mother_liquor'],
+
+    // 4. Solvent Extraction Agent Synthesis
+    'alcohol+fire+gamma_alumina+hydrogen_sulfide': ['alkyl_mercaptan', 'fresh_water'], // Alcohol = Ethanol
+    'alcohol+alkyl_mercaptan+fire+gamma_alumina': ['dialkyl_sulfide', 'fresh_water'],
+    'alcohol+dialkyl_sulfide+kerosene': 'extractant_solution',
+
+    // 5. Platinum & Palladium Extraction
+    'extractant_solution+mixer_settler+pgm_mother_liquor': ['raffinate', 'loaded_organic_phase'],
+
+    // Platinum Line
+    'ammonium_chloride+raffinate': 'ammonium_hexachloroplatinate',
+    'ammonium_hexachloroplatinate+fire': ['sponge_platinum', 'nitrogen', 'ammonia', 'hydrogen_chloride', 'chlorine'],
+
+    // Palladium Line
+    'ammonia_water+loaded_organic_phase+mixer_settler': ['regenerated_organic_phase', 'palladium_ammine_solution'],
+    'hydrochloric_acid+palladium_ammine_solution': 'dichlorodiammine_palladium',
+    'dichlorodiammine_palladium+fire+hydrogen': ['palladium', 'ammonia', 'chlorine'],
+
+    // 6. Rare PGM Recovery (from Residue)
+    // Rhodium Line
+    'fire+insoluble_residue+sodium_hydrogen_sulfate': ['rhodium_sulfate', 'sodium_sulfate', 'hydrogen'],
+    'ammonia_water+fresh_water+rhodium_sulfate': 'pentaammine_chlororhodium',
+    'fire+hydrogen+pentaammine_chlororhodium': ['rhodium', 'ammonia', 'hydrogen_chloride'],
+
+    // Ruthenium & Osmium Line - Reagents
+    'nitric_acid+sodium_hydroxide': ['sodium_nitrate', 'fresh_water'],
+    'nitric_acid+sodium_carbonate': ['sodium_nitrate', 'fresh_water', 'carbon_dioxide'],
+
+    // Fusion & Distillation
+    'fire+insoluble_residue+sodium_hydroxide+sodium_nitrate': ['sodium_ruthenate', 'sodium_osmate'],
+    'chlorine+fresh_water+sodium_osmate+sodium_ruthenate': ['ruthenium_tetroxide', 'osmium_tetroxide'],
+
+    // Separation
+    'alcohol+ruthenium_tetroxide': ['ruthenium_dioxide', 'osmate_solution'], // Ethanol reduction
+
+    // Osmium Line
+    'ammonium_chloride+osmate_solution': 'ammonium_hexachloroosmate',
+    'ammonium_hexachloroosmate+fire+hydrogen': ['osmium_sponge', 'ammonium_chloride', 'hydrogen_chloride'],
+
+    // Ruthenium Line
+    'fire+hydrogen+ruthenium_dioxide': ['ruthenium_sponge', 'steam'],
+
+    // Iridium Line (from Insoluble Residue)
+    // 1. Sodium Peroxide: Sodium + Oxygen + Fire
+    'fire+oxygen+sodium': 'sodium_peroxide',
+
+    // 2. Nickel Crucible: Nickel + Box
+    'box+nickel': 'nickel_crucible',
+
+    // 3. Fusion (Sodium Peroxide Fusion): Insoluble Residue + Sodium Peroxide + Fire + Nickel Crucible -> Sodium Iridate + Nickel Crucible (Recycled)
+    'fire+insoluble_residue+nickel_crucible+sodium_peroxide': ['sodium_iridate', 'nickel_crucible'],
+
+    // 4. Dissolution: Sodium Iridate + Water + Aqua Regia -> Hexachloroiridic Acid
+    // (Note: H2IrCl6 is formed)
+    'aqua_regia+fresh_water+sodium_iridate': 'hexachloroiridic_acid',
+
+    // 5. Precipitation: Hexachloroiridic Acid + Ammonium Chloride -> Ammonium Hexachloroiridate
+    'ammonium_chloride+hexachloroiridic_acid': 'ammonium_hexachloroiridate',
+
+    // 6. Calcination: Ammonium Hexachloroiridate + Hydrogen + Fire -> Iridium + Ammonia + Hydrogen Chloride
+    'ammonium_hexachloroiridate+fire+hydrogen': ['iridium', 'ammonia', 'hydrogen_chloride'],
+
+    // Chromium Refining (Updated)
+    // 1. Roasting: Chromite + Sodium Carbonate + Air + Fire -> Sodium Dichromate
+    'air+chromite+fire+sodium_carbonate': 'sodium_dichromate',
+
+    // 2. Reduction: Sodium Dichromate + Sulfur + Fire -> Chromium Oxide + Sodium Sulfate
+    'fire+sodium_dichromate+sulfur': ['chromium_oxide', 'sodium_sulfate'],
+
+    // 3. Thermite Process: Chromium Oxide + Aluminum + Fire -> Chromium + Alumina
+    'aluminum+chromium_oxide+fire': ['chromium', 'alumina'],
+
+    // Oxalic Acid Synthesis
+    // 1. Carbonylation: Sodium Hydroxide + Carbon Monoxide + Fire + Pressure Reactor -> Sodium Formate
+    'carbon_monoxide+fire+pressure_reactor+sodium_hydroxide': 'sodium_formate',
+
+    // 2. Pyrolysis: Sodium Formate + Fire -> Sodium Oxalate + Hydrogen
+    'fire+sodium_formate': ['sodium_oxalate', 'hydrogen'],
+
+    // 3. Caustification: Sodium Oxalate + Water + Calcium Hydroxide -> Calcium Oxalate + Sodium Hydroxide (Recycled)
+    'calcium_hydroxide+fresh_water+sodium_oxalate': ['calcium_oxalate', 'sodium_hydroxide'],
+
+    // 4. Acidification: Calcium Oxalate + Sulfuric Acid -> Oxalic Acid + Calcium Sulfate
+    'calcium_oxalate+sulfuric_acid': ['oxalic_acid', 'calcium_sulfate'],
+
+    // Boron Chain
+    // 1. Acidulation: Borax + Hot Water + Sulfuric Acid -> Boric Acid + Sodium Sulfate + Water
+    'borax+hot_water+sulfuric_acid': ['boric_acid', 'sodium_sulfate', 'fresh_water'],
+
+    // 2. Glass Melting: Boric Acid + Sand + Alumina + Sodium Carbonate + Fire -> Borosilicate Glass
+    'alumina+boric_acid+fire+sand+sodium_carbonate': 'borosilicate_glass',
+    // 3. Crystal Glass (Lead Glass): Sand + Lead + Oxygen + Potassium Carbonate + Fire
+    'fire+lead+oxygen+potassium_carbonate+sand': 'crystal_glass',
+
+    // Gemstone Synthesis (Verneuil process style)
+    // Ruby: Alumina + Chromium Oxide + Fire
+    'alumina+chromium_oxide+fire': 'ruby',
+    // Sapphire: Alumina + Rutile + Iron + Fire
+    'alumina+fire+iron+rutile': 'sapphire',
+
+
 
     // Cryogenic Air Separation (深冷分離法)
     // Already defined above: 'air+compressor+cooling_unit': 'liquid_air',
@@ -2111,10 +2146,18 @@ const RECIPES = {
     // Haber-Bosch Process (ハーバー・ボッシュ法)
     // Iron Catalyst: Magnetite + Fire + Oxygen -> Iron Catalyst
     'fire+magnetite+oxygen': 'iron_catalyst',
-    // High-Pressure Reactor: Iron Vessel + Compressor + Boiler
-    'boiler+compressor+iron_vessel': 'high_pressure_reactor',
+    // Pressure Reactor: Boiler + Iron Vessel (Step 1)
+    'boiler+iron_vessel': 'pressure_reactor',
+    // High-Pressure Reactor: Pressure Reactor + Compressor (Step 2)
+    'pressure_reactor+compressor': 'high_pressure_reactor',
     // Synthetic Ammonia: Nitrogen + Hydrogen + Iron Catalyst + High-Pressure Reactor -> Ammonia
     'high_pressure_reactor+hydrogen+iron_catalyst+nitrogen': 'ammonia',
+
+    // Solvent Extraction Roadmap (Mixer-Settler)
+    // Mixer: Motor + Propeller + Iron Rod
+    'iron_rod+motor+propeller': 'mixer',
+    // Mixer-Settler: Mixer + Iron Vessel + Iron Pipe
+    'iron_pipe+iron_vessel+mixer': 'mixer_settler',
 
     // Sabatier Reaction Roadmap
     // Nickel Catalyst: Nickel + Fire + Hydrogen (Activation)
@@ -2296,7 +2339,6 @@ const RECIPES = {
     // Let's deduce wool from Animal + Knife or something
     'animal+iron_tool': 'wool',
 
-    'animal+plant': 'cocoon', // Silkworm eating plant
     'cocoon+hot_water': 'raw_silk', // Boiling cocoons
     'pet_resin+press_machine': 'polyester', // Fiber spinning
 
@@ -2306,7 +2348,6 @@ const RECIPES = {
     'iron+gear+press_machine': 'sewing_machine', // Simplified
 
     // Threads & Fabrics
-    'cotton+spinning_wheel': 'thread', // Cotton thread (generic thread)
     'wool+spinning_wheel': 'thread', // Wool yarn is also thread here? Or separate? Let's use generic thread for simplicity or add yarn.
     // Actually, let's keep 'thread' generic for now to link with existing recipes.
 
@@ -2321,7 +2362,6 @@ const RECIPES = {
     'cotton+flower+loom': 'denim',
 
     // Clothes
-    'denim+sewing_machine': 'jeans',
     'cloth+sewing_machine': 'clothes', // Generic clothes fallback or new item? 'clothes' exists? Check.
     // Checking grep results... user didn't show 'clothes' def. Assuming we need to add or it exists.
     // Let's add 'dress' and 'kimono'
@@ -2480,7 +2520,6 @@ const RECIPES = {
     // Blockchain: Block + Mining Rig (Proof of Work)
     'block+mining_rig': 'blockchain',
     // Crypto: Blockchain + Electricity
-    'blockchain+electricity': 'cryptocurrency',
     // Simplified: Ruby + Diode
     // Ruby definition missing? Use 'aluminum_oxide' (Corundum) + 'chromium' (Trace) -> Ruby?
     // Let's assume Diode + Lens + Electricity -> Laser (Semiconductor laser)
@@ -2671,7 +2710,6 @@ const RECIPES = {
     'cassiterite+coal': 'tin',
 
     'animal+stone_tool': 'meat', // Changed from bird to animal
-    'plant+plant': 'soybean',
     'soybean+corn+salt+moldy_bread': 'soy_sauce',
     'aluminum+polyethylene': 'retort_pouch',
 
@@ -2835,7 +2873,6 @@ const RECIPES = {
     // CO2 Release: Dry Ice + Orbital Mirror -> CO2 (Thickening atmosphere)
     'dry_ice+orbital_mirror': 'carbon_dioxide',
     // Liquid Water: Permafrost + Orbital Mirror
-    'orbital_mirror+permafrost': 'liquid_water',
 
     // Phase 4: Greening & Blue Mars
     // Cyano Bacteria: Culture Medium + DNA Sequencer + Sun
@@ -2927,7 +2964,7 @@ const RECIPES = {
     'clay+fire+fresh_water+tamahagane+wood': 'japanese_sword', // Forging (Clay for Hamon, Water for Quench)
 
     // Blade Technology Tree
-    'aluminum+chromite+fire': 'chromium', // Thermite reduction
+    // 'aluminum+chromite+fire': 'chromium', // Thermite reduction (Old)
     'chromium+iron': 'stainless_steel',
     'iron+stone_tool+wood': 'knife', // Iron blade (sharpened) + Handle
     'iron_plate+stone_tool': 'saw', // Serrating an iron plate
@@ -2935,7 +2972,7 @@ const RECIPES = {
     'stainless_steel+stone_tool': 'scalpel', // Precision sharpening
 
     // Artificial Diamond Roadmap
-    'iron+rod': 'piston', // Basic Piston
+    // 'iron+rod': 'piston', // Basic Piston (Old Recipe Removed)
     'iron_plate+piston+vegetable_oil': 'hydraulic_press', // Using vegetable oil as hydraulic fluid
     'fire+graphite+hydraulic_press+nickel': 'artificial_diamond', // HPHT Process (Heat + Pressure + Catalyst)
 
@@ -3244,6 +3281,10 @@ const RECIPES = {
     // 'gold_dust+aqua_regia': 'palladium',
     // 'platinum+aqua_regia': 'iridium',
     // 'galena+iron': 'antimony', // Antimony is now gathered directly
+
+    // Antimony Refining
+    // Stibnite + Iron + Fire -> Antimony + Iron Sulfide (Precipitation Method)
+    'fire+iron+stibnite': ['antimony', 'iron_sulfide'],
 
 
     // === Future / High Tech Recipes ===
@@ -3980,6 +4021,7 @@ function switchArea(area) {
     else if (area === 'america') msg = "北米に到着しました。";
     else if (area === 'south_america') msg = "南米に到着しました。";
     else if (area === 'europe') msg = "スペインに到着しました。";
+    else if (area === 'turkey') msg = "トルコに到着しました。東西文明の架け橋です。";
     else if (area === 'china') msg = "中国に到着しました。歴史の深さを感じます。";
     else if (area === 'south_africa') msg = "南アフリカに到着しました。";
     else if (area === 'australia') msg = "オーストラリアに到着しました。";
@@ -4097,6 +4139,12 @@ function updateGatherSpotDisplay() {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
         });
+    } else if (currentArea === 'turkey') {
+        const ids = ['turkey'];
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
     } else if (currentArea === 'china') {
         const ids = ['china', 'china_mine', 'uyghur_field']; // Bamboo/Tea + Mine + Uyghur
         ids.forEach(id => {
@@ -4123,6 +4171,7 @@ function setupMapUI() {
     const destEurope = document.getElementById('dest-europe');
     const destSouthAfrica = document.getElementById('dest-south-africa');
     const destAustralia = document.getElementById('dest-australia');
+    const destTurkey = document.getElementById('dest-turkey'); // New
     const destChina = document.getElementById('dest-china'); // New
     const destMoon = document.getElementById('dest-moon');
     const destMars = document.getElementById('dest-mars');
@@ -4214,6 +4263,12 @@ function setupMapUI() {
         destChina.addEventListener('click', () => {
             mapModal.style.display = 'none';
             switchArea('china');
+        });
+    }
+    if (destTurkey) {
+        destTurkey.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+            switchArea('turkey');
         });
     }
     if (destSouthAfrica) {
@@ -5733,6 +5788,15 @@ function processElectricRefining() {
         });
     }
 
+    // 9. Sodium (Salt + Calcium Chloride + Fire + Carbon Rod x2) - Downs Process
+    if (inventoryCounts['salt'] > 0 && inventoryCounts['calcium_chloride'] > 0 && inventoryCounts['carbon_rod'] > 1 && inventoryCounts['fire'] > 0) {
+        candidates.push({
+            name: 'ナトリウム精錬 (塩化Na + 塩化Ca + 炭素棒x2 + 火)',
+            req: ['salt', 'calcium_chloride', 'carbon_rod', 'carbon_rod', 'fire'],
+            result: 'sodium'
+        });
+    }
+
     if (candidates.length === 0) {
         log("電気精錬できる素材が足りません（アルミナ、砂、クロム鉄鉱など）。");
         return;
@@ -5800,6 +5864,11 @@ function executeElectricRefining(target) {
         addItem('lithium', 1);
         addItem('chlorine', 1); // LiCl -> Li + Cl2
         log(`⚡ 電解成功！ [リチウム🔋] と [塩素🧪] を生産しました！(溶融塩電解)`);
+    } else if (target.result === 'sodium') {
+        addItem('sodium', 1);
+        addItem('chlorine', 1);
+        addItem('calcium_chloride', 1); // Recycled
+        log(`⚡ ダウンズ法成功！ [ナトリウム⚪] と [塩素🧪] を生産しました！(塩化カルシウム回収)`);
     } else {
         addItem(target.result, 1);
         const d = ELEMENTS[target.result];
@@ -6621,7 +6690,7 @@ function showElementDetail(id) {
     const gatherables = [
         'water', 'sun', 'earth', 'air', 'wood', 'shell', 'iron_ore', 'sand', 'grape', 'plant',
         'stone', 'clay', 'graphite', 'manganese_dioxide', 'copper_sulfate', 'sulfur',
-        'lacquer', 'gold_dust', 'iron_sand', 'platinum', 'cinnabar', 'cassiterite', 'coal', 'bamboo',
+        'lacquer', 'gold_dust', 'gold_ore', 'iron_sand', 'platinum', 'cinnabar', 'cassiterite', 'coal', 'bamboo',
         'lightning', 'fresh_water', 'urine', 'scheelite', 'magnetite', 'galena', 'sphalerite', 'calcite',
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
         'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
@@ -6629,7 +6698,7 @@ function showElementDetail(id) {
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
         'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton',
-        'bismuth_ore', 'antimony'
+        'bismuth_ore', 'antimony', 'stibnite', 'borax'
     ];
 
     const locationMap = {
@@ -6643,6 +6712,7 @@ function showElementDetail(id) {
         'olive': 'スペイン（オリーブ畑）',
         'fluorite': 'スペイン（地中海沿岸）',
         'chromite': '南アフリカ（サバンナ）',
+        'manganese_dioxide': '南アフリカ・オーストラリア・中国',
         'pentlandite': '南アフリカ（サバンナ）',
         'molybdenite': '南アフリカ（サバンナ）',
         'pyrochlore': '南アフリカ（サバンナ）',
@@ -6666,8 +6736,11 @@ function showElementDetail(id) {
         'tea_leaf': '中国（竹林）',
         'egg': 'フィールド（森）',
         'cotton': '中国（ウイグル）',
+        'gold_ore': '鹿児島（金山）',
         'bismuth_ore': '南米大陸（ボリビア鉱山）',
-        'antimony': '中国（五台山）・ボリビア',
+        'antimony': '南米大陸（ボリビア鉱山）',
+        'stibnite': '中国（五台山）',
+        'borax': 'トルコ（アナトリア）',
         'scheelite': '中国（五台山）・ボリビア',
         'cassiterite': 'フィールド（洞窟）・ボリビア'
     };
