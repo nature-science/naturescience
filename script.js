@@ -62,6 +62,8 @@ const ELEMENTS = {
     'chlorine': { id: 'chlorine', name: '塩素', emoji: '💨', desc: '強い刺激臭のある黄緑色の気体。漂白や除菌に使われる。', category: 'chemical' },
     'hypochlorous_acid': { id: 'hypochlorous_acid', name: '次亜塩素酸', emoji: '🧪', desc: '塩素を水に溶かしてできる酸。強力な酸化作用を持ち、殺菌剤になる。', category: 'chemical' },
     'oxygen': { id: 'oxygen', name: '酸素', emoji: '🌬️', desc: '生命の呼吸に不可欠な気体。水の電気分解などで得られる。', category: 'chemical' },
+    'liquid_air': { id: 'liquid_air', name: '液体空気', emoji: '💧', desc: '空気を極低温で冷却して液体にしたもの。青みを帯びている。', category: 'chemical' },
+    'argon': { id: 'argon', name: 'アルゴン', emoji: '💨', desc: '空気中にわずかに含まれる貴ガス。反応性が低く、電球や溶接に使われる。', category: 'chemical' },
     'carbon_dioxide': { id: 'carbon_dioxide', name: '二酸化炭素', emoji: '☁️', desc: '木炭を燃焼させて発生する気体。温室効果ガスの一つ。', category: 'chemical' },
     'sulfur': { id: 'sulfur', name: '硫黄', emoji: '🟡', desc: '火山地帯で採れる黄色い結晶。火薬の原料になる。', category: 'natural' },
     'sulfur_dioxide': { id: 'sulfur_dioxide', name: '二酸化硫黄', emoji: '💨', desc: '硫黄を燃焼させて発生する刺激臭のある気体。', category: 'chemical' },
@@ -596,16 +598,37 @@ const ELEMENTS = {
     'launch_pad': { id: 'launch_pad', name: '発射台', emoji: '🏗️', desc: 'ロケットを垂直に固定し、安全に打ち上げるための巨大な施設。', category: 'tool' },
 
     // Space Suit
+    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '🧑‍🚀', desc: '過酷な宇宙環境から身を守るための生命維持装置付きの服。', category: 'tool' },
+
+    // Bismuth Chain
+    'bismuth_ore': { id: 'bismuth_ore', name: '輝蒼鉛鉱', emoji: '🌑', desc: 'ビスマスを含む硫化鉱物。虹色に輝くこともある。', category: 'natural' },
+    'bismuth_oxide': { id: 'bismuth_oxide', name: '三酸化二ビスマス', emoji: '🟡', desc: '輝蒼鉛鉱を焙焼して得られる黄色の粉末。', category: 'chemical' },
+    'bismuth': { id: 'bismuth', name: 'ビスマス', emoji: '🌈', desc: '融点が低く、虹色の酸化皮膜を持つ金属。', category: 'chemical' },
     'airtight_fabric': { id: 'airtight_fabric', name: '気密布', emoji: '🥋', desc: 'ナイロンにテフロン加工を施した、空気を通さない特殊な布。', category: 'material' },
     'space_helmet': { id: 'space_helmet', name: '宇宙ヘルメット', emoji: '🪖', desc: '金メッキされたバイザーを持つ、頑丈なヘルメット。紫外線をカットする。', category: 'part' },
     'plss': { id: 'plss', name: '生命維持装置', emoji: '🎒', desc: '酸素供給や体温調節を行う、宇宙服の心臓部バックパック。', category: 'part' },
-    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '🧑‍🚀', desc: '過酷な宇宙環境でも活動できるように作られた船外活動ユニット。', category: 'tool' },
+
+
+    // Iodide Chain
+    'iodine': { id: 'iodine', name: 'ヨウ素', emoji: '🟣', desc: '海藻などに含まれる黒紫色の固体。昇華しやすい。', category: 'chemical' },
+    'nitrogen_triiodide': { id: 'nitrogen_triiodide', name: '三ヨウ化窒素', emoji: '💥', desc: 'ヨウ素とアンモニアから作られる黒い粉末。乾燥すると触れるだけで爆発する。', category: 'chemical' },
+    'barium_hydroxide': { id: 'barium_hydroxide', name: '水酸化バリウム', emoji: '⚪', desc: 'バリウムと水が反応して生成する。強塩基性の白い粉末。', category: 'chemical' },
+
+
+    // Potassium Chain
+    'potassium_hydroxide': { id: 'potassium_hydroxide', name: '水酸化カリウム', emoji: '⚪', desc: '苛性カリ。タンパク質を溶かす強力なアルカリ。', category: 'chemical' },
+    'potassium_chloride': { id: 'potassium_chloride', name: '塩化カリウム', emoji: '🧂', desc: 'カリウムの塩化物。肥料や溶融塩電解の融剤に使われる。', category: 'chemical' },
+    'potassium_carbonate': { id: 'potassium_carbonate', name: '炭酸カリウム', emoji: '⚪', desc: '草木灰の主成分。ガラスや石鹸の原料。', category: 'chemical' },
+
+    // Lithium Chain
+    'lithium_carbonate': { id: 'lithium_carbonate', name: '炭酸リチウム', emoji: '⚪', desc: 'リチウムの炭酸塩。リチウムイオン電池の正極材原料。', category: 'chemical' },
+    'lithium_chloride': { id: 'lithium_chloride', name: '塩化リチウム', emoji: '⚪', desc: 'リチウムの塩化物。吸湿性が高い。', category: 'chemical' },
+    'lithium': { id: 'lithium', name: 'リチウム', emoji: '🔋', desc: '最も軽い金属。反応性が高く、電池に使われる。', category: 'chemical' },
 
     // Smartphone Materials
     'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石(α)', emoji: '🪨', desc: 'リチウムを含む鉱石（α-スポジュメン）。非常に硬く、そのままでは成分を取り出せない。', category: 'natural' },
     'lithium_ore_beta': { id: 'lithium_ore_beta', name: 'リチウム鉱石(β)', emoji: '🧱', desc: '加熱処理して結晶構造が変化した鉱石（β-スポジュメン）。酸に溶けやすくなっている。', category: 'chemical' },
     'lithium_sulfate': { id: 'lithium_sulfate', name: '硫酸リチウム', emoji: '🧪', desc: 'リチウム鉱石(β)を硫酸で処理して得られる水溶性の塩。', category: 'chemical' },
-    'lithium_carbonate': { id: 'lithium_carbonate', name: '炭酸リチウム', emoji: '🧂', desc: 'リチウム鉱石を精製して得られる粉末。電池の原料。', category: 'chemical' },
     'lithium_ion_battery': { id: 'lithium_ion_battery', name: 'リチウムイオン電池', emoji: '🔋', desc: '小型で大容量の充電式電池。モバイル機器の必需品。', category: 'part' },
     'lcd': { id: 'lcd', name: '液晶ディスプレイ', emoji: '🖥️', desc: '電圧で光の透過を制御する薄型画面。', category: 'part' },
     'touch_panel': { id: 'touch_panel', name: 'タッチパネル', emoji: '📱', desc: '指の動きを感知する入力装置と画面を一体化したもの。', category: 'part' },
@@ -1610,7 +1633,7 @@ const RECIPES = {
     'phenoxide+sulfuric_acid': 'crude_phenol',
     'barite+coke+fire': ['barium_sulfide', 'carbon_monoxide'],
     'barium_sulfide+hydrochloric_acid': ['barium_chloride', 'hydrogen_sulfide'],
-    'barium_chloride+electricity+fire': ['barium', 'chlorine'],
+    // 'barium_chloride+electricity+fire': ['barium', 'chlorine'], // Process changed to Electric Refinery
     'ammonia+copper_oxide+fire': ['nitrogen', 'copper'],
     'fire+fresh_water+iron_vessel': 'boiler',
     'cart+rail': 'minecart',
@@ -1619,6 +1642,8 @@ const RECIPES = {
     'coil+iron+magnet': 'motor',
     'cylinder+motor+piston': 'compressor',
     'ammonia+compressor+iron_pipe': 'cooling_unit',
+    'air+compressor+cooling_unit': 'liquid_air', // Liquefaction of air
+    'distillation_tower+liquid_air': ['argon', 'nitrogen', 'oxygen'], // Fractional distillation
     'box+cooling_unit+steel': 'refrigerator',
     'box+fresh_water+refrigerator': 'ice',
     'box+iron': 'iron_vessel',
@@ -1645,6 +1670,18 @@ const RECIPES = {
     'clay+fire+graphite_shards': 'pencil_lead', // Clay + Fire + Graphite Shards -> Lead
     'pencil_lead+string': 'pencil', // Lead + String -> Pencil
     'needle+pencil': 'compass_tool', // Needle + Pencil -> Compass
+
+    // Iodine Chain
+    'seaweed+sulfuric_acid': 'iodine', // Simplified extraction
+    'ammonia_water+iodine': 'nitrogen_triiodide', // Ni3
+
+    'barium+fresh_water': ['barium_hydroxide', 'hydrogen'], // Ba + 2H2O -> Ba(OH)2 + H2
+
+    // Potassium & Lithium Reactions
+    'potassium_hydroxide+hydrochloric_acid': ['potassium_chloride', 'fresh_water'],
+    'potassium_carbonate+hydrochloric_acid': ['potassium_chloride', 'fresh_water', 'carbon_dioxide'],
+    'lithium_carbonate+hydrochloric_acid': ['lithium_chloride', 'fresh_water', 'carbon_dioxide'],
+
     'lens+lens': 'glasses', // Lens + Lens -> Glasses
     'fire+plant+sodium_hydroxide': 'paper', // Soda Pulping process
     'bamboo_powder+fire+sodium_hydroxide': 'bamboo_filament', // Bamboo Filament process
@@ -2068,10 +2105,8 @@ const RECIPES = {
     'light_oil+distillation_tower': 'benzene',
 
     // Cryogenic Air Separation (深冷分離法)
-    // Liquid Air: Air + Compressor + Cooling Unit
-    'air+compressor+cooling_unit': 'liquid_air',
-    // Separation: Liquid Air + Distillation Tower -> Nitrogen + Oxygen
-    'distillation_tower+liquid_air': ['nitrogen', 'oxygen'],
+    // Already defined above: 'air+compressor+cooling_unit': 'liquid_air',
+    // Already defined above: 'distillation_tower+liquid_air': ['argon', 'nitrogen', 'oxygen'],
 
     // Haber-Bosch Process (ハーバー・ボッシュ法)
     // Iron Catalyst: Magnetite + Fire + Oxygen -> Iron Catalyst
@@ -2079,7 +2114,6 @@ const RECIPES = {
     // High-Pressure Reactor: Iron Vessel + Compressor + Boiler
     'boiler+compressor+iron_vessel': 'high_pressure_reactor',
     // Synthetic Ammonia: Nitrogen + Hydrogen + Iron Catalyst + High-Pressure Reactor -> Ammonia
-    'high_pressure_reactor+hydrogen+iron_catalyst+nitrogen': 'ammonia',
     'high_pressure_reactor+hydrogen+iron_catalyst+nitrogen': 'ammonia',
 
     // Sabatier Reaction Roadmap
@@ -2097,7 +2131,12 @@ const RECIPES = {
     'hydrogen_cyanide+sodium_hydroxide': ['sodium_cyanide', 'fresh_water'],
     // Gold Cyanidation (Sodium Cyanide + Gold Ore + Oxygen + Water -> Gold)
     // Simplified: Gold Ore + Sodium Cyanide + Oxygen
+    // Gold Cyanidation (Sodium Cyanide + Gold Ore + Oxygen + Water -> Gold)
+    // Simplified: Gold Ore + Sodium Cyanide + Oxygen
     'gold_ore+oxygen+sodium_cyanide': ['gold', 'silver'],
+
+    // Bismuth Roasting: Bi2S3 + 9/2 O2 -> Bi2O3 + 3 SO2
+    'bismuth_ore+fire+oxygen': ['bismuth_oxide', 'sulfur_dioxide'],
 
     'hydrogen+oxygen+platinum': 'fuel_cell',
     'fuel_cell+hydrogen+oxygen': ['electricity', 'fresh_water'],
@@ -4011,7 +4050,7 @@ function updateGatherSpotDisplay() {
             if (el) el.style.display = 'flex';
         });
     } else if (currentArea === 'south_america') {
-        const ids = ['andes', 'amazon', 'salt_lake', 'araxa_mine'];
+        const ids = ['andes', 'amazon', 'salt_lake', 'araxa_mine', 'bolivia_mine'];
         ids.forEach(id => {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
@@ -4222,9 +4261,9 @@ function setupMapUI() {
 // === Gathering ===
 function setupGathering() {
     document.querySelectorAll('.gather-spot').forEach(spot => {
+        // Left Click: Gather
         spot.addEventListener('click', (e) => {
             const spotType = spot.dataset.id;
-            let itemId;
 
             // Map Logic for Foreign Spot
             if (spotType === 'foreign') {
@@ -4252,272 +4291,137 @@ function setupGathering() {
                 return;
             }
 
-            // Animation
-
             // Logic
-            if (spotType === 'water') {
-                // Sea: Fish, Seaweed, Shell, Sand, Water
-                const rand = Math.random();
-                if (rand < 0.1) itemId = 'fish';
-                else if (rand < 0.2) itemId = 'seaweed';
-                else if (rand < 0.3) itemId = 'cowrie'; // Added Cowrie
-                else if (rand < 0.6) itemId = 'shell';
-                else if (rand < 0.7) itemId = 'sand';
-                else itemId = 'water';
-            } else if (spotType === 'forest') {
-                const rand = Math.random();
-                if (rand < 0.30) itemId = 'wood';
-                else if (rand < 0.50) itemId = 'plant';
-                else if (rand < 0.60) itemId = 'grape';      // ブドウ復活！
-                else if (rand < 0.65) itemId = 'flower';
-                else if (rand < 0.75) itemId = 'bamboo'; // Bamboo (Replacing Tea Leaf)
-                else if (rand < 0.80) itemId = 'egg'; // Bird's Egg
-                else if (rand < 0.85) itemId = 'lacquer'; // 漆を追加（エナメル線用）
-                else if (rand < 0.95) itemId = 'stone'; // Morimori Stone! (Probability UP!)
-                else itemId = 'animal'; // Animal is back!
-            } else if (spotType === 'land') {
-                // Land: Earth, Clay, Diatomaceous Earth, Fossil (New!)
-                const rand = Math.random();
-                if (rand < 0.15) itemId = 'diatomaceous_earth';
-                else if (rand < 0.40) itemId = 'clay';
-                else if (rand < 0.50) itemId = 'fossil'; // Added Fossil
-                else itemId = 'earth';
-            } else if (spotType === 'air') {
-                // Sky: Lightning, Air
-                const rand = Math.random();
-                if (rand < 0.05) itemId = 'lightning';
-                else itemId = 'air';
-            } else if (spotType === 'river') {
-                // River: 0.1% Platinum, 10% Gold Dust, (20% Iron Sand if has Magnet), else Sand/Stone/Water
-                const rand = Math.random();
-                const hasMagnet = (inventoryCounts['magnet'] > 0) || (inventoryCounts['electromagnet'] > 0);
-
-                if (rand < 0.001) itemId = 'platinum';
-                else if (rand < 0.05) itemId = 'rutile'; // Added Rutile
-                else if (rand < 0.101) itemId = 'gold_dust';
-                else if (hasMagnet && rand < 0.301) itemId = 'iron_sand';
-                else if (rand < 0.5) itemId = 'stone';
-                else if (rand < 0.7) itemId = 'sand';
-                else itemId = 'fresh_water';
-            } else if (spotType === 'ore') {
-                // Ore spot (Cave): Diverse minerals including Scheelite, Barite
-                // Minecart Bonus: Get 3 items at once
+            if (spotType === 'ore') {
+                // Ore spot (Cave): Minecart Bonus
                 let gatherCount = 1;
                 if (inventoryCounts['minecart'] && inventoryCounts['minecart'] > 0) {
                     gatherCount = 3;
                 }
 
                 for (let i = 0; i < gatherCount; i++) {
-                    let oreItem = 'iron_ore';
-                    const rand = Math.random();
-                    if (rand < 0.04) oreItem = 'bismuth_ore';
-                    // else if (rand < 0.08) oreItem = 'antimony'; // Removed from Japan Cave
-                    else if (rand < 0.12) oreItem = 'gold_ore'; // Replaced copper_ore
-                    else if (rand < 0.13) oreItem = 'palladium'; // Rare chance in cave
-                    else if (rand < 0.14) oreItem = 'iridium';   // Rare chance in cave
-                    else if (rand < 0.18) oreItem = 'cinnabar';
-                    else if (rand < 0.20) oreItem = 'copper_sulfate';
-                    else if (rand < 0.25) oreItem = 'cassiterite';
-                    else if (rand < 0.30) oreItem = 'manganese_dioxide';
-                    else if (rand < 0.37) oreItem = 'galena';
-                    else if (rand < 0.44) oreItem = 'sphalerite';
-                    else if (rand < 0.55) oreItem = 'coal';
-                    else if (rand < 0.63) oreItem = 'graphite';
-                    else if (rand < 0.70) oreItem = 'magnetite';
-                    else if (rand < 0.77) oreItem = 'scheelite';
-                    else if (rand < 0.85) oreItem = 'calcite';
-                    else if (rand < 0.95) oreItem = 'barite';
-                    else oreItem = 'tungsten'; // Very rare tungsten
-
-                    addItem(oreItem, 1);
-                    // Slight delay for visual or just show all
+                    const itemId = getGatherItem('ore');
+                    addItem(itemId, 1);
                     setTimeout(() => {
-                        const data = ELEMENTS[oreItem];
-                        showFloatText(spot, data.emoji);
+                        const data = ELEMENTS[itemId];
+                        if (data) showFloatText(spot, data.emoji);
                     }, i * 200);
                 }
-                return; // Skip default addItem at bottom
-            } else if (spotType === 'onsen') {
-                // Onsen now only gives sulfur
-                itemId = 'sulfur';
-            } else if (spotType === 'home') {
-                // Settlement: 100% Urine for now
-                itemId = 'urine';
-            } else if (spotType === 'oil') {
-                // Oil Field
-                itemId = 'crude_oil';
-            } else if (spotType === 'foreign') {
-                // Foreign Land (Map Button) - handled by interception? 
-                // Actually if interception works, this code is unreachable. 
-                // But just in case:
                 return;
-            } else if (spotType === 'jungle') {
-                // Rubber Tree or Sugarcane
-                itemId = (Math.random() < 0.6) ? 'rubber_tree' : 'sugarcane';
-            } else if (spotType === 'spice_field') {
-                itemId = 'spice';
-            } else if (spotType === 'corn_field') {
-                // USA: Corn, Wheat, Cotton, Shale Oil
-                const rand = Math.random();
-                if (rand < 0.45) itemId = 'corn';
-                else if (rand < 0.65) itemId = 'wheat'; // Wheat belt
-                else if (rand < 0.85) itemId = 'cotton'; // Cotton belt
-                else if (rand < 0.95) itemId = 'animal'; // Livestock
-                else itemId = 'earth';
-            } else if (spotType === 'oil_field') {
-                // Texas: Black Gold!
-                const rand = Math.random();
-                if (rand < 0.60) itemId = 'crude_oil';
-                else if (rand < 0.75) itemId = 'shale_rock'; // Shale Revolution Source
-                else if (rand < 0.85) itemId = 'earth';
-                else if (rand < 0.95) itemId = 'coal';
-                else itemId = 'stone';
-            } else if (spotType === 'andes') {
-                // Andes: Potato, Copper Ore
-                const rand = Math.random();
-                if (rand < 0.7) itemId = 'potato';
-                else itemId = 'copper_ore';
-            } else if (spotType === 'amazon') {
-                itemId = 'cacao';
-            } else if (spotType === 'araxa_mine') {
-                // Araxa Mine: Pyrochlore (Niobium)
-                const rand = Math.random();
-                if (rand < 0.7) itemId = 'pyrochlore';
-                else if (rand < 0.9) itemId = 'monazite'; // Rare earth also found in Brazil
-                else itemId = 'stone';
-            } else if (spotType === 'salt_lake') {
-                // Uyuni Salt Lake: Brine, Salt
-                const rand = Math.random();
-                if (rand < 0.6) itemId = 'brine';
-                else itemId = 'salt';
-            } else if (spotType === 'olive_grove') {
-                itemId = 'olive';
-            } else if (spotType === 'spanish_coast') {
-                itemId = 'fluorite';
-            } else if (spotType === 'savannah') {
-                // South Africa (Mn, Cr, V, Pt, Diamond?) 
-                // Adding Coffee here as "Origin of Coffee (Ethiopia)" logic
-                const rand = Math.random();
-                if (rand < 0.30) itemId = 'earth';
-                else if (rand < 0.50) itemId = 'stone';
-                else if (rand < 0.65) itemId = 'animal'; // Zebra/Lion? -> Meat/Leather
-                else if (rand < 0.75) itemId = 'coffee_bean'; // New: Coffee Origin
-                else if (rand < 0.77) itemId = 'diamond'; // Diamond (Rare)
-                else if (rand < 0.82) itemId = 'chromite';
-                else if (rand < 0.88) itemId = 'pentlandite'; // Ni
-                else if (rand < 0.94) itemId = 'molybdenite'; // Mo
-                else if (rand < 0.98) itemId = 'rutile'; // Ti
-                else itemId = 'platinum'; // Pt
-            } else if (spotType === 'red_desert') {
-                // Australia (Al, Fe, U, Co, Rare Earth, Lithium)
-                const rand = Math.random();
-                if (rand < 0.30) itemId = 'bauxite';
-                else if (rand < 0.50) itemId = 'iron_ore';
-                else if (rand < 0.65) itemId = 'cobalt_ore'; // Cobalt
-                else if (rand < 0.78) itemId = 'monazite'; // Neodymium ore
-                else if (rand < 0.88) itemId = 'lithium_ore'; // Lithium ore (Spodumene)
-                else if (rand < 0.95) itemId = 'uranium_ore';
-                else itemId = 'sand';
-            } else if (spotType === 'crater') {
-                // Moon Crater: Regolith, Sand, Iron, Titanium, Platinum, Iridium
-                const rand = Math.random();
-                if (rand < 0.35) itemId = 'stone'; // Moon rock (Regolith)
-                else if (rand < 0.55) itemId = 'sand'; // Moon sand
-                else if (rand < 0.75) itemId = 'iron_ore';
-                else if (rand < 0.90) itemId = 'titanium_sponge';
-                else if (rand < 0.95) itemId = 'platinum';
-                else itemId = 'iridium'; // New
-            } else if (spotType === 'mars_surface') {
-                // Mars Surface: Martian Soil, Dry Ice, Stone, Iron Ore
-                const rand = Math.random();
-                if (rand < 0.30) itemId = 'martian_soil';
-                else if (rand < 0.50) itemId = 'stone';
-                else if (rand < 0.70) itemId = 'dry_ice';
-                else if (rand < 0.80) itemId = 'permafrost'; // Added Permafrost
-                else if (rand < 0.95) itemId = 'iron_ore';
-                else itemId = 'sand';
-            } else if (spotType === 'sugarcane_field') {
-                // Okinawa: Sugarcane
-                const rand = Math.random();
-                if (rand < 0.60) itemId = 'sugarcane';
-                else if (rand < 0.80) itemId = 'plant';
-                else itemId = 'earth';
-            } else if (spotType === 'coral_reef') {
-                // Okinawa: Coral Reef
-                const rand = Math.random();
-                if (rand < 0.40) itemId = 'shell';
-                else if (rand < 0.60) itemId = 'calcium_carbonate'; // Coral
-                else if (rand < 0.70) itemId = 'sand';
-                else itemId = 'water';
-            } else if (spotType === 'snow_field') {
-                // Hokkaido: Snow field
-                const rand = Math.random();
-                if (rand < 0.70) itemId = 'ice'; // Snow/Ice
-                else if (rand < 0.80) itemId = 'fresh_water';
-                else if (rand < 0.90) itemId = 'animal'; // Fox/Bear?
-                else itemId = 'wood';
-            } else if (spotType === 'coal_mine') {
-                // Hokkaido: Coal Mine
-                const rand = Math.random();
-                if (rand < 0.60) itemId = 'coal';
-                else if (rand < 0.80) itemId = 'stone';
-                else if (rand < 0.95) itemId = 'iron_ore';
-                else itemId = 'clay';
-            } else if (spotType === 'gold_mine') {
-                // Kagoshima: Hishikari Mine (High grade gold)
-                const rand = Math.random();
-                if (rand < 0.40) itemId = 'gold_ore'; // Gold Ore (High grade)
-                else if (rand < 0.55) itemId = 'gold_dust'; // Placer gold (less common in vein mines but possible nearby)
-                else if (rand < 0.80) itemId = 'stone'; // Host rock (Ryolite/Andesite)
-                else itemId = 'earth';
-            } else if (spotType === 'china') {
-                // China (Bamboo Forest): Tea, Bamboo, Plant
-                const rand = Math.random();
-                if (rand < 0.40) itemId = 'tea_leaf';
-                else if (rand < 0.70) itemId = 'bamboo';
-                else if (rand < 0.85) itemId = 'plant';
-                else itemId = 'flower';
-            } else if (spotType === 'uyghur_field') {
-                // Uyghur: Cotton and Grapes
-                const rand = Math.random();
-                if (rand < 0.50) itemId = 'cotton';
-                else if (rand < 0.70) itemId = 'grape';
-                else if (rand < 0.90) itemId = 'sand';
-                else itemId = 'stone';
-            } else if (spotType === 'china_mine') {
-                // China (Mine): Rare Earth Kingdom!
-                const rand = Math.random();
-                if (rand < 0.20) itemId = 'coal';
-                else if (rand < 0.35) itemId = 'scheelite'; // Tungsten
-                else if (rand < 0.50) itemId = 'antimony'; // Antimony
-                else if (rand < 0.60) itemId = 'molybdenite'; // Molybdenum
-                else if (rand < 0.70) itemId = 'monazite'; // Rare Earths
-                else if (rand < 0.80) itemId = 'clay'; // Porcelain clay
-                else if (rand < 0.88) itemId = 'fluorite';
-                else if (rand < 0.96) itemId = 'barite';
-                else itemId = 'stone';
             }
 
-            // Fallback (Sun, etc.)
-            if (!itemId) itemId = spotType;
-
-            addItem(itemId, 1);
-
-            // Visual Feedback Only (No logs)
-            const data = ELEMENTS[itemId];
-            showFloatText(spot, data.emoji);
-
-            // Special log for Shell/Wood/Ore only? Or remove all as requested?
-            // User requested "remove logs like 'gathered XX'".
-            // I will keep ONLY rare/special event logs if strictly necessary, but user said "don't need logs".
-            // So I will remove standard gathering logs. 
-            // Maybe keep Ore discovery log? I'll keep Ore.
-            if (itemId === 'ore') {
-                // log("洞窟で 未知の鉱石 を発見！"); // Even this might be annoying? 
-                // Let's comment it out to be safe based on "don't need logs".
+            // General Spot Logic
+            const itemId = getGatherItem(spotType);
+            if (itemId) {
+                addItem(itemId, 1);
+                const data = ELEMENTS[itemId];
+                if (data) showFloatText(spot, data.emoji);
             }
         });
+
+        // Right Click: Show Rates
+        spot.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            const spotType = spot.dataset.id;
+
+            // Disable for 'foreign' (Map button)
+            if (spotType === 'foreign') return;
+
+            // Get spot name from title attribute or text content
+            const spotName = spot.getAttribute('title') || spot.innerText;
+            showGatherRates(spotType, spotName, e.clientX, e.clientY);
+        });
     });
+}
+
+function getGatherItem(spotType) {
+    if (!GATHER_DATA[spotType]) {
+        // Fallback for undefined spots (should not happen if GATHER_DATA covers all)
+        return spotType;
+    }
+
+    const table = GATHER_DATA[spotType];
+    const rand = Math.random();
+
+    for (const entry of table) {
+        // Check condition
+        if (entry.cond === 'magnet') {
+            const hasMagnet = (inventoryCounts['magnet'] > 0) || (inventoryCounts['electromagnet'] > 0);
+            if (!hasMagnet) continue; // Skip this entry effectively (behaves like it's not there)
+            // Note: In original logic, if magnet condition failed, it fell through to next else-if.
+            // Here, 'continue' means we check next threshold. 
+            // Since thresholds are cumulative, we must ensure the logic matches.
+            // Original: else if (hasMagnet && rand < 0.301) ... else if (rand < 0.5)
+            // If rand is 0.2 and no magnet: fail first check, check second check (0.2 < 0.5) -> stone. Correct.
+        }
+
+        if (rand < entry.th) {
+            return entry.id;
+        }
+    }
+
+    // Fallback to last item if random somehow exceeds 1.0 (rarely) or logic gap
+    return table[table.length - 1].id;
+}
+
+function showGatherRates(spotType, spotName, x, y) {
+    const table = GATHER_DATA[spotType];
+    if (!table) return;
+
+    // Remove existing
+    const existing = document.getElementById('rate-popup');
+    if (existing) existing.remove();
+
+    const div = document.createElement('div');
+    div.id = 'rate-popup';
+    div.style.position = 'fixed';
+    div.style.left = Math.min(x, window.innerWidth - 200) + 'px'; // Prevent overflow right
+    div.style.top = Math.min(y, window.innerHeight - 300) + 'px'; // Prevent overflow bottom
+    div.style.background = 'rgba(0, 0, 0, 0.9)';
+    div.style.color = '#fff';
+    div.style.padding = '12px';
+    div.style.borderRadius = '8px';
+    div.style.zIndex = '99999';
+    div.style.fontSize = '0.9rem';
+    div.style.lineHeight = '1.4';
+    div.style.boxShadow = '0 4px 12px rgba(0,0,0,0.5)';
+    div.style.minWidth = '180px';
+    div.style.pointerEvents = 'auto'; // ensure click works
+
+    let html = `<div style="font-weight:bold; margin-bottom:8px; border-bottom:1px solid #555; padding-bottom:4px;">${spotName}</div>`;
+
+    let prevTh = 0;
+    table.forEach(entry => {
+        const rawRate = (entry.th - prevTh) * 100;
+        // Round to 1 decimal place
+        const rate = Math.round(rawRate * 10) / 10;
+
+        const item = ELEMENTS[entry.id];
+        let name = item ? `${item.emoji} ${item.name}` : entry.id;
+        if (entry.cond === 'magnet') name += ' <span style="color:#ffeb3b; font-size:0.8em">(要磁石)</span>';
+
+        html += `<div style="display:flex; justify-content:space-between;"><span>${name}</span> <span style="color:#bbb;">${rate}%</span></div>`;
+
+        prevTh = entry.th;
+    });
+
+    html += `<div style="margin-top:8px; font-size:0.8em; color:#777; text-align:center;">(クリックで閉じる)</div>`;
+
+    div.innerHTML = html;
+    document.body.appendChild(div);
+
+    // Global click handler to close
+    const closeHandler = () => {
+        if (div.parentNode) div.parentNode.removeChild(div);
+        document.removeEventListener('click', closeHandler);
+        document.removeEventListener('contextmenu', closeHandler); // Close on next right click too
+    };
+
+    // Slight delay to prevent immediate close from the triggering click
+    setTimeout(() => {
+        document.addEventListener('click', closeHandler);
+        document.addEventListener('contextmenu', closeHandler);
+    }, 50);
 }
 
 function onInventoryClick(id) {
@@ -5306,7 +5210,8 @@ function refineOre() {
         { id: 'magnetite', result: 'iron' },
         { id: 'iron_sand', result: 'iron' },
         { id: 'cinnabar', result: 'mercury' },
-        { id: 'bismuth_ore', result: 'bismuth' }
+        // { id: 'bismuth_ore', result: 'bismuth' } // Removed direct smelting
+        { id: 'bismuth_oxide', result: 'bismuth' } // New process: Oxide reduction
     ];
 
     const possible = [];
@@ -5439,9 +5344,10 @@ function executeRefining(target, fuelId) {
 function distillWater() {
     const hasEarthenware = inventoryCounts['earthenware'] && inventoryCounts['earthenware'] > 0;
     const hasFire = inventoryCounts['fire'] && inventoryCounts['fire'] > 0;
+    const hasTower = inventoryCounts['distillation_tower'] && inventoryCounts['distillation_tower'] > 0;
 
-    if (!hasEarthenware || !hasFire) {
-        log("蒸留器具がありません！[土器🏺]と[火🔥]が必要です。");
+    if ((!hasEarthenware || !hasFire) && !hasTower) {
+        log("蒸留器具がありません！[土器🏺]と[火🔥]（または[蒸留塔🗼]）が必要です。");
         return;
     }
 
@@ -5453,7 +5359,8 @@ function distillWater() {
         { id: 'coal_tar', type: 'coal_tar', name: 'コールタール (-> 分留)', req: 'glass_vessel' },
         { id: 'crude_phenol', type: 'crude_phenol', name: '粗フェノール (-> フェノール)' },
         { id: 'naphthalene', type: 'naphthalene', name: 'ナフタレン (-> 精製)' },
-        { id: 'anhydrous_sodium_acetate', type: 'anhydrous_sodium_acetate', name: '無水酢酸ナトリウム + 硫酸', req: 'sulfuric_acid' }
+        { id: 'anhydrous_sodium_acetate', type: 'anhydrous_sodium_acetate', name: '無水酢酸ナトリウム + 硫酸', req: 'sulfuric_acid' },
+        { id: 'liquid_air', type: 'liquid_air', name: '液体空気 (-> アルゴン/窒素/酸素)', req: 'distillation_tower' }
     ];
 
     const possible = candidates.filter(c => {
@@ -5532,6 +5439,11 @@ function executeDistillation(target) {
         addItem('glacial_acetic_acid', 1);
         addItem('sodium_sulfate', 1);
         log(`蒸留完了！[氷酢酸🧪]と[硫酸ナトリウム🧪]を生成しました！`);
+    } else if (target.type === 'liquid_air') {
+        addItem('nitrogen', 1);
+        addItem('oxygen', 1);
+        addItem('argon', 1);
+        log(`分留完了！液体空気から[窒素💨]、[酸素🌬️]、[アルゴン💨]を分離しました！`);
     } else {
         addItem('fresh_water', 1);
         addItem('salt', 1);
@@ -5794,6 +5706,25 @@ function processElectricRefining() {
         });
     }
 
+    // 7. Barium (Barium Chloride + Calcium Chloride + Carbon Rod x2 + Argon)
+    if (inventoryCounts['barium_chloride'] > 0 && inventoryCounts['calcium_chloride'] > 0 && inventoryCounts['carbon_rod'] > 1 && inventoryCounts['argon'] > 0) {
+        candidates.push({
+            name: 'バリウム電解 (塩化バリウム + 塩化カルシウム + 炭素棒x2 + アルゴン)',
+            req: ['barium_chloride', 'calcium_chloride', 'carbon_rod', 'carbon_rod', 'argon'],
+            result: 'barium'
+        });
+    }
+
+    // 8. Lithium (Lithium Chloride + Potassium Chloride + Carbon Rod x2 + Fire)
+    // Ref: Molten salt electrolysis of LiCl-KCl
+    if (inventoryCounts['lithium_chloride'] > 0 && inventoryCounts['potassium_chloride'] > 0 && inventoryCounts['carbon_rod'] > 1 && inventoryCounts['fire'] > 0) {
+        candidates.push({
+            name: 'リチウム電解 (塩化リチウム + 塩化カリウム + 炭素棒x2 + 火)',
+            req: ['lithium_chloride', 'potassium_chloride', 'carbon_rod', 'carbon_rod', 'fire'],
+            result: 'lithium'
+        });
+    }
+
     if (candidates.length === 0) {
         log("電気精錬できる素材が足りません（アルミナ、砂、クロム鉄鉱など）。");
         return;
@@ -5853,6 +5784,14 @@ function executeElectricRefining(target) {
         addItem('magnesium', 1);
         addItem('chlorine', 1); // MgCl2 -> Mg + Cl2
         log(`⚡ 電解成功！ [マグネシウム🔥] と [塩素🧪] を生産しました！`);
+    } else if (target.result === 'barium') {
+        addItem('barium', 1);
+        addItem('chlorine', 1); // BaCl2 -> Ba + Cl2
+        log(`⚡ 電解成功！ [バリウム⚪] と [塩素🧪] を生産しました！(不活性ガス雰囲気下)`);
+    } else if (target.result === 'lithium') {
+        addItem('lithium', 1);
+        addItem('chlorine', 1); // LiCl -> Li + Cl2
+        log(`⚡ 電解成功！ [リチウム🔋] と [塩素🧪] を生産しました！(溶融塩電解)`);
     } else {
         addItem(target.result, 1);
         const d = ELEMENTS[target.result];
@@ -6681,7 +6620,8 @@ function showElementDetail(id) {
         'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
         'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
-        'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton'
+        'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton',
+        'bismuth_ore', 'antimony'
     ];
 
     const locationMap = {
@@ -6705,7 +6645,7 @@ function showElementDetail(id) {
         'iridium': '月面（クレーター）・フィールド（洞窟）',
         'bauxite': 'オーストラリア（赤い砂漠）',
         'cobalt_ore': 'オーストラリア（赤い砂漠）',
-        'monazite': 'オーストラリア（赤い砂漠）',
+        'monazite': 'オーストラリア（赤い砂漠）・南米（アラシャ鉱山）・中国（五台山）',
         'lithium_ore': 'オーストラリア（赤い砂漠）',
         'uranium_ore': 'オーストラリア（赤い砂漠）',
         'seaweed': 'フィールド（海）',
@@ -6714,11 +6654,14 @@ function showElementDetail(id) {
         'copper_ore': '南米（アンデス山脈）',
         'titanium_sponge': '月面（クレーター）',
         'flower': 'フィールド（森）',
-        'flower': 'フィールド（森）',
         'animal': 'フィールド（森）',
-        'tea_leaf': 'フィールド（森）',
+        'tea_leaf': '中国（竹林）',
         'egg': 'フィールド（森）',
-        'cotton': '中国（ウイグル）'
+        'cotton': '中国（ウイグル）',
+        'bismuth_ore': '南米大陸（ボリビア鉱山）',
+        'antimony': '中国（五台山）・ボリビア',
+        'scheelite': '中国（五台山）・ボリビア',
+        'cassiterite': 'フィールド（洞窟）・ボリビア'
     };
 
     if (gatherables.includes(id)) {
@@ -6757,6 +6700,14 @@ function showElementDetail(id) {
             recipeHtml += `<p>入手方法：蒸留所で「コールタール」を分留して抽出する</p>`;
         }
     }
+    // Argon / Liquid Air (Fractional Distillation)
+    else if (['argon', 'nitrogen', 'oxygen', 'liquid_air'].includes(id)) {
+        if (id === 'liquid_air') {
+            recipeHtml += `<p>入手方法：空気 + 圧縮機 + 冷却ユニット （空気液化サイクル）</p>`;
+        } else {
+            recipeHtml += `<p>入手方法：蒸留塔で「液体空気」を分留して抽出する</p>`;
+        }
+    }
     // 5. Oil Refinery
     else if (['lp_gas', 'gasoline', 'naphtha', 'kerosene', 'asphalt'].includes(id)) {
         recipeHtml += `<p>入手方法：製油所で「原油」を精製する</p>`;
@@ -6768,6 +6719,10 @@ function showElementDetail(id) {
     // 5. Extraction Facility?
     else if (['benzene', 'phenoxide', 'crude_naphthalene', 'naphthalene'].includes(id)) {
         recipeHtml += `<p>入手方法：抽出所で化学処理を行って抽出する</p>`;
+    }
+    // Electric Refinery
+    else if (['aluminum', 'silicon', 'ferrochrome', 'titanium', 'zinc', 'magnesium', 'barium', 'nickel', 'chromium', 'cobalt', 'neodymium', 'indium'].includes(id)) {
+        recipeHtml += `<p>入手方法：電気精錬所で電気エネルギーを用いて精錬/電解する</p>`;
     }
     // 7. Industrial Processes?
     const indProc = INDUSTRIAL_PROCESSES.find(p => p.key === id);
