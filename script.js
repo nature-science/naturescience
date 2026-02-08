@@ -4398,7 +4398,15 @@ function showGatherRates(spotType, spotName, x, y) {
 
         const item = ELEMENTS[entry.id];
         let name = item ? `${item.emoji} ${item.name}` : entry.id;
+
+        // Mask name if not discovered
+        if (typeof discovered !== 'undefined' && !discovered.has(entry.id)) {
+            name = '？？？';
+        }
+
         if (entry.cond === 'magnet') name += ' <span style="color:#ffeb3b; font-size:0.8em">(要磁石)</span>';
+
+        // Rare styling? Maybe later.
 
         html += `<div style="display:flex; justify-content:space-between;"><span>${name}</span> <span style="color:#bbb;">${rate}%</span></div>`;
 
