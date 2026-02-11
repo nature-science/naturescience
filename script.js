@@ -523,7 +523,7 @@ const ELEMENTS = {
     'ferronickel': { id: 'ferronickel', name: 'フェロニッケル', emoji: '🧱', desc: '鉄とニッケルの合金。', category: 'chemical' },
     'titanium_sponge': { id: 'titanium_sponge', name: 'スポンジチタン', emoji: '🧽', desc: '精錬された多孔質のチタン。これを溶かしてインゴットにする。', category: 'chemical' },
     'titanium_tetrachloride': { id: 'titanium_tetrachloride', name: '四塩化チタン', emoji: '💨', desc: 'チタン精錬の中間体。発煙性の液体。', category: 'chemical' },
-    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🍴', desc: '鉄、クロム、ニッケルの合金。錆びにくい。', category: 'chemical' },
+    // 'stainless_steel' is defined below in Arc Furnace section (L1262)
     'inconel': { id: 'inconel', name: 'インコネル', emoji: '🚀', desc: 'ニッケルをベースにした超耐熱合金。ロケットエンジンなどに使われる。', category: 'chemical' },
 
     // New Metals: Cobalt, Neodymium, Indium
@@ -604,10 +604,7 @@ const ELEMENTS = {
     'ruthenium_dioxide': { id: 'ruthenium_dioxide', name: '二酸化ルテニウム', emoji: '⬛', desc: '黒色の粉末。電極材料などに使われる。', category: 'chemical' },
     'osmate_solution': { id: 'osmate_solution', name: 'オスミウム酸塩溶液', emoji: '🧪', desc: 'オスミウムを含む溶液。', category: 'chemical' },
     'ammonium_hexachloroosmate': { id: 'ammonium_hexachloroosmate', name: '塩化オスミウムアンモニウム', emoji: '🔴', desc: '赤黒い結晶。', category: 'chemical' },
-    'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🧽', desc: '多孔質の金属オスミウム。', category: 'material' },
-    'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🧽', desc: '多孔質の金属ルテニウム。', category: 'material' },
-    'ruthenium': { id: 'ruthenium', name: 'ルテニウム', emoji: '⚪', desc: '硬くてもろい白金族元素。', category: 'chemical' },
-    'osmium': { id: 'osmium', name: 'オスミウム', emoji: '🔵', desc: '最も密度の高い元素。非常に硬い。', category: 'chemical' },
+    // osmium_sponge, ruthenium_sponge, ruthenium, osmium are defined below in PGM section (L1266-1269)
 
     // Iridium Refining Chain
     'sodium_peroxide': { id: 'sodium_peroxide', name: '過酸化ナトリウム', emoji: '⚪', desc: '強力な酸化剤。水と激しく反応して酸素を発生する。', category: 'chemical' },
@@ -1264,9 +1261,9 @@ const ELEMENTS = {
     // PGM Sponge & Elements
     'platinum_sponge': { id: 'platinum_sponge', name: 'スポンジ白金', emoji: '🌫️', desc: '多孔質の白金。触媒として優秀だが、実用金属にするには溶解が必要。', category: 'material' },
     'osmium': { id: 'osmium', name: 'オスミウム', emoji: '🔩', desc: '最も密度の高い金属。非常に硬く、万年筆のペン先などに使われる。', category: 'material' },
-    'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🌫️', desc: '粉末状のオスミウム。酸化しやすいので取り扱い注意。', category: 'material' },
+    'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🧽', desc: '粉末状のオスミウム。酸化しやすいので取り扱い注意。', category: 'material' },
     'ruthenium': { id: 'ruthenium', name: 'ルテニウム', emoji: '💍', desc: '硬くて摩耗に強い白金族元素。電気接点などに利用される。', category: 'material' },
-    'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🌫️', desc: '分離精製されたルテニウムの粉末。', category: 'material' },
+    'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🧽', desc: '分離精製されたルテニウムの粉末。', category: 'material' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -3300,12 +3297,7 @@ const RECIPES = {
     'fire+iron+stibnite': ['antimony', 'iron_sulfide'],
 
 
-    // === Arc Furnace Roadmap ===
-    'graphite_electrode': { id: 'graphite_electrode', name: '黒鉛電極', emoji: '⚫', desc: 'アーク放電を起こすための巨大な炭素の棒。', category: 'part' },
-    'fire_brick': { id: 'fire_brick', name: '耐火レンガ', emoji: '🧱', desc: '数千度の高温にも耐える特殊なレンガ。', category: 'material' },
-    'transformer': { id: 'transformer', name: '変圧器', emoji: '⚡', desc: '電圧を変える装置。大電流を作るのに必要。', category: 'machine' },
-    'arc_furnace': { id: 'arc_furnace', name: 'アーク溶解炉', emoji: '🏭', desc: '電気アークの熱で金属を溶かす炉。リサイクルや合金作りに最適。', category: 'machine' },
-    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🛡️', desc: 'クロムとニッケルを含んだ、錆びにくい合金。', category: 'material' },
+    // Arc Furnace elements are defined in ELEMENTS (not here in RECIPES)
 
     // === Future / High Tech Recipes ===
     // 'computer+game_controller': 'game_console', // Duplicate removed
@@ -3337,7 +3329,7 @@ const RECIPES = {
     // Drill: Motor + Battery + Diamond(or Tungsten)
     'battery+motor+tungsten': 'electric_drill',
 
-    'fusion_reactor+rocket_engine': 'fusion_drive',
+    // 'fusion_reactor+rocket_engine': 'fusion_drive', // Duplicate: already defined at L2869
     'ai_chip+fusion_drive+living_module': 'deep_space_ship',
 
 
@@ -3383,7 +3375,6 @@ const RECIPES = {
     // Copper Smelting
     'air+copper_ore+fire': 'copper_oxide_1',
     'copper_ore+copper_oxide_1': 'copper',
-    'copper_ore+copper_oxide_1': 'copper',
 
     // Detailed Textile
     'cotton+spinning_wheel': 'thread',
@@ -3398,17 +3389,7 @@ const RECIPES = {
     'hydrochloric_acid+nickel': ['nickel_chloride', 'hydrogen'], // Ni + 2HCl -> NiCl2 + H2
     'hydrochloric_acid+tin': ['tin_chloride', 'hydrogen'], // Sn + 2HCl -> SnCl2 + H2
 
-    // Arc Furnace Roadmap Recipes
-    // Fire Brick: Clay + Sand + Fire (Sintering)
-    'clay+fire+sand': 'fire_brick',
-    // Graphite Electrode: Coke + Heavy Oil (Binder/Pitch) -> Baked Electrode
-    'coke+heavy_oil': 'graphite_electrode',
-    // Transformer: Coil + Iron Plate + Iron Plate (Core)
-    'coil+iron_plate+iron_plate': 'transformer',
-    // Arc Furnace: Fire Brick + Graphite Electrode + Transformer
-    'fire_brick+graphite_electrode+transformer': 'arc_furnace',
-    // Stainless Steel: Iron + Chromium + Nickel + Electricity (Arc melting)
-    'chromium+electricity+iron+nickel': 'stainless_steel',
+    // Arc Furnace Roadmap Recipes (duplicates removed - already defined at L3355-3365)
 };
 
 const ARC_RECIPES = [
@@ -3534,8 +3515,6 @@ function init() {
     setupMachineReordering(); // Setup Lab Reordering
     setupSettingsUI(); // Setup Settings Modal
 
-    // Global Keyboard Shortcuts
-    // Global Keyboard Shortcuts
     // Global Keyboard Shortcuts
     // Remove existing if any (requires named function, but for now just add once with check)
     if (!window.hasAddedKeyShortcuts) {
@@ -3755,7 +3734,6 @@ function saveGame() {
         discovered: Array.from(discovered),
         unlockedFeats: Array.from(unlockedFeats),
         order: userInventoryOrder,
-        civLevel: currentCivilizationLevel,
         civLevel: currentCivilizationLevel,
         money: playerMoney, // New Shop
         shownInventions: Array.from(shownInventions)
@@ -7521,11 +7499,7 @@ function removeHighlights() {
 }
 
 
-init();
-
-
-
-initTutorial();
+// init() and initTutorial() are called via window.onload at the end of this file.
 
 // === Debug Feature ===
 // Enter 'LvX' (e.g., Lv5) in inventory search to advance civilization
@@ -7730,6 +7704,7 @@ function setupSettingsUI() {
         };
     }
 }
-
-window.onload = init;
-
+window.onload = function () {
+    init();
+    initTutorial();
+};

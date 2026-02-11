@@ -1,155 +1,265 @@
-/* Mobile Responsive Styles */
+/* Mobile Responsive Styles (Max-width: 768px) */
+
+/* Reset & Base Layout */
 .app-container {
     display: flex;
     flex-direction: column;
     padding: 0;
-    gap: 0;
+    margin: 0;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    background: #f4f7f6;
 }
 
-/* Sidebar (Top Header) */
+/* 1. Header (Transformed Sidebar) */
 .sidebar {
-    grid-column: auto;
-    grid-row: auto;
-    flex: 0 0 auto;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    border-radius: 0 0 15px 15px;
-    padding: 8px 10px;
-    z-index: 20;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    height: 50px;
+    z-index: 1000;
+    padding: 0 15px;
     background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0;
 }
 
 .sidebar h1 {
     font-size: 1.1rem;
     margin: 0;
-    margin-right: auto;
-}
-
-.main-nav {
-    flex: 1;
+    color: #2e7d32;
     display: flex;
-    justify-content: flex-end;
-    gap: 5px;
-    width: auto;
-}
-
-.nav-btn {
-    width: auto;
-    padding: 4px 8px;
-    font-size: 0.8rem;
-    margin: 0;
-}
-
-.stats {
-    width: 100%;
-    margin-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
-    font-size: 0.8rem;
+    gap: 5px;
+}
+
+/* Hide bulky stats in header, keep it minimal */
+.stats {
+    display: none;
 }
 
 .message-log {
     display: none;
 }
 
-/* Main Workspace */
-.workspace {
-    grid-column: auto;
-    grid-row: auto;
-    flex: 1;
-    width: 100%;
-    padding: 10px;
-    padding-bottom: 240px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+#nav-settings {
+    display: none;
+    /* Move settings to bottom nav if possible, or keep hidden */
 }
 
-.field-container {
-    padding: 5px;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-}
+/* Settings button alternative in header? 
+   We will rely on the "Settings" button inside the sidebar div if visible, 
+   but since .sidebar is flex row now, let's see. 
+   Actually, let's allow a small settings icon if we can. 
+*/
 
-.nature-scene {
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columns */
-    gap: 8px;
-}
-
-.gather-spot {
-    font-size: 1.1rem;
-    height: 70px;
-}
-
-/* Inventory (Bottom Fixed) */
-.inventory {
-    grid-column: auto;
-    grid-row: auto;
+/* 2. Bottom Navigation Bar */
+.main-nav {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 220px;
-    border-radius: 15px 15px 0 0;
-    z-index: 100;
+    height: 60px;
+    background: #ffffff;
+    z-index: 1100;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.08);
+    padding: 0;
+    pointer-events: auto;
+    /* Ensure clickable */
+}
+
+.nav-btn {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    color: #888;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 0.2s;
+}
+
+.nav-btn:active {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.nav-btn.active {
+    color: #2e7d32;
+    font-weight: bold;
+    background: transparent;
+    transform: none;
+    border-top: 3px solid #2e7d32;
+}
+
+/* Increase emoji size in nav */
+.nav-btn::first-line {
+    font-size: 1.4rem;
+    line-height: 1.5;
+}
+
+/* 3. Inventory Panel (Fixed above Nav) */
+.inventory {
+    position: fixed;
+    bottom: 60px;
+    /* Above Nav */
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    /* Takes up bottom 30% of screen space */
     background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #eee;
+    border-radius: 16px 16px 0 0;
+    z-index: 1050;
     padding: 10px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
 }
 
 .element-list {
-    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+    gap: 8px;
+    padding: 5px;
     overflow-y: auto;
-}
-
-.machine-section {
-    padding: 10px;
-}
-
-.slots-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 5px;
-    padding-bottom: 5px;
     -webkit-overflow-scrolling: touch;
 }
 
-.slots-container .slot {
-    width: 55px;
-    height: 55px;
-    min-width: 55px;
+.element-card {
+    width: 100%;
+    aspect-ratio: 1;
     font-size: 0.7rem;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.element-card .emoji {
+    font-size: 1.6rem;
+    margin-bottom: 2px;
+}
+
+.element-card .count-badge {
+    font-size: 0.7rem;
+    padding: 2px 5px;
+    min-width: 20px;
+}
+
+/* 4. Main Workspace Area */
+.workspace {
+    margin-top: 50px;
+    /* Header */
+    margin-bottom: calc(60px + 30vh);
+    /* Nav + Inventory */
+    height: calc(100vh - 50px - 60px - 30vh);
+    /* Remaining height */
+    overflow-y: auto;
+    padding: 15px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Nature Field Grid */
+.nature-scene {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.gather-spot {
+    height: 90px;
+    border-radius: 12px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lab / Machine Styling */
+.machine-container {
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+.slots-container {
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 0;
+}
+
+.slots-container .slot {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 0.65rem;
+    border-radius: 10px;
 }
 
 .slots-container .emoji {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
 }
 
 .slots-container .plus,
 .slots-container .equals {
-    font-size: 1rem;
-    min-width: 15px;
+    display: none;
+    /* Hide operators to save space on mobile */
 }
 
+/* Result slot prominence */
 .result-slot {
     width: 60px;
     height: 60px;
     min-width: 60px;
+    border: 3px solid #ff9800;
+    margin-left: 10px;
 }
 
-.result-slot .emoji {
-    font-size: 1.8rem;
+/* Buttons */
+.action-btn {
+    width: 100%;
+    height: 48px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 0;
+    border-radius: 24px;
+}
+
+/* Modals */
+.modal-content {
+    width: 90%;
+    max-height: 85vh;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+/* Hide other non-critical elements/adjustments */
+.view-panel {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Small visual tweaks */
+.item-get-float {
+    font-size: 1.2rem;
+    font-weight: bold;
 }
