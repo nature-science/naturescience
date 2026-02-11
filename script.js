@@ -109,6 +109,7 @@ const ELEMENTS = {
     'copper_sulfate_solution': { id: 'copper_sulfate_solution', name: '硫酸銅水溶液', emoji: '🧪', desc: '硫酸銅を水に溶かした青い液体。', category: 'chemical' },
     'iron_sulfate': { id: 'iron_sulfate', name: '硫酸鉄(II)', emoji: '🟢', desc: '淡緑色の結晶。鉄と硫酸銅の置換反応などで得られる。', category: 'chemical' },
     'iron_sulfate_iii': { id: 'iron_sulfate_iii', name: '硫酸鉄(III)', emoji: '🟤', desc: '黄色っぽい粉末。水に溶けると酸性を示す。', category: 'chemical' },
+    'iron_oxide_ii': { id: 'iron_oxide_ii', name: '酸化鉄(II)', emoji: '⚫', desc: '鉄が酸化した黒色の粉末。木炭などで還元すると鉄に戻る。', category: 'chemical' },
     'iron_sulfide': { id: 'iron_sulfide', name: '硫化鉄', emoji: '🌑', desc: '鉄と硫黄を反応させて作った黒い固形物。', category: 'chemical' },
     'hydrogen_sulfide': { id: 'hydrogen_sulfide', name: '硫化水素', emoji: '💨', desc: '腐った卵のような臭いがする有毒な気体。硫化鉄と塩酸から発生する。', category: 'chemical' },
     'iron_chloride': { id: 'iron_chloride', name: '塩化鉄(II)', emoji: '🧪', desc: '鉄と塩酸が反応してできる物質。', category: 'chemical' },
@@ -1235,7 +1236,6 @@ const ELEMENTS = {
 
     'animal': { id: 'animal', name: '動物', emoji: '🐕', desc: '地球上の多様な生物たち。素材や力の源になる。', category: 'natural' },
     'biomass': { id: 'biomass', name: 'バイオマス', emoji: '🪵', desc: '生物由来の再生可能なエネルギー資源。', category: 'material' },
-    'ocean': { id: 'ocean', name: '海洋', emoji: '🌊', desc: '地球の表面の大部分を覆う巨大な塩水の塊。', category: 'natural' },
     'fossil': { id: 'fossil', name: '化石', emoji: '🦴', desc: '太古の生物が石化したもの。大地で採れる。', category: 'natural' },
 
     // === Computer Storage & Memory ===
@@ -1253,6 +1253,20 @@ const ELEMENTS = {
     'anthraquinone': { id: 'anthraquinone', name: 'アントラキノン', emoji: '🟨', desc: 'アントラセンを酸化させた黄色い結晶。染料や触媒に使われる。', category: 'chemical' },
     'anthrahydroquinone': { id: 'anthrahydroquinone', name: 'アントラヒドロキノン', emoji: '🟫', desc: 'アントラキノンを還元したもの。酸素に触れると過酸化水素を放出して元に戻る。', category: 'chemical' },
     'hydrogen_peroxide': { id: 'hydrogen_peroxide', name: '過酸化水素', emoji: '💧', desc: '強力な酸化剤。消毒薬や漂白剤、ロケット燃料になる。', category: 'chemical' },
+
+    // === Arc Furnace Roadmap ===
+    'graphite_electrode': { id: 'graphite_electrode', name: '黒鉛電極', emoji: '⚫', desc: 'アーク放電を起こすための巨大な炭素の棒。', category: 'part' },
+    'fire_brick': { id: 'fire_brick', name: '耐火レンガ', emoji: '🧱', desc: '数千度の高温にも耐える特殊なレンガ。', category: 'material' },
+    'transformer': { id: 'transformer', name: '変圧器', emoji: '⚡', desc: '電圧を変える装置。大電流を作るのに必要。', category: 'machine' },
+    'arc_furnace': { id: 'arc_furnace', name: 'アーク溶解炉', emoji: '🏭', desc: '電気アークの熱で金属を溶かす炉。リサイクルや合金作りに最適。', category: 'machine' },
+    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🛡️', desc: 'クロムとニッケルを含んだ、錆びにくい合金。', category: 'material' },
+
+    // PGM Sponge & Elements
+    'platinum_sponge': { id: 'platinum_sponge', name: 'スポンジ白金', emoji: '🌫️', desc: '多孔質の白金。触媒として優秀だが、実用金属にするには溶解が必要。', category: 'material' },
+    'osmium': { id: 'osmium', name: 'オスミウム', emoji: '🔩', desc: '最も密度の高い金属。非常に硬く、万年筆のペン先などに使われる。', category: 'material' },
+    'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🌫️', desc: '粉末状のオスミウム。酸化しやすいので取り扱い注意。', category: 'material' },
+    'ruthenium': { id: 'ruthenium', name: 'ルテニウム', emoji: '💍', desc: '硬くて摩耗に強い白金族元素。電気接点などに利用される。', category: 'material' },
+    'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🌫️', desc: '分離精製されたルテニウムの粉末。', category: 'material' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1447,6 +1461,9 @@ const RECIPES = {
     'glass_vessel+glass_vessel+sand': 'hourglass',
     'carbon_dioxide+fresh_water+plant+sun': ['starch', 'oxygen'], // Photosynthesis (4 slots)
     'electricity+enameled_wire+glass_vessel': 'ozone',
+    'air+fire+iron': 'iron_oxide_ii', // Oxidation
+    'charcoal+iron_oxide_ii': ['iron', 'carbon_dioxide'], // Reduction with Charcoal
+    'coke+iron_oxide_ii': ['iron', 'carbon_dioxide'], // Reduction with Coke
     // 'iron+rod': 'iron_pipe',
     'carbonated_water+sodium_hydroxide': 'sodium_bicarbonate', // Reaction to bicarbonate
     'ammonia+nitric_acid': 'ammonium_nitrate',
@@ -2808,9 +2825,7 @@ const RECIPES = {
     // Fusion Reactor: Super Conductor + Electromagnet + Concrete (Shield) + Heavy Water (Deuterium source, simplified to Hydrogen/Water)
     // Simplified: Super Conductor + Electromagnet + Hydrogen + Concrete
     'concrete+electromagnet+hydrogen+super_conductor': 'fusion_reactor',
-    // Space Station: Rocket + Solar Panel + Airtight Fabric + Space Food (Long stay)
-    // 'airtight_fabric+rocket+solar_panel+space_food': 'space_station', // Removed in favor of modular recipe
-
+    // Space Station: Rocket + Solar Panel + Living Module (modular approach)\n    'living_module+rocket+solar_panel': 'space_station',\n
     // === Moon Base Roadmap Recipes ===
 
     // Phase 1: Space Frontier
@@ -2838,8 +2853,8 @@ const RECIPES = {
     '3d_printer+regolith': 'lunar_concrete',
 
     // Phase 4: Moon Base Construction
-    // Living Module: Airtight Fabric + Glass + Lunar Concrete
-    // 'airtight_fabric+glass+lunar_concrete': 'living_module', // Removed in favor of generic aluminum version
+    // Living Module: Aluminum + Glass + Lunar Concrete (generic version)
+    'aluminum+glass+lunar_concrete': 'living_module',
     // Airlock: Iron Plate + Motor + Sensor
     'iron_plate+motor+sensor': 'airlock',
     // Moon Base: Airlock + Living Module + Solar Power Plant + Oxygen
@@ -2850,8 +2865,8 @@ const RECIPES = {
     // Phase 1: Interplanetary Voyage
     // Electric Drill: Motor + Screw + Titanium
     // 'motor+screw+titanium': 'electric_drill', // Removed in favor of battery/tungsten version
-    // Fusion Drive: Fusion Reactor + Helium 3 + Rocket Engine
-    // 'fusion_reactor+helium3+rocket_engine': 'fusion_drive', // Removed fuel requirement for parts
+    // Fusion Drive: Fusion Reactor + Helium 3 + Rocket Engine (parts only, no fuel requirement)
+    'fusion_reactor+rocket_engine': 'fusion_drive',
     // Deep Space Ship: AI Chip + Fusion Drive + Space Station
     'ai_chip+fusion_drive+space_station': 'deep_space_ship',
     // Mars: Deep Space Ship + Space
@@ -2979,8 +2994,10 @@ const RECIPES = {
     // === Food Expansion ===
     // Ingredients
     'plant+water+earth': 'rice', // Rice farming
-    'plant+stone_tool': ['vegetable', 'tomato'], // Harvesting vegetables
+    'plant+stone_tool': 'fiber', // Extracting fiber from plants
     'animal+plant': 'milk', // Feeding animal -> Milk
+    'plant+earth': 'soybean', // Soybean farming
+    'animal+plant+hot_water': 'cocoon', // Silkworm cocoon from caterpillar eating leaves
     'flour+water+salt': 'noodle', // Noodles
 
     // Seasonings
@@ -3266,10 +3283,6 @@ const RECIPES = {
     // Biomass
     'plant+plant': 'biomass',
 
-    // Ocean (Conceptual)
-    // Ocean (Conceptual) - REMOVED (Unscientific)
-    // 'fish+salt+water': 'ocean',
-
     // Mars Base construction
     'dome_city+living_module+mars': 'mars_base',
 
@@ -3286,6 +3299,13 @@ const RECIPES = {
     // Stibnite + Iron + Fire -> Antimony + Iron Sulfide (Precipitation Method)
     'fire+iron+stibnite': ['antimony', 'iron_sulfide'],
 
+
+    // === Arc Furnace Roadmap ===
+    'graphite_electrode': { id: 'graphite_electrode', name: '黒鉛電極', emoji: '⚫', desc: 'アーク放電を起こすための巨大な炭素の棒。', category: 'part' },
+    'fire_brick': { id: 'fire_brick', name: '耐火レンガ', emoji: '🧱', desc: '数千度の高温にも耐える特殊なレンガ。', category: 'material' },
+    'transformer': { id: 'transformer', name: '変圧器', emoji: '⚡', desc: '電圧を変える装置。大電流を作るのに必要。', category: 'machine' },
+    'arc_furnace': { id: 'arc_furnace', name: 'アーク溶解炉', emoji: '🏭', desc: '電気アークの熱で金属を溶かす炉。リサイクルや合金作りに最適。', category: 'machine' },
+    'stainless_steel': { id: 'stainless_steel', name: 'ステンレス鋼', emoji: '🛡️', desc: 'クロムとニッケルを含んだ、錆びにくい合金。', category: 'material' },
 
     // === Future / High Tech Recipes ===
     // 'computer+game_controller': 'game_console', // Duplicate removed
@@ -3332,6 +3352,18 @@ const RECIPES = {
     'earth+lichen+water': 'forest', // Creating forest from lichen/earth
 
 
+    // Arc Furnace Roadmap Recipes
+    // Fire Brick: Clay + Sand + Fire (Sintering)
+    'clay+fire+sand': 'fire_brick',
+    // Graphite Electrode: Coke + Heavy Oil (Binder/Pitch) -> Baked Electrode
+    'coke+heavy_oil': 'graphite_electrode',
+    // Transformer: Coil + Iron Plate + Iron Plate (Core)
+    'coil+iron_plate+iron_plate': 'transformer',
+    // Arc Furnace: Fire Brick + Graphite Electrode + Transformer
+    'fire_brick+graphite_electrode+transformer': 'arc_furnace',
+    // Stainless Steel: Iron + Chromium + Nickel + Electricity (Arc melting)
+    'chromium+electricity+iron+nickel': 'stainless_steel',
+
     // === Storage & Memory Roadmap ===
     // Magnetic Disk: Aluminum + Magnet
     'aluminum+magnet': 'magnetic_disk',
@@ -3365,7 +3397,27 @@ const RECIPES = {
     'hydrochloric_acid+iron': ['iron_chloride', 'hydrogen'], // Fe + 2HCl -> FeCl2 + H2
     'hydrochloric_acid+nickel': ['nickel_chloride', 'hydrogen'], // Ni + 2HCl -> NiCl2 + H2
     'hydrochloric_acid+tin': ['tin_chloride', 'hydrogen'], // Sn + 2HCl -> SnCl2 + H2
+
+    // Arc Furnace Roadmap Recipes
+    // Fire Brick: Clay + Sand + Fire (Sintering)
+    'clay+fire+sand': 'fire_brick',
+    // Graphite Electrode: Coke + Heavy Oil (Binder/Pitch) -> Baked Electrode
+    'coke+heavy_oil': 'graphite_electrode',
+    // Transformer: Coil + Iron Plate + Iron Plate (Core)
+    'coil+iron_plate+iron_plate': 'transformer',
+    // Arc Furnace: Fire Brick + Graphite Electrode + Transformer
+    'fire_brick+graphite_electrode+transformer': 'arc_furnace',
+    // Stainless Steel: Iron + Chromium + Nickel + Electricity (Arc melting)
+    'chromium+electricity+iron+nickel': 'stainless_steel',
 };
+
+const ARC_RECIPES = [
+    { id: 'stainless_steel', req: { 'iron': 1, 'chromium': 1, 'nickel': 1 } },
+    { id: 'titanium', req: { 'titanium_sponge': 1 } },
+    { id: 'platinum', req: { 'platinum_sponge': 1 } },
+    { id: 'osmium', req: { 'osmium_sponge': 1 } },
+    { id: 'ruthenium', req: { 'ruthenium_sponge': 1 } }
+];
 
 // Normalize RECIPES keys (Ensure all keys are sorted to avoid matching issues)
 const NORMALIZED_RECIPES = {};
@@ -3378,7 +3430,7 @@ Object.keys(RECIPES).forEach(key => {
 // but executeCraft uses 'RECIPES', so let's just use NORMALIZED_RECIPES in the logic)
 
 const BASE_REUSABLE_ITEMS = [
-    'stone_tool', 'bow', 'earthenware', 'iron_tool', 'alcohol_lamp', 'pencil', 'needle',
+    'stone_tool', 'bow', 'earthenware', 'shards', 'iron_tool', 'alcohol_lamp', 'pencil', 'needle',
     'compass_tool', 'wheel', 'water_wheel', 'telescope', 'microscope', 'glasses',
     'piston', 'vacuum_pump', 'vacuum_apparatus', 'boiler', 'steam_engine', 'tire',
     'rubber_tube', 'magnet', 'generator', 'coil', 'electromagnet', 'platinum',
@@ -3393,6 +3445,7 @@ const BASE_REUSABLE_ITEMS = [
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
 let unlockedFeats = new Set(); // Track shown notifications
+let shownInventions = new Set(); // Track shown "Great Invention" logs
 // Utility: Debounce
 function debounce(func, wait) {
     let timeout;
@@ -3479,6 +3532,21 @@ function init() {
     setupCraftingUI();
     updateGatherSpotDisplay(); // Initialize Area Display
     setupMachineReordering(); // Setup Lab Reordering
+    setupSettingsUI(); // Setup Settings Modal
+
+    // Global Keyboard Shortcuts
+    // Global Keyboard Shortcuts
+    // Global Keyboard Shortcuts
+    // Remove existing if any (requires named function, but for now just add once with check)
+    if (!window.hasAddedKeyShortcuts) {
+        document.addEventListener('keyup', (e) => {
+            if (e.ctrlKey && e.key === 'Delete') {
+                e.preventDefault();
+                resetGameData();
+            }
+        });
+        window.hasAddedKeyShortcuts = true;
+    }
 
     // Inject CSS for sort mode
     const style = document.createElement('style');
@@ -3530,6 +3598,12 @@ function init() {
     const electricRefineBtn = document.getElementById('electric-refine-btn');
     if (electricRefineBtn) {
         electricRefineBtn.addEventListener('click', processElectricRefining);
+    }
+
+    // Setup Arc Melting
+    const arcBtn = document.getElementById('arc-melt-btn');
+    if (arcBtn) {
+        arcBtn.addEventListener('click', executeArcMelting);
     }
 
     // Setup Manual Sort
@@ -3624,7 +3698,7 @@ function init() {
         log("あなたはこの原始時代の唯一の科学者です。自然豊かなこの大地から全てが始まります！さあ、実験を始めましょう！");
     } else {
         isLoading = false;
-        log("前回の続きから再開します。");
+        // log("前回の続きから再開します。");
     }
 
     updateStats();
@@ -3682,7 +3756,9 @@ function saveGame() {
         unlockedFeats: Array.from(unlockedFeats),
         order: userInventoryOrder,
         civLevel: currentCivilizationLevel,
-        money: playerMoney // New Shop
+        civLevel: currentCivilizationLevel,
+        money: playerMoney, // New Shop
+        shownInventions: Array.from(shownInventions)
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
 }
@@ -3695,6 +3771,9 @@ function loadGame() {
             inventoryCounts = data.inventory || {};
             if (data.discovered) {
                 discovered = new Set(data.discovered);
+            }
+            if (data.shownInventions) {
+                shownInventions = new Set(data.shownInventions);
             }
             if (data.order && Array.isArray(data.order)) {
                 userInventoryOrder = data.order;
@@ -3727,7 +3806,9 @@ function resetGameData() {
     if (confirm("本当にデータを削除してリスタートしますか？\n（この操作は取り消せません）")) {
         localStorage.removeItem('nature_science_save');
         localStorage.removeItem('nature_science_tutorial_step'); // Reset tutorial
-        location.reload();
+        setTimeout(() => {
+            location.reload(true);
+        }, 100);
     }
 }
 
@@ -5005,18 +5086,39 @@ function putToSlot(id) {
     else if (!slot4) setSlot(4, id);
     else if (!slot5) setSlot(5, id);
     else {
-        // Reset and put in slot 1 (assuming count check passed or it's a new flow, 
-        // but if inventory is 1, and we reset, it is fine since we clear others)
-        // Re-check inventory for safety if we are resetting logic
+        // Reset and put in first available unlocked slot
+        // Re-check inventory for safety
         if (inventoryCounts[id] < 1) {
             log(`[${getItemName(id)}] の在庫が足りません！`);
             return;
         }
-        setSlot(1, id);
-        clearSlot(2);
-        clearSlot(3);
-        clearSlot(4);
-        clearSlot(5);
+
+        // Find first unlocked slot to overwrite or clear others?
+        // Current logic: force reset and put in slot 1.
+        // Revised logic with locks: 
+        // Try to clear unlocked slots and find space.
+
+        let placed = false;
+
+        // Helper to clear if not locked
+        const tryClear = (n) => {
+            if (!slotLocks[n - 1]) {
+                clearSlot(n);
+                return true;
+            }
+            return false;
+        };
+
+        // Try to clear and set
+        if (tryClear(1)) { setSlot(1, id); placed = true; }
+        if (tryClear(2)) { if (!placed) { setSlot(2, id); placed = true; } else clearSlot(2); }
+        if (tryClear(3)) { if (!placed) { setSlot(3, id); placed = true; } else clearSlot(3); }
+        if (tryClear(4)) { if (!placed) { setSlot(4, id); placed = true; } else clearSlot(4); }
+        if (tryClear(5)) { if (!placed) { setSlot(5, id); placed = true; } else clearSlot(5); }
+
+        if (!placed) {
+            log("全てのスロットがロックされており、空きがありません！");
+        }
         clearResult();
     }
     checkTutorialSlots();
@@ -5068,12 +5170,45 @@ function clearSlot(num) {
     clearResult();
 }
 
-function resetSlots() {
-    clearSlot(1);
-    clearSlot(2);
-    clearSlot(3);
-    clearSlot(4);
-    clearSlot(5);
+let slotLocks = [false, false, false, false, false];
+
+function toggleLock(n) {
+    const index = n - 1;
+    slotLocks[index] = !slotLocks[index];
+    const btn = document.getElementById(`lock-btn-${n}`);
+    if (btn) {
+        if (slotLocks[index]) {
+            btn.classList.add('locked');
+            btn.textContent = '🔒';
+            // Play faint sound? (Optional, skipping)
+        } else {
+            btn.classList.remove('locked');
+            btn.textContent = '🔓';
+        }
+    }
+}
+
+function resetSlots(force = false) {
+    // If not forced (e.g. called after crafting), check locks
+    const checkLock = (n) => {
+        if (force) return false;
+        if (!slotLocks[n - 1]) return false; // Not locked
+
+        // Slot is locked. Check if item still exists in inventory.
+        const id = getSlotVar(n);
+        if (!id) return false; // Empty slot
+
+        const count = inventoryCounts[id] || 0;
+        if (count <= 0) return false; // Item exhausted
+
+        return true; // Keep slot
+    };
+
+    if (!checkLock(1)) clearSlot(1);
+    if (!checkLock(2)) clearSlot(2);
+    if (!checkLock(3)) clearSlot(3);
+    if (!checkLock(4)) clearSlot(4);
+    if (!checkLock(5)) clearSlot(5);
 }
 
 function clearResult() {
@@ -5221,9 +5356,12 @@ function executeCraft() {
         } else {
             log(`${getText('craftSuccess')} [${getItemName(mainResId)}]`);
             if (GREAT_INVENTIONS[mainResId]) {
-                setTimeout(() => {
-                    log(`🎉 【偉大な研究】 ${GREAT_INVENTIONS[mainResId]}`);
-                }, 800);
+                if (!shownInventions.has(mainResId)) {
+                    shownInventions.add(mainResId);
+                    setTimeout(() => {
+                        log(`🎉 【偉大な研究】 ${GREAT_INVENTIONS[mainResId]}`);
+                    }, 800);
+                }
             }
         }
         resetSlots();
@@ -5960,6 +6098,22 @@ function updateStats() {
         }
     }
 
+    // Check for Arc Furnace Unlock
+    if (discovered.has('arc_furnace')) {
+        const afSection = document.getElementById('arc-furnace-section');
+        if (afSection) {
+            if (afSection.style.display === 'none') {
+                afSection.style.display = 'block';
+                if (!isLoading && !unlockedFeats.has('arc_furnace_unlock')) {
+                    log("【新設備】 アーク溶解炉の建設により、高度な合金精錬が可能になりました！");
+                    unlockedFeats.add('arc_furnace_unlock');
+                    saveGame();
+                }
+            }
+            renderArcRecipes();
+        }
+    }
+
     // Check for All Elements Discovery
     if (found === total && !unlockedFeats.has('all_elements_discovered') && !isLoading) {
         log("🎉 **おめでとうございます！** 全ての要素を発見しました！あなたは自然と科学のマスターです！");
@@ -6135,8 +6289,8 @@ function renderShop() {
         });
     }
 
-    // Filter out Money Items (Cannot buy/sell money itself)
-    const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air'];
+    // Filter out Money Items & Non-Physical Resources (Cannot buy/sell money itself)
+    const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air', 'sun'];
     targetIds = targetIds.filter(id => !MONEY_ITEMS.includes(id));
 
     // Filter out concepts, phenomena, etc. (Non-physical goods)
@@ -6181,7 +6335,7 @@ function renderShop() {
             card.onclick = () => buyItem(id, price);
         } else {
             // Sell Mode
-            const sellPrice = Math.floor(price / 5) || 1; // Sell price is 1/5
+            const sellPrice = Math.floor(price / 4) || 1; // Sell price is 1/4
             const count = inventoryCounts[id] || 0;
 
             // Infinite Check for Shop
@@ -6203,34 +6357,69 @@ function renderShop() {
                 <div class="element-emoji">${data.emoji}</div>
                 <div class="element-name">${data.name}</div>
                 ${countHtml}
-                <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${sellPrice} G</div>
+                <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${Math.floor(price / 4)} G</div>
             `;
-            card.onclick = () => sellItem(id, sellPrice);
+            card.onclick = () => {
+                const max = inventoryCounts[id] || 0;
+                let input = prompt(`売却する個数を入力してください (最大: ${max})\n"all" または "a" で全て売却`, "1");
+                if (input === null) return;
+
+                let amount = 0;
+                if (input.toLowerCase() === 'all' || input.toLowerCase() === 'a') {
+                    amount = max;
+                } else {
+                    amount = parseInt(input);
+                }
+
+                if (isNaN(amount) || amount <= 0) {
+                    return; // Invalid input or cancel
+                }
+                if (amount > max) amount = max;
+
+                sellItem(id, sellPrice, amount);
+            };
         }
         grid.appendChild(card);
     });
 }
 // Keep calculatePrice below
 function calculatePrice(id) {
-    // Simple logic based on ID length hash or predefined categories
-    // For now, let's make it simple: 100G base.
-    // Ideally should be based on complexity/tier.
-
-    // Temporary tier check using recipe depth is hard to calculate dynamically.
-    // Using string hash mod 500 + 50
-    let hash = 0;
-    for (let i = 0; i < id.length; i++) hash += id.charCodeAt(i);
-
-    let base = 100;
     const data = ELEMENTS[id];
+    if (!data) return 100;
 
-    if (data.category === 'natural') base = 50;
-    if (data.category === 'chemical') base = 150;
-    if (data.category === 'tool') base = 300;
-    if (data.category === 'machine') base = 1000;
-    if (GREAT_INVENTIONS[id]) base += 2000; // Rare items
+    let price = 100; // Default base
 
-    return base + (hash % 100);
+    // Category based pricing
+    if (data.category === 'natural') price = 30;
+    else if (data.category === 'plant') price = 60;
+    else if (data.category === 'food') price = 100;
+    else if (data.category === 'mineral') price = 300;
+    else if (data.category === 'chemical') price = 600;
+    else if (data.category === 'material') price = 300;
+    else if (data.category === 'part') price = 800; // Added parts
+    else if (data.category === 'tool') price = 1500;
+    else if (data.category === 'machine') price = 5000;
+    else if (data.category === 'science') price = 12000;
+    else if (data.category === 'misc') price = 200;
+
+    // Specific Adjustments based on tier/rarity (Manual overrides)
+    const TIER_1 = ['water', 'sun', 'earth', 'air', 'stone', 'sand', 'fresh_water'];
+    if (TIER_1.includes(id)) price = 10;
+
+    const TIER_2 = ['wood', 'clay', 'plant', 'iron_ore', 'coal'];
+    if (TIER_2.includes(id)) price = 40;
+
+    const EXPENSIVE = ['gold', 'platinum', 'diamond', 'titanium', 'uranium', 'jewelry', 'palladium', 'rhodium', 'osmium', 'ruthenium', 'cobalt', 'neodymium', 'indium'];
+    if (EXPENSIVE.includes(id)) price = 5000;
+
+    // Cheap Tools Override
+    // Return IMMEDIATELY to avoid invention bonus
+    const CHEAP_TOOLS = ['stone_tool', 'processed_stone', 'stone_axe', 'flint', 'fiber', 'nail', 'screw_part'];
+    if (CHEAP_TOOLS.includes(id)) return 100;
+
+    if (GREAT_INVENTIONS[id]) price += 5000; // Rare invention bonus
+
+    return price;
 }
 
 function buyItem(id, price) {
@@ -6246,12 +6435,13 @@ function buyItem(id, price) {
     }
 }
 
-function sellItem(id, price) {
-    if ((inventoryCounts[id] || 0) > 0) {
-        consumeItem(id, 1);
-        playerMoney += price;
+function sellItem(id, price, amount = 1) {
+    if ((inventoryCounts[id] || 0) >= amount) {
+        consumeItem(id, amount);
+        const total = price * amount;
+        playerMoney += total;
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
-        log(`売却しました: [${getItemName(id)}] (+${price}G)`);
+        log(`売却しました: [${getItemName(id)}] x${amount} (+${total}G)`);
 
         // Re-render only this card to prevent full flicker, or full renderShop
         renderShop();
@@ -6645,22 +6835,22 @@ function showIndustrialDetail(procId) {
     } else if (proc.id === 'hydroelectric') {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
                         <strong>【工業化特典】</strong><br>
-                        安定した電力供給が確保されました。電気が合成に使用しても消費されません！
+                        安定した電力供給が確保されました。電気を合成に使用しても消費されません！
                      </div>`;
     } else if (proc.id === 'haber_bosch') {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
                         <strong>【工業化特典】</strong><br>
-                        空中窒素の固定に成功！アンモニアが工業的に大量生産されるようになりました。合成に使用しても消費されません！
+                        アンモニアが大量生産されるようになりました。合成に使用しても消費されません！
                      </div>`;
     } else if (proc.id === 'anthraquinone_process') {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
                         <strong>【工業化特典】</strong><br>
-                        自動サイクルによる連続生産に成功！過酸化水素が無限に使用可能になりました（消費されません）。
+                        過酸化水素が大量生産されるようになりました。合成に使用しても消費されません！
                      </div>`;
     } else if (proc.id === 'sabatier') {
         infoHtml += `<div style="margin-top:10px; padding:10px; background:#e8f5e9; border:1px solid #2e7d32; border-radius:8px; font-size:0.85rem; color:#1b5e20;">
                         <strong>【工業化特典】</strong><br>
-                        サバティエ反応の実装に成功！メタンが燃料として大量生産されるようになりました。合成に使用しても消費されません！
+                        メタンが大量生産されるようになりました。合成に使用しても消費されません！
                      </div>`;
     }
 
@@ -6695,7 +6885,7 @@ function showElementDetail(id) {
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
         'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
         'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
-        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'palladium', 'rhodium', 'platinum', 'iridium',
+        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'pgm_ore', 'palladium', 'rhodium', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
         'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton',
         'bismuth_ore', 'antimony', 'stibnite', 'borax'
@@ -6717,10 +6907,9 @@ function showElementDetail(id) {
         'molybdenite': '南アフリカ（サバンナ）',
         'pyrochlore': '南アフリカ（サバンナ）',
         'rutile': '南アフリカ（サバンナ）',
-        'palladium': '南アフリカ（サバンナ）',
-        'rhodium': '南アフリカ（サバンナ）',
-        'platinum': '南アフリカ（サバンナ）・フィールド（川）・月面',
-        'iridium': '月面（クレーター）・フィールド（洞窟）',
+        'pgm_ore': '南アフリカ（サバンナ）',
+        'platinum': 'フィールド（川）・月面',
+        'iridium': '月面（クレーター）',
         'bauxite': 'オーストラリア（赤い砂漠）',
         'cobalt_ore': 'オーストラリア（赤い砂漠）',
         'monazite': 'オーストラリア（赤い砂漠）・南米（アラシャ鉱山）・中国（五台山）',
@@ -7086,7 +7275,19 @@ const TUTORIAL_STEPS = [
     {
         id: 'success',
         text: '<h3>大発見！</h3><p>おめでとうございます！新しいアイテムを作り出しました。<br>このように、様々な組み合わせを試して文明を発展させていきましょう。<br>発見したアイテムは<b>「図鑑」</b>で確認できます。</p>',
-        target: '#nav-book', // Corrected ID
+        target: '#nav-book',
+        trigger: 'next_btn'
+    },
+    {
+        id: 'lock_feature',
+        text: '<h3>便利なロック機能</h3><p>同じアイテムを連続で作りたいときは、スロットの下にある<b>「🔓ロックボタン」</b>を使いましょう。<br>アイテムが固定され、連続合成が楽になります。</p>',
+        target: '#lock-btn-1',
+        trigger: 'next_btn'
+    },
+    {
+        id: 'shop_info',
+        text: '<h3>交換所を活用しよう</h3><p>海で<b>「タカラガイ」</b>を見つけると、<b>「交換所」</b>がオープンします。<br>余った素材を売ってお金を貯め、レアな素材を購入しましょう！<br>これで基本的な説明は終わりです。自由な研究の旅へ行ってらっしゃい！</p>',
+        target: '.water-spot',
         trigger: 'finish'
     }
 ];
@@ -7359,3 +7560,176 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// === Arc Melting Logic ===
+function executeArcMelting() {
+    // 1. Check Electricity
+    let hasPower = false;
+    if (discovered.has('hydroelectric_power')) {
+        hasPower = true;
+    } else if ((inventoryCounts['electricity'] || 0) > 0) {
+        hasPower = true;
+    }
+
+    if (!hasPower) {
+        log("電力が足りません！[電気⚡]を用意するか、[水力発電]を開発してください。");
+        return;
+    }
+
+    // 2. Scan Inventory for Candidates based on ARC_RECIPES
+    // ARC_RECIPES must be defined globally (previously used in renderArcRecipes)
+    let candidates = [];
+
+    if (typeof ARC_RECIPES !== 'undefined') {
+        ARC_RECIPES.forEach(recipe => {
+            const el = ELEMENTS[recipe.id];
+            const name = el ? el.name : recipe.id;
+
+            // Check Ingredients
+            let canCraft = true;
+            for (const [reqId, count] of Object.entries(recipe.req)) {
+                if ((inventoryCounts[reqId] || 0) < count) {
+                    canCraft = false;
+                    break;
+                }
+            }
+
+            if (canCraft) {
+                candidates.push({
+                    name: `${name}を精錬`,
+                    req: recipe.req,
+                    result: recipe.id,
+                    original: recipe
+                });
+            }
+        });
+    }
+
+    // 3. Handle Results
+    if (candidates.length === 0) {
+        log("アーク溶解できる素材が足りません。（必要な素材と電力を確認してください）");
+        return;
+    }
+
+    if (candidates.length === 1) {
+        processArcCandidate(candidates[0]);
+    } else {
+        const msgP = log("精錬するプロセスを選択：");
+        const btnContainer = document.createElement('div');
+        btnContainer.className = 'choice-container';
+        btnContainer.style.display = 'flex';
+        btnContainer.style.gap = '8px';
+        btnContainer.style.padding = '8px 0';
+        btnContainer.style.flexWrap = 'wrap';
+
+        candidates.forEach(cand => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.style.padding = '4px 12px';
+            btn.style.borderRadius = '15px';
+            btn.style.border = '1px solid #e53935';
+            btn.style.background = 'white';
+            btn.style.cursor = 'pointer';
+            btn.style.fontSize = '0.85rem';
+            btn.innerText = cand.name;
+
+            btn.onclick = () => {
+                processArcCandidate(cand);
+                btnContainer.remove();
+                msgP.remove();
+            };
+            btnContainer.appendChild(btn);
+        });
+        ui.msgLog.prepend(btnContainer);
+    }
+}
+
+function processArcCandidate(target) {
+    // Check materials again (safety)
+    for (const [reqId, count] of Object.entries(target.req)) { // Fix: Iterate entries
+        if (!inventoryCounts[reqId] || inventoryCounts[reqId] < count) {
+            log(`素材が不足しています。`);
+            return;
+        }
+    }
+
+    // Consume materials
+    for (const [reqId, count] of Object.entries(target.req)) {
+        consumeItem(reqId, count);
+    }
+
+    // Consume Electricity
+    if (!discovered.has('hydroelectric_power')) {
+        consumeItem('electricity', 1);
+        log("電力を消費しました。(-1 ⚡)");
+    }
+
+    // Add Result
+    const resData = ELEMENTS[target.result];
+    addItem(target.result, 1);
+
+    if (resData) {
+        log(`⚡ アーク溶解成功！ [${resData.name}] を精製しました！`);
+        saveGame();
+    }
+}
+
+// renderArcRecipes and craftArcRecipe are no longer needed
+function renderArcRecipes() { }
+
+function setupSettingsUI() {
+    const navSettings = document.getElementById('nav-settings');
+    const modal = document.getElementById('settings-modal');
+    const closeBtn = document.getElementById('close-settings-modal');
+
+    // Open Modal
+    if (navSettings && modal) {
+        navSettings.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+    }
+
+    // Close Modal
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
+
+    // Close on outside click
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    // Restart Tutorial
+    const btnRestartTutorial = document.getElementById('btn-restart-tutorial');
+    if (btnRestartTutorial) {
+        btnRestartTutorial.onclick = () => {
+            if (confirm("チュートリアルを最初から開始しますか？")) {
+                currentTutorialStep = 0;
+                tutorialActive = true;
+                localStorage.setItem('nature_science_tutorial_step', 0);
+
+                if (modal) modal.style.display = 'none';
+
+                // Reset UI for tutorial context
+                switchView('field');
+
+                // Ensure tutorial UI exists
+                if (!document.getElementById('tutorial-box')) {
+                    createTutorialUI();
+                }
+
+                showTutorialStep(0);
+                log("チュートリアルを再開しました。");
+            }
+        };
+    }
+}
+
+window.onload = init;
+

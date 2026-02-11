@@ -36,39 +36,16 @@
                     <span id="sidebar-progress-text"
                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.65rem; color: #333; font-weight: bold; text-shadow: 0 0 2px rgba(255,255,255,0.8);">0%</span>
                 </div>
-                <button id="delete-save-btn" class="text-btn"
-                    style="color: #e53935; margin-top:10px; font-size:0.8rem;">🗑️ データを消す</button>
-                <div style="margin-top: 5px; display: flex; gap: 5px;">
-                    <button id="export-save-btn" class="text-btn" style="color: #1976d2; font-size:0.8rem;">📤
-                        保存</button>
-                    <button id="import-save-btn" class="text-btn" style="color: #f57c00; font-size:0.8rem;">📥
-                        読込</button>
-                </div>
-
-
                 <div class="next-goal"
                     style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.5); border-radius: 8px; font-size: 0.85rem; border: 1px dashed #81c784;">
                     <strong>🎯 次の目標:</strong>
                     <div id="next-civ-goal" style="margin-top: 5px; color: #2e7d32; font-weight: bold;">---</div>
                 </div>
-
-                <div class="view-mode-controls" style="margin-top: 8px; font-size: 0.8rem; text-align: right;">
-                    <span>表示:</span>
-                    <button class="text-btn" id="btn-view-auto">Auto</button>
-                    <button class="text-btn" id="btn-view-pc">PC</button>
-                    <button class="text-btn" id="btn-view-mobile">Mob</button>
-                    <button class="text-btn" id="btn-toggle-lite"
-                        style="margin-left: 5px; border-left: 1px solid #ccc; padding-left: 10px;">✨ Lite</button>
-                    <button class="text-btn" id="btn-toggle-dark" style="margin-left: 5px;">🌙 Dark</button>
-                </div>
-
-
+                <button id="nav-settings" class="nav-btn" style="margin-top: 10px; border: 1px dashed #ccc;">⚙️
+                    設定</button>
             </div>
 
-
-            <div id="message-log" class="message-log">
-
-            </div>
+            <div id="message-log" class="message-log"></div>
         </aside>
 
         <!-- Main Workspace Areas (Switched via JS) -->
@@ -200,30 +177,35 @@
                             <div id="slot-1" class="element-slot empty" data-index="0">
                                 <span class="slot-placeholder">素材A</span>
                             </div>
+                            <div class="lock-btn" id="lock-btn-1" onclick="toggleLock(1)">🔓</div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-2" class="element-slot empty" data-index="1">
                                 <span class="slot-placeholder">素材B</span>
                             </div>
+                            <div class="lock-btn" id="lock-btn-2" onclick="toggleLock(2)">🔓</div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-3" class="element-slot empty" data-index="2">
                                 <span class="slot-placeholder">素材C</span>
                             </div>
+                            <div class="lock-btn" id="lock-btn-3" onclick="toggleLock(3)">🔓</div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-4" class="element-slot empty" data-index="3">
                                 <span class="slot-placeholder">素材D</span>
                             </div>
+                            <div class="lock-btn" id="lock-btn-4" onclick="toggleLock(4)">🔓</div>
                         </div>
                         <div class="operator">+</div>
                         <div class="slot-wrapper">
                             <div id="slot-5" class="element-slot empty" data-index="4">
                                 <span class="slot-placeholder">素材E</span>
                             </div>
+                            <div class="lock-btn" id="lock-btn-5" onclick="toggleLock(5)">🔓</div>
                         </div>
                         <div class="operator">=</div>
                         <div class="slot-wrapper">
@@ -317,6 +299,22 @@
                         <button id="electric-refine-btn" class="action-btn"
                             style="background: #fb8c00; box-shadow: 0 4px 10px rgba(251, 140, 0, 0.3);">⚡
                             電気精錬</button>
+                    </div>
+                </div>
+
+                <!-- Section 8: Arc Furnace (Hidden by default) -->
+                <div id="arc-furnace-section" class="machine-section glass-panel"
+                    style="margin-top: 20px; display: none;">
+                    <div class="machine-title" draggable="true" style="margin-bottom: 10px; cursor: grab;">⚡ アーク溶解炉 ≡
+                    </div>
+                    <div class="refinery-container">
+                        <div class="refinery-info">
+                            <p>電気アークの超高温で金属を溶解・精錬します。</p>
+                            <p style="font-size: 0.8rem; color: #d84315;">※電力と素材が必要</p>
+                        </div>
+                        <button id="arc-melt-btn" class="action-btn"
+                            style="background: #e53935; box-shadow: 0 4px 10px rgba(229, 57, 53, 0.3);">⚡
+                            アーク溶解</button>
                     </div>
                 </div>
 
@@ -574,6 +572,58 @@
 
             <button id="close-map-btn"
                 style="margin-top:20px; padding:10px 20px; background:#ddd; border:none; border-radius:5px; cursor:pointer;">閉じる</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content" style="max-width: 400px; padding: 30px; text-align: center;">
+            <span class="close-btn" id="close-settings-modal"
+                style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer;">&times;</span>
+            <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 25px;">⚙️ 設定</div>
+
+            <div
+                style="text-align: left; margin-bottom: 25px; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 10px;">
+                <h3
+                    style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; font-size: 1rem; color: #555;">
+                    💾 データ管理</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; justify-content: center;">
+                    <button id="export-save-btn" class="action-btn small" style="flex:1;">📤 保存</button>
+                    <button id="import-save-btn" class="action-btn small secondary" style="flex:1;">📥 読込</button>
+                </div>
+                <div style="text-align: center;">
+                    <button id="delete-save-btn" class="text-btn" style="color: #e53935; font-size: 0.85rem;">🗑️
+                        データを削除する</button>
+                </div>
+            </div>
+
+            <div style="text-align: left; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 10px;">
+                <h3
+                    style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; font-size: 1rem; color: #555;">
+                    🎨 表示設定</h3>
+                <div style="display: flex; gap: 10px; margin-bottom: 15px; justify-content: center;">
+                    <button id="btn-toggle-lite" class="action-btn small" style="flex:1;">✨ 軽量化</button>
+                    <button id="btn-toggle-dark" class="action-btn small secondary" style="flex:1;">🌙 ダーク</button>
+                </div>
+                <div style="margin-top: 15px; font-size: 0.85rem; text-align: center; color: #777;">
+                    <span>レイアウト: </span>
+                    <button class="text-btn" id="btn-view-auto" style="margin: 0 5px;">Auto</button> /
+                    <button class="text-btn" id="btn-view-pc" style="margin: 0 5px;">PC</button> /
+                    <button class="text-btn" id="btn-view-mobile" style="margin: 0 5px;">Mob</button>
+                </div>
+            </div>
+
+            <div
+                style="text-align: left; padding: 15px; background: rgba(0,0,0,0.03); border-radius: 10px; margin-top: 25px;">
+                <h3
+                    style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-bottom: 15px; font-size: 1rem; color: #555;">
+                    🎓 ガイド</h3>
+                <div style="text-align: center;">
+                    <button id="btn-restart-tutorial" class="action-btn small" style="width: 100%;">チュートリアルを再開</button>
+                </div>
+            </div>
+
+            <p style="font-size: 0.75rem; color: #aaa; margin-top: 30px;">Natural & Science v1.3</p>
         </div>
     </div>
 

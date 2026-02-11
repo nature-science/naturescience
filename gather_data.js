@@ -13,6 +13,7 @@ const GATHER_DATA = {
     'sun': [{ th: 1.0, id: 'sun' }],
     'forest': [
         { th: 0.30, id: 'wood' },
+        { th: 0.40, id: 'vegetable' },
         { th: 0.50, id: 'plant' },
         { th: 0.60, id: 'grape' },
         { th: 0.65, id: 'flower' },
@@ -82,6 +83,7 @@ const GATHER_DATA = {
         { th: 1.00, id: 'stone' }
     ],
     'andes': [
+        { th: 0.4, id: 'tomato' },
         { th: 0.7, id: 'potato' },
         { th: 1.0, id: 'copper_ore' }
     ],
