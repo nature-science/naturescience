@@ -76,6 +76,7 @@ const GATHER_DATA = {
         { th: 1.00, id: 'earth' }
     ],
     'oil_field': [
+        { th: 0.10, id: 'fuel' },
         { th: 0.60, id: 'crude_oil' },
         { th: 0.75, id: 'shale_rock' },
         { th: 0.85, id: 'earth' },
@@ -203,5 +204,19 @@ const GATHER_DATA = {
         { th: 0.88, id: 'fluorite' },
         { th: 0.96, id: 'barite' },
         { th: 1.00, id: 'stone' }
+    ],
+    'antarctica': [
+        { th: 0.10, id: 'penguin' },
+        { th: 0.20, id: 'meteorite' },
+        { th: 0.30, id: 'ice_core' },
+        { th: 0.70, id: 'ice' },
+        { th: 1.00, id: 'water' }
+    ],
+    'deep_sea': [
+        { th: 0.10, id: 'colossal_squid' },
+        { th: 0.30, id: 'deep_sea_fish' },
+        { th: 0.50, id: 'hydrothermal_vent' },
+        { th: 0.70, id: 'manganese_nodule' },
+        { th: 1.00, id: 'water' }
     ]
 };

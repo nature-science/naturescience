@@ -211,6 +211,7 @@ main {
 
 .nature-scene {
     display: grid;
+    /* Fixed 2 columns as requested */
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: minmax(60px, auto);
     gap: 12px;

@@ -178,18 +178,41 @@
 
 /* Nature Field Grid */
 .nature-scene {
+    display: grid;
+    /* Fixed 2 columns as requested */
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    padding-bottom: 20px;
 }
 
 .gather-spot {
-    height: 90px;
-    border-radius: 12px;
+    width: 100%;
+    /* Remove fixed height, use aspect ratio or min-height */
+    height: auto;
+    aspect-ratio: 1.3 / 1;
+    /* Slightly rectangular,scales with width */
+    min-height: 80px;
+
+    border-radius: 16px;
     font-size: 1rem;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.1s;
+}
+
+.gather-spot:active {
+    transform: scale(0.95);
+}
+
+.gather-spot .emoji {
+    font-size: 2.5rem;
+    /* Larger emoji */
+    margin-bottom: 5px;
 }
 
 /* Lab / Machine Styling */

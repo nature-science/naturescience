@@ -1264,6 +1264,21 @@ const ELEMENTS = {
     'osmium_sponge': { id: 'osmium_sponge', name: 'オスミウムスポンジ', emoji: '🧽', desc: '粉末状のオスミウム。酸化しやすいので取り扱い注意。', category: 'material' },
     'ruthenium': { id: 'ruthenium', name: 'ルテニウム', emoji: '💍', desc: '硬くて摩耗に強い白金族元素。電気接点などに利用される。', category: 'material' },
     'ruthenium_sponge': { id: 'ruthenium_sponge', name: 'ルテニウムスポンジ', emoji: '🧽', desc: '分離精製されたルテニウムの粉末。', category: 'material' },
+
+    // Antarctica
+    'penguin': { id: 'penguin', name: 'ペンギン', emoji: '🐧', desc: '南極に住む飛べない鳥。かわいい。', category: 'life' },
+    'meteorite': { id: 'meteorite', name: '隕石', emoji: '☄️', desc: '宇宙から飛来した石。太陽系の最初期の情報を含んでいる。', category: 'natural' },
+    'ice_core': { id: 'ice_core', name: '氷床コア', emoji: '🧊', desc: '南極の氷をくり抜いたもの。過去数万年の気候データが閉じ込められている。', category: 'natural' },
+
+    // Deep Sea
+    'manganese_nodule': { id: 'manganese_nodule', name: 'マンガン団塊', emoji: '🪨', desc: '深海底に転がる黒い塊。マンガンやニッケルなどのレアメタルを含む。', category: 'natural' },
+    'deep_sea_fish': { id: 'deep_sea_fish', name: '深海魚', emoji: '🐟', desc: '暗く高圧な環境に適応した不思議な姿の魚。', category: 'life' },
+    'hydrothermal_vent': { id: 'hydrothermal_vent', name: '熱水噴出孔', emoji: '🌋', desc: 'チムニー。海底から熱水が吹き出す場所。生命誕生の場の候補。', category: 'natural' },
+    'colossal_squid': { id: 'colossal_squid', name: 'ダイオウホウズキイカ', emoji: '🦑', desc: '深海に潜む巨大な頭足類。マッコウクジラの宿敵。', category: 'life' },
+
+    // Vehicles & Fuel
+    'submarine': { id: 'submarine', name: '深海探査船', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' },
+    'fuel': { id: 'fuel', name: '燃料', emoji: '⛽', desc: '乗り物を動かすためのエネルギー源。', category: 'material' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1277,6 +1292,7 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'lead_chamber_process', name: '鉛室法', key: 'sulfuric_acid', req: 'lead_chamber', desc: '鉛でできた部屋の中で、二酸化硫黄と水を反応させて硫酸を作る古い製法。' },
     { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'fuming_sulfuric_acid', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
     { id: 'vanadium', name: 'バナジウム精錬', key: 'vanadium_pentoxide', req: 'magnetite', desc: '磁鉄鉱からの希少金属抽出。' },
+    { id: 'oil_refining', name: '石油精製', key: 'fuel', req: 'crude_oil', desc: '原油を蒸留して燃料を得る。' },
     { id: 'hydroelectric', name: '水力発電', key: 'hydroelectric_power', req: 'gear', desc: '自然のエネルギーを持続可能な電気に変える技術。' },
     { id: 'cryogenic', name: '深冷分離法', key: 'liquid_air', req: 'cooling_unit', desc: '空気を極低温で液化し、蒸留によって窒素と酸素に分離する技術。' },
     { id: 'haber_bosch', name: 'ハーバー・ボッシュ法', key: 'ammonia', req: 'iron_catalyst', desc: '空気中の窒素を固定し、アンモニアを大量生産する革命的技術。' },
@@ -3373,8 +3389,14 @@ const RECIPES = {
     'flash_memory+flash_memory+ic': 'ssd',
 
     // Copper Smelting
-    'air+copper_ore+fire': 'copper_oxide_1',
-    'copper_ore+copper_oxide_1': 'copper',
+    'air+copper_ore+fire': 'copper_oxide_1', // Partial oxidation
+    'copper_ore+copper_oxide_1': 'copper', // Self-reduction
+    'charcoal+copper_oxide_1': 'copper', // Carbon reduction
+    'coke+copper_oxide_1': 'copper',
+    'charcoal+copper_oxide': 'copper', // Reduction of CuO
+
+    // Rudder (Recipe Update)
+    'wheel+wood': 'rudder',
 
     // Detailed Textile
     'cotton+spinning_wheel': 'thread',
@@ -3508,7 +3530,7 @@ const ui = {
 
 function init() {
     setupNavigation();
-    setupMapUI(); // Map UI
+    setupCardMapUI(); // Card Layout Map UI (Restored Design)
     setupGathering();
     setupCraftingUI();
     updateGatherSpotDisplay(); // Initialize Area Display
@@ -4089,6 +4111,8 @@ function switchArea(area) {
     else if (area === 'okinawa') msg = "沖縄に到着しました。めんそーれ！";
     else if (area === 'hokkaido') msg = "北海道に到着しました。でっかいどう！";
     else if (area === 'kagoshima') msg = "鹿児島に到着しました。おじゃったもんせ！";
+    else if (area === 'deep_sea') msg = "深海に潜航しました。水圧を感じます。";
+    else if (area === 'antarctica') msg = "南極大陸に上陸しました。極寒の世界です。";
 
     log(msg);
     updateGatherSpotDisplay();
@@ -4206,6 +4230,18 @@ function updateGatherSpotDisplay() {
         });
     } else if (currentArea === 'china') {
         const ids = ['china', 'china_mine', 'uyghur_field']; // Bamboo/Tea + Mine + Uyghur
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
+    } else if (currentArea === 'antarctica') {
+        const ids = ['antarctica'];
+        ids.forEach(id => {
+            const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
+            if (el) el.style.display = 'flex';
+        });
+    } else if (currentArea === 'deep_sea') {
+        const ids = ['deep_sea'];
         ids.forEach(id => {
             const el = document.querySelector(`.gather-spot[data-id="${id}"]`);
             if (el) el.style.display = 'flex';
@@ -6024,8 +6060,8 @@ function updateStats() {
     // Update Industrial List
     updateIndustrialList();
 
-    // Check for Oil Field Unlock
-    if (discovered.has('steam_engine')) {
+    // Check for Oil Field Unlock (Only in Japan/Home area)
+    if (discovered.has('steam_engine') && currentArea === 'japan') {
         const oilSpot = document.querySelector('.gather-spot[data-id="oil"]');
         if (oilSpot && oilSpot.style.display === 'none') {
             oilSpot.style.display = 'flex';
@@ -7704,6 +7740,1018 @@ function setupSettingsUI() {
         };
     }
 }
+// === Simple Map UI Implementation (List based) ===
+function setupMapUI() {
+    const mapModal = document.getElementById('map-modal');
+    if (!mapModal) return;
+
+    mapModal.innerHTML = `
+        <div class="modal-content glass-panel" style="max-width: 700px; text-align: center;">
+            <div class="map-header" style="justify-content: center; position: relative; margin-bottom: 20px;">
+                <h2 style="margin: 0; color: #006064;">🌏 移動先を選択</h2>
+                <span id="close-map" class="close-btn" style="position: absolute; right: 0; top: 0;">&times;</span>
+            </div>
+            
+            <div style="margin-bottom: 15px; font-weight: bold; color: #555;">🇯🇵 日本国内</div>
+            <div class="destination-grid domestic">
+                <button id="dest-local" class="action-btn map-btn">🏠 拠点 (本州)</button>
+                <button id="dest-hokkaido" class="action-btn map-btn">🐻 北海道</button>
+                <button id="dest-okinawa" class="action-btn map-btn">🌺 沖縄</button>
+                <button id="dest-kagoshima" class="action-btn map-btn">🌋 鹿児島</button>
+            </div>
+
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+
+            <div style="margin-bottom: 15px; font-weight: bold; color: #555;">🌍 海外</div>
+            <div class="destination-grid foreign">
+                <button id="dest-china" class="action-btn map-btn">🐼 中国</button>
+                <button id="dest-foreign" class="action-btn map-btn">🌏 東南アジア</button>
+                <button id="dest-australia" class="action-btn map-btn">🦘 オーストラリア</button>
+                <button id="dest-europe" class="action-btn map-btn">🐂 スペイン</button>
+                <button id="dest-turkey" class="action-btn map-btn">🦃 トルコ</button>
+                <button id="dest-south-africa" class="action-btn map-btn">💎 南アフリカ</button>
+                <button id="dest-america" class="action-btn map-btn">🤠 北米</button>
+                <button id="dest-south-america" class="action-btn map-btn">🦙 南米</button>
+            </div>
+
+            <div id="space-map-section" style="">
+                <hr style="margin: 15px 0; border: 0; border-top: 1px solid #ddd;">
+                <div style="margin-bottom: 15px; font-weight: bold; color: #555;">🚀 宇宙</div>
+                <div class="destination-grid space">
+                    <button id="dest-moon" class="action-btn map-btn" style="background: #455a64; color: white;">🌕 月面</button>
+                    <button id="dest-mars" class="action-btn map-btn" style="background: #bf360c; color: white;">🪐 火星</button>
+                </div>
+            </div>
+            
+            <style>
+                .destination-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                    gap: 10px;
+                }
+                .map-btn {
+                    padding: 10px 5px;
+                    font-size: 0.9rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    height: auto;
+                    width: 100%;
+                    white-space: nowrap;
+                }
+            </style>
+        </div>
+    `;
+
+    // Close button
+    const closeBtn = document.getElementById('close-map');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            mapModal.style.display = 'none';
+        });
+    }
+
+    // Close on click outside
+    mapModal.onclick = (e) => {
+        if (e.target === mapModal) mapModal.style.display = 'none';
+    };
+
+    // Helper to bind events
+    const bindDest = (id, area) => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', () => {
+                mapModal.style.display = 'none';
+                switchArea(area);
+            });
+        }
+    };
+
+    bindDest('dest-local', 'japan');
+    bindDest('dest-hokkaido', 'hokkaido');
+    bindDest('dest-okinawa', 'okinawa');
+    bindDest('dest-kagoshima', 'kagoshima');
+
+    bindDest('dest-china', 'china');
+    bindDest('dest-foreign', 'asia');
+    bindDest('dest-australia', 'australia');
+    bindDest('dest-europe', 'europe');
+    bindDest('dest-turkey', 'turkey');
+    bindDest('dest-south-africa', 'south_africa');
+    bindDest('dest-america', 'america');
+    bindDest('dest-south-america', 'south_america');
+
+    bindDest('dest-moon', 'moon');
+    bindDest('dest-mars', 'mars');
+
+    // Space visibility (Always visible now)
+    const spaceSection = document.getElementById('space-map-section');
+    if (spaceSection) {
+        // if (discovered.has('space')) {
+        spaceSection.style.display = 'block';
+        const destMars = document.getElementById('dest-mars');
+        if (destMars) destMars.style.display = 'flex'; // Always show Mars
+        // }
+    }
+}
+
+// === Real Map UI Implementation (Accurate SVGs) ===
+function setupRealMapUI() {
+    const mapModal = document.getElementById('map-modal');
+
+    // Map State
+    let currentMap = 'world'; // 'world' or 'japan'
+
+    // Define Render Functions
+    const renderMap = () => {
+        if (!mapModal) return;
+
+        if (currentMap === 'world') {
+            // === WORLD MAP ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 1000px; width: 95%; padding: 0; background: #e0f7fa; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <h2 style="margin:0; font-size: 1.2rem; color: #006064; font-weight: bold;">🌍 世界地図</h2>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- World Map Container -->
+                <div id="world-map-container" style="position: relative; width: 100%; padding-bottom: 50.5%; background: #a4c2f4; overflow: hidden;">
+                    <!-- Mercator World Map -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Mercator-projection.jpg/1024px-Mercator-projection.jpg" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg';"
+                         alt="World Map"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Pins -->
+                    <button id="nav-japan" class="map-pin" style="top: 36%; left: 86%;">
+                        <span class="pin-icon">🗾</span><span class="pin-label">日本(詳細)</span>
+                    </button>
+                    
+                    <button id="dest-china" class="map-pin" style="top: 36%; left: 75%;">
+                        <span class="pin-icon">🇨🇳</span><span class="pin-label">中国</span>
+                    </button>
+                    <button id="dest-foreign" class="map-pin" style="top: 48%; left: 78%;">
+                        <span class="pin-icon">🌏</span><span class="pin-label">東南アジア</span>
+                    </button>
+                    <button id="dest-australia" class="map-pin" style="top: 75%; left: 86%;">
+                        <span class="pin-icon">🇦🇺</span><span class="pin-label">豪州</span>
+                    </button>
+
+                    <button id="dest-europe" class="map-pin" style="top: 28%; left: 49%;">
+                        <span class="pin-icon">🇪🇸</span><span class="pin-label">欧州</span>
+                    </button>
+                    <button id="dest-turkey" class="map-pin" style="top: 33%; left: 56%;">
+                        <span class="pin-icon">🇹🇷</span><span class="pin-label">トルコ</span>
+                    </button>
+                    <button id="dest-south-africa" class="map-pin" style="top: 75%; left: 53%;">
+                        <span class="pin-icon">🇿🇦</span><span class="pin-label">南ア</span>
+                    </button>
+
+                    <button id="dest-america" class="map-pin" style="top: 30%; left: 18%;">
+                        <span class="pin-icon">🇺🇸</span><span class="pin-label">北米</span>
+                    </button>
+                    <button id="dest-south-america" class="map-pin" style="top: 65%; left: 29%;">
+                        <span class="pin-icon">🇧🇷</span><span class="pin-label">南米</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div style="padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; justify-content: center;">
+                    <span style="color: #666; font-size: 0.9rem; font-weight: bold;">宇宙:</span>
+                    <div id="rocket-map-section" style="display: inline-flex; gap: 10px;">
+                        <button id="dest-moon" class="action-btn small" style="width: auto; background: #546e7a; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🌕 月面</button>
+                        <button id="dest-mars" class="action-btn small" style="width: auto; background: #d84315; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🪐 火星</button>
+                    </div>
+                </div>
+            </div>`;
+        } else {
+            // === JAPAN MAP ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button id="back-to-world" style="background:none; border:1px solid #aaa; border-radius:50%; width:30px; height:30px; cursor:pointer;" title="世界地図へ戻る">⬅️</button>
+                        <h2 style="margin:0; font-size: 1.2rem; color: #33691e; font-weight: bold;">🗾 日本列島</h2>
+                    </div>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- Japan Map Container -->
+                <div id="japan-map-container" style="position: relative; width: 100%; padding-bottom: 100%; background: #a4c2f4; overflow: hidden;">
+                     <!-- Accurate Japan Map PNG -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Japan_location_map.svg/800px-Japan_location_map.svg.png" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/b/b2/Japan_location_map.svg';"
+                         alt="Japan Map"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 1;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Hokkaido (Top Right) -->
+                    <button id="dest-hokkaido" class="map-pin" style="top: 15%; left: 80%;">
+                        <span class="pin-icon">🐻</span><span class="pin-label">北海道</span>
+                    </button>
+
+                    <!-- Home (Honshu Center) -->
+                    <button id="dest-local" class="map-pin" style="top: 55%; left: 65%;">
+                        <span class="pin-icon">🏠</span><span class="pin-label">拠点(本州)</span>
+                    </button>
+
+                    <!-- Kagoshima (Kyushu South) -->
+                    <button id="dest-kagoshima" class="map-pin" style="top: 75%; left: 35%;">
+                        <span class="pin-icon">🌋</span><span class="pin-label">鹿児島</span>
+                    </button>
+
+                    <!-- Okinawa (Inset Map - Bottom Left) -->
+                    <button id="dest-okinawa" class="map-pin" style="top: 80%; left: 15%;">
+                        <span class="pin-icon">🌺</span><span class="pin-label">沖縄</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        bindEvents();
+    };
+
+    const getPinStyles = () => `
+        <style>
+            .map-pin {
+                position: absolute;
+                transform: translate(-50%, -100%);
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s;
+                z-index: 10;
+                padding: 0;
+                outline: none;
+            }
+            .map-pin:hover {
+                transform: translate(-50%, -115%) scale(1.1);
+                z-index: 20;
+            }
+            .pin-icon {
+                font-size: 2.5rem;
+                text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+            }
+            .pin-label {
+                background: rgba(255,255,255,0.95);
+                color: #333;
+                padding: 3px 10px;
+                border-radius: 12px;
+                font-size: 0.85rem;
+                font-weight: bold;
+                margin-top: -8px;
+                white-space: nowrap;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                pointer-events: none;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+        </style>
+    `;
+
+    const bindEvents = () => {
+        const closeMap = document.getElementById('close-map');
+        if (closeMap) closeMap.addEventListener('click', () => mapModal.style.display = 'none');
+
+        // Navigation between Maps
+        const navJapan = document.getElementById('nav-japan');
+        if (navJapan) {
+            navJapan.addEventListener('click', () => {
+                currentMap = 'japan';
+                renderMap();
+            });
+        }
+        const backToWorld = document.getElementById('back-to-world');
+        if (backToWorld) {
+            backToWorld.addEventListener('click', () => {
+                currentMap = 'world';
+                renderMap();
+            });
+        }
+
+        // Destinations
+        const bindDest = (id, area) => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('click', () => {
+                    mapModal.style.display = 'none';
+                    switchArea(area);
+                });
+            }
+        };
+
+        // World Dests
+        bindDest('dest-china', 'china');
+        bindDest('dest-foreign', 'asia');
+        bindDest('dest-america', 'america');
+        bindDest('dest-south-america', 'south_america');
+        bindDest('dest-europe', 'europe');
+        bindDest('dest-turkey', 'turkey');
+        bindDest('dest-south-africa', 'south_africa');
+        bindDest('dest-australia', 'australia');
+        bindDest('dest-moon', 'moon');
+        bindDest('dest-mars', 'mars');
+
+        // Japan Dests
+        bindDest('dest-local', 'japan');
+        bindDest('dest-hokkaido', 'hokkaido');
+        bindDest('dest-okinawa', 'okinawa');
+        bindDest('dest-kagoshima', 'kagoshima');
+
+        // Modal Background Click
+        if (mapModal) {
+            mapModal.onclick = (e) => {
+                if (e.target === mapModal) mapModal.style.display = 'none';
+            };
+        }
+
+        // Space visibility
+        const rocketMapSection = document.getElementById('rocket-map-section');
+        if (rocketMapSection) {
+            rocketMapSection.style.display = discovered.has('space') ? 'inline-flex' : 'none';
+            const destMars = document.getElementById('dest-mars');
+            if (destMars) destMars.style.display = discovered.has('moon_base') ? 'inline-block' : 'none';
+        }
+    };
+
+    // Initial Render
+    if (mapModal) renderMap();
+}
+
+// === Abstract Map UI Implementation (Image-free) ===
+function setupAbstractMapUI() {
+    const mapModal = document.getElementById('map-modal');
+
+    // Map State
+    let currentMap = 'world'; // 'world' or 'japan'
+
+    // Define Render Functions
+    const renderMap = () => {
+        if (!mapModal) return;
+
+        if (currentMap === 'world') {
+            // === WORLD MAP (Abstract) ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 1000px; width: 95%; padding: 0; background: #e0f7fa; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <h2 style="margin:0; font-size: 1.2rem; color: #006064; font-weight: bold;">🌍 世界地図</h2>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- World Map Container (Abstract) -->
+                <div id="world-map-container" style="position: relative; width: 100%; padding-bottom: 50.5%; background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%); overflow: hidden;">
+                    <!-- Background Decoration -->
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 15rem; opacity: 0.15; pointer-events: none; user-select: none;">
+                        🌏
+                    </div>
+                    
+                    ${getPinStyles()}
+
+                    <!-- Pins -->
+                    <button id="nav-japan" class="map-pin" style="top: 36%; left: 86%;">
+                        <span class="pin-icon">🗾</span><span class="pin-label">日本(詳細)</span>
+                    </button>
+                    
+                    <button id="dest-china" class="map-pin" style="top: 36%; left: 75%;">
+                        <span class="pin-icon">🇨🇳</span><span class="pin-label">中国</span>
+                    </button>
+                    <button id="dest-foreign" class="map-pin" style="top: 48%; left: 78%;">
+                        <span class="pin-icon">🌏</span><span class="pin-label">東南アジア</span>
+                    </button>
+                    <button id="dest-australia" class="map-pin" style="top: 75%; left: 86%;">
+                        <span class="pin-icon">🇦🇺</span><span class="pin-label">豪州</span>
+                    </button>
+
+                    <button id="dest-europe" class="map-pin" style="top: 28%; left: 49%;">
+                        <span class="pin-icon">🇪🇸</span><span class="pin-label">欧州</span>
+                    </button>
+                    <button id="dest-turkey" class="map-pin" style="top: 33%; left: 56%;">
+                        <span class="pin-icon">🇹🇷</span><span class="pin-label">トルコ</span>
+                    </button>
+                    <button id="dest-south-africa" class="map-pin" style="top: 75%; left: 53%;">
+                        <span class="pin-icon">🇿🇦</span><span class="pin-label">南ア</span>
+                    </button>
+
+                    <button id="dest-america" class="map-pin" style="top: 30%; left: 18%;">
+                        <span class="pin-icon">🇺🇸</span><span class="pin-label">北米</span>
+                    </button>
+                    <button id="dest-south-america" class="map-pin" style="top: 65%; left: 29%;">
+                        <span class="pin-icon">🇧🇷</span><span class="pin-label">南米</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div style="padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; justify-content: center;">
+                    <span style="color: #666; font-size: 0.9rem; font-weight: bold;">宇宙:</span>
+                    <div id="rocket-map-section" style="display: inline-flex; gap: 10px;">
+                        <button id="dest-moon" class="action-btn small" style="width: auto; background: #546e7a; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🌕 月面</button>
+                        <button id="dest-mars" class="action-btn small" style="width: auto; background: #d84315; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🪐 火星</button>
+                    </div>
+                </div>
+            </div>`;
+        } else {
+            // === JAPAN MAP (Abstract) ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button id="back-to-world" style="background:none; border:1px solid #aaa; border-radius:50%; width:30px; height:30px; cursor:pointer;" title="世界地図へ戻る">⬅️</button>
+                        <h2 style="margin:0; font-size: 1.2rem; color: #33691e; font-weight: bold;">🗾 日本列島</h2>
+                    </div>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- Japan Map Container -->
+                <div id="japan-map-container" style="position: relative; width: 100%; padding-bottom: 100%; background: linear-gradient(135deg, #81d4fa 0%, #4fc3f7 100%); overflow: hidden;">
+                     <!-- Background Decoration -->
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 15rem; opacity: 0.15; pointer-events: none; user-select: none;">
+                        🗾
+                    </div>
+                    
+                    ${getPinStyles()}
+
+                    <!-- Hokkaido (Top Right) -->
+                    <button id="dest-hokkaido" class="map-pin" style="top: 15%; left: 80%;">
+                        <span class="pin-icon">🐻</span><span class="pin-label">北海道</span>
+                    </button>
+
+                    <!-- Home (Honshu Center) -->
+                    <button id="dest-local" class="map-pin" style="top: 55%; left: 65%;">
+                        <span class="pin-icon">🏠</span><span class="pin-label">拠点(本州)</span>
+                    </button>
+
+                    <!-- Kagoshima (Kyushu South) -->
+                    <button id="dest-kagoshima" class="map-pin" style="top: 75%; left: 35%;">
+                        <span class="pin-icon">🌋</span><span class="pin-label">鹿児島</span>
+                    </button>
+
+                    <!-- Okinawa (Inset Map - Bottom Left) -->
+                    <button id="dest-okinawa" class="map-pin" style="top: 80%; left: 15%;">
+                        <span class="pin-icon">🌺</span><span class="pin-label">沖縄</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        bindEvents();
+    };
+
+    const getPinStyles = () => `
+        <style>
+            .map-pin {
+                position: absolute;
+                transform: translate(-50%, -100%);
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s;
+                z-index: 10;
+                padding: 0;
+                outline: none;
+            }
+            .map-pin:hover {
+                transform: translate(-50%, -115%) scale(1.1);
+                z-index: 20;
+            }
+            .pin-icon {
+                font-size: 2.5rem;
+                text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+            }
+            .pin-label {
+                background: rgba(255,255,255,0.95);
+                color: #333;
+                padding: 3px 10px;
+                border-radius: 12px;
+                font-size: 0.85rem;
+                font-weight: bold;
+                margin-top: -8px;
+                white-space: nowrap;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                pointer-events: none;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+        </style>
+    `;
+
+    const bindEvents = () => {
+        const closeMap = document.getElementById('close-map');
+        if (closeMap) closeMap.addEventListener('click', () => mapModal.style.display = 'none');
+
+        // Navigation between Maps
+        const navJapan = document.getElementById('nav-japan');
+        if (navJapan) {
+            navJapan.addEventListener('click', () => {
+                currentMap = 'japan';
+                renderMap();
+            });
+        }
+        const backToWorld = document.getElementById('back-to-world');
+        if (backToWorld) {
+            backToWorld.addEventListener('click', () => {
+                currentMap = 'world';
+                renderMap();
+            });
+        }
+
+        // Destinations
+        const bindDest = (id, area) => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('click', () => {
+                    mapModal.style.display = 'none';
+                    switchArea(area);
+                });
+            }
+        };
+
+        // World Dests
+        bindDest('dest-china', 'china');
+        bindDest('dest-foreign', 'asia');
+        bindDest('dest-america', 'america');
+        bindDest('dest-south-america', 'south_america');
+        bindDest('dest-europe', 'europe');
+        bindDest('dest-turkey', 'turkey');
+        bindDest('dest-south-africa', 'south_africa');
+        bindDest('dest-australia', 'australia');
+        bindDest('dest-moon', 'moon');
+        bindDest('dest-mars', 'mars');
+
+        // Japan Dests
+        bindDest('dest-local', 'japan');
+        bindDest('dest-hokkaido', 'hokkaido');
+        bindDest('dest-okinawa', 'okinawa');
+        bindDest('dest-kagoshima', 'kagoshima');
+
+        // Modal Background Click
+        if (mapModal) {
+            mapModal.onclick = (e) => {
+                if (e.target === mapModal) mapModal.style.display = 'none';
+            };
+        }
+
+        // Space visibility
+        const rocketMapSection = document.getElementById('rocket-map-section');
+        if (rocketMapSection) {
+            rocketMapSection.style.display = discovered.has('space') ? 'inline-flex' : 'none';
+            const destMars = document.getElementById('dest-mars');
+            if (destMars) destMars.style.display = discovered.has('moon_base') ? 'inline-block' : 'none';
+        }
+    };
+
+    // Initial Render
+    if (mapModal) renderMap();
+}
+
+// === Visual Map UI Implementation ===
+function setupVisualMapUI() {
+    const mapModal = document.getElementById('map-modal');
+
+    // Map State
+    let currentMap = 'world'; // 'world' or 'japan'
+
+    // Define Render Functions
+    const renderMap = () => {
+        if (!mapModal) return;
+
+        if (currentMap === 'world') {
+            // === WORLD MAP ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 1000px; width: 95%; padding: 0; background: #e0f7fa; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <h2 style="margin:0; font-size: 1.2rem; color: #006064; font-weight: bold;">🌍 世界地図</h2>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- World Map Container -->
+                <div id="world-map-container" style="position: relative; width: 100%; padding-bottom: 50.5%; background: #81d4fa; overflow: hidden;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/1280px-World_map_blank_without_borders.svg.png" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png';"
+                         alt="World Map (Image Load Failed)"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; background: #81d4fa;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Pins -->
+                    <button id="nav-japan" class="map-pin" style="top: 36%; left: 86%;">
+                        <span class="pin-icon">🗾</span><span class="pin-label">日本(詳細)</span>
+                    </button>
+                    
+                    <button id="dest-china" class="map-pin" style="top: 36%; left: 75%;">
+                        <span class="pin-icon">🇨🇳</span><span class="pin-label">中国</span>
+                    </button>
+                    <button id="dest-foreign" class="map-pin" style="top: 48%; left: 78%;">
+                        <span class="pin-icon">🌏</span><span class="pin-label">東南アジア</span>
+                    </button>
+                    <button id="dest-australia" class="map-pin" style="top: 75%; left: 86%;">
+                        <span class="pin-icon">🇦🇺</span><span class="pin-label">豪州</span>
+                    </button>
+
+                    <button id="dest-europe" class="map-pin" style="top: 28%; left: 49%;">
+                        <span class="pin-icon">🇪🇸</span><span class="pin-label">欧州</span>
+                    </button>
+                    <button id="dest-turkey" class="map-pin" style="top: 33%; left: 56%;">
+                        <span class="pin-icon">🇹🇷</span><span class="pin-label">トルコ</span>
+                    </button>
+                    <button id="dest-south-africa" class="map-pin" style="top: 75%; left: 53%;">
+                        <span class="pin-icon">🇿🇦</span><span class="pin-label">南ア</span>
+                    </button>
+
+                    <button id="dest-america" class="map-pin" style="top: 30%; left: 18%;">
+                        <span class="pin-icon">🇺🇸</span><span class="pin-label">北米</span>
+                    </button>
+                    <button id="dest-south-america" class="map-pin" style="top: 65%; left: 29%;">
+                        <span class="pin-icon">🇧🇷</span><span class="pin-label">南米</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div style="padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; justify-content: center;">
+                    <span style="color: #666; font-size: 0.9rem; font-weight: bold;">宇宙:</span>
+                    <div id="rocket-map-section" style="display: inline-flex; gap: 10px;">
+                        <button id="dest-moon" class="action-btn small" style="width: auto; background: #546e7a; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🌕 月面</button>
+                        <button id="dest-mars" class="action-btn small" style="width: auto; background: #d84315; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🪐 火星</button>
+                    </div>
+                </div>
+            </div>`;
+        } else {
+            // === JAPAN MAP ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button id="back-to-world" style="background:none; border:1px solid #aaa; border-radius:50%; width:30px; height:30px; cursor:pointer;" title="世界地図へ戻る">⬅️</button>
+                        <h2 style="margin:0; font-size: 1.2rem; color: #33691e; font-weight: bold;">🗾 日本列島</h2>
+                    </div>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- Japan Map Container -->
+                <div id="japan-map-container" style="position: relative; width: 100%; padding-bottom: 100%; background: #b3e5fc; overflow: hidden;">
+                     <!-- Japan Map (Wikimedia Commons: Japan location map with side map of the Ryukyu Islands) -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg/1024px-Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg.png" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Japan_location_map.svg/1024px-Japan_location_map.svg.png';"
+                         alt="Japan Map (Image Load Failed)"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; background: #b3e5fc;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Hokkaido (Top Right) -->
+                    <button id="dest-hokkaido" class="map-pin" style="top: 15%; left: 80%;">
+                        <span class="pin-icon">🐻</span><span class="pin-label">北海道</span>
+                    </button>
+
+                    <!-- Home (Honshu Center) -->
+                    <button id="dest-local" class="map-pin" style="top: 55%; left: 65%;">
+                        <span class="pin-icon">🏠</span><span class="pin-label">拠点(本州)</span>
+                    </button>
+
+                    <!-- Kagoshima (Kyushu South) -->
+                    <button id="dest-kagoshima" class="map-pin" style="top: 75%; left: 35%;">
+                        <span class="pin-icon">🌋</span><span class="pin-label">鹿児島</span>
+                    </button>
+
+                    <!-- Okinawa (Inset Map - Bottom Left) -->
+                    <button id="dest-okinawa" class="map-pin" style="top: 80%; left: 15%;">
+                        <span class="pin-icon">🌺</span><span class="pin-label">沖縄</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+        bindEvents();
+    };
+
+    const getPinStyles = () => `
+        <style>
+            .map-pin {
+                position: absolute;
+                transform: translate(-50%, -100%);
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: transform 0.2s;
+                z-index: 10;
+                padding: 0;
+                outline: none;
+            }
+            .map-pin:hover {
+                transform: translate(-50%, -115%) scale(1.1);
+                z-index: 20;
+            }
+            .pin-icon {
+                font-size: 2.5rem;
+                text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
+            }
+            .pin-label {
+                background: rgba(255,255,255,0.95);
+                color: #333;
+                padding: 3px 10px;
+                border-radius: 12px;
+                font-size: 0.85rem;
+                font-weight: bold;
+                margin-top: -8px;
+                white-space: nowrap;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+                pointer-events: none;
+                border: 1px solid rgba(0,0,0,0.1);
+            }
+        </style>
+    `;
+
+    const bindEvents = () => {
+        const closeMap = document.getElementById('close-map');
+        if (closeMap) closeMap.addEventListener('click', () => mapModal.style.display = 'none');
+
+        // Navigation between Maps
+        const navJapan = document.getElementById('nav-japan');
+        if (navJapan) {
+            navJapan.addEventListener('click', () => {
+                currentMap = 'japan';
+                renderMap();
+            });
+        }
+        const backToWorld = document.getElementById('back-to-world');
+        if (backToWorld) {
+            backToWorld.addEventListener('click', () => {
+                currentMap = 'world';
+                renderMap();
+            });
+        }
+
+        // Destinations
+        const bindDest = (id, area) => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('click', () => {
+                    mapModal.style.display = 'none';
+                    switchArea(area);
+                });
+            }
+        };
+
+        // World Dests
+        bindDest('dest-china', 'china');
+        bindDest('dest-foreign', 'asia');
+        bindDest('dest-america', 'america');
+        bindDest('dest-south-america', 'south_america');
+        bindDest('dest-europe', 'europe');
+        bindDest('dest-turkey', 'turkey');
+        bindDest('dest-south-africa', 'south_africa');
+        bindDest('dest-australia', 'australia');
+        bindDest('dest-moon', 'moon');
+        bindDest('dest-mars', 'mars');
+
+        // Japan Dests
+        bindDest('dest-local', 'japan');
+        bindDest('dest-hokkaido', 'hokkaido');
+        bindDest('dest-okinawa', 'okinawa');
+        bindDest('dest-kagoshima', 'kagoshima');
+
+        // Modal Background Click
+        if (mapModal) {
+            mapModal.onclick = (e) => {
+                if (e.target === mapModal) mapModal.style.display = 'none';
+            };
+        }
+
+        // Space visibility
+        const rocketMapSection = document.getElementById('rocket-map-section');
+        if (rocketMapSection) {
+            rocketMapSection.style.display = discovered.has('space') ? 'inline-flex' : 'none';
+            const destMars = document.getElementById('dest-mars');
+            if (destMars) destMars.style.display = discovered.has('moon_base') ? 'inline-block' : 'none';
+        }
+    };
+
+    // Initial Render
+    if (document.getElementById('map-modal')) setupCardMapUI();
+}
+
+// === Card Layout Map UI (Restored Design) ===
+function setupCardMapUI() {
+    const mapModal = document.getElementById('map-modal');
+    if (!mapModal) return;
+
+    // Destination Data with Spots for Progress Calculation
+    const destinations = [
+        { id: 'dest-local', name: '日本 (拠点)', sub: 'いつもの採取場所', emoji: '🗾', area: 'japan', spots: ['water', 'forest', 'land', 'air', 'sun', 'ore', 'onsen', 'river', 'home', 'oil'], bg: '#e8f5e9', border: '#a5d6a7' },
+        { id: 'dest-hokkaido', name: '北海道', sub: '北の大地と炭鉱', emoji: '❄️', area: 'hokkaido', spots: ['land', 'snow_field', 'coal_mine', 'forest'], bg: '#eceff1', border: '#90a4ae' },
+        { id: 'dest-okinawa', name: '沖縄', sub: '南国の海とサトウキビ', emoji: '🌺', area: 'okinawa', spots: ['water', 'sun', 'coral_reef', 'sugarcane_field'], bg: '#e0f7fa', border: '#00bcd4' },
+        { id: 'dest-kagoshima', name: '鹿児島', sub: '桜島と黄金の鉱脈', emoji: '🌋', area: 'kagoshima', spots: ['water', 'sun', 'onsen', 'gold_mine'], bg: '#fff3e0', border: '#ffcc80' },
+
+        // Overseas (Require Steamship)
+        { id: 'dest-china', name: '中国', sub: '火薬と茶の歴史', emoji: '🐼', area: 'china', spots: ['china', 'china_mine', 'uyghur_field'], bg: '#ffebee', border: '#ef9a9a', req: 'steamship' },
+        { id: 'dest-foreign', name: '東南アジア', sub: 'ゴムノキと香辛料の産地', emoji: '🌏', area: 'asia', spots: ['jungle', 'spice_field'], bg: '#e3f2fd', border: '#90caf9', req: 'steamship' },
+        { id: 'dest-australia', name: 'オーストラリア', sub: '広大な赤い大地', emoji: '🦘', area: 'australia', spots: ['red_desert'], bg: '#fbe9e7', border: '#ffab91', req: 'steamship' },
+        { id: 'dest-europe', name: 'スペイン', sub: '太陽と情熱の国', emoji: '🐂', area: 'europe', spots: ['olive_grove', 'spanish_coast'], bg: '#fffde7', border: '#fff59d', req: 'steamship' },
+        { id: 'dest-turkey', name: 'トルコ', sub: 'アナトリアの豊富な鉱物', emoji: '🦃', area: 'turkey', spots: ['turkey'], bg: '#e0f2f1', border: '#80cbc4', req: 'steamship' },
+        { id: 'dest-south-africa', name: '南アフリカ', sub: '鉱物資源の宝庫', emoji: '💎', area: 'south_africa', spots: ['savannah'], bg: '#fff8e1', border: '#ffe082', req: 'steamship' },
+        { id: 'dest-america', name: '北米', sub: '未知の穀物を求めて', emoji: '🤠', area: 'america', spots: ['corn_field', 'oil_field'], bg: '#f1f8e9', border: '#c5e1a5', req: 'steamship' },
+        { id: 'dest-south-america', name: '南米', sub: 'アンデス山脈とアマゾン川', emoji: '🦙', area: 'south_america', spots: ['andes', 'amazon', 'salt_lake', 'araxa_mine', 'bolivia_mine'], bg: '#efebe9', border: '#bcaaa4', req: 'steamship' },
+
+        // New Areas (High Cost)
+        { id: 'dest-antarctica', name: '南極大陸', sub: '要:蒸気船+燃料', emoji: '🧊', area: 'antarctica', spots: ['antarctica'], bg: '#e1f5fe', border: '#81d4fa', req: 'steamship', cost: { id: 'fuel', count: 1 } },
+        { id: 'dest-deep-sea', name: '深海', sub: '要:探査船+燃料', emoji: '🦑', area: 'deep_sea', spots: ['deep_sea'], bg: '#000051', border: '#1a237e', style: 'color: white;', req: 'submarine', cost: { id: 'fuel', count: 1 } }
+    ];
+
+    const spaceDestinations = [
+        { id: 'dest-moon', name: '月面', sub: '静寂の世界', emoji: '🌕', area: 'moon', spots: ['crater'], bg: '#eceff1', border: '#546e7a' },
+        { id: 'dest-mars', name: '火星', sub: '赤い砂漠の惑星', emoji: '🪐', area: 'mars', spots: ['mars_surface'], bg: '#fbe9e7', border: '#bf360c' }
+    ];
+
+    // Helper to calculate progress
+    const calculateProgress = (spots) => {
+        if (!spots || spots.length === 0) return 0;
+        let total = 0;
+        let found = 0;
+        spots.forEach(spotId => {
+            const spotData = GATHER_DATA[spotId];
+            if (spotData) {
+                // Determine unique items in this spot
+                const uniqueItems = new Set(spotData.map(d => d.id));
+                total += uniqueItems.size;
+                uniqueItems.forEach(itemId => {
+                    if (window.discovered && window.discovered.has(itemId)) found++;
+                });
+            }
+        });
+        return total === 0 ? 0 : Math.floor((found / total) * 100);
+    };
+
+    // Generate HTML Helper
+    const generateCard = (dest) => {
+        const progress = calculateProgress(dest.spots);
+        const style = dest.style || '';
+        // Cost/Req Badge
+        let badge = '';
+        if (dest.cost) {
+            badge += `<span style="font-size:0.7rem; background:#ffeb3b; padding:2px 4px; border-radius:4px; margin-right:4px;">⛽${dest.cost.count}</span>`;
+        }
+        if (dest.req) {
+            // badge += `<span style="font-size:0.7rem; background:#bbdefb; padding:2px 4px; border-radius:4px;">🔑</span>`;
+        }
+
+        return `
+        <div id="${dest.id}" class="map-card" style="background: ${dest.bg}; border: 2px solid ${dest.border}; ${style}">
+            <div class="card-emoji">${dest.emoji}</div>
+            <div class="card-info">
+                <h3>${dest.name}</h3>
+                <p>
+                    ${badge}
+                    ${dest.sub}
+                </p>
+                <div class="progress-bar-container" style="margin-top: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; height: 6px; width: 100%; overflow: hidden;">
+                    <div class="progress-bar" style="width: ${progress}%; background: ${progress === 100 ? '#4caf50' : '#2196f3'}; height: 100%;"></div>
+                </div>
+                <div style="font-size: 0.7rem; text-align: right; margin-top: 2px; opacity: 0.8;">探索度: ${progress}%</div>
+            </div>
+        </div>
+        `;
+    };
+
+    let cardsHtml = destinations.map(generateCard).join('');
+    let spaceHtml = spaceDestinations.map(generateCard).join('');
+
+    mapModal.innerHTML = `
+        <div class="modal-content glass-panel" style="max-width: 800px; padding: 20px;">
+            <div class="map-header" style="text-align: center; margin-bottom: 20px; position: relative;">
+                <h2 style="margin: 0; color: #006064; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    🗺️ 世界地図
+                </h2>
+                <p style="color: #666; font-size: 0.9rem; margin-top: 5px;">行き先を選択してください</p>
+                <span id="close-map" class="close-btn" style="position: absolute; right: 0; top: 0;">&times;</span>
+            </div>
+            
+            <div class="map-grid">
+                ${cardsHtml}
+            </div>
+
+            <div id="space-map-section" style="margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px;">
+                <h3 style="text-align: center; color: #555; margin-bottom: 15px;">🚀 宇宙</h3>
+                <div class="map-grid">
+                    ${spaceHtml}
+                </div>
+            </div>
+
+            <style>
+                .map-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                    gap: 15px;
+                }
+                .map-card {
+                    padding: 15px;
+                    border-radius: 12px;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                }
+                .map-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                }
+                .card-emoji {
+                    font-size: 3rem;
+                    margin-bottom: 10px;
+                }
+                .card-info {
+                    width: 100%;
+                }
+                .card-info h3 {
+                    margin: 0 0 5px 0;
+                    font-size: 1.1rem;
+                    /* color is inherited */
+                }
+                .card-info p {
+                    margin: 0;
+                    font-size: 0.8rem;
+                    /* opacity: 0.8; */
+                }
+                /* Mobile Adjustment */
+                @media (max-width: 600px) {
+                    .map-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    .map-card {
+                        flex-direction: row;
+                        text-align: left;
+                        padding: 10px 15px;
+                    }
+                    .card-emoji {
+                        margin-bottom: 0;
+                        margin-right: 15px;
+                        font-size: 2.5rem;
+                    }
+                }
+            </style>
+        </div>
+    `;
+
+    // Event Bindings
+    const bindDest = (dest) => {
+        const el = document.getElementById(dest.id);
+        if (el) {
+            el.addEventListener('click', () => {
+                // Check Requirement
+                if (dest.req && window.discovered && !window.discovered.has(dest.req)) {
+                    const reqItem = ELEMENTS[dest.req];
+                    log(`移動できません。${reqItem.name}が必要です。`);
+                    return;
+                }
+
+                // Check Cost
+                if (dest.cost) {
+                    const currentCount = (window.inventory && window.inventory[dest.cost.id]) || 0;
+                    if (currentCount < dest.cost.count) {
+                        const costItem = ELEMENTS[dest.cost.id];
+                        log(`燃料が足りません。${costItem.name}が${dest.cost.count}個必要です。`);
+                        return;
+                    }
+                    // Consume
+                    window.inventory[dest.cost.id] -= dest.cost.count;
+                    if (typeof updateInventoryDisplay === 'function') updateInventoryDisplay();
+                    log(`${ELEMENTS[dest.cost.id].name}を${dest.cost.count}個消費して移動しました。`);
+                }
+
+                mapModal.style.display = 'none';
+                switchArea(dest.area);
+            });
+        }
+    };
+
+    // Bind All Destinations
+    destinations.forEach(d => bindDest(d));
+    spaceDestinations.forEach(d => bindDest(d)); // Space logic is slightly different (handled in logic but binding same here for now)
+
+    // Close Interaction
+    const closeBtn = document.getElementById('close-map');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => mapModal.style.display = 'none');
+    }
+    mapModal.onclick = (e) => {
+        if (e.target === mapModal) mapModal.style.display = 'none';
+    };
+}
+
 window.onload = function () {
     init();
     initTutorial();
