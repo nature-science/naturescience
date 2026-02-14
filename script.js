@@ -3460,6 +3460,12 @@ function debounce(func, wait) {
 
 let userInventoryOrder = []; // Stores IDs in user-defined order
 let playerMoney = 0; // New Shop
+let marketState = {}; // Tracks buy/sell balance for price fluctuation
+let marketHistory = {}; // Tracks price history for graph: { id: [{t: time, p: price}, ...] }
+let tradeChart = null; // Chart.js instance associated with trade modal
+let moneyHistory = []; // Tracks player money history: [{t: time, m: amount}, ...]
+let moneyChart = null; // Chart.js instance for money history
+let recipeHistory = []; // Stores successful recipe input arrays
 let currentArea = 'japan';
 let currentBookSearchQuery = '';
 let currentShopSearchQuery = ''; // New Shop Search
@@ -3704,9 +3710,10 @@ function init() {
 
     updateStats();
     renderInventory();
+
+    // Start Market Recovery Timer (Every 1 hour)
+    setInterval(recoverMarket, 3600000);
 }
-
-
 
 function unlockAllElements() {
     Object.keys(ELEMENTS).forEach(id => {
@@ -3758,6 +3765,11 @@ function saveGame() {
         order: userInventoryOrder,
         civLevel: currentCivilizationLevel,
         money: playerMoney, // New Shop
+        money: playerMoney, // New Shop
+        market: marketState, // Price fluctuation data
+        history: marketHistory, // Graph data
+        moneyHistory: moneyHistory, // Money History
+        recipeHistory: recipeHistory, // Recipe History
         shownInventions: Array.from(shownInventions)
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
@@ -3791,6 +3803,18 @@ function loadGame() {
             }
             if (data.money) {
                 playerMoney = data.money;
+            }
+            if (data.market) {
+                marketState = data.market;
+            }
+            if (data.history) {
+                marketHistory = data.history;
+            }
+            if (data.moneyHistory) {
+                moneyHistory = data.moneyHistory;
+            }
+            if (data.recipeHistory) {
+                recipeHistory = data.recipeHistory;
             }
             if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
         } catch (e) {
@@ -4083,6 +4107,7 @@ function switchView(mode) {
         ui.labView.style.display = 'flex';
         ui.labView.style.flexDirection = 'column';
         ui.navLab.classList.add('active');
+        // renderRecipeHistory(); // No longer needed
     } else if (mode === 'book') {
         ui.bookView.style.display = 'block';
         ui.navBook.classList.add('active');
@@ -5378,6 +5403,10 @@ function executeCraft() {
                 }
             }
         }
+
+        // Add to History
+        addToRecipeHistory(currentInputs, mainResId);
+
         resetSlots();
 
     } else {
@@ -5389,6 +5418,122 @@ function executeCraft() {
             }, 500);
         });
     }
+}
+
+// === Recipe History System ===
+function addToRecipeHistory(inputs, resultId) {
+    // Sort inputs to ensure consistency
+    const sortedInputs = [...inputs].sort();
+
+    // Check if duplicate exists
+    const exists = recipeHistory.some(r => {
+        return r.inputs.length === sortedInputs.length &&
+            r.inputs.every((val, index) => val === sortedInputs[index]);
+    });
+
+    if (!exists) {
+        recipeHistory.unshift({ inputs: sortedInputs, result: resultId });
+        if (recipeHistory.length > 20) recipeHistory.pop(); // Keep last 20
+    }
+}
+
+function openRecipeHistoryModal() {
+    ui.modalBody.innerHTML = `
+        <div class="element-emoji" style="font-size:3rem; margin-bottom:10px;">📜</div>
+        <h2>合成履歴</h2>
+        <div id="modal-history-list" style="margin-top:15px; display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;"></div>
+    `;
+
+    const list = document.getElementById('modal-history-list');
+
+    if (recipeHistory.length === 0) {
+        list.innerHTML = '<p style="text-align:center; color:#888;">履歴がありません</p>';
+    } else {
+        recipeHistory.forEach(recipe => {
+            const item = document.createElement('div');
+            item.style.display = 'flex';
+            item.style.alignItems = 'center';
+            item.style.justifyContent = 'space-between';
+            item.style.background = 'rgba(255,255,255,0.8)';
+            item.style.border = '1px solid #ccc';
+            item.style.borderRadius = '5px';
+            item.style.padding = '8px 12px';
+            item.style.cursor = 'pointer';
+
+            let html = '<div style="display:flex; align-items:center; flex-wrap:wrap; gap:5px;">';
+            recipe.inputs.forEach((id, idx) => {
+                const d = ELEMENTS[id];
+                html += `<span>${d ? d.emoji : '?'}</span>`;
+                if (idx < recipe.inputs.length - 1) html += '<span style="font-size:0.8rem; color:#666;">+</span>';
+            });
+
+            const resData = ELEMENTS[recipe.result];
+            html += `<span style="margin: 0 5px;">=</span><span style="font-size:1.2rem;">${resData ? resData.emoji : '?'}</span> <span style="font-size:0.9rem;">${resData ? resData.name : '???'}</span></div>`;
+
+            // Add Set Button
+            html += `<button class="small-btn" style="white-space:nowrap; margin-left:10px;">セット</button>`;
+
+            item.innerHTML = html;
+            item.onclick = () => {
+                fillSlotsFromRecipe(recipe.inputs);
+                ui.closeModal.click();
+            };
+            list.appendChild(item);
+        });
+    }
+
+    ui.modal.style.display = 'flex';
+}
+
+function fillSlotsFromRecipe(inputs) {
+    // Check stock first
+    const needed = {};
+    inputs.forEach(id => needed[id] = (needed[id] || 0) + 1);
+
+    for (const [id, count] of Object.entries(needed)) {
+        if (!inventoryCounts[id] || inventoryCounts[id] < count) {
+            log(`在庫が足りません: ${getItemName(id)}`);
+            return;
+        }
+    }
+
+    // Unlock and clear slots (force reset)
+    // We need to bypass locks if we want to force set, or respect them?
+    // User probably wants to quickly switch, so let's overwrite if possible or clear all.
+    // Let's force clear (assuming user knows what they are doing by clicking history)
+    // But check locks just in case? No, "Quick Set" implies overriding.
+
+    // Temporarily unlock for clean set (optional, or just overwrite slot vars)
+    slot1 = null; slot2 = null; slot3 = null; slot4 = null; slot5 = null;
+    ui.slot1.className = 'element-slot empty'; ui.slot1.innerHTML = '<span class="slot-placeholder">素材A</span>';
+    ui.slot2.className = 'element-slot empty'; ui.slot2.innerHTML = '<span class="slot-placeholder">素材B</span>';
+    ui.slot3.className = 'element-slot empty'; ui.slot3.innerHTML = '<span class="slot-placeholder">素材C</span>';
+    ui.slot4.className = 'element-slot empty'; ui.slot4.innerHTML = '<span class="slot-placeholder">素材D</span>';
+    ui.slot5.className = 'element-slot empty'; ui.slot5.innerHTML = '<span class="slot-placeholder">素材E</span>';
+    clearResult();
+
+    // Set slots
+    if (inputs[0]) setSlot(1, inputs[0]);
+    if (inputs[1]) setSlot(2, inputs[1]);
+    if (inputs[2]) setSlot(3, inputs[2]);
+    if (inputs[3]) setSlot(4, inputs[3]);
+    if (inputs[4]) setSlot(5, inputs[4]);
+}
+
+function fillSlotsFromBook(inputs) {
+    ui.closeModal.click(); // Close book modal
+    switchView('lab'); // Go to lab
+    fillSlotsFromRecipe(inputs); // Reuse history function
+    // Optional: Scroll to top of lab?
+    document.getElementById('crafting-section').scrollIntoView({ behavior: 'smooth' });
+}
+
+function getSlotVar(n) {
+    if (n === 1) return slot1;
+    if (n === 2) return slot2;
+    if (n === 3) return slot3;
+    if (n === 4) return slot4;
+    return slot5;
 }
 
 // === Refining ===
@@ -5940,7 +6085,7 @@ function processElectricRefining() {
         });
     }
 
-    // 9. Sodium (Salt + Calcium Chloride + Fire + Carbon Rod x2) - Downs Process
+    // 9. Sodium (Salt + Calcium Chloride + Carbon Rod x2 + Fire) - Downs Process
     if (inventoryCounts['salt'] > 0 && inventoryCounts['calcium_chloride'] > 0 && inventoryCounts['carbon_rod'] > 1 && inventoryCounts['fire'] > 0) {
         candidates.push({
             name: 'ナトリウム精錬 (塩化Na + 塩化Ca + 炭素棒x2 + 火)',
@@ -6240,161 +6385,161 @@ function updateNextGoalDisplay() {
 
 // === Shop Logic ===
 function renderShop() {
-    const grid = document.getElementById('shop-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
+    try {
+        const grid = document.getElementById('shop-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
 
-    // Update Tabs Style
-    const tabBuy = document.getElementById('tab-buy');
-    const tabSell = document.getElementById('tab-sell');
-
-    if (currentShopTab === 'buy') {
-        tabBuy.classList.add('active'); tabBuy.classList.remove('secondary');
-        tabSell.classList.remove('active'); tabSell.classList.add('secondary');
-    } else {
-        tabSell.classList.add('active'); tabSell.classList.remove('secondary');
-        tabBuy.classList.remove('active'); tabBuy.classList.add('secondary');
-    }
-
-    // Update Sort Controls UI
-    const sId = document.getElementById('shop-sort-id-btn');
-    const sPriceAsc = document.getElementById('shop-sort-price-asc-btn');
-    const sPriceDesc = document.getElementById('shop-sort-price-desc-btn');
-
-    // Reset all first
-    if (sId) { sId.style.color = '#999'; sId.style.fontWeight = 'normal'; }
-    if (sPriceAsc) { sPriceAsc.style.color = '#999'; sPriceAsc.style.fontWeight = 'normal'; }
-    if (sPriceDesc) { sPriceDesc.style.color = '#999'; sPriceDesc.style.fontWeight = 'normal'; }
-
-    if (currentShopSortMode === 'id') {
-        if (sId) { sId.style.color = '#333'; sId.style.fontWeight = 'bold'; }
-    } else if (currentShopSortMode === 'price_asc') {
-        if (sPriceAsc) { sPriceAsc.style.color = '#333'; sPriceAsc.style.fontWeight = 'bold'; }
-    } else if (currentShopSortMode === 'price_desc') {
-        if (sPriceDesc) { sPriceDesc.style.color = '#333'; sPriceDesc.style.fontWeight = 'bold'; }
-    }
-
-    // Update Money
-    if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
-
-    const allIds = Object.keys(ELEMENTS);
-
-    // Only show discovered items
-    const visibleIds = allIds.filter(id => discovered.has(id));
-
-    // Sort: Discovered items (Buy: all discovered, Sell: inventory items)
-    let targetIds = [];
-    if (currentShopTab === 'buy') {
-        targetIds = visibleIds;
-    } else {
-        // Sell mode: items in inventory
-        targetIds = Object.keys(inventoryCounts).filter(id => (inventoryCounts[id] || 0) > 0);
-    }
-
-    // Filter out invalid IDs (stale data)
-    targetIds = targetIds.filter(id => ELEMENTS[id]);
-
-    // Filter by Search Query
-    if (currentShopSearchQuery) {
-        targetIds = targetIds.filter(id => {
-            const data = ELEMENTS[id];
-            return data.name.toLowerCase().includes(currentShopSearchQuery) ||
-                (data.desc && data.desc.toLowerCase().includes(currentShopSearchQuery));
-        });
-    }
-
-    // Filter out Money Items & Non-Physical Resources (Cannot buy/sell money itself)
-    const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air', 'sun'];
-    targetIds = targetIds.filter(id => !MONEY_ITEMS.includes(id));
-
-    // Filter out concepts, phenomena, etc. (Non-physical goods)
-    const EXCLUDED_CATEGORIES = ['concept', 'phenomenon', 'data', 'life', 'nature', 'waste'];
-    targetIds = targetIds.filter(id => {
-        const data = ELEMENTS[id];
-        return !EXCLUDED_CATEGORIES.includes(data.category);
-    });
-
-    // Sort Logic
-    targetIds.sort((a, b) => {
-        if (currentShopSortMode === 'price_asc') {
-            const pA = calculatePrice(a);
-            const pB = calculatePrice(b);
-            return pA - pB; // Low to High
-        } else if (currentShopSortMode === 'price_desc') {
-            const pA = calculatePrice(a);
-            const pB = calculatePrice(b);
-            return pB - pA; // High to Low
-        } else {
-            // ID Sort
-            if (a < b) return -1;
-            if (a > b) return 1;
-            return 0;
-        }
-    });
-
-    targetIds.forEach(id => {
-        const data = ELEMENTS[id];
-        const card = document.createElement('div');
-        card.className = 'element-card';
-        // Price Calculation Logic
-        const price = calculatePrice(id);
+        // Update Tabs Style
+        const tabBuy = document.getElementById('tab-buy');
+        const tabSell = document.getElementById('tab-sell');
 
         if (currentShopTab === 'buy') {
-            // Buy Mode
-            card.innerHTML = `
+            tabBuy.classList.add('active'); tabBuy.classList.remove('secondary');
+            tabSell.classList.remove('active'); tabSell.classList.add('secondary');
+        } else {
+            tabSell.classList.add('active'); tabSell.classList.remove('secondary');
+            tabBuy.classList.remove('active'); tabBuy.classList.add('secondary');
+        }
+
+        // Update Sort Controls UI
+        const sId = document.getElementById('shop-sort-id-btn');
+        const sPriceAsc = document.getElementById('shop-sort-price-asc-btn');
+        const sPriceDesc = document.getElementById('shop-sort-price-desc-btn');
+
+        // Reset all first
+        if (sId) { sId.style.color = '#999'; sId.style.fontWeight = 'normal'; }
+        if (sPriceAsc) { sPriceAsc.style.color = '#999'; sPriceAsc.style.fontWeight = 'normal'; }
+        if (sPriceDesc) { sPriceDesc.style.color = '#999'; sPriceDesc.style.fontWeight = 'normal'; }
+
+        if (currentShopSortMode === 'id') {
+            if (sId) { sId.style.color = '#333'; sId.style.fontWeight = 'bold'; }
+        } else if (currentShopSortMode === 'price_asc') {
+            if (sPriceAsc) { sPriceAsc.style.color = '#333'; sPriceAsc.style.fontWeight = 'bold'; }
+        } else if (currentShopSortMode === 'price_desc') {
+            if (sPriceDesc) { sPriceDesc.style.color = '#333'; sPriceDesc.style.fontWeight = 'bold'; }
+        }
+
+        // Update Money
+        if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
+
+        // Make wallet clickable for history
+        const walletDisplay = document.querySelector('.wallet-display');
+        if (walletDisplay) {
+            walletDisplay.style.cursor = 'pointer';
+            walletDisplay.onclick = showMoneyHistory;
+            walletDisplay.title = "クリックで資産推移を表示";
+        }
+
+        const allIds = Object.keys(ELEMENTS);
+
+        // Only show discovered items
+        const visibleIds = allIds.filter(id => discovered.has(id));
+
+        // Sort: Discovered items (Buy: all discovered, Sell: inventory items)
+        let targetIds = [];
+        if (currentShopTab === 'buy') {
+            targetIds = visibleIds;
+        } else {
+            // Sell mode: items in inventory
+            targetIds = Object.keys(inventoryCounts).filter(id => (inventoryCounts[id] || 0) > 0);
+        }
+
+        // Filter out invalid IDs (stale data)
+        targetIds = targetIds.filter(id => ELEMENTS[id]);
+
+        // Filter by Search Query
+        if (currentShopSearchQuery) {
+            const q = currentShopSearchQuery.toLowerCase();
+            targetIds = targetIds.filter(id => {
+                const data = ELEMENTS[id];
+                return data.name.toLowerCase().includes(q) ||
+                    (data.desc && data.desc.toLowerCase().includes(q));
+            });
+        }
+
+        // Filter out Money Items & Non-Physical Resources
+        const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air', 'sun'];
+        targetIds = targetIds.filter(id => !MONEY_ITEMS.includes(id));
+
+        // Filter out concepts, phenomena, etc.
+        const EXCLUDED_CATEGORIES = ['concept', 'phenomenon', 'data', 'life', 'nature', 'waste'];
+        targetIds = targetIds.filter(id => {
+            const data = ELEMENTS[id];
+            return !EXCLUDED_CATEGORIES.includes(data.category);
+        });
+
+        // Sort Logic
+        targetIds.sort((a, b) => {
+            if (currentShopSortMode === 'price_asc') {
+                const pA = calculatePrice(a);
+                const pB = calculatePrice(b);
+                return pA - pB; // Low to High
+            } else if (currentShopSortMode === 'price_desc') {
+                const pA = calculatePrice(a);
+                const pB = calculatePrice(b);
+                return pB - pA; // High to Low
+            } else {
+                // ID Sort
+                if (a < b) return -1;
+                if (a > b) return 1;
+                return 0;
+            }
+        });
+
+        targetIds.forEach(id => {
+            const data = ELEMENTS[id];
+            const card = document.createElement('div');
+            card.className = 'element-card';
+            // Price Calculation Logic
+            const price = calculatePrice(id);
+
+            if (currentShopTab === 'buy') {
+                // Buy Mode
+                card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
                 <div class="element-name">${data.name}</div>
                 <div style="font-size:0.8rem; color:#d84315; font-weight:bold;">${price} G</div>
             `;
-            card.onclick = () => buyItem(id, price);
-        } else {
-            // Sell Mode
-            const sellPrice = Math.floor(price / 4) || 1; // Sell price is 1/4
-            const count = inventoryCounts[id] || 0;
+                card.onclick = () => {
+                    openTradeModal(id, 'buy');
+                };
+            } else {
+                // Sell Mode
+                const sellPrice = Math.floor(price / 4) || 1; // Sell price is 1/4
+                const count = inventoryCounts[id] || 0;
 
-            // Infinite Check for Shop
-            let isInfinite = false;
-            // Logic: Infinite if the Industrial Process ID is discovered
-            if (id === 'nitric_acid' && discovered.has('ostwald')) isInfinite = true;
-            if (id === 'sulfuric_acid' && discovered.has('contact')) isInfinite = true;
-            if (id === 'electricity' && discovered.has('hydroelectric')) isInfinite = true;
-            if (id === 'ammonia' && discovered.has('haber_bosch')) isInfinite = true;
-            if (id === 'hydrogen_peroxide' && discovered.has('anthraquinone_process')) isInfinite = true;
-            if (id === 'methane' && discovered.has('sabatier')) isInfinite = true;
+                // Infinite Check for Shop
+                let isInfinite = false;
+                if (id === 'nitric_acid' && discovered.has('ostwald')) isInfinite = true;
+                if (id === 'sulfuric_acid' && discovered.has('contact')) isInfinite = true;
+                if (id === 'electricity' && discovered.has('hydroelectric')) isInfinite = true;
+                if (id === 'ammonia' && discovered.has('haber_bosch')) isInfinite = true;
+                if (id === 'hydrogen_peroxide' && discovered.has('anthraquinone_process')) isInfinite = true;
+                if (id === 'methane' && discovered.has('sabatier')) isInfinite = true;
 
-            let countHtml = `<div class="count-badge">x${count}</div>`;
-            if (isInfinite) {
-                countHtml = ``; // Hide count completely
-            }
+                let countHtml = `<div class="count-badge">x${count}</div>`;
+                if (isInfinite) {
+                    countHtml = ``;
+                }
 
-            card.innerHTML = `
+                card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
                 <div class="element-name">${data.name}</div>
                 ${countHtml}
-                <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${Math.floor(price / 4)} G</div>
+                <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${sellPrice} G</div>
             `;
-            card.onclick = () => {
-                const max = inventoryCounts[id] || 0;
-                let input = prompt(`売却する個数を入力してください (最大: ${max})\n"all" または "a" で全て売却`, "1");
-                if (input === null) return;
+                card.onclick = () => {
+                    openTradeModal(id, 'sell');
+                };
+            }
+            grid.appendChild(card);
+        });
 
-                let amount = 0;
-                if (input.toLowerCase() === 'all' || input.toLowerCase() === 'a') {
-                    amount = max;
-                } else {
-                    amount = parseInt(input);
-                }
-
-                if (isNaN(amount) || amount <= 0) {
-                    return; // Invalid input or cancel
-                }
-                if (amount > max) amount = max;
-
-                sellItem(id, sellPrice, amount);
-            };
-        }
-        grid.appendChild(card);
-    });
+    } catch (e) {
+        console.error("Shop Render Error:", e);
+        // Fallback or alert?
+    }
 }
 // Keep calculatePrice below
 function calculatePrice(id) {
@@ -6433,16 +6578,97 @@ function calculatePrice(id) {
 
     if (GREAT_INVENTIONS[id]) price += 5000; // Rare invention bonus
 
-    return price;
+    // === Market Fluctuation Logic ===
+    let multiplier = 1.0;
+    if (marketState[id]) {
+        const balance = marketState[id];
+        // 5% change per item
+        multiplier = 1 + (balance * 0.05);
+        if (multiplier < 0.2) multiplier = 0.2;
+        if (multiplier > 5.0) multiplier = 5.0;
+    }
+
+    let finalPrice = Math.floor(price * multiplier);
+    if (finalPrice < 1) finalPrice = 1;
+
+
+    return finalPrice;
 }
 
-function buyItem(id, price) {
-    if (playerMoney >= price) {
-        playerMoney -= price;
-        addItem(id, 1);
+// History Recording
+function recordPriceHistory(id, price) {
+    if (!marketHistory[id]) marketHistory[id] = [];
+    // Add point
+    const now = Date.now();
+    marketHistory[id].push({ t: now, p: price });
+
+    // Limit to 50 points
+    if (marketHistory[id].length > 50) {
+        marketHistory[id].shift();
+    }
+}
+
+// Market Recovery Function
+function recoverMarket() {
+    let changed = false;
+    Object.keys(marketState).forEach(id => {
+        let balance = marketState[id];
+        if (balance !== 0) {
+            // Recover 10% toward 0, minimum 1 step
+            const recoveryStep = Math.ceil(Math.abs(balance) * 0.1) || 1;
+
+            if (balance > 0) {
+                balance -= recoveryStep;
+                if (balance < 0) balance = 0;
+            } else {
+                balance += recoveryStep;
+                if (balance > 0) balance = 0;
+            }
+
+            marketState[id] = balance;
+            changed = true;
+
+            // Record new price to history
+            const newPrice = calculatePrice(id);
+            recordPriceHistory(id, newPrice);
+        }
+    });
+
+    if (changed) {
+        // Only log if shop is open or significant change? Maybe too spammy.
+        // Just re-render if shop is visible
+        if (ui.shopView.style.display !== 'none') {
+            renderShop();
+        }
+        saveGame();
+    }
+}
+
+function buyItem(id, price, amount = 1) {
+    const totalCost = price * amount;
+    if (playerMoney >= totalCost) {
+        playerMoney -= totalCost;
+        addItem(id, amount);
+        recordMoneyHistory(); // Track money
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
-        log(`購入しました: [${getItemName(id)}] (-${price}G)`);
+
+        // Market Update
+        if (!marketState[id]) marketState[id] = 0;
+        marketState[id] += amount; // 買った分だけ市場需要増＝次回値上がり
+
+        // Record History
+        const newPrice = calculatePrice(id); // Future price
+        recordPriceHistory(id, newPrice);
+
+        log(`購入しました: [${getItemName(id)}] x${amount} (-${totalCost}G)`);
         renderShop(); // Refresh to update money display (and maybe gray out if discrete)
+
+        // Update Modal if open
+        const tradeModal = document.getElementById('trade-modal');
+        if (tradeModal.style.display !== 'none') {
+            openTradeModal(id, 'buy'); // Re-open/Refresh
+        }
+
         saveGame();
     } else {
         log("お金が足りません！");
@@ -6454,15 +6680,247 @@ function sellItem(id, price, amount = 1) {
         consumeItem(id, amount);
         const total = price * amount;
         playerMoney += total;
+        recordMoneyHistory(); // Track money
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
         log(`売却しました: [${getItemName(id)}] x${amount} (+${total}G)`);
 
+        // Market Update
+        if (!marketState[id]) marketState[id] = 0;
+        marketState[id] -= amount;
+
+        // Record History
+        const newPrice = calculatePrice(id); // Future price (calculated based on AFTER sell state, but calculatePrice uses current state... wait. 
+        // calculatePrice uses marketState. We just updated marketState. So calling calculatePrice(id) gives the NEW price (lower).
+        recordPriceHistory(id, newPrice);
+
         // Re-render only this card to prevent full flicker, or full renderShop
         renderShop();
+
+        // Update Modal if open
+        const tradeModal = document.getElementById('trade-modal');
+        if (tradeModal.style.display !== 'none') {
+            openTradeModal(id, 'sell'); // Re-open/Refresh
+        }
+
         saveGame();
     } else {
         log("在庫がありません！");
     }
+}
+
+// === Money History ===
+function recordMoneyHistory() {
+    const now = new Date();
+    const timeLabel = `${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    moneyHistory.push({ t: timeLabel, m: playerMoney });
+    if (moneyHistory.length > 50) moneyHistory.shift(); // Keep last 50
+}
+
+function showMoneyHistory() {
+    ui.modalBody.innerHTML = `
+        <div class="element-emoji" style="font-size:3rem; margin-bottom:10px;">💰</div>
+        <h2>資産推移</h2>
+        <div style="width:100%; height:300px; position:relative;">
+            <canvas id="money-history-chart"></canvas>
+        </div>
+        <div style="margin-top:15px; text-align:center; font-size:0.9rem; color:#555;">
+            現在の所持金: <span style="font-weight:bold; color:#d84315;">${playerMoney} G</span>
+        </div>
+    `;
+    ui.modal.style.display = 'flex';
+
+    // Render Chart
+    const ctx = document.getElementById('money-history-chart').getContext('2d');
+
+    if (moneyChart) {
+        moneyChart.destroy();
+    }
+
+    const labels = moneyHistory.map(d => d.t);
+    const data = moneyHistory.map(d => d.m);
+
+    moneyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '所持金 (G)',
+                data: data,
+                borderColor: '#ffa000',
+                backgroundColor: 'rgba(255, 160, 0, 0.2)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
+}
+
+// === Trade Modal Logic ===
+function openTradeModal(id, mode) {
+    const modal = document.getElementById('trade-modal');
+    const closeBtn = document.getElementById('close-trade-modal');
+    const headerEmoji = document.getElementById('trade-emoji');
+    const headerName = document.getElementById('trade-name');
+    const priceEl = document.getElementById('trade-price');
+    const stockEl = document.getElementById('trade-stock');
+    const amountInput = document.getElementById('trade-amount');
+    const maxBtn = document.getElementById('btn-trade-max');
+    const maxLimitEl = document.getElementById('trade-max-limit');
+    const execBtn = document.getElementById('btn-execute-trade');
+
+    // Clear previous events (clone node to strip listeners)
+    // NOTE: Cloning might break chart canvas reference if inside? Yes it would.
+    // Instead, use onclick assignment.
+
+    const data = ELEMENTS[id];
+    const price = calculatePrice(id); // Current Price (Buy Base)
+
+    headerEmoji.innerText = data.emoji;
+    headerName.innerText = data.name;
+
+    // Determine Buy or Sell context
+    let actionPrice = price;
+    let maxAmount = 0;
+
+    if (mode === 'buy') {
+        actionPrice = price;
+        maxAmount = Math.floor(playerMoney / actionPrice);
+        execBtn.innerText = "購入する";
+        execBtn.className = "action-btn";
+        execBtn.style.backgroundColor = "#4caf50";
+    } else {
+        actionPrice = Math.floor(price / 4) || 1;
+        maxAmount = inventoryCounts[id] || 0;
+        execBtn.innerText = "売却する";
+        execBtn.className = "action-btn";
+        execBtn.style.backgroundColor = "#e53935";
+    }
+
+    priceEl.innerText = actionPrice;
+    stockEl.innerText = inventoryCounts[id] || 0;
+    maxLimitEl.innerText = `(最大: ${maxAmount})`;
+    amountInput.value = 1;
+
+    // Button Events
+    maxBtn.onclick = () => {
+        amountInput.value = maxAmount > 0 ? maxAmount : 1;
+    };
+
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+        if (tradeChart) {
+            tradeChart.destroy();
+            tradeChart = null;
+        }
+    };
+
+    // Close on background click
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            if (tradeChart) {
+                tradeChart.destroy();
+                tradeChart = null;
+            }
+        }
+    };
+
+    execBtn.onclick = () => {
+        const amount = parseInt(amountInput.value);
+        if (isNaN(amount) || amount <= 0) {
+            alert("有効な数量を入力してください");
+            return;
+        }
+        if (amount > maxAmount) {
+            alert(mode === 'buy' ? "お金が足りません" : "在庫が足りません");
+            return;
+        }
+
+        if (mode === 'buy') {
+            buyItem(id, actionPrice, amount);
+        } else {
+            sellItem(id, actionPrice, amount);
+        }
+        // Modal stays open to show new price/state (handled in buy/sellItem)
+        // or close it? Let's keep it open for repeated trades.
+    };
+
+    modal.style.display = 'flex'; // Show modal
+
+    // === Chart.js Rendering ===
+    renderPriceChart(id);
+}
+
+function renderPriceChart(id) {
+    const ctx = document.getElementById('price-history-chart').getContext('2d');
+
+    // Prepare Data
+    // Check if history exists
+    if (!marketHistory[id] || marketHistory[id].length === 0) {
+        // Init with current price if empty
+        recordPriceHistory(id, calculatePrice(id));
+    }
+
+    const history = marketHistory[id];
+    const labels = history.map((h, i) => i); // Simple index based labels 
+    const prices = history.map(h => h.p);
+
+    if (tradeChart) {
+        tradeChart.destroy();
+    }
+
+    tradeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '価格推移',
+                data: prices,
+                borderColor: '#2e7d32',
+                backgroundColor: 'rgba(46, 125, 50, 0.1)',
+                tension: 0.1,
+                fill: true,
+                pointRadius: 3
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: { display: false }, // Hide time axis for simplicity
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        color: '#333'
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,0.05)'
+                    }
+                }
+            }
+        }
+    });
 }
 
 function updateCivilizationLevel(silent = false) {
@@ -7025,25 +7483,30 @@ function showElementDetail(id) {
         const results = Array.isArray(result) ? result : [result];
         if (results.includes(id)) {
             const inputsList = inputs.split('+');
-
             // Hide recipe if ingredients are not discovered
             if (!inputsList.every(inId => discovered.has(inId))) continue;
 
-            const names = inputsList.map(inId => {
-                const el = ELEMENTS[inId];
-                if (el && discovered.has(inId)) {
-                    return `<span style="cursor:pointer; text-decoration:underline;" onclick="showElementDetail('${inId}')">${el.emoji}${el.name}</span>`;
-                }
-                return el ? el.emoji + el.name : inId;
-            });
-            recipesFound.push(names.join(' + '));
+            recipesFound.push({ inputs: inputsList });
         }
     }
 
     if (recipesFound.length > 0) {
         recipeHtml += `<h3>合成レシピ</h3>`;
         recipesFound.forEach(r => {
-            recipeHtml += `<div style="margin:5px 0;">${r}</div>`;
+            const inputsHtml = r.inputs.map(inId => {
+                const el = ELEMENTS[inId];
+                return `<span class="recipe-ingredient" onclick="showElementDetail('${inId}')">${el ? el.emoji : ''}${el ? el.name : inId}</span>`;
+            }).join(' + ');
+
+            // Serialize inputs for onclick
+            const inputsJson = JSON.stringify(r.inputs).replace(/"/g, "&quot;");
+
+            recipeHtml += `
+                <div class="recipe-row" style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.5); padding:5px; margin:5px 0; border-radius:5px;">
+                    <div>${inputsHtml}</div>
+                    <button class="small-btn" style="font-size:0.8rem; padding:2px 8px; cursor:pointer;" onclick="fillSlotsFromBook(${inputsJson})">セット</button>
+                </div>
+            `;
         });
     }
 
