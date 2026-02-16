@@ -373,37 +373,40 @@ main {
 .action-btn.small {
     padding: 8px 20px;
     font-size: 0.95rem;
-    background: rgba(255, 255, 255, 0.5);
-    color: #555;
     box-shadow: none;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    font-weight: bold;
+    transition: all 0.2s;
 }
 
-.action-btn.small:hover {
-    background: rgba(255, 255, 255, 0.8);
+/* Buy Tab (Always Green-ish) */
+#tab-buy {
+    color: #2e7d32;
+    border-color: #2e7d32;
+    background: rgba(255, 255, 255, 0.5);
 }
 
-/* Base Active Style (Buy button) */
-.action-btn.small.active {
+#tab-buy.active {
     background: #2e7d32;
     color: white;
     box-shadow: 0 4px 10px rgba(46, 125, 50, 0.4);
-    border: none;
 }
 
-/* Secondary Active Style (Sell button) */
-.action-btn.small.secondary.active {
-    background: #d84315;
-    color: white;
-    box-shadow: 0 4px 10px rgba(216, 67, 21, 0.4);
-    border: none;
-}
-
-/* Ensure non-active secondary buttons are also greyed out */
-.action-btn.small.secondary:not(.active) {
+/* Sell Tab (Always Red-ish) */
+#tab-sell {
+    color: #e53935;
+    border-color: #e53935;
     background: rgba(255, 255, 255, 0.5);
-    color: #555;
-    box-shadow: none;
+}
+
+#tab-sell.active {
+    background: #e53935;
+    color: white;
+    box-shadow: 0 4px 10px rgba(229, 57, 53, 0.4);
+}
+
+.action-btn.small:hover {
+    transform: translateY(-2px);
 }
 
 .action-btn:active {
@@ -483,6 +486,22 @@ main {
     z-index: 10;
 }
 
+.element-card.trash-highlight {
+    border: 2px solid #ff5252;
+    background-color: #ffebee;
+}
+
+.trash-mode-btn-active {
+    background: #ff5252 !important;
+    color: white !important;
+    box-shadow: 0 0 10px rgba(255, 82, 82, 0.4);
+}
+
+.trash-drop-zone {
+    border: 2px dashed #ff5252 !important;
+    background: rgba(255, 82, 82, 0.1) !important;
+}
+
 .element-card[draggable="true"] {
     cursor: grab;
 }
@@ -541,6 +560,34 @@ main {
 
 .pop-anim {
     animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Archives View */
+.archives-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#archives-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#archives-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
 }
 
 .shake-anim {
@@ -1705,4 +1752,18 @@ body.theme-future #tab-sell.active {
 .lock-btn.locked {
     opacity: 1;
     /* Fully visible when locked */
+}
+
+/* Settings Modal Buttons - Unified White */
+#settings-modal .action-btn {
+    background: #ffffff !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+#settings-modal .action-btn:hover {
+    background: #f5f5f5 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
 }

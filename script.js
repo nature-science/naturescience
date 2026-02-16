@@ -27,8 +27,8 @@ const ELEMENTS = {
 
     // Crafted
     'fire': { id: 'fire', name: '火', emoji: '🔥', desc: '熱く燃え盛る炎。取扱注意！', category: 'phenomenon' },
-    'wine': { id: 'wine', name: 'ワイン', emoji: '🍷', desc: 'ブドウを発酵させた芳醇な液体。', category: 'chemical' },
-    'vinegar': { id: 'vinegar', name: '酢酸', emoji: '🍶', desc: '刺激臭のある酸性の液体。ワインが酸化したもの。', category: 'chemical' },
+    'wine': { id: 'wine', name: 'ワイン', emoji: '🍷', desc: 'ブドウを発酵させた芳醇な液体。', category: 'food' },
+    'vinegar': { id: 'vinegar', name: '酢酸', emoji: '🍶', desc: 'ワインが酸化したもの。刺激臭のある酸性の液体。', category: 'food' },
     'earthenware': { id: 'earthenware', name: '土器', emoji: '🏺', desc: '混和材を焼き固めて作った器。', category: 'chemical' },
 
     // Metals (Refined)
@@ -168,17 +168,17 @@ const ELEMENTS = {
     'sodium_cyanide': { id: 'sodium_cyanide', name: 'シアン化ナトリウム', emoji: '💀', desc: '青酸ソーダ。金の製錬（青化法）に使われる。取り扱い注意。', category: 'chemical' },
     'tea_leaf': { id: 'tea_leaf', name: '茶葉', emoji: '🍃', desc: '香り高い葉。加工の方法で緑茶にも紅茶にもなる。', category: 'natural' },
     'black_tea_leaf': { id: 'black_tea_leaf', name: '発酵した茶葉', emoji: '🍂', desc: '酸化発酵させた茶葉。紅茶の原料。', category: 'natural' },
-    'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'chemical' },
-    'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'chemical' },
-    'milk_tea': { id: 'milk_tea', name: 'ミルクティー', emoji: '🧋', desc: '紅茶にミルクと砂糖を入れた濃厚な飲み物。', category: 'chemical' },
-    'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'chemical' },
-    'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'chemical' },
+    'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'food' },
+    'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'food' },
+    'milk_tea': { id: 'milk_tea', name: 'ミルクティー', emoji: '🧋', desc: '紅茶にミルクと砂糖を入れた濃厚な飲み物。', category: 'food' },
+    'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'food' },
+    'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'food' },
     'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural' },
     'roasted_coffee_bean': { id: 'roasted_coffee_bean', name: '焙煎コーヒー豆', emoji: '🟤', desc: '火で煎って香ばしくなったコーヒー豆。', category: 'chemical' },
     'coffee_powder': { id: 'coffee_powder', name: 'コーヒー粉', emoji: '🤎', desc: '豆を挽いて粉状にしたもの。お湯を注げばコーヒーになる。', category: 'chemical' },
-    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'chemical' },
-    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'chemical' },
-    'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'chemical' },
+    'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'food' },
+    'latte': { id: 'latte', name: 'カフェラテ', emoji: '🥛', desc: 'エスプレッソにたっぷりのミルクを加えた優しい味。', category: 'food' },
+    'iced_coffee': { id: 'iced_coffee', name: 'アイスコーヒー', emoji: '🧊', desc: '氷で急冷したコーヒー。暑い日に最適。', category: 'food' },
     'catapult': { id: 'catapult', name: 'カタパルト', emoji: '🏰', desc: '石を遠くへ飛ばす攻城兵器。てこの原理やねじりの力を利用する。', category: 'machine' },
     'pulley': { id: 'pulley', name: '滑車', emoji: '🏗️', desc: 'ロープと車輪を組み合わせた装置。重いものを小さな力で持ち上げられる。', category: 'tool' },
     'nickel_oxide': { id: 'nickel_oxide', name: '酸化ニッケル', emoji: '🌑', desc: 'ニッケルの酸化物。ガラスに着色すると可視光を吸収する。', category: 'chemical' },
@@ -195,30 +195,30 @@ const ELEMENTS = {
     'hydraulic_press': { id: 'hydraulic_press', name: '油圧プレス機', emoji: '🚜', desc: 'パスカルの原理を利用して巨大な圧力を生み出す装置。', category: 'machine' },
 
     // Food & Ingredients
-    'rice': { id: 'rice', name: '米', emoji: '🍚', desc: '日本人の主食。炊くとふっくら美味しい。', category: 'natural' },
-    'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'natural' },
-    'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'natural' },
-    'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'natural' },
-    'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'chemical' },
+    'rice': { id: 'rice', name: '米', emoji: '🍚', desc: '日本人の主食。炊くとふっくら美味しい。', category: 'food' },
+    'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'food' },
+    'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'food' },
+    'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'food' },
+    'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'food' },
 
     // Seasonings
-    'miso': { id: 'miso', name: '味噌', emoji: '🥣', desc: '大豆を発酵させた日本の調味料。', category: 'chemical' },
-    'dashi': { id: 'dashi', name: '出汁', emoji: '🥘', desc: '魚や海藻から取った旨味のスープ。', category: 'chemical' },
-    'mayonnaise': { id: 'mayonnaise', name: 'マヨネーズ', emoji: '🧴', desc: '卵と油と酢で作る濃厚なソース。', category: 'chemical' },
-    'ketchup': { id: 'ketchup', name: 'ケチャップ', emoji: '🥫', desc: 'トマトを煮詰めた甘酸っぱいソース。', category: 'chemical' },
+    'miso': { id: 'miso', name: '味噌', emoji: '🥣', desc: '大豆を発酵させた日本の調味料。', category: 'food' },
+    'dashi': { id: 'dashi', name: '出汁', emoji: '🥘', desc: '魚や海藻から取った旨味のスープ。', category: 'food' },
+    'mayonnaise': { id: 'mayonnaise', name: 'マヨネーズ', emoji: '🧴', desc: '卵と油と酢で作る濃厚なソース。', category: 'food' },
+    'ketchup': { id: 'ketchup', name: 'ケチャップ', emoji: '🥫', desc: 'トマトを煮詰めた甘酸っぱいソース。', category: 'food' },
 
     // Dishes
-    'rice_ball': { id: 'rice_ball', name: 'おにぎり', emoji: '🍙', desc: 'ご飯を塩と海苔で握ったシンプルな携帯食。', category: 'chemical' },
-    'sushi': { id: 'sushi', name: '寿司', emoji: '🍣', desc: '酢飯と新鮮な魚の芸術的な組み合わせ。', category: 'chemical' },
-    'tempura': { id: 'tempura', name: '天ぷら', emoji: '🍤', desc: '食材に衣をつけてカラッと揚げた料理。', category: 'chemical' },
-    'miso_soup': { id: 'miso_soup', name: '味噌汁', emoji: '🍲', desc: '出汁と味噌の香りが落ち着く日本のお吸い物。', category: 'chemical' },
-    'steak': { id: 'steak', name: 'ステーキ', emoji: '🥩', desc: '肉を豪快に焼いたご馳走。', category: 'chemical' },
-    'hamburger': { id: 'hamburger', name: 'ハンバーグ', emoji: '🍖', desc: '挽肉をこねて焼いた洋食の定番。', category: 'chemical' },
-    'omelet': { id: 'omelet', name: 'オムレツ', emoji: '🍳', desc: 'ふわふわに焼いた卵料理。', category: 'chemical' },
-    'ramen': { id: 'ramen', name: 'ラーメン', emoji: '🍜', desc: 'スープと麺が絡み合う国民食。', category: 'chemical' },
-    'fried_rice': { id: 'fried_rice', name: 'チャーハン', emoji: '🥘', desc: '強火でパラパラに炒めたお米料理。', category: 'chemical' },
-    'dumpling': { id: 'dumpling', name: '餃子', emoji: '🥟', desc: '肉と野菜を皮で包んで焼いた中華料理。', category: 'chemical' },
-    'curry_rice': { id: 'curry_rice', name: 'カレーライス', emoji: '🍛', desc: 'スパイスの香りが食欲をそそる皆大好きカレー。', category: 'chemical' },
+    'rice_ball': { id: 'rice_ball', name: 'おにぎり', emoji: '🍙', desc: 'ご飯を塩と海苔で握ったシンプルな携帯食。', category: 'food' },
+    'sushi': { id: 'sushi', name: '寿司', emoji: '🍣', desc: '酢飯と新鮮な魚の芸術的な組み合わせ。', category: 'food' },
+    'tempura': { id: 'tempura', name: '天ぷら', emoji: '🍤', desc: '食材に衣をつけてカラッと揚げた料理。', category: 'food' },
+    'miso_soup': { id: 'miso_soup', name: '味噌汁', emoji: '🍲', desc: '出汁と味噌の香りが落ち着く日本のお吸い物。', category: 'food' },
+    'steak': { id: 'steak', name: 'ステーキ', emoji: '🥩', desc: '肉を豪快に焼いたご馳走。', category: 'food' },
+    'hamburger': { id: 'hamburger', name: 'ハンバーグ', emoji: '🍖', desc: '挽肉をこねて焼いた洋食の定番。', category: 'food' },
+    'omelet': { id: 'omelet', name: 'オムレツ', emoji: '🍳', desc: 'ふわふわに焼いた卵料理。', category: 'food' },
+    'ramen': { id: 'ramen', name: 'ラーメン', emoji: '🍜', desc: 'スープと麺が絡み合う国民食。', category: 'food' },
+    'fried_rice': { id: 'fried_rice', name: 'チャーハン', emoji: '🥘', desc: '強火でパラパラに炒めたお米料理。', category: 'food' },
+    'dumpling': { id: 'dumpling', name: '餃子', emoji: '🥟', desc: '肉と野菜を皮で包んで焼いた中華料理。', category: 'food' },
+    'curry_rice': { id: 'curry_rice', name: 'カレーライス', emoji: '🍛', desc: 'スパイスの香りが食欲をそそる皆大好きカレー。', category: 'food' },
     'soldering_iron': { id: 'soldering_iron', name: 'はんだごて', emoji: '🖍️', desc: 'はんだを溶かして電子部品を接合する道具。熱くなるので注意。', category: 'tool' },
 
     // Electronics
@@ -836,6 +836,16 @@ const ELEMENTS = {
     // Textile & Fashion
     'cotton': { id: 'cotton', name: '綿花', emoji: '☁️', desc: '種子を包むフワフワの繊維。吸水性と肌触りが良い。', category: 'material' },
     'wool': { id: 'wool', name: '羊毛', emoji: '🐑', desc: '羊の毛。保温性が高く、縮れが空気を含む。', category: 'material' },
+    'down': { id: 'down', name: 'ダウン', emoji: '🪶', desc: '水鳥の胸毛。軽く、圧倒的な保温力を持つ。', category: 'material' },
+    'nylon': { id: 'nylon', name: 'ナイロン', emoji: '🧵', desc: '蜘蛛の糸より細く、鋼鉄より強い合成繊維。', category: 'material' },
+    'water_repellent': { id: 'water_repellent', name: '撥水剤', emoji: '💧', desc: '水を弾く薬剤。フッ素系やシリコン系がある。', category: 'chemical' },
+    'heating_element': { id: 'heating_element', name: '発熱体', emoji: '♨️', desc: '電気を熱に変える部品。ニクロム線など。', category: 'part' },
+    'iron_powder': { id: 'iron_powder', name: '鉄粉', emoji: '⚫', desc: '微細な鉄の粉。酸化するときに熱を出す。', category: 'material' },
+    'nichrome_wire': { id: 'nichrome_wire', name: 'ニクロム線', emoji: '〰️', desc: '電気抵抗が大きく、赤熱する金属線。', category: 'part' },
+    'aluminum_foil': { id: 'aluminum_foil', name: 'アルミホイル', emoji: '⬜', desc: '薄く延ばしたアルミニウム。熱を反射する。', category: 'material' },
+    'hard_shell': { id: 'hard_shell', name: 'ハードシェル', emoji: '🛡️', desc: '宇宙空間のデブリから身を守る頑丈な外殻。', category: 'part' },
+    'boot': { id: 'boot', name: 'ブーツ', emoji: '🥾', desc: '足を保護する丈夫な靴。', category: 'tool' },
+    'glove': { id: 'glove', name: '手袋', emoji: '🧤', desc: '手を保護し、温める装備。', category: 'tool' },
     'cocoon': { id: 'cocoon', name: '繭', emoji: '🐛', desc: 'カイコが作るシェルター。ほどくと一本の長い糸になる。', category: 'material' },
     'raw_silk': { id: 'raw_silk', name: '生糸', emoji: '🧵', desc: '繭から取り出したままの絹糸。美しい光沢を持つ。', category: 'material' },
     'polyester': { id: 'polyester', name: 'ポリエステル', emoji: '👔', desc: '石油から作られる合成繊維。丈夫でシワになりにくい。', category: 'material' },
@@ -1039,6 +1049,22 @@ const ELEMENTS = {
     'skyscraper': { id: 'skyscraper', name: '超高層ビル', emoji: '🏙️', desc: '空を突き刺すような高い建物。', category: 'machine' },
     'reinforced_concrete': { id: 'reinforced_concrete', name: '鉄筋コンクリート', emoji: '🏢', desc: '鉄筋で補強されたコンクリート。非常に頑丈。', category: 'material' },
     'maglev_train': { id: 'maglev_train', name: 'リニアモーターカー', emoji: '🚄', desc: '磁力で浮上して超高速で走る列車。', category: 'machine' },
+
+    // Cold Weather Gear
+    'sweater': { id: 'sweater', name: 'セーター', emoji: '🧶', desc: '羊毛で編んだ暖かい服。空気をたっぷり含む。', category: 'tool' },
+    'down_jacket': { id: 'down_jacket', name: 'ダウンジャケット', emoji: '🧥', desc: '羽毛を詰め込んだ防寒着。極寒の地でも活動できる。', category: 'tool' },
+    'waterproof_down_jacket': { id: 'waterproof_down_jacket', name: '防水ダウン', emoji: '🧥', desc: '濡れても保温力が落ちない最強の防寒着。', category: 'tool' },
+    'shell_jacket': { id: 'shell_jacket', name: 'シェルジャケット', emoji: '🧥', desc: '風雨を完全にシャットアウトする高機能アウター。', category: 'tool' },
+    'thermal_blanket': { id: 'thermal_blanket', name: '保温ブランケット', emoji: '🟫', desc: 'アルミ蒸着された薄いシート。体温を逃がさない。', category: 'tool' },
+    'sleeping_bag': { id: 'sleeping_bag', name: '寝袋', emoji: '🛌', desc: '野外で寝るための携帯用布団。ミノムシになれる。', category: 'tool' },
+    'polar_tent': { id: 'polar_tent', name: '極地用テント', emoji: '⛺', desc: 'ブリザードにも耐える頑丈な断熱テント。', category: 'tool' },
+    'heated_vest': { id: 'heated_vest', name: '電熱ベスト', emoji: '🦺', desc: 'バッテリーで発熱する未来の防寒着。', category: 'tool' },
+    'heated_gloves': { id: 'heated_gloves', name: '電熱グローブ', emoji: '🧤', desc: '指先まで暖かい電気仕掛けの手袋。', category: 'tool' },
+    'heated_boots': { id: 'heated_boots', name: '電熱ブーツ', emoji: '🥾', desc: '凍てつく地面でも快適に歩ける靴。', category: 'tool' },
+    'disposable_warmer': { id: 'disposable_warmer', name: '使い捨てカイロ', emoji: '🔥', desc: '鉄が酸化する熱を利用した、ポケットの中の暖房。', category: 'tool' },
+    // 'hand_warmer' defined via multi-replace earlier, check if collision
+    'gore_tex': { id: 'gore_tex', name: '透湿防水素材', emoji: '💧', desc: '水は通さず水蒸気は通す、魔法の布。ゴアテックス。', category: 'material' },
+    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '👩‍🚀', desc: '真空、極低温、放射線から身を守る、着る宇宙船。', category: 'machine' },
 
     // === Food ===
     'meat': { id: 'meat', name: '肉', emoji: '🍖', desc: '動物の肉。貴重なタンパク源。', category: 'food' },
@@ -1277,7 +1303,7 @@ const ELEMENTS = {
     'colossal_squid': { id: 'colossal_squid', name: 'ダイオウホウズキイカ', emoji: '🦑', desc: '深海に潜む巨大な頭足類。マッコウクジラの宿敵。', category: 'life' },
 
     // Vehicles & Fuel
-    'submarine': { id: 'submarine', name: '深海探査船', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' },
+    'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' },
     'fuel': { id: 'fuel', name: '燃料', emoji: '⛽', desc: '乗り物を動かすためのエネルギー源。', category: 'material' },
 };
 
@@ -1337,28 +1363,115 @@ const CIVILIZATION_LEVELS = [
     { level: 0, name: '原始時代', year: '紀元前330万年', trigger: null, desc: '自然と共に生きる時代。' },
     { level: 1, name: '石器時代', year: '紀元前250万年', trigger: 'stone_tool', desc: '石を道具として使い始めた時代。' },
     { level: 2, name: '火の利用', year: '紀元前50万年', trigger: 'fire', desc: '火を操り、生活が劇的に変化した時代。' },
-    { level: 3, name: '農耕の開始', year: '紀元前1万年', trigger: 'wheat', desc: '種を蒔き、収穫する。人類が定住を始めた大きな転換点。' },
-    { level: 4, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
-    { level: 5, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
-    { level: 6, name: '大航海時代', year: '15世紀', trigger: 'compass', desc: '羅針盤を手に、未知の大海原へ乗り出した探検の時代。' },
-    { level: 7, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', desc: '活版印刷により、知識が爆発的に広まった時代。' },
-    { level: 8, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
-    { level: 9, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
-    { level: 10, name: '通信革命', year: '1876年', trigger: 'telephone', desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
-    { level: 11, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', desc: '内燃機関により、陸と空の移動が自由になった時代。' },
-    { level: 12, name: '化学・医療の進歩', year: '1920年代', trigger: 'penicillin', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
-    { level: 13, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
-    { level: 14, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
-    { level: 15, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
-    { level: 16, name: '宇宙時代', year: '1960年代', trigger: 'rocket', desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
-    { level: 17, name: '情報革命', year: '1990年代', trigger: 'computer', desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
-    { level: 18, name: 'ロボット社会', year: '2010年代', trigger: 'robot', desc: '自動化された機械が労働を担い、効率化が進む時代。' },
-    { level: 19, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
-    { level: 20, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
-    { level: 21, name: '月面開発時代', year: '未来', trigger: 'moon_base', desc: '月が地球の経済圏の一部となり、宇宙進出の足掛かりとなった時代。' },
-    { level: 22, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', desc: '人類が多惑星種族（Multi-planetary Species）への第一歩を踏み出した時代。' },
-    { level: 23, name: 'テラフォーミング', year: '未来', trigger: 'blue_mars', desc: '惑星の環境そのものを改変し、生命が住める星を自らの手で作り上げた時代。' }
+    { level: 3, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
+    { level: 4, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
+    { level: 5, name: '大航海時代', year: '15世紀', trigger: 'compass', desc: '羅針盤を手に、未知の大海原へ乗り出した探検の時代。' },
+    { level: 6, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', desc: '活版印刷により、知識が爆発的に広まった時代。' },
+    { level: 7, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
+    { level: 8, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
+    { level: 9, name: '通信革命', year: '1876年', trigger: 'telephone', desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
+    { level: 10, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', desc: '内燃機関により、陸と空の移動が自由になった時代。' },
+    { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'penicillin', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
+    { level: 12, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
+    { level: 13, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
+    { level: 14, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
+    { level: 15, name: '宇宙時代', year: '1960年代', trigger: 'rocket', desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
+    { level: 16, name: '情報革命', year: '1990年代', trigger: 'computer', desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
+    { level: 17, name: 'ロボット社会', year: '2010年代', trigger: 'robot', desc: '自動化された機械が労働を担い、効率化が進む時代。' },
+    { level: 18, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
+    { level: 19, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
+    { level: 20, name: '月面開発時代', year: '未来', trigger: 'moon_base', desc: '月が地球の経済圏の一部となり、宇宙進出の足掛かりとなった時代。' },
+    { level: 21, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', desc: '人類が多惑星種族（Multi-planetary Species）への第一歩を踏み出した時代。' },
+    { level: 22, name: 'テラフォーミング', year: '未来', trigger: 'blue_mars', desc: '惑星の環境そのものを改変し、生命が住める星を自らの手で作り上げた時代。' }
 ];
+
+const countItemsByCategory = (cat) => {
+    let count = 0;
+    discovered.forEach(id => {
+        if (ELEMENTS[id] && ELEMENTS[id].category === cat) count++;
+    });
+    return count;
+};
+
+const countProcesses = () => {
+    return INDUSTRIAL_PROCESSES.filter(p => discovered.has(p.id)).length;
+};
+
+const ACHIEVEMENTS = [
+    // --- Scale & Discovery ---
+    { id: 'first_step', name: '最初の一歩', desc: '要素を10個発見する', emoji: '🌱', condition: () => discovered.size >= 10 },
+    { id: 'apprentice', name: '見習い研究員', desc: '要素を30個発見する', emoji: '🔬', condition: () => discovered.size >= 30 },
+    { id: 'master', name: 'マスター研究員', desc: '要素を100個発見する', emoji: '🎓', condition: () => discovered.size >= 100 },
+    { id: 'researcher', name: 'ベテラン研究員', desc: '要素を200個発見する', emoji: '🧪', condition: () => discovered.size >= 200 },
+    { id: 'professor', name: '博識な教授', desc: '要素を300個発見する', emoji: '🏛️', condition: () => discovered.size >= 300 },
+    { id: 'scholar', name: '学問の大家', desc: '要素を400個発見する', emoji: '🏛️', condition: () => discovered.size >= 400 },
+    { id: 'grand_master', name: 'グランドマスター', desc: '要素を500個発見する', emoji: '🌌', condition: () => discovered.size >= 500 },
+    { id: 'collector', name: 'コレクター', desc: '図鑑の達成率が50%を超える', emoji: '📚', condition: () => (discovered.size / Object.keys(ELEMENTS).length) >= 0.5 },
+    { id: 'god_of_science', name: '科学の神', desc: '図鑑をすべて埋める', emoji: '✨', condition: () => (discovered.size >= Object.keys(ELEMENTS).length) && discovered.size > 0 },
+
+    // --- Wealth ---
+    { id: 'rich', name: '成金', desc: '所持金が10,000Gを超える', emoji: '💰', condition: () => playerMoney >= 10000 },
+    { id: 'millionaire', name: 'ミリオネア', desc: '所持金が1,000,000Gを超える', emoji: '💎', condition: () => playerMoney >= 1000000 },
+    { id: 'billionaire', name: '億万長者', desc: '所持金が1,000,000,000Gを超える', emoji: '🏢', condition: () => playerMoney >= 1000000000 },
+    { id: 'trillionaire', name: '世界の覇者', desc: '所持金が1,000,000,000,000Gを超える', emoji: '🏦', condition: () => playerMoney >= 1000000000000 },
+
+    // --- Civilization ---
+    { id: 'alchemist', name: '錬金術師', desc: '文明レベルが10に到達する', emoji: '⚗️', condition: () => currentCivilizationLevel >= 10 },
+    { id: 'civ_god', name: '文明の創造主', desc: '文明レベルが20に到達する', emoji: '🏛️', condition: () => currentCivilizationLevel >= 20 },
+    { id: 'history_end', name: '歴史の到達点', desc: '最大文明レベル22に到達する', emoji: '🌅', condition: () => currentCivilizationLevel >= 22 },
+
+    // --- Key Tools & Eras ---
+    { id: 'fire_bringer', name: '火の発見者', desc: '「火」を発見する', emoji: '🔥', condition: () => discovered.has('fire') },
+    { id: 'stone_age_unlocked', name: '旧石器時代', desc: '「石器」を発見する', emoji: '🪓', condition: () => discovered.has('stone_tool') },
+    { id: 'iron_age_unlocked', name: '鉄器時代', desc: '「鉄」を発見する', emoji: '⚔️', condition: () => discovered.has('iron') },
+    { id: 'industrial_rev_unlocked', name: '産業革命', desc: '「蒸気機関」を発見する', emoji: '🚂', condition: () => discovered.has('steam_engine') },
+    { id: 'electric_age_unlocked', name: '電気時代', desc: '「電気」を発見する', emoji: '⚡', condition: () => discovered.has('electricity') },
+    { id: 'digital_age_unlocked', name: 'コンピュータ時代', desc: '「コンピュータ」を発見する', emoji: '💻', condition: () => discovered.has('computer') },
+    { id: 'smartphone_unlocked', name: '手のひらの革命', desc: '「スマートフォン」を発見する', emoji: '📱', condition: () => discovered.has('smartphone') },
+    { id: 'ai_unlocked', name: '人工知能の誕生', desc: '「AI」を発見する', emoji: '🧠', condition: () => discovered.has('ai') },
+    { id: 'singularity_unlocked', name: '特異点', desc: '「超知能」を発見する', emoji: '✨', condition: () => discovered.has('super_intelligence') },
+
+    // --- Exploration & Space ---
+    { id: 'space_unlocked', name: '宇宙の開拓者', desc: '「宇宙」を発見する', emoji: '🚀', condition: () => discovered.has('space') },
+    { id: 'moon_land', name: '月面着陸', desc: '「月」に到達する', emoji: '🌕', condition: () => visitedAreas.has('moon') },
+    { id: 'mars_colonist', name: '火星入植', desc: '「火星」に到達する', emoji: '🪐', condition: () => visitedAreas.has('mars') },
+    { id: 'terraformer_unlocked', name: '惑星改造主', desc: '「青い火星」を実現する', emoji: '🌎', condition: () => discovered.has('blue_mars') },
+    { id: 'deep_sea_diver_reach', name: '深海の探求者', desc: '「深海」に到達する', emoji: '🦑', condition: () => visitedAreas.has('deep_sea') },
+    { id: 'cold_expedition', name: '極地の覇者', desc: '南極大陸に到達する', emoji: '🧊', condition: () => visitedAreas.has('antarctica') },
+
+    // --- Science & Tech ---
+    { id: 'medicine_pioneer', name: '奇跡の薬', desc: '「ペニシリン」を発見する', emoji: '💊', condition: () => discovered.has('penicillin') },
+    { id: 'nuclear_expert', name: '核エネルギー', desc: '「原子力発電所」を発見する', emoji: '☢️', condition: () => discovered.has('nuclear_power_plant') },
+    { id: 'fusion_expert', name: '地上の太陽', desc: '「核融合エネルギー」を発見する', emoji: '⚛️', condition: () => discovered.has('fusion_energy') || discovered.has('fusion_reactor') },
+    { id: 'quantum_pioneer', name: '量子コンピュータ', desc: '「量子コンピュータ」を発見する', emoji: '🌀', condition: () => discovered.has('quantum_computer') },
+    { id: 'genome_pioneer', name: '命のデザイン', desc: '「ゲノム編集キット」を発見する', emoji: '🧬', condition: () => discovered.has('genome_editing_kit') },
+    { id: 'internet_unlocked', name: '情報の海', desc: '「インターネット」を発見する', emoji: '🌐', condition: () => discovered.has('internet') },
+    { id: 'dark_science_unlocked', name: '終末への時計', desc: '「終末時計」を発見する', emoji: '🕰️', condition: () => discovered.has('doomsday_clock') },
+
+    // --- Specialized Collection ---
+    { id: 'chem_expert', name: '化学の達人', desc: '化学系(chemical)要素を50個発見する', emoji: '⚗️', condition: () => countItemsByCategory('chemical') >= 50 },
+    { id: 'nat_expert', name: '大自然の伝道師', desc: '自然系(natural)要素を50個発見する', emoji: '🌿', condition: () => countItemsByCategory('natural') >= 50 },
+    { id: 'mech_expert', name: '機械マニア', desc: '機械系(machine)要素を40個発見する', emoji: '⚙️', condition: () => countItemsByCategory('machine') >= 40 },
+    { id: 'tool_expert', name: '道具のマスター', desc: '道具系(tool)要素を40個発見する', emoji: '🔨', condition: () => countItemsByCategory('tool') >= 40 },
+    { id: 'mat_expert', name: '素材マニア', desc: '素材系(material)要素を40個発見する', emoji: '📦', condition: () => countItemsByCategory('material') >= 40 },
+    { id: 'food_expert', name: '未知の美食家', desc: '食品系(food)要素を20個発見する', emoji: '🍔', condition: () => countItemsByCategory('food') >= 20 },
+
+    // --- Milestones ---
+    { id: 'process_expert', name: '産業界のホープ', desc: '工業プロセスを10個アンロックする', emoji: '🏭', condition: () => countProcesses() >= 10 },
+    { id: 'process_master', name: '産業界の巨人', desc: '工業プロセスを20個アンロックする', emoji: '🏭', condition: () => countProcesses() >= 20 },
+    { id: 'sea_miner', name: '海底の財宝', desc: '「マンガン団塊」を発見する', emoji: '💎', condition: () => discovered.has('manganese_nodule') },
+    { id: 'fossil_finder', name: '古生物学者', desc: '「化石」を発見する', emoji: '🦴', condition: () => discovered.has('fossil') },
+    { id: 'astronomer', name: '天文学者', desc: '「望遠鏡」を発見する', emoji: '🔭', condition: () => discovered.has('telescope') },
+    {
+        id: 'globe_trotter', name: '世界旅行者', desc: '主要な海外エリアを5つ以上訪れる', emoji: '🌎', condition: () => {
+            const foreignAreas = ['china', 'america', 'south_america', 'europe', 'south_africa', 'australia', 'asia', 'turkey'];
+            return foreignAreas.filter(a => visitedAreas.has(a)).length >= 5;
+        }
+    },
+    { id: 'japan_travel', name: '日本縦断', desc: '北海道、沖縄、鹿児島をすべて訪れる', emoji: '🗾', condition: () => ['hokkaido', 'okinawa', 'kagoshima'].every(a => visitedAreas.has(a)) }
+];
+
+let unlockedArchives = new Set(); // Stores achievement IDs
 
 
 const RECIPES = {
@@ -1415,7 +1528,6 @@ const RECIPES = {
     'fire+plant_ash+sand': 'frit', // Plant Ash + Sand + Fire -> Frit
     'fire+frit': 'glass', // Frit + Fire -> Glass
     'fire+hydrogen': 'fresh_water', // Hydrogen + Fire -> Water
-    'iron+salt_water': 'hand_warmer', // Iron + Prepared Saltwater -> Hand Warmer
     'fresh_water+glass_vessel': 'cup', // Water + Vessel -> Cup
     'cup+wine': 'wine_glass', // Cup + Wine -> Wine Glass
     'fresh_water+nitrogen_monoxide': 'nitrogen_dioxide', // (Simplified)
@@ -1607,6 +1719,33 @@ const RECIPES = {
     'copper+fire+zinc': 'brass',
     'string+string': 'cloth',
     'cloth+string+wood': 'sail',
+    'cloth+cloth': 'clothes', // Cloth + Cloth -> Clothes
+    // Cold Weather Gear Tech Tree
+    'clothes+wool': 'sweater', // Woolen sweater
+    'clothes+down': 'down_jacket', // Down jacket
+    'down_jacket+water_repellent': 'waterproof_down_jacket', // Waterproof
+    'cloth+heating_element': 'heated_vest', // Electric heating
+    'clothes+aluminum_foil': 'thermal_blanket', // Space blanket
+    'thermal_blanket+down': 'sleeping_bag', // Warm sleeping bag
+    'sleeping_bag+tent': 'polar_tent', // Tent for extreme cold
+    'glove+heating_element': 'heated_gloves', // Electric gloves
+    'boot+heating_element': 'heated_boots', // Electric boots
+    'wearable_thermo_device+clothes': 'spacesuit_inner', // Inner suit for spacesuit
+    'spacesuit_inner+hard_shell': 'spacesuit', // Complete spacesuit
+
+    // Sewing & Textile
+    'iron_tool+thread': 'needle', // Simple needle
+    'needle+thread': 'sewing_set', // Sewing kit
+    'sewing_set+cloth': 'sewn_cloth', // Basic sewing
+    'sewing_machine+thread+cloth': 'mass_produced_clothes', // Industrial sewing
+    'nylon+polyester': 'synthetic_fiber', // Advanced fibers
+    'synthetic_fiber+water_repellent': 'gore_tex', // Breathable waterproof fabric
+    'gore_tex+sewing_machine': 'shell_jacket', // High-tech outer layer
+
+    // Heat Generation
+    'iron_powder+activated_carbon+salt_water': 'disposable_warmer', // Kairo mechanism
+    'platinum_catalyst+fuel': 'hand_warmer', // Catalytic warmer (Hakukin Kairo)
+    'electricity+nichrome_wire': 'heating_element', // Electric heater part
     'brass+iron_tool': 'screw',
     'rudder+screw+steam_engine': 'marine_engine',
     'marine_engine+sail+steel': 'steamship',
@@ -2001,8 +2140,6 @@ const RECIPES = {
     'alcohol+copper': 'pesticide',
 
     // Crops (Simplified Breeding/Farming)
-    // Plant + Plow + Water -> Wheat
-    'fresh_water+plant+plow': 'wheat',
     // Plant + Fertilizer + Sun -> Corn
     'fertilizer+plant+sun': 'corn',
     // Plant + Soil + Fresh Water -> Potato
@@ -3447,6 +3584,7 @@ const BASE_REUSABLE_ITEMS = [
 
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
+let visitedAreas = new Set(['japan']); // Tracks visited areas for achievements
 let unlockedFeats = new Set(); // Track shown notifications
 let shownInventions = new Set(); // Track shown "Great Invention" logs
 // Utility: Debounce
@@ -3497,8 +3635,10 @@ const ui = {
     navField: document.getElementById('nav-field'),
     navLab: document.getElementById('nav-lab'),
     navBook: document.getElementById('nav-book'), // New
+    navArchives: document.getElementById('nav-archives'), // New
     navShop: document.getElementById('nav-shop'), // New Shop
     shopView: document.getElementById('view-shop'), // New Shop
+    archivesView: document.getElementById('view-archives'), // New
     playerMoney: document.getElementById('player-money'), // New Shop
     inventory: document.getElementById('element-list'),
     slot1: document.getElementById('slot-1'),
@@ -3532,7 +3672,10 @@ const ui = {
     btnViewAuto: document.getElementById('btn-view-auto'), // View Mode
     btnViewPC: document.getElementById('btn-view-pc'),    // View Mode
     btnViewMob: document.getElementById('btn-view-mobile'), // View Mode
+    trashCanBtn: document.getElementById('trash-can-btn'), // Trash feature
 };
+
+let isTrashMode = false;
 
 function init() {
     setupNavigation();
@@ -3616,6 +3759,25 @@ function init() {
     // Setup Manual Sort
     if (ui.manualSortBtn) {
         ui.manualSortBtn.addEventListener('click', toggleManualSortMode);
+    }
+
+    // Setup Trash Mode
+    if (ui.trashCanBtn) {
+        ui.trashCanBtn.addEventListener('click', toggleTrashMode);
+        // Drag over to trash
+        ui.trashCanBtn.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            ui.trashCanBtn.classList.add('trash-drop-zone');
+        });
+        ui.trashCanBtn.addEventListener('dragleave', () => {
+            ui.trashCanBtn.classList.remove('trash-drop-zone');
+        });
+        ui.trashCanBtn.addEventListener('drop', (e) => {
+            e.preventDefault();
+            ui.trashCanBtn.classList.remove('trash-drop-zone');
+            const id = e.dataTransfer.getData('text/plain');
+            if (id) promptTrashItem(id);
+        });
     }
 
     // Setup Inventory Search
@@ -3764,13 +3926,15 @@ function saveGame() {
         unlockedFeats: Array.from(unlockedFeats),
         order: userInventoryOrder,
         civLevel: currentCivilizationLevel,
-        money: playerMoney, // New Shop
-        money: playerMoney, // New Shop
+        money: playerMoney,
         market: marketState, // Price fluctuation data
         history: marketHistory, // Graph data
         moneyHistory: moneyHistory, // Money History
         recipeHistory: recipeHistory, // Recipe History
-        shownInventions: Array.from(shownInventions)
+        shownInventions: Array.from(shownInventions),
+        archives: Array.from(unlockedArchives),
+        visitedAreas: Array.from(visitedAreas),
+        currentArea: currentArea
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
 }
@@ -3787,6 +3951,11 @@ function loadGame() {
             if (data.shownInventions) {
                 shownInventions = new Set(data.shownInventions);
             }
+            if (data.archives) {
+                unlockedArchives = new Set(data.archives);
+            }
+            if (data.visitedAreas) visitedAreas = new Set(data.visitedAreas);
+            if (data.currentArea) currentArea = data.currentArea;
             if (data.order && Array.isArray(data.order)) {
                 userInventoryOrder = data.order;
             } else {
@@ -3819,11 +3988,13 @@ function loadGame() {
             if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
         } catch (e) {
             console.error(e);
+            return false;
         }
+        // Always apply theme based on loaded/calculated level
+        updateCivilizationLevel(true);
+        return true;
     }
-    // Always apply theme based on loaded/calculated level
-    updateCivilizationLevel(true);
-    return true;
+    return false;
 }
 
 function resetGameData() {
@@ -3844,7 +4015,9 @@ function exportSaveData() {
         f: Array.from(unlockedFeats),
         c: currentCivilizationLevel,
         m: playerMoney,
-        // o: userInventoryOrder // Optional: Include order if needed, but skipping saves space
+        a: Array.from(unlockedArchives),
+        v: Array.from(visitedAreas),
+        ca: currentArea
     };
     if (userInventoryOrder && userInventoryOrder.length > 0) {
         minData.o = userInventoryOrder;
@@ -3891,6 +4064,22 @@ function importSaveData() {
             return;
         }
 
+        if (val.toLowerCase() === 'poor') {
+            playerMoney = 0;
+            if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
+            saveGame();
+            alert("🔧 デバッグ: 所持金を0にしました。");
+            return;
+        }
+
+        if (val.toLowerCase() === 'rich') {
+            playerMoney = Infinity;
+            if (ui.playerMoney) ui.playerMoney.innerText = "∞";
+            saveGame();
+            alert("🔧 デバッグ: 所持金を無限にしました。");
+            return;
+        }
+
         const match = val.match(/^Lv(\d+)$/i);
         if (match) {
             const targetLevel = parseInt(match[1], 10);
@@ -3931,7 +4120,10 @@ function importSaveData() {
                     unlockedFeats: new Set(data.f || []),
                     civLevel: data.c || 0,
                     money: data.m || 0,
-                    order: data.o || []
+                    order: data.o || [],
+                    archives: new Set(data.a || []),
+                    visitedAreas: new Set(data.v || ['japan']),
+                    currentArea: data.ca || 'japan'
                 };
             } else {
                 // Maybe it was raw JSON without minified keys?
@@ -3978,6 +4170,9 @@ function applyLoadedData(data) {
     currentCivilizationLevel = data.civLevel;
     playerMoney = data.money;
     userInventoryOrder = data.order.length > 0 ? data.order : Object.keys(inventoryCounts).sort();
+    if (data.archives) unlockedArchives = data.archives;
+    if (data.visitedAreas) visitedAreas = data.visitedAreas;
+    if (data.currentArea) currentArea = data.currentArea;
 
     updateCivilizationLevel(true);
     if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
@@ -4012,6 +4207,12 @@ function setupNavigation() {
         switchView('book');
         renderEncyclopedia();
     });
+    if (ui.navArchives) {
+        ui.navArchives.addEventListener('click', () => {
+            switchView('archives');
+            renderArchives();
+        });
+    }
     // New Shop Nav
     if (ui.navShop) {
         ui.navShop.addEventListener('click', () => {
@@ -4093,11 +4294,13 @@ function switchView(mode) {
     ui.labView.style.display = 'none';
     ui.bookView.style.display = 'none';
     if (ui.shopView) ui.shopView.style.display = 'none';
+    if (ui.archivesView) ui.archivesView.style.display = 'none';
 
     ui.navField.classList.remove('active');
     ui.navLab.classList.remove('active');
     ui.navBook.classList.remove('active');
     if (ui.navShop) ui.navShop.classList.remove('active');
+    if (ui.navArchives) ui.navArchives.classList.remove('active');
 
     if (mode === 'field') {
         ui.fieldView.style.display = 'block';
@@ -4107,13 +4310,15 @@ function switchView(mode) {
         ui.labView.style.display = 'flex';
         ui.labView.style.flexDirection = 'column';
         ui.navLab.classList.add('active');
-        // renderRecipeHistory(); // No longer needed
     } else if (mode === 'book') {
         ui.bookView.style.display = 'block';
         ui.navBook.classList.add('active');
     } else if (mode === 'shop') {
         if (ui.shopView) ui.shopView.style.display = 'block';
         if (ui.navShop) ui.navShop.classList.add('active');
+    } else if (mode === 'archives') {
+        if (ui.archivesView) ui.archivesView.style.display = 'block';
+        if (ui.navArchives) ui.navArchives.classList.add('active');
     }
 }
 
@@ -4121,6 +4326,7 @@ function switchView(mode) {
 // === Area System ===
 function switchArea(area) {
     currentArea = area;
+    visitedAreas.add(area);
     let msg = "移動しました。";
     if (area === 'japan') msg = "日本（拠点）に戻りました。";
     else if (area === 'asia') msg = "東南アジアに到着しました。";
@@ -4141,6 +4347,7 @@ function switchArea(area) {
 
     log(msg);
     updateGatherSpotDisplay();
+    checkAchievements();
 }
 
 function updateGatherSpotDisplay() {
@@ -4405,14 +4612,21 @@ function setupMapUI() {
     }
     if (destMoon) {
         destMoon.addEventListener('click', () => {
-            if (!discovered.has('moon')) {
-                alert("まだ月を発見していません！望遠鏡で宇宙を観測してください。");
+            if (!discovered.has('rocket')) {
+                alert("ロケットがありません！地球の重力を振り切る手段が必要です。\n(合成ラボでロケットを開発してください)");
                 return;
             }
             if (!discovered.has('spacesuit')) {
-                alert("宇宙服がありません！宇宙空間では生存できません。");
+                alert("宇宙服がありません！宇宙空間では生存できません。\n(合成ラボで宇宙服を開発してください)");
                 return;
             }
+
+            // Auto-discover Moon if not yet found (since we are going there)
+            if (!discovered.has('moon')) {
+                addItem('moon', 1); // Discover it
+                log("🌕 月面に着陸し、[月]を発見しました！");
+            }
+
             mapModal.style.display = 'none';
             switchArea('moon');
         });
@@ -4425,6 +4639,10 @@ function setupMapUI() {
             }
             if (!discovered.has('deep_space_ship')) {
                 alert("深宇宙探査船がありません！火星への航行は不可能です。");
+                return;
+            }
+            if (!discovered.has('spacesuit')) {
+                alert("宇宙服がありません！火星での活動には宇宙服が必要です。");
                 return;
             }
             mapModal.style.display = 'none';
@@ -4442,24 +4660,9 @@ function setupGathering() {
 
             // Map Logic for Foreign Spot
             if (spotType === 'foreign') {
-                // Update Moon unlock status dynamically
-                const rocketMapSection = document.getElementById('rocket-map-section');
-                if (rocketMapSection) {
-                    if (discovered.has('space')) {
-                        rocketMapSection.style.display = 'block';
-                    } else {
-                        rocketMapSection.style.display = 'none';
-                    }
-
-                    // Update Mars Button Visibility dynamically
-                    const btnMars = document.getElementById('dest-mars');
-                    if (btnMars) {
-                        if (discovered.has('moon_base')) {
-                            btnMars.style.display = 'block';
-                        } else {
-                            btnMars.style.display = 'none';
-                        }
-                    }
+                // Re-render map UI to update progress bars and visibility
+                if (typeof setupCardMapUI === 'function') {
+                    setupCardMapUI();
                 }
 
                 document.getElementById('map-modal').style.display = 'flex';
@@ -4640,6 +4843,11 @@ function onInventoryClick(id) {
         return;
     }
 
+    if (isTrashMode) {
+        promptTrashItem(id);
+        return;
+    }
+
     if (ui.bookView.style.display === 'block') {
         showElementDetail(id);
         return;
@@ -4647,8 +4855,42 @@ function onInventoryClick(id) {
     putToSlot(id);
 }
 
+function toggleTrashMode() {
+    isTrashMode = !isTrashMode;
+    if (isTrashMode) {
+        if (isManualSortMode) toggleManualSortMode(); // Exit sort mode properly
+        ui.trashCanBtn.classList.add('trash-mode-btn-active');
+        ui.trashCanBtn.innerHTML = "✅ 完了";
+        log("🗑️ ゴミ箱モード：捨てるアイテムをクリックしてください。");
+    } else {
+        ui.trashCanBtn.classList.remove('trash-mode-btn-active');
+        ui.trashCanBtn.innerHTML = "🗑️ ゴミ箱";
+    }
+    renderInventory();
+}
+
+function promptTrashItem(id) {
+    const data = ELEMENTS[id];
+    const count = inventoryCounts[id] || 0;
+    if (count <= 0) return;
+
+    if (confirm(`${data.name} をすべて捨てますか？`)) {
+        trashItem(id);
+    }
+}
+
+function trashItem(id) {
+    const data = ELEMENTS[id];
+    log(`🗑️ ${data.emoji}${data.name} を捨てました。`);
+    delete inventoryCounts[id];
+    userInventoryOrder = userInventoryOrder.filter(itemId => itemId !== id);
+    debouncedSaveGame();
+    renderInventory();
+}
+
 function toggleManualSortMode() {
     isManualSortMode = !isManualSortMode;
+    if (isManualSortMode && isTrashMode) toggleTrashMode(); // Exit trash mode properly
     selectedSortItemId = null;
     console.log('Manual Sort Mode Toggled:', isManualSortMode);
 
@@ -4718,6 +4960,9 @@ function renderInventory() {
 
         if (isManualSortMode && selectedSortItemId === id) {
             card.classList.add('selected-sort');
+        }
+        if (isTrashMode) {
+            card.classList.add('trash-highlight');
         }
 
         card.draggable = !isManualSortMode; // Disable drag in sort mode
@@ -6191,8 +6436,8 @@ function updateStats() {
     document.getElementById('total-count').innerText = total;
 
     // Update Encyclopedia Progress Bar
-    const epb = document.getElementById('discovery-progress-bar');
-    const ept = document.getElementById('discovery-progress-text');
+    const epb = document.getElementById('enc-progress-bar');
+    const ept = document.getElementById('enc-progress-text');
     if (epb) epb.style.width = `${percent}%`;
     if (ept) ept.innerText = `${percent}%`;
 
@@ -6204,6 +6449,8 @@ function updateStats() {
 
     // Update Industrial List
     updateIndustrialList();
+
+    checkAchievements(); // Re-check on stat update
 
     // Check for Oil Field Unlock (Only in Japan/Home area)
     if (discovered.has('steam_engine') && currentArea === 'japan') {
@@ -6458,8 +6705,8 @@ function renderShop() {
             });
         }
 
-        // Filter out Money Items & Non-Physical Resources
-        const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air', 'sun'];
+        // Filter out Money Items & Non-Physical Resources & Specific Unsellable Items (User Request)
+        const MONEY_ITEMS = ['cowrie', 'coin', 'paper_money', 'credit_card', 'cashless_payment', 'nft', 'air', 'sun', 'acid_rain', 'urine', 'hot_water'];
         targetIds = targetIds.filter(id => !MONEY_ITEMS.includes(id));
 
         // Filter out concepts, phenomena, etc.
@@ -6542,7 +6789,8 @@ function renderShop() {
     }
 }
 // Keep calculatePrice below
-function calculatePrice(id) {
+// Helper to get base price without market fluctuation
+function getBasePrice(id) {
     const data = ELEMENTS[id];
     if (!data) return 100;
 
@@ -6555,13 +6803,13 @@ function calculatePrice(id) {
     else if (data.category === 'mineral') price = 300;
     else if (data.category === 'chemical') price = 600;
     else if (data.category === 'material') price = 300;
-    else if (data.category === 'part') price = 800; // Added parts
+    else if (data.category === 'part') price = 800;
     else if (data.category === 'tool') price = 1500;
     else if (data.category === 'machine') price = 5000;
     else if (data.category === 'science') price = 12000;
     else if (data.category === 'misc') price = 200;
 
-    // Specific Adjustments based on tier/rarity (Manual overrides)
+    // Specific Adjustments based on tier/rarity
     const TIER_1 = ['water', 'sun', 'earth', 'air', 'stone', 'sand', 'fresh_water'];
     if (TIER_1.includes(id)) price = 10;
 
@@ -6571,28 +6819,54 @@ function calculatePrice(id) {
     const EXPENSIVE = ['gold', 'platinum', 'diamond', 'titanium', 'uranium', 'jewelry', 'palladium', 'rhodium', 'osmium', 'ruthenium', 'cobalt', 'neodymium', 'indium'];
     if (EXPENSIVE.includes(id)) price = 5000;
 
-    // Cheap Tools Override
-    // Return IMMEDIATELY to avoid invention bonus
     const CHEAP_TOOLS = ['stone_tool', 'processed_stone', 'stone_axe', 'flint', 'fiber', 'nail', 'screw_part'];
     if (CHEAP_TOOLS.includes(id)) return 100;
 
-    if (GREAT_INVENTIONS[id]) price += 5000; // Rare invention bonus
+    if (GREAT_INVENTIONS[id]) price += 5000;
+
+    return price;
+}
+
+// Unified Price Calculator (with offset for simulation)
+function calculatePrice(id, offset = 0) {
+    let price = getBasePrice(id);
 
     // === Market Fluctuation Logic ===
     let multiplier = 1.0;
-    if (marketState[id]) {
-        const balance = marketState[id];
-        // 5% change per item
-        multiplier = 1 + (balance * 0.05);
-        if (multiplier < 0.2) multiplier = 0.2;
-        if (multiplier > 5.0) multiplier = 5.0;
-    }
+    const balance = (marketState[id] || 0) + offset;
+
+    // 1% change per item
+    multiplier = 1 + (balance * 0.01);
+
+    // Clamp multiplier
+    // Lower limit (0.1) is required to prevent negative/zero prices.
+    if (multiplier < 0.1) multiplier = 0.1;
+    // Upper limit removed as per request (Infinite Inflation possible)
 
     let finalPrice = Math.floor(price * multiplier);
     if (finalPrice < 1) finalPrice = 1;
 
-
     return finalPrice;
+}
+
+// Calculate Total for Bulk Transaction with Inflation/Deflation
+function calculateTransactionTotal(id, amount, mode) {
+    let total = 0;
+    for (let i = 0; i < amount; i++) {
+        // Buy: Price increases as we buy (offset +i)
+        // Sell: Price decreases as we sell (offset -i, but wait. Selling implies we flood market.
+        // Current price is at current balance.
+        // Next unit sold is at balance - 1.
+        // So offset is -i.
+        const offset = (mode === 'buy') ? i : -i;
+        let p = calculatePrice(id, offset);
+
+        if (mode === 'sell') {
+            p = Math.floor(p / 4) || 1;
+        }
+        total += p;
+    }
+    return total;
 }
 
 // History Recording
@@ -6645,7 +6919,9 @@ function recoverMarket() {
 }
 
 function buyItem(id, price, amount = 1) {
-    const totalCost = price * amount;
+    // Calculate Bulk Cost with Inflation
+    const totalCost = calculateTransactionTotal(id, amount, 'buy');
+
     if (playerMoney >= totalCost) {
         playerMoney -= totalCost;
         addItem(id, amount);
@@ -6678,10 +6954,14 @@ function buyItem(id, price, amount = 1) {
 function sellItem(id, price, amount = 1) {
     if ((inventoryCounts[id] || 0) >= amount) {
         consumeItem(id, amount);
-        const total = price * amount;
+
+        // Calculate Bulk Return with Deflation
+        const total = calculateTransactionTotal(id, amount, 'sell');
+
         playerMoney += total;
         recordMoneyHistory(); // Track money
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
+        checkAchievements();
         log(`売却しました: [${getItemName(id)}] x${amount} (+${total}G)`);
 
         // Market Update
@@ -6819,10 +7099,63 @@ function openTradeModal(id, mode) {
     maxLimitEl.innerText = `(最大: ${maxAmount})`;
     amountInput.value = 1;
 
+    // Total Cost Display
+    let totalDisplay = document.getElementById('trade-total-display');
+    if (!totalDisplay) {
+        // Insert Total Display if not exists
+        const container = document.querySelector('.trade-input-area') || stockEl.parentElement;
+        const div = document.createElement('div');
+        div.id = 'trade-total-display';
+        div.style.marginTop = '10px';
+        div.style.fontWeight = 'bold';
+        div.style.fontSize = '1.1rem';
+        // Insert before buttons
+        const btns = document.querySelector('.trade-actions') || execBtn.parentElement;
+        btns.parentElement.insertBefore(div, btns);
+        totalDisplay = div;
+    }
+
+    const updateTotal = () => {
+        const amt = parseInt(amountInput.value) || 0;
+        if (amt > 0) {
+            const tot = calculateTransactionTotal(id, amt, mode);
+            totalDisplay.innerText = `合計: ${tot} G`;
+
+            // Warn if inflation is high?
+            const baseTot = actionPrice * amt;
+            if (mode === 'buy' && tot > baseTot * 1.1) {
+                totalDisplay.innerHTML += ` <span style="font-size:0.8em; color:#d32f2f;">(インフレ発生中)</span>`;
+            } else if (mode === 'sell' && tot < baseTot * 0.9) {
+                totalDisplay.innerHTML += ` <span style="font-size:0.8em; color:#d32f2f;">(デフレ発生中)</span>`;
+            }
+        } else {
+            totalDisplay.innerText = `合計: 0 G`;
+        }
+    };
+
     // Button Events
     maxBtn.onclick = () => {
-        amountInput.value = maxAmount > 0 ? maxAmount : 1;
+        // Improved Max Calculation for Buying
+        if (mode === 'buy') {
+            // Estimating max buyable is hard with inflation.
+            // Simple approach: approximated binary search or iterative check?
+            // Or just use playerMoney / currentPrice as upper bound and check down?
+            let safeMax = Math.floor(playerMoney / actionPrice);
+            if (safeMax < 1) safeMax = 1;
+
+            // Verify if safeMax costs too much
+            while (calculateTransactionTotal(id, safeMax, 'buy') > playerMoney && safeMax > 1) {
+                safeMax--;
+            }
+            amountInput.value = safeMax;
+        } else {
+            amountInput.value = maxAmount > 0 ? maxAmount : 1;
+        }
+        updateTotal();
     };
+
+    amountInput.oninput = updateTotal;
+    updateTotal(); // Init
 
     closeBtn.onclick = () => {
         modal.style.display = 'none';
@@ -9029,8 +9362,8 @@ function setupCardMapUI() {
         { id: 'dest-south-america', name: '南米', sub: 'アンデス山脈とアマゾン川', emoji: '🦙', area: 'south_america', spots: ['andes', 'amazon', 'salt_lake', 'araxa_mine', 'bolivia_mine'], bg: '#efebe9', border: '#bcaaa4', req: 'steamship' },
 
         // New Areas (High Cost)
-        { id: 'dest-antarctica', name: '南極大陸', sub: '要:蒸気船+燃料', emoji: '🧊', area: 'antarctica', spots: ['antarctica'], bg: '#e1f5fe', border: '#81d4fa', req: 'steamship', cost: { id: 'fuel', count: 1 } },
-        { id: 'dest-deep-sea', name: '深海', sub: '要:探査船+燃料', emoji: '🦑', area: 'deep_sea', spots: ['deep_sea'], bg: '#000051', border: '#1a237e', style: 'color: white;', req: 'submarine', cost: { id: 'fuel', count: 1 } }
+        { id: 'dest-antarctica', name: '南極大陸', sub: '極地の氷と隕石の探索', emoji: '🧊', area: 'antarctica', spots: ['antarctica'], bg: '#e1f5fe', border: '#81d4fa', req: 'steamship' },
+        { id: 'dest-deep-sea', name: '深海', sub: '未知の生物と資源の眠る場所', emoji: '🦑', area: 'deep_sea', spots: ['deep_sea'], bg: '#000051', border: '#1a237e', style: 'color: white;', req: 'submarine' }
     ];
 
     const spaceDestinations = [
@@ -9050,7 +9383,8 @@ function setupCardMapUI() {
                 const uniqueItems = new Set(spotData.map(d => d.id));
                 total += uniqueItems.size;
                 uniqueItems.forEach(itemId => {
-                    if (window.discovered && window.discovered.has(itemId)) found++;
+                    // Use local 'discovered' variable, not window.discovered
+                    if (discovered && discovered.has(itemId)) found++;
                 });
             }
         });
@@ -9065,9 +9399,6 @@ function setupCardMapUI() {
         let badge = '';
         if (dest.cost) {
             badge += `<span style="font-size:0.7rem; background:#ffeb3b; padding:2px 4px; border-radius:4px; margin-right:4px;">⛽${dest.cost.count}</span>`;
-        }
-        if (dest.req) {
-            // badge += `<span style="font-size:0.7rem; background:#bbdefb; padding:2px 4px; border-radius:4px;">🔑</span>`;
         }
 
         return `
@@ -9088,8 +9419,39 @@ function setupCardMapUI() {
         `;
     };
 
-    let cardsHtml = destinations.map(generateCard).join('');
-    let spaceHtml = spaceDestinations.map(generateCard).join('');
+    // Filter Destinations
+    const visibleDestinations = destinations.filter(d => {
+        if (d.id === 'dest-deep-sea') {
+            return discovered && discovered.has('submarine');
+        }
+        return true;
+    });
+
+    // Dynamic Space Destinations
+    let availableSpaceDestinations = [];
+    // Check for "rocket" item OR "space" flag for Moon
+    if (discovered && (discovered.has('space') || discovered.has('rocket'))) {
+        availableSpaceDestinations.push(spaceDestinations[0]); // Moon
+    }
+    // Check for "moon_base" flag OR "spaceship" item OR "rocket" (temp fallback) for Mars
+    if (discovered && (discovered.has('moon_base') || discovered.has('spaceship') || discovered.has('rocket'))) {
+        availableSpaceDestinations.push(spaceDestinations[1]); // Mars
+    }
+
+    let cardsHtml = visibleDestinations.map(generateCard).join('');
+    let spaceHtml = availableSpaceDestinations.map(generateCard).join('');
+
+    let spaceSectionHtml = '';
+    if (spaceHtml !== '') {
+        spaceSectionHtml = `
+            <div id="space-map-section" style="margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px;">
+                <h3 style="text-align: center; color: #555; margin-bottom: 15px;">🚀 宇宙</h3>
+                <div class="map-grid">
+                    ${spaceHtml}
+                </div>
+            </div>
+        `;
+    }
 
     mapModal.innerHTML = `
         <div class="modal-content glass-panel" style="max-width: 800px; padding: 20px;">
@@ -9105,12 +9467,7 @@ function setupCardMapUI() {
                 ${cardsHtml}
             </div>
 
-            <div id="space-map-section" style="margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px;">
-                <h3 style="text-align: center; color: #555; margin-bottom: 15px;">🚀 宇宙</h3>
-                <div class="map-grid">
-                    ${spaceHtml}
-                </div>
-            </div>
+            ${spaceSectionHtml}
 
             <style>
                 .map-grid {
@@ -9175,7 +9532,7 @@ function setupCardMapUI() {
         if (el) {
             el.addEventListener('click', () => {
                 // Check Requirement
-                if (dest.req && window.discovered && !window.discovered.has(dest.req)) {
+                if (dest.req && discovered && !discovered.has(dest.req)) {
                     const reqItem = ELEMENTS[dest.req];
                     log(`移動できません。${reqItem.name}が必要です。`);
                     return;
@@ -9183,14 +9540,14 @@ function setupCardMapUI() {
 
                 // Check Cost
                 if (dest.cost) {
-                    const currentCount = (window.inventory && window.inventory[dest.cost.id]) || 0;
+                    const currentCount = (inventoryCounts && inventoryCounts[dest.cost.id]) || 0;
                     if (currentCount < dest.cost.count) {
                         const costItem = ELEMENTS[dest.cost.id];
                         log(`燃料が足りません。${costItem.name}が${dest.cost.count}個必要です。`);
                         return;
                     }
                     // Consume
-                    window.inventory[dest.cost.id] -= dest.cost.count;
+                    inventoryCounts[dest.cost.id] -= dest.cost.count;
                     if (typeof updateInventoryDisplay === 'function') updateInventoryDisplay();
                     log(`${ELEMENTS[dest.cost.id].name}を${dest.cost.count}個消費して移動しました。`);
                 }
@@ -9214,6 +9571,105 @@ function setupCardMapUI() {
         if (e.target === mapModal) mapModal.style.display = 'none';
     };
 }
+
+// === Achievements ===
+function renderArchives() {
+    if (!ui.archivesView) return;
+    const list = document.getElementById('archives-list');
+    const unlockedCountEl = document.getElementById('archive-unlocked-count');
+    const totalCountEl = document.getElementById('archive-total-count');
+
+    if (!list) return;
+    list.innerHTML = '';
+
+    let unlockedCount = 0;
+    ACHIEVEMENTS.forEach(ach => {
+        const isUnlocked = unlockedArchives.has(ach.id);
+        if (isUnlocked) unlockedCount++;
+
+        const card = document.createElement('div');
+        card.style.display = 'flex';
+        card.style.alignItems = 'center';
+        card.style.padding = '15px';
+        card.style.background = isUnlocked ? 'white' : 'rgba(0,0,0,0.05)';
+        card.style.borderRadius = '12px';
+        card.style.border = isUnlocked ? '1px solid #d84315' : '1px dashed #ccc';
+        card.style.opacity = isUnlocked ? '1' : '0.6';
+        card.style.boxShadow = isUnlocked ? '0 4px 10px rgba(0,0,0,0.05)' : 'none';
+
+        card.innerHTML = `
+            <div style="font-size: 2rem; margin-right: 15px;">${isUnlocked ? ach.emoji : '❓'}</div>
+            <div style="flex: 1;">
+                <div style="font-weight: bold; color: ${isUnlocked ? '#d84315' : '#888'};">${isUnlocked ? ach.name : '？？？'}</div>
+                <div style="font-size: 0.8rem; color: #666;">${ach.desc}</div>
+            </div>
+            ${isUnlocked ? '<div style="color: #4caf50; font-weight: bold;">達成！</div>' : ''}
+        `;
+        list.appendChild(card);
+    });
+
+    if (unlockedCountEl) unlockedCountEl.innerText = unlockedCount;
+    if (totalCountEl) totalCountEl.innerText = ACHIEVEMENTS.length;
+}
+
+function checkAchievements() {
+    let newlyUnlocked = false;
+    ACHIEVEMENTS.forEach(ach => {
+        if (!unlockedArchives.has(ach.id) && ach.condition()) {
+            unlockedArchives.add(ach.id);
+            newlyUnlocked = true;
+            notifyAchievement(ach);
+        }
+    });
+
+    if (newlyUnlocked) {
+        debouncedSaveGame();
+        if (ui.archivesView && ui.archivesView.style.display !== 'none') {
+            renderArchives();
+        }
+    }
+}
+
+function notifyAchievement(ach) {
+    // Show in log
+    log(`🏆 実績達成！: [${ach.name}]`);
+
+    // Simple toast notification
+    const toast = document.createElement('div');
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.right = '20px';
+    toast.style.background = '#d84315';
+    toast.style.color = 'white';
+    toast.style.padding = '15px 25px';
+    toast.style.borderRadius = '30px';
+    toast.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+    toast.style.zIndex = '10000';
+    toast.style.display = 'flex';
+    toast.style.alignItems = 'center';
+    toast.style.gap = '15px';
+    toast.style.animation = 'pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+
+    toast.innerHTML = `
+        <div style="font-size: 1.5rem;">${ach.emoji}</div>
+        <div>
+            <div style="font-size: 0.7rem; opacity: 0.8;">実績達成！</div>
+            <div style="font-weight: bold;">${ach.name}</div>
+        </div>
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.transition = 'opacity 0.5s, transform 0.5s';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
+        setTimeout(() => toast.remove(), 500);
+    }, 4000);
+}
+
+
+
 
 window.onload = function () {
     init();

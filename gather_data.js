@@ -158,9 +158,10 @@ const GATHER_DATA = {
         { th: 1.00, id: 'water' }
     ],
     'snow_field': [
-        { th: 0.70, id: 'ice' },
-        { th: 0.80, id: 'fresh_water' },
-        { th: 0.90, id: 'animal' },
+        { th: 0.50, id: 'wheat' },
+        { th: 0.80, id: 'ice' },
+        { th: 0.90, id: 'fresh_water' },
+        { th: 0.95, id: 'animal' },
         { th: 1.00, id: 'wood' }
     ],
     'coal_mine': [

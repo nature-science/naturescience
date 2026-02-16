@@ -33,6 +33,7 @@
                 <button id="nav-field" class="nav-btn active">🏞️ 採取フィールド</button>
                 <button id="nav-lab" class="nav-btn">⚗️ 合成ラボ</button>
                 <button id="nav-book" class="nav-btn">📖 図鑑</button>
+                <button id="nav-archives" class="nav-btn">🏆 実績</button>
                 <button id="nav-shop" class="nav-btn" style="display:none;">🏪 交換所</button>
             </nav>
 
@@ -446,6 +447,30 @@
                 </div>
             </div>
 
+            <!-- VIEW 5: Achievements -->
+            <div id="view-archives" class="view-panel" style="display: none;">
+                <div class="archives-container glass-panel">
+                    <div class="archives-header" style="text-align: center; margin-bottom: 20px;">
+                        <h2 style="color: #d84315;">🏆 実績</h2>
+                        <p style="color: #666; font-size: 0.9rem;">あなたの冒険の軌跡</p>
+                    </div>
+
+                    <div class="archives-stats"
+                        style="display: flex; justify-content: space-around; background: rgba(0,0,0,0.03); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 0.8rem; color: #666;">達成済み</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #d84315;"><span
+                                    id="archive-unlocked-count">0</span> / <span id="archive-total-count">0</span></div>
+                        </div>
+                    </div>
+
+                    <div id="archives-list"
+                        style="display: flex; flex-direction: column; gap: 10px; padding: 5px; overflow-y: auto;">
+                        <!-- Achievements injected here -->
+                    </div>
+                </div>
+            </div>
+
         </main>
 
         <!-- Bottom Panel: Inventory (Shared) -->
@@ -458,6 +483,9 @@
                     <button id="manual-sort-btn" class="text-btn"
                         style="color: #666; font-size: 0.8rem; background: rgba(255,255,255,0.5); padding: 4px 8px; border-radius: 4px;">🖐️
                         並べ替え</button>
+                    <button id="trash-can-btn" class="text-btn"
+                        style="color: #666; font-size: 0.8rem; background: rgba(255,255,255,0.5); padding: 4px 8px; border-radius: 4px;">🗑️
+                        ゴミ箱</button>
                     <span class="inventory-hint">クリックで装置にセット</span>
                 </div>
             </div>
@@ -691,7 +719,7 @@
                     📝 開発者メモ
                 </h3>
                 <div style="font-size: 0.85rem; color: #666; line-height: 1.5; max-height: 150px; overflow-y: auto;">
-                    <p>開発者のテストがあるので、2月20日まで開発、更新は行われません。（開発者は学生です）</p>
+                    <p>クソみたいなバグがあったので修正しました。安心して遊んでください。バグが多くてすみません😥</p>
                 </div>
 
                 <p style="font-size: 0.75rem; color: #aaa; margin-top: 30px;">Natural & Science v1.3</p>
