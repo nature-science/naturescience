@@ -1304,7 +1304,6 @@ const ELEMENTS = {
 
     // Vehicles & Fuel
     'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' },
-    'fuel': { id: 'fuel', name: '燃料', emoji: '⛽', desc: '乗り物を動かすためのエネルギー源。', category: 'material' },
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1318,7 +1317,7 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'lead_chamber_process', name: '鉛室法', key: 'sulfuric_acid', req: 'lead_chamber', desc: '鉛でできた部屋の中で、二酸化硫黄と水を反応させて硫酸を作る古い製法。' },
     { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'fuming_sulfuric_acid', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
     { id: 'vanadium', name: 'バナジウム精錬', key: 'vanadium_pentoxide', req: 'magnetite', desc: '磁鉄鉱からの希少金属抽出。' },
-    { id: 'oil_refining', name: '石油精製', key: 'fuel', req: 'crude_oil', desc: '原油を蒸留して燃料を得る。' },
+    { id: 'oil_refining', name: '石油精製', key: 'gasoline', req: 'distillation_tower', req2: 'crude_oil', desc: '原油を蒸留して燃料を得る。' },
     { id: 'hydroelectric', name: '水力発電', key: 'hydroelectric_power', req: 'gear', desc: '自然のエネルギーを持続可能な電気に変える技術。' },
     { id: 'cryogenic', name: '深冷分離法', key: 'liquid_air', req: 'cooling_unit', desc: '空気を極低温で液化し、蒸留によって窒素と酸素に分離する技術。' },
     { id: 'haber_bosch', name: 'ハーバー・ボッシュ法', key: 'ammonia', req: 'iron_catalyst', desc: '空気中の窒素を固定し、アンモニアを大量生産する革命的技術。' },
@@ -1744,7 +1743,6 @@ const RECIPES = {
 
     // Heat Generation
     'iron_powder+activated_carbon+salt_water': 'disposable_warmer', // Kairo mechanism
-    'platinum_catalyst+fuel': 'hand_warmer', // Catalytic warmer (Hakukin Kairo)
     'electricity+nichrome_wire': 'heating_element', // Electric heater part
     'brass+iron_tool': 'screw',
     'rudder+screw+steam_engine': 'marine_engine',
@@ -3610,6 +3608,8 @@ let currentShopSearchQuery = ''; // New Shop Search
 let currentCivilizationLevel = 0; // Civilization Level
 let isLoading = false; // Flag to suppress logs during load
 let isLiteMode = false;
+let lastLoginDate = null; // Login Bonus
+let loginStreak = 0; // Login Bonus Streak
 
 // Optimized Save
 // (Older definition removed to resolve conflict)
@@ -3875,6 +3875,176 @@ function init() {
 
     // Start Market Recovery Timer (Every 1 hour)
     setInterval(recoverMarket, 3600000);
+
+    // Login Bonus Check (After load)
+    checkLoginBonus();
+}
+
+function checkLoginBonus() {
+    const today = new Date().toDateString();
+
+    if (lastLoginDate !== today) {
+        if (lastLoginDate) {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (lastLoginDate === yesterday.toDateString()) {
+                loginStreak++;
+                if (loginStreak > 30) {
+                    loginStreak = 1; // Reset cycle after 30 days
+                }
+            } else {
+                loginStreak = 1; // Streak broken
+            }
+        } else {
+            loginStreak = 1; // First time or reset
+        }
+
+        // --- Calculate Bonus ---
+        // Basic: 100G * Streak (Max 7)
+        // Day 7 Bonus: +Rare material chance? (Simplified to Money for now)
+        // --- Calculate Bonus ---
+        // 30-day cycle
+        const effectiveStreak = Math.min(loginStreak, 30);
+        let bonusMoney = 100; // Base
+
+        // Multiplier based on streak
+        if (effectiveStreak >= 10) bonusMoney = 200;
+        if (effectiveStreak >= 20) bonusMoney = 300;
+
+        // Special Bonuses (Day 7, 14, 21, 30)
+        let extraText = "";
+        let isSpecial = false;
+
+        if (effectiveStreak === 7 || effectiveStreak === 14 || effectiveStreak === 21) {
+            bonusMoney += 500;
+            extraText = "✨ ボーナスDay！ ✨";
+            isSpecial = true;
+        } else if (effectiveStreak === 30) {
+            bonusMoney += 2000;
+            extraText = "👑 30日達成ボーナス 👑";
+            isSpecial = true;
+        } else if (effectiveStreak === 3) {
+            // Day 3 Platinum Reward
+            if (!inventoryCounts['platinum']) inventoryCounts['platinum'] = 0;
+            inventoryCounts['platinum']++;
+            discovered.add('platinum');
+            extraText = "💍 プラチナ獲得！ 💍";
+            isSpecial = true;
+        }
+
+        playerMoney += bonusMoney;
+        if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
+
+        // --- Show Modal ---
+        const modal = document.getElementById('login-bonus-modal');
+        const streakText = document.getElementById('login-streak-text');
+        const content = document.getElementById('login-bonus-content');
+        const closeBtn = document.getElementById('close-login-bonus');
+
+        if (modal && streakText && content && closeBtn) {
+            streakText.innerHTML = `<span style="font-size: 1.2rem; font-weight: bold; color: #555;">連続ログイン: <span style="color: #d84315; font-size: 1.5rem;">${loginStreak}</span> 日目</span>`;
+
+            // --- Generate Calendar (30 Days) ---
+            const calendarEl = document.getElementById('login-bonus-calendar');
+            if (calendarEl) {
+                let calHtml = '';
+                // Show a window of days or full 30? Full 30 might be too big for mobile. 
+                // Let's show full 30 but small.
+                for (let i = 1; i <= 30; i++) {
+                    const isToday = i === effectiveStreak;
+                    const isPast = i < effectiveStreak;
+
+                    let bg = '#eee';
+                    let border = '1px solid #ccc';
+                    let opacity = '0.5';
+                    let transform = 'scale(0.9)';
+                    let checkMark = '';
+                    let rewardIcon = '💰';
+                    let rewardVal = 100;
+
+                    if (i >= 10) rewardVal = 200;
+                    if (i >= 20) rewardVal = 300;
+
+                    if (i === 7 || i === 14 || i === 21) {
+                        rewardIcon = '🎁';
+                        rewardVal += 500;
+                    }
+                    if (i === 30) {
+                        rewardIcon = '👑';
+                        rewardVal += 2000;
+                    }
+                    if (i === 3) {
+                        rewardIcon = '💍';
+                        rewardVal = "Pt";
+                    }
+
+                    if (isPast) {
+                        bg = '#e8f5e9';
+                        border = '2px solid #4caf50';
+                        opacity = '0.8';
+                        checkMark = '<div style="font-size:1.2rem; color:#4caf50; position:absolute;">✔</div>';
+                        rewardIcon = ''; // Hide icon when done to clean up
+                    } else if (isToday) {
+                        bg = '#fff3e0';
+                        border = '2px solid #ff9800';
+                        opacity = '1';
+                        transform = 'scale(1.1)';
+                        checkMark = '<div style="font-size:0.6rem; color:#ff9800; font-weight:bold; position:absolute; bottom:2px;">GET</div>';
+                    }
+
+                    calHtml += `
+                    <div style="position:relative; aspect-ratio: 1; background:${bg}; border:${border}; border-radius:6px; opacity:${opacity}; transform:${transform}; transition:all 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <div style="font-size:0.6rem; color:#666; position:absolute; top:2px; left:2px;">${i}</div>
+                        <div style="font-size:1.2rem;">${rewardIcon}</div>
+                        ${checkMark}
+                    </div>`;
+                }
+                calendarEl.innerHTML = calHtml;
+            }
+
+            let bonusHtml = `<div style="animation: bounce 1s infinite alternate;">
+                <div style="font-size: 4rem; text-shadow: 0 4px 10px rgba(0,0,0,0.2);">💰</div>
+            </div>
+            <div style="font-size: 2.5rem; font-weight: 900; color: #2e7d32; margin: 20px 0; text-shadow: 1px 1px 0 #fff;">
+                +${bonusMoney}<span style="font-size: 1.5rem;">G</span>
+            </div>
+            <div style="font-size: 2rem; font-weight: bold; color: #ff9800; animation: pulse 1.5s infinite;">GET!</div>`;
+
+            if (isSpecial) {
+                bonusHtml += `<div style="font-size: 1.1rem; font-weight: bold; color: #d84315; margin-top: 20px; background: #fff3e0; padding: 10px; border-radius: 10px;">${extraText}<br><span style="font-size: 0.8rem;">ボーナス大量GET！</span></div>`;
+            }
+
+            content.innerHTML = bonusHtml;
+
+            modal.style.display = 'flex';
+
+            // Allow closing
+            const closeHandler = () => {
+                modal.style.display = 'none';
+                closeBtn.removeEventListener('click', closeHandler);
+                // Play coin sound effect if available (optional)
+            };
+            closeBtn.innerText = "受け取る！";
+            closeBtn.style.fontSize = "1.2rem";
+            closeBtn.style.padding = "15px 40px";
+            closeBtn.style.marginTop = "20px";
+            closeBtn.addEventListener('click', closeHandler);
+        }
+
+        if (typeof gtag === 'function') {
+            gtag('event', 'login_bonus', {
+                'streak_days': loginStreak,
+                'bonus_amount': bonusMoney,
+                'is_special': isSpecial
+            });
+        }
+
+        log(`🎁 ログインボーナスを受け取りました: ${bonusMoney}G (連続${loginStreak}日目)`);
+
+        // Update State
+        lastLoginDate = today;
+        saveGame();
+    }
 }
 
 function unlockAllElements() {
@@ -3934,7 +4104,9 @@ function saveGame() {
         shownInventions: Array.from(shownInventions),
         archives: Array.from(unlockedArchives),
         visitedAreas: Array.from(visitedAreas),
-        currentArea: currentArea
+        currentArea: currentArea,
+        lastLoginDate: lastLoginDate,
+        loginStreak: loginStreak
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
 }
@@ -3982,6 +4154,8 @@ function loadGame() {
             if (data.moneyHistory) {
                 moneyHistory = data.moneyHistory;
             }
+            if (data.lastLoginDate) lastLoginDate = data.lastLoginDate;
+            if (data.loginStreak) loginStreak = data.loginStreak;
             if (data.recipeHistory) {
                 recipeHistory = data.recipeHistory;
             }
@@ -4017,7 +4191,9 @@ function exportSaveData() {
         m: playerMoney,
         a: Array.from(unlockedArchives),
         v: Array.from(visitedAreas),
-        ca: currentArea
+        ca: currentArea,
+        ld: lastLoginDate,
+        ls: loginStreak
     };
     if (userInventoryOrder && userInventoryOrder.length > 0) {
         minData.o = userInventoryOrder;
@@ -4080,6 +4256,16 @@ function importSaveData() {
             return;
         }
 
+        if (val.toLowerCase() === 'login') {
+            // Force reset login bonus
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            lastLoginDate = yesterday.toDateString();
+            saveGame();
+            checkLoginBonus();
+            return;
+        }
+
         const match = val.match(/^Lv(\d+)$/i);
         if (match) {
             const targetLevel = parseInt(match[1], 10);
@@ -4123,7 +4309,9 @@ function importSaveData() {
                     order: data.o || [],
                     archives: new Set(data.a || []),
                     visitedAreas: new Set(data.v || ['japan']),
-                    currentArea: data.ca || 'japan'
+                    currentArea: data.ca || 'japan',
+                    lastLoginDate: data.ld || null,
+                    loginStreak: data.ls || 0
                 };
             } else {
                 // Maybe it was raw JSON without minified keys?
@@ -4173,6 +4361,8 @@ function applyLoadedData(data) {
     if (data.archives) unlockedArchives = data.archives;
     if (data.visitedAreas) visitedAreas = data.visitedAreas;
     if (data.currentArea) currentArea = data.currentArea;
+    if (data.lastLoginDate) lastLoginDate = data.lastLoginDate;
+    if (data.loginStreak) loginStreak = data.loginStreak;
 
     updateCivilizationLevel(true);
     if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
@@ -4832,8 +5022,6 @@ function onInventoryClick(id) {
 
                 saveGame();
                 selectedSortItemId = null;
-                saveGame();
-                selectedSortItemId = null;
                 log("🔄 アイテムを入れ替えました。");
             } else {
                 console.warn('Could not find items in order array');
@@ -4910,7 +5098,18 @@ function toggleManualSortMode() {
     renderInventory();
 }
 
+let isRenderPending = false;
+
 function renderInventory() {
+    if (isRenderPending) return;
+    isRenderPending = true;
+    requestAnimationFrame(() => {
+        renderInventoryContent();
+        isRenderPending = false;
+    });
+}
+
+function renderInventoryContent() {
     // console.log('Rendering Inv. ManualMode:', isManualSortMode, 'Selected:', selectedSortItemId);
     ui.inventory.innerHTML = '';
 
@@ -5533,11 +5732,6 @@ function executeCraft() {
             log("✨ 【工業化学】 オストワルト法の実装に成功！硝酸が再利用可能になりました！");
             updateStats();
         }
-        if (!discovered.has('platinum_catalyst_flag')) {
-            discovered.add('platinum_catalyst_flag');
-            log("✨ 【工業化学】 オストワルト法の実装に成功！硝酸が再利用可能になりました！");
-            updateStats();
-        }
     }
 
     // Special Unlock for Sabatier Reaction
@@ -5595,7 +5789,6 @@ function executeCraft() {
         if (discovered.has('platinum_catalyst_flag')) reusableIds.push('nitric_acid');
         if (discovered.has('contact_process_flag')) reusableIds.push('sulfuric_acid');
         if (discovered.has('hydroelectric_power')) reusableIds.push('electricity');
-        if (discovered.has('hydroelectric_power')) reusableIds.push('electricity');
         if (discovered.has('high_pressure_reactor')) reusableIds.push('ammonia');
         if (discovered.has('sabatier_reaction_flag')) reusableIds.push('methane');
 
@@ -5624,7 +5817,6 @@ function executeCraft() {
             <div class="element-emoji">${resData.emoji}</div>
             <div class="element-name">${getItemName(mainResId)}${results.length > 1 ? ' など' : ''}</div>
         `;
-        ui.result.classList.add('filled');
         ui.result.classList.add('filled');
         ui.result.parentElement.classList.add('pop-anim');
 
@@ -5773,13 +5965,7 @@ function fillSlotsFromBook(inputs) {
     document.getElementById('crafting-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-function getSlotVar(n) {
-    if (n === 1) return slot1;
-    if (n === 2) return slot2;
-    if (n === 3) return slot3;
-    if (n === 4) return slot4;
-    return slot5;
-}
+// getSlotVar is already defined above (line 5353)
 
 // === Refining ===
 function refineOre() {
@@ -5843,7 +6029,7 @@ function refineOre() {
     const proceedToFuel = (targetOre) => {
         if (hasCharcoal && hasCoke) {
             // Ask for fuel choice
-            const msgP = log(`使用する燃料を選択 (${getItemName(targetOre.id)}):`);
+            const msgP = log(`使用する還元剤を選択 (${getItemName(targetOre.id)}):`);
             const btnContainer = document.createElement('div');
             btnContainer.className = 'choice-container';
             btnContainer.style.display = 'flex';
@@ -5921,9 +6107,16 @@ function executeRefining(target, fuelId) {
         if (inventoryCounts['coke'] > 0) fuelId = 'coke';
         else if (inventoryCounts['charcoal'] > 0) fuelId = 'charcoal';
         else {
-            log("燃料がなくなりました！");
+            log("還元剤がなくなりました！");
             return;
         }
+    }
+
+    if (inventoryCounts['fire'] && inventoryCounts['fire'] > 0) {
+        consumeItem('fire', 1);
+    } else {
+        log("加熱するための[火🔥]が必要です！");
+        return;
     }
 
     consumeItem(target.id, 1);
@@ -6014,6 +6207,18 @@ function distillWater() {
 }
 
 function executeDistillation(target) {
+    // Manual distillation consumes Fire
+    const hasTower = inventoryCounts['distillation_tower'] && inventoryCounts['distillation_tower'] > 0;
+
+    if (!hasTower) {
+        if (inventoryCounts['fire'] && inventoryCounts['fire'] > 0) {
+            consumeItem('fire', 1);
+        } else {
+            log("火が足りません！");
+            return;
+        }
+    }
+
     consumeItem(target.id, 1);
     if (target.type === 'wine') {
         addItem('fresh_water', 1);
@@ -7282,6 +7487,13 @@ function updateCivilizationLevel(silent = false) {
         if (maxLevel > currentCivilizationLevel) {
             currentCivilizationLevel = maxLevel;
             if (!silent && !isLoading) {
+                // Google Analytics: Level Up Event
+                if (typeof gtag === 'function') {
+                    gtag('event', 'level_up', {
+                        'level': maxLevel
+                    });
+                }
+
                 const civData = CIVILIZATION_LEVELS.find(c => c.level === maxLevel);
                 log(`🎉 **文明レベルアップ！** [Lv.${maxLevel} ${civData.name}] に到達しました！`);
                 log(`📜 ${civData.desc}`);
@@ -7799,14 +8011,20 @@ function showElementDetail(id) {
     else if (['aluminum', 'silicon', 'ferrochrome', 'titanium', 'zinc', 'magnesium', 'barium', 'nickel', 'chromium', 'cobalt', 'neodymium', 'indium'].includes(id)) {
         recipeHtml += `<p>入手方法：電気精錬所で電気エネルギーを用いて精錬/電解する</p>`;
     }
-    // 7. Industrial Processes?
-    const indProc = INDUSTRIAL_PROCESSES.find(p => p.key === id);
-    if (indProc && discovered.has(indProc.id)) {
-        recipeHtml += `<p>入手方法：工業的製法「${indProc.name}」により製造される（${indProc.desc}）</p>`;
-    }
+    // 7. Industrial Processes
+    // Find processes that produce this item (key)
+    const indProcs = INDUSTRIAL_PROCESSES.filter(p => p.key === id);
+    indProcs.forEach(proc => {
+        const req1 = proc.req ? discovered.has(proc.req) : true;
+        const req2 = proc.req2 ? discovered.has(proc.req2) : true;
+
+        if (req1 && req2) {
+            recipeHtml += `<p>入手方法：工業的製法「${proc.name}」により製造される（${proc.desc}）</p>`;
+        }
+    });
 
     // 8. Dynamic Recipe (Battery)
-    else if (id === 'battery') {
+    if (id === 'battery') {
         recipeHtml += `<h3>合成レシピ</h3><div style="margin:5px 0;">導電性物質(金属/炭) x2 + 食塩水 (※異なる2種類)</div>`;
     }
 

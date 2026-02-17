@@ -286,3 +286,8 @@
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+#archives-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+}

@@ -576,9 +576,16 @@ main {
 
 /* Archives View */
 .archives-container {
-    max-width: 600px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+}
+
+#archives-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 5px;
 }
 
 #archives-list::-webkit-scrollbar {
