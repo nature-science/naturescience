@@ -3936,7 +3936,29 @@ function checkLoginBonus() {
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
 
         // --- Show Modal ---
-        const modal = document.getElementById('login-bonus-modal');
+        // --- Show Modal ---
+        let modal = document.getElementById('login-bonus-modal');
+
+        // Fallback: Create modal if it doesn't exist (e.g. HTML cache issues)
+        if (!modal) {
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <div id="login-bonus-modal" class="modal-overlay" style="display: none; align-items: center; justify-content: center; z-index: 2000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);">
+                <div class="modal-content glass-panel" style="max-width: 500px; width: 90%; text-align: center; animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); padding: 40px; background: rgba(255,255,255,0.95); border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <div style="font-size: 3rem; margin-bottom: 10px;">🎁</div>
+                    <h2 style="color: #d84315; margin-bottom: 5px; font-family: 'Zen Maru Gothic', sans-serif;">ログインボーナス！</h2>
+                    <p id="login-streak-text" style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">連続ログイン: 1日目</p>
+                    <div id="login-bonus-calendar" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-bottom: 20px;"></div>
+                    <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ffcc80;">
+                        <div id="login-bonus-content" style="font-size: 1.2rem; font-weight: bold; color: #333;">100G 獲得！</div>
+                    </div>
+                    <button id="close-login-bonus" class="action-btn" style="background: linear-gradient(135deg, #ff9800, #f57c00); color: white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">受け取る</button>
+                </div>
+            </div>`;
+            document.body.appendChild(div.firstElementChild);
+            modal = document.getElementById('login-bonus-modal');
+        }
+
         const streakText = document.getElementById('login-streak-text');
         const content = document.getElementById('login-bonus-content');
         const closeBtn = document.getElementById('close-login-bonus');
