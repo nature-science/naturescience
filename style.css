@@ -193,12 +193,11 @@ main {
 /* Field View */
 .field-container {
     height: 100%;
-    overflow: hidden;
-    /* Strict no-scroll */
+    overflow-y: auto;
+    /* Allow scroll when content overflows */
     display: flex;
     flex-direction: column;
     padding: 10px;
-    justify-content: center;
 }
 
 .field-header {
@@ -1017,85 +1016,156 @@ body.lite-mode .modal-overlay {
 }
 
 /* --- Dark Mode --- */
+/* --- Dark Mode (Improved) --- */
 body.dark-mode {
     --bg-color: #121212;
     --accent-color: #81c784;
     /* Light Green */
     --secondary-color: #ff8a65;
     /* Light Orange */
-    --glass-bg: rgba(30, 30, 30, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(30, 30, 30, 0.95);
+    /* More opaque for readability */
+    --glass-border: rgba(255, 255, 255, 0.15);
     --text-color: #e0e0e0;
-    --slot-bg: rgba(255, 255, 255, 0.05);
-}
-
-
-body.dark-mode {
-    /* background-image is kept, but let's darken it via ::before */
-    background-color: #121212 !important;
+    --slot-bg: rgba(255, 255, 255, 0.08);
+    color: #e0e0e0 !important;
 }
 
 body.dark-mode::before {
-    background: rgba(10, 10, 10, 0.9) !important;
+    background: rgba(5, 5, 5, 0.95) !important;
 }
 
-body.dark-mode * {
-    /* text-shadow: none !important; */
-    border-color: var(--glass-border);
+/* Force dark backgrounds on main panels */
+body.dark-mode .glass-panel,
+body.dark-mode .sidebar,
+body.dark-mode .inventory,
+body.dark-mode .workspace,
+body.dark-mode .machine-section,
+body.dark-mode .field-container {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Specific Overrides for Dark Mode */
-body.dark-mode .glass-panel {
-    background: var(--glass-bg);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    color: var(--text-color);
+/* Text Colors */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode div,
+body.dark-mode span,
+body.dark-mode label {
+    color: #e0e0e0 !important;
 }
 
+/* Specific overrides for specific text that might be hardcoded elsewhere */
+body.dark-mode .rank-badge {
+    background: #333 !important;
+    border-color: #555 !important;
+}
+
+/* Navigation Buttons */
 body.dark-mode .nav-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ccc;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #aaa !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
 body.dark-mode .nav-btn.active {
-    background: var(--accent-color);
-    color: #121212;
-    /* Dark text on light accent */
+    background: var(--accent-color) !important;
+    color: #121212 !important;
     font-weight: bold;
+    box-shadow: 0 0 10px rgba(129, 199, 132, 0.4) !important;
 }
 
 body.dark-mode .nav-btn:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
 }
 
+/* Cards & Slots */
 body.dark-mode .element-card {
-    background: #1e1e1e;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-    color: var(--text-color);
-    border: 1px solid #333;
+    background: #252525 !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) !important;
+    border: 1px solid #444 !important;
+    color: #eee !important;
 }
 
 body.dark-mode .element-card:hover {
-    background: #2a2a2a;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    border-color: var(--accent-color);
+    background: #333 !important;
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6) !important;
 }
 
 body.dark-mode .element-slot {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
 }
 
 body.dark-mode .element-slot.filled {
-    background: #2a2a2a;
-    border-color: #555;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background: #252525 !important;
+    border-color: #666 !important;
 }
 
-body.dark-mode .element-slot.result.filled {
-    background: #424242;
-    /* Darker yellow/gray */
-    border-color: #fbc02d;
+/* Settings Modal Specifics (Dynamic content override) */
+body.dark-mode #settings-modal .modal-content {
+    background: #222 !important;
+    border: 1px solid #444 !important;
+    color: #eee !important;
 }
+
+body.dark-mode #settings-modal h2,
+body.dark-mode #settings-modal h3 {
+    color: #fff !important;
+}
+
+body.dark-mode #settings-modal button.action-btn {
+    opacity: 0.9;
+}
+
+body.dark-mode #settings-modal label,
+body.dark-mode #settings-modal button {
+    background: #333 !important;
+    border-color: #555 !important;
+    color: #ddd !important;
+}
+
+
+
+/* Allow action buttons to keep their colors but maybe darken them */
+body.dark-mode #settings-export-btn {
+    background: #1976d2 !important;
+    color: white !important;
+}
+
+body.dark-mode #settings-import-btn {
+    background: #f57c00 !important;
+    color: white !important;
+}
+
+body.dark-mode #settings-delete-btn {
+    background: transparent !important;
+    color: #ef5350 !important;
+}
+
+/* Inputs */
+body.dark-mode input[type="text"] {
+    background: #333 !important;
+    color: white !important;
+    border: 1px solid #555 !important;
+}
+
+/* Scrollbar */
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* Modal Overlay */
 
 /* Modal */
 body.dark-mode .modal-content {
@@ -1440,8 +1510,8 @@ body.theme-classical {
     --glass-border: #d7ccc8;
     --text-color: #4e342e;
     --bg-overlay: rgba(250, 250, 250, 0.2);
-    /* Bright Greek Architecture */
-    background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?q=80&w=2544&auto=format&fit=crop') !important;
+    /* Bright Greek Architecture - Removed as requested */
+    background-image: none !important;
 }
 
 body.theme-classical .glass-panel {
@@ -1773,4 +1843,676 @@ body.theme-future #tab-sell.active {
     background: #f5f5f5 !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- DARK MODE FORCE OVERRIDE --- */
+/* Use html body.dark-mode to increase specificity over anything else */
+html body.dark-mode .glass-panel,
+html body.dark-mode .machine-section,
+html body.dark-mode .view-panel,
+html body.dark-mode .sidebar,
+html body.dark-mode .inventory,
+html body.dark-mode .field-container,
+html body.dark-mode aside,
+html body.dark-mode section {
+    background: rgba(30, 30, 30, 0.95) !important;
+    background-color: rgba(30, 30, 30, 0.95) !important;
+    color: #eeeeee !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: none !important;
+}
+
+html body.dark-mode input[type="text"],
+html body.dark-mode button.text-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #eee !important;
+    border: 1px solid #555 !important;
+}
+
+html body.dark-mode h1,
+html body.dark-mode h2,
+html body.dark-mode h3,
+html body.dark-mode h4,
+html body.dark-mode p,
+html body.dark-mode span,
+html body.dark-mode div,
+html body.dark-mode label {
+    color: #eeeeee !important;
+    text-shadow: none !important;
+}
+
+
+html body.dark-mode .gather-spot {
+    /* 明るさを少し抑えることで、どぎつい色をなじませる */
+    filter: brightness(0.7) contrast(1.1);
+    color: #ffffff !important;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
+    /* 背景色はJSで動的に変更される場合もあるので、filterで対応するのが吉 */
+}
+
+/* ホバー時は少し明るく */
+html body.dark-mode .gather-spot:hover {
+    filter: brightness(0.85) contrast(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7) !important;
+    transform: translateY(-2px);
+}
+
+/* ついでにタイトルバーも少し暗く */
+html body.dark-mode .field-header,
+html body.dark-mode .shop-header,
+html body.dark-mode .book-header,
+html body.dark-mode .archives-header,
+html body.dark-mode .inventory-header,
+html body.dark-mode .machine-title {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #eee !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* --- Settings Modal Dark Mode Specifics --- */
+/* 白いカード背景を暗く透過させる */
+html body.dark-mode #settings-modal div[style*="background:white"],
+html body.dark-mode #settings-modal div[style*="background: white"],
+html body.dark-mode #settings-modal div[style*="background:rgba(0,0,0,0.03)"],
+html body.dark-mode #settings-modal div[style*="background: rgba(0,0,0,0.03)"] {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: none !important;
+    color: #eee !important;
+}
+
+/* ボタンとラベル (通常のもの) */
+html body.dark-mode #settings-modal button:not(.action-btn):not(.text-btn),
+html body.dark-mode #settings-modal label {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #eee !important;
+}
+
+/* 開発者メモ (クリーム色) を暗いオレンジ系に */
+html body.dark-mode #settings-modal div[style*="background:#fff3e0"],
+html body.dark-mode #settings-modal div[style*="background: #fff3e0"] {
+    background: rgba(255, 152, 0, 0.15) !important;
+    border: 1px dashed rgba(255, 152, 0, 0.5) !important;
+}
+
+html body.dark-mode #settings-modal div[style*="background:#fff3e0"] p,
+html body.dark-mode #settings-modal div[style*="background: #fff3e0"] p,
+html body.dark-mode #settings-modal div[style*="background:#fff3e0"] h3,
+html body.dark-mode #settings-modal div[style*="background: #fff3e0"] h3 {
+    color: #ffcc80 !important;
+}
+
+/* 見出しの文字色調整 */
+html body.dark-mode #settings-modal h2,
+html body.dark-mode #settings-modal h3 {
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 削除ボタンのテキスト */
+html body.dark-mode #settings-delete-btn {
+    color: #ef5350 !important;
+    background: transparent !important;
+}
+
+/* --- Glass Mode (Liquid Glass Style) --- */
+/* Base Animation for Glass Background */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Light Glass Mode */
+html body.glass-mode {
+    /* Liquid gradient background */
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+}
+
+html body.glass-mode .glass-panel,
+html body.glass-mode .machine-section,
+html body.glass-mode .view-panel,
+html body.glass-mode .sidebar,
+html body.glass-mode .inventory,
+html body.glass-mode .field-container,
+html body.glass-mode .modal-content,
+html body.glass-mode aside,
+html body.glass-mode section {
+    background: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 15px !important;
+    color: #333 !important;
+}
+
+/* Dark Glass Mode (Overrides Light Glass & Normal Dark) */
+html body.glass-mode.dark-mode {
+    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+}
+
+html body.glass-mode.dark-mode .glass-panel,
+html body.glass-mode.dark-mode .machine-section,
+html body.glass-mode.dark-mode .view-panel,
+html body.glass-mode.dark-mode .sidebar,
+html body.glass-mode.dark-mode .inventory,
+html body.glass-mode.dark-mode .field-container,
+html body.glass-mode.dark-mode .modal-content,
+html body.glass-mode.dark-mode aside,
+html body.glass-mode.dark-mode section {
+    background: rgba(30, 30, 30, 0.5) !important;
+    /* Make it translucent */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #eee !important;
+}
+
+/* Button tweaks for Glass Dark Mode */
+html body.glass-mode.dark-mode .gather-spot {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
+    /* Remove gradient here to let specific spot styles handle it */
+    background-image: none;
+}
+
+/* --- Liquid Glass Buttons (Specific Spots) --- */
+/* Common Glass Button Style */
+body.glass-mode .gather-spot {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow:
+        inset 0 10px 20px rgba(255, 255, 255, 0.2),
+        inset 0 -10px 20px rgba(0, 0, 0, 0.1),
+        0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    color: #fff !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glossy Shine Overlay */
+body.glass-mode .gather-spot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    pointer-events: none;
+    border-radius: 10px 10px 60% 60% / 10px 10px 20px 20px;
+}
+
+body.glass-mode .gather-spot:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+        inset 0 10px 20px rgba(255, 255, 255, 0.4),
+        0 15px 30px rgba(0, 0, 0, 0.2) !important;
+    z-index: 10;
+}
+
+/* Specific Colors for Glass Mode (Translucent) */
+/* Override inline styles with !important */
+body.glass-mode .water-spot,
+body.glass-mode .coast-spot,
+body.glass-mode .river-spot {
+    background: rgba(33, 150, 243, 0.6) !important;
+}
+
+body.glass-mode .forest-spot,
+body.glass-mode .jungle-spot,
+body.glass-mode .sugar-spot,
+body.glass-mode .amazon-spot {
+    background: rgba(76, 175, 80, 0.6) !important;
+}
+
+body.glass-mode .earth-spot,
+body.glass-mode .andes-spot {
+    background: rgba(121, 85, 72, 0.6) !important;
+}
+
+body.glass-mode .tree-spot,
+body.glass-mode .olive-spot,
+body.glass-mode .savannah-spot {
+    background: rgba(139, 195, 74, 0.6) !important;
+}
+
+body.glass-mode .sun-spot,
+body.glass-mode .corn-spot,
+body.glass-mode .spice-spot,
+body.glass-mode .gold-spot {
+    background: rgba(255, 152, 0, 0.6) !important;
+}
+
+body.glass-mode .cave-spot,
+body.glass-mode .mine-spot,
+body.glass-mode .coal-spot,
+body.glass-mode .bolivia-spot {
+    background: rgba(96, 125, 139, 0.6) !important;
+}
+
+body.glass-mode .onsen-spot,
+body.glass-mode .uyghur-spot,
+body.glass-mode .china-spot {
+    background: rgba(240, 98, 146, 0.6) !important;
+}
+
+body.glass-mode .home-spot,
+body.glass-mode .china-mine-spot {
+    background: rgba(141, 110, 99, 0.6) !important;
+}
+
+body.glass-mode .oil-spot,
+body.glass-mode .mars-spot,
+body.glass-mode .desert-spot {
+    background: rgba(230, 74, 25, 0.6) !important;
+}
+
+body.glass-mode .snow-spot,
+body.glass-mode .salt-lake-spot,
+body.glass-mode .turkey-spot,
+body.glass-mode .antarctica-spot {
+    background: rgba(200, 230, 255, 0.4) !important;
+    color: #0277bd !important;
+    text-shadow: none !important;
+}
+
+body.glass-mode .deep-sea-spot {
+    background: rgba(26, 35, 126, 0.6) !important;
+}
+
+body.glass-mode .plant-spot,
+body.glass-mode .coral-spot {
+    background: rgba(0, 188, 212, 0.6) !important;
+}
+
+body.glass-mode .crater-spot,
+body.glass-mode .moon-spot {
+    background: rgba(69, 90, 100, 0.6) !important;
+}
+
+/* Dark Glass Mode Adjustments */
+body.glass-mode.dark-mode .gather-spot {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    /* Darker translucent backgrounds */
+}
+
+/* Re-apply translucency for dark mode but slightly darker */
+body.glass-mode.dark-mode .water-spot,
+body.glass-mode.dark-mode .coast-spot {
+    background: rgba(21, 101, 192, 0.5) !important;
+}
+
+body.glass-mode.dark-mode .forest-spot,
+body.glass-mode.dark-mode .jungle-spot {
+    background: rgba(46, 125, 50, 0.5) !important;
+}
+
+body.glass-mode.dark-mode .earth-spot {
+    background: rgba(78, 52, 46, 0.5) !important;
+}
+
+body.glass-mode.dark-mode .sun-spot {
+    background: rgba(239, 108, 0, 0.5) !important;
+}
+
+body.glass-mode.dark-mode .snow-spot {
+    background: rgba(225, 245, 254, 0.3) !important;
+    color: #fff !important;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
+}
+
+/* --- Glass Mode for Slots & Cards --- */
+
+/* Element Slots (Crafting Lab) - Concave Glass Effect */
+body.glass-mode .element-slot {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow:
+        inset 0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 -4px 8px rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(4px);
+    border-radius: 12px !important;
+    color: #555;
+    transition: all 0.3s;
+}
+
+body.glass-mode.dark-mode .element-slot {
+    background: rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow:
+        inset 0 4px 10px rgba(0, 0, 0, 0.5),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.1) !important;
+    color: #ccc;
+}
+
+/* Filled Slot (Item inside) */
+body.glass-mode .element-slot.filled {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.1),
+        inset 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
+
+body.glass-mode.dark-mode .element-slot.filled {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Inventory Cards - Convex Glass Shard Effect */
+body.glass-mode .element-card {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.9) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow:
+        0 4px 10px rgba(31, 38, 135, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(6px);
+    border-radius: 15px !important;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Card Shine */
+body.glass-mode .element-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    transition: 0.5s;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.glass-mode .element-card:hover::before {
+    opacity: 1;
+    left: 100%;
+    transition: 0.5s;
+}
+
+body.glass-mode .element-card:hover {
+    transform: translateY(-5px) scale(1.03) !important;
+    box-shadow: 0 10px 20px rgba(31, 38, 135, 0.2) !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    z-index: 10;
+}
+
+/* Dark Mode Cards */
+body.glass-mode.dark-mode .element-card {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    color: #eee !important;
+}
+
+body.glass-mode.dark-mode .element-card:hover {
+    background: rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Result Slot Special Glow */
+body.glass-mode .element-slot.result.filled {
+    background: rgba(255, 215, 0, 0.2) !important;
+    border: 2px solid rgba(255, 215, 0, 0.6) !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4) !important;
+    animation: glassPulse 2s infinite alternate;
+}
+
+@keyframes glassPulse {
+    from {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    }
+
+    to {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+    }
+}
+
+/* --- Roadmap Tree (Org Chart Style) --- */
+.roadmap-tree {
+    text-align: center;
+    padding-bottom: 20px;
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    margin: 0 auto;
+    min-height: 200px;
+}
+
+.roadmap-tree ul {
+    padding-top: 20px;
+    position: relative;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding-left: 0;
+}
+
+.roadmap-tree li {
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 20px 5px 0 5px;
+    transition: all 0.5s;
+}
+
+/* Lines */
+.roadmap-tree li::before,
+.roadmap-tree li::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 50%;
+    border-top: 2px solid #ccc;
+    width: 50%;
+    height: 20px;
+    z-index: 0;
+}
+
+.roadmap-tree li::after {
+    right: auto;
+    left: 50%;
+    border-left: 2px solid #ccc;
+}
+
+/* Connectors */
+.roadmap-tree li:only-child::after,
+.roadmap-tree li:only-child::before {
+    display: none;
+}
+
+.roadmap-tree li:only-child {
+    padding-top: 0;
+}
+
+.roadmap-tree li:first-child::before,
+.roadmap-tree li:last-child::after {
+    border: 0 none;
+}
+
+.roadmap-tree li:last-child::before {
+    border-right: 2px solid #ccc;
+    border-radius: 0 5px 0 0;
+}
+
+.roadmap-tree li:first-child::after {
+    border-radius: 5px 0 0 0;
+}
+
+/* Vertical connector from parent to children ul */
+.roadmap-tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 2px solid #ccc;
+    width: 0;
+    height: 20px;
+    transform: translateX(-50%);
+}
+
+/* Node Style */
+.roadmap-tree .node-content {
+    border: 2px solid #ccc;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-radius: 8px;
+    background: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-width: 80px;
+    position: relative;
+    z-index: 10;
+}
+
+.roadmap-tree .node-icon {
+    font-size: 1.8rem;
+    line-height: 1.2;
+}
+
+.roadmap-tree .node-name {
+    font-size: 0.8rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Status Styles */
+.roadmap-tree li.discovered .node-content {
+    background: #e8f5e9;
+    border-color: #4caf50;
+    color: #2e7d32;
+}
+
+.roadmap-tree li.undiscovered .node-content {
+    background: #f5f5f5;
+    border-color: #ddd;
+    color: #999;
+}
+
+/* Dark/Glass Mode Overrides */
+html body.dark-mode .roadmap-tree .node-content {
+    background: #333;
+    border-color: #555;
+    color: #eee;
+}
+
+html body.dark-mode .roadmap-tree li.discovered .node-content {
+    background: #1b5e20;
+    border-color: #4caf50;
+    color: #e8f5e9;
+}
+
+html body.dark-mode .roadmap-tree li.undiscovered .node-content {
+    background: #212121;
+    border-color: #444;
+    color: #777;
+}
+
+/* --- Small Screen Adjustments --- */
+/* For laptops with small vertical resolution */
+@media screen and (max-height: 800px) and (min-width: 769px) {
+    .app-container {
+        grid-template-rows: 1fr 180px;
+        /* Shrink inventory height */
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .sidebar {
+        gap: 10px;
+    }
+
+    .sidebar h1 {
+        font-size: 1.2rem;
+    }
+
+    .nav-btn {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+
+    .field-container {
+        overflow-y: auto !important;
+        /* Allow scrolling if even with fixes it overflows */
+    }
+
+    .nature-scene {
+        grid-auto-rows: minmax(50px, auto);
+        /* Smaller spots */
+        gap: 8px;
+        padding-bottom: 15px;
+    }
+
+    .gather-spot {
+        font-size: 1.2rem;
+        padding: 5px;
+    }
+
+    /* Slot and operator scaling for crafting */
+    .element-slot,
+    .operator {
+        width: 80px;
+        height: 80px;
+    }
+
+    .operator {
+        font-size: 1.2rem;
+    }
+}
+
+/* Centering the exploration field content */
+.field-container {
+    align-items: center;
+}
+
+/* 
+   Centering Hack: 
+   Use margin: auto on the first and last child to center vertically 
+   ONLY when there is enough space. If space is tight, it naturally scrolls from the top.
+*/
+.field-header {
+    margin-top: auto;
+}
+
+.nature-scene {
+    margin: 0 auto;
+    margin-bottom: auto;
 }

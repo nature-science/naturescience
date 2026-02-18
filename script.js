@@ -1517,7 +1517,7 @@ const RECIPES = {
     'fiber+fiber': 'string', // Fiber + Fiber -> String
     'string+wood': 'bow', // String + Wood -> Bow
     'bow+wood': 'fire', // Bow + Wood -> Fire (Primitive fire making)
-    'lens+wood': 'fire', // Lens + Wood -> Fire (Focusing sunlight)
+    'lens+sun+wood': 'fire', // Lens + Wood + Sun -> Fire (Focusing sunlight)
     'clay+sand': 'admixture', // Clay + Sand -> Admixture
     'admixture+fire': 'earthenware', // Admixture + Fire -> Earthenware
     'calcium_carbonate+fire+sand': 'lime_mortar', // Updated
@@ -1540,7 +1540,6 @@ const RECIPES = {
     'iron+fire': 'iron_rod', // Iron Rod
     'copper+lacquer': 'enameled_wire', // Enameled Wire (Copper + Lacquer)
     'enameled_wire+iron_rod': 'coil', // Coil
-    'magnetite+stone_tool': 'magnet', // Magnet
     'iron_plate+iron_rod': 'iron_pipe', // Iron Pipe
     'iron_pipe+iron_plate': 'cylinder', // Cylinder (Iron)
     'iron_rod+iron_plate': 'piston', // Piston (Rod + Plate)
@@ -1743,6 +1742,7 @@ const RECIPES = {
 
     // Heat Generation
     'iron_powder+activated_carbon+salt_water': 'disposable_warmer', // Kairo mechanism
+    'chromium+fire+nickel': 'nichrome_wire', // Nichrome Alloy
     'electricity+nichrome_wire': 'heating_element', // Electric heater part
     'brass+iron_tool': 'screw',
     'rudder+screw+steam_engine': 'marine_engine',
@@ -3684,7 +3684,13 @@ function init() {
     setupCraftingUI();
     updateGatherSpotDisplay(); // Initialize Area Display
     setupMachineReordering(); // Setup Lab Reordering
-    setupSettingsUI(); // Setup Settings Modal
+    console.log('[DEBUG] setupSettingsUI を呼び出します');
+    try {
+        setupSettingsUI(); // Setup Settings Modal
+        console.log('[DEBUG] setupSettingsUI 完了');
+    } catch (e) {
+        console.error('[DEBUG] setupSettingsUI でエラー:', e);
+    }
 
     // Global Keyboard Shortcuts
     // Remove existing if any (requires named function, but for now just add once with check)
@@ -3877,13 +3883,22 @@ function init() {
     setInterval(recoverMarket, 3600000);
 
     // Login Bonus Check (After load)
-    checkLoginBonus();
+    console.log('[DEBUG] checkLoginBonus を呼び出します');
+    try {
+        checkLoginBonus();
+        console.log('[DEBUG] checkLoginBonus 完了');
+    } catch (e) {
+        console.error('[DEBUG] checkLoginBonus でエラー:', e);
+    }
 }
 
 function checkLoginBonus() {
     const today = new Date().toDateString();
+    const isNewBonus = (lastLoginDate !== today);
 
-    if (lastLoginDate !== today) {
+    // --- 1. Streak Update (Only if new bonus) ---
+    // If it's NOT a new bonus, we use the existing loginStreak from loaded data.
+    if (isNewBonus) {
         if (lastLoginDate) {
             const yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
@@ -3898,161 +3913,48 @@ function checkLoginBonus() {
         } else {
             loginStreak = 1; // First time or reset
         }
+    }
 
-        // --- Calculate Bonus ---
-        // Basic: 100G * Streak (Max 7)
-        // Day 7 Bonus: +Rare material chance? (Simplified to Money for now)
-        // --- Calculate Bonus ---
-        // 30-day cycle
-        const effectiveStreak = Math.min(loginStreak, 30);
-        let bonusMoney = 100; // Base
+    // --- 2. Calculate Bonus (For Display & Granting) ---
+    const effectiveStreak = Math.min(loginStreak, 30);
+    let bonusMoney = 100; // Base
 
-        // Multiplier based on streak
-        if (effectiveStreak >= 10) bonusMoney = 200;
-        if (effectiveStreak >= 20) bonusMoney = 300;
+    // Multiplier based on streak
+    if (effectiveStreak >= 10) bonusMoney = 200;
+    if (effectiveStreak >= 20) bonusMoney = 300;
 
-        // Special Bonuses (Day 7, 14, 21, 30)
-        let extraText = "";
-        let isSpecial = false;
+    // Special Bonuses (Day 7, 14, 21, 30)
+    let extraText = "";
+    let isSpecial = false;
 
-        if (effectiveStreak === 7 || effectiveStreak === 14 || effectiveStreak === 21) {
-            bonusMoney += 500;
-            extraText = "✨ ボーナスDay！ ✨";
-            isSpecial = true;
-        } else if (effectiveStreak === 30) {
-            bonusMoney += 2000;
-            extraText = "👑 30日達成ボーナス 👑";
-            isSpecial = true;
-        } else if (effectiveStreak === 3) {
-            // Day 3 Platinum Reward
+    if (effectiveStreak === 7 || effectiveStreak === 14 || effectiveStreak === 21) {
+        bonusMoney += 500;
+        extraText = "✨ ボーナスDay！ ✨";
+        isSpecial = true;
+    } else if (effectiveStreak === 30) {
+        bonusMoney += 2000;
+        extraText = "👑 30日達成ボーナス 👑";
+        isSpecial = true;
+    } else if (effectiveStreak === 3) {
+        // Platinum handling logic moved to granting section to avoid duplicate add on re-render?
+        // Actually, if we just calculate here, we shouldn't modify inventory yet.
+        extraText = "💍 プラチナ獲得！ 💍";
+        isSpecial = true;
+    }
+
+    // --- 3. Grant Bonus (Only if new) ---
+    if (isNewBonus) {
+        // Day 3 Platinum Reward Grant
+        if (effectiveStreak === 3) {
             if (!inventoryCounts['platinum']) inventoryCounts['platinum'] = 0;
             inventoryCounts['platinum']++;
             discovered.add('platinum');
-            extraText = "💍 プラチナ獲得！ 💍";
-            isSpecial = true;
         }
 
         playerMoney += bonusMoney;
         if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
 
-        // --- Show Modal ---
-        // --- Show Modal ---
-        let modal = document.getElementById('login-bonus-modal');
-
-        // Fallback: Create modal if it doesn't exist (e.g. HTML cache issues)
-        if (!modal) {
-            const div = document.createElement('div');
-            div.innerHTML = `
-            <div id="login-bonus-modal" class="modal-overlay" style="display: none; align-items: center; justify-content: center; z-index: 2000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);">
-                <div class="modal-content glass-panel" style="max-width: 500px; width: 90%; text-align: center; animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); padding: 40px; background: rgba(255,255,255,0.95); border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
-                    <div style="font-size: 3rem; margin-bottom: 10px;">🎁</div>
-                    <h2 style="color: #d84315; margin-bottom: 5px; font-family: 'Zen Maru Gothic', sans-serif;">ログインボーナス！</h2>
-                    <p id="login-streak-text" style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">連続ログイン: 1日目</p>
-                    <div id="login-bonus-calendar" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin-bottom: 20px;"></div>
-                    <div style="background: rgba(255,255,255,0.8); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 2px solid #ffcc80;">
-                        <div id="login-bonus-content" style="font-size: 1.2rem; font-weight: bold; color: #333;">100G 獲得！</div>
-                    </div>
-                    <button id="close-login-bonus" class="action-btn" style="background: linear-gradient(135deg, #ff9800, #f57c00); color: white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">受け取る</button>
-                </div>
-            </div>`;
-            document.body.appendChild(div.firstElementChild);
-            modal = document.getElementById('login-bonus-modal');
-        }
-
-        const streakText = document.getElementById('login-streak-text');
-        const content = document.getElementById('login-bonus-content');
-        const closeBtn = document.getElementById('close-login-bonus');
-
-        if (modal && streakText && content && closeBtn) {
-            streakText.innerHTML = `<span style="font-size: 1.2rem; font-weight: bold; color: #555;">連続ログイン: <span style="color: #d84315; font-size: 1.5rem;">${loginStreak}</span> 日目</span>`;
-
-            // --- Generate Calendar (30 Days) ---
-            const calendarEl = document.getElementById('login-bonus-calendar');
-            if (calendarEl) {
-                let calHtml = '';
-                // Show a window of days or full 30? Full 30 might be too big for mobile. 
-                // Let's show full 30 but small.
-                for (let i = 1; i <= 30; i++) {
-                    const isToday = i === effectiveStreak;
-                    const isPast = i < effectiveStreak;
-
-                    let bg = '#eee';
-                    let border = '1px solid #ccc';
-                    let opacity = '0.5';
-                    let transform = 'scale(0.9)';
-                    let checkMark = '';
-                    let rewardIcon = '💰';
-                    let rewardVal = 100;
-
-                    if (i >= 10) rewardVal = 200;
-                    if (i >= 20) rewardVal = 300;
-
-                    if (i === 7 || i === 14 || i === 21) {
-                        rewardIcon = '🎁';
-                        rewardVal += 500;
-                    }
-                    if (i === 30) {
-                        rewardIcon = '👑';
-                        rewardVal += 2000;
-                    }
-                    if (i === 3) {
-                        rewardIcon = '💍';
-                        rewardVal = "Pt";
-                    }
-
-                    if (isPast) {
-                        bg = '#e8f5e9';
-                        border = '2px solid #4caf50';
-                        opacity = '0.8';
-                        checkMark = '<div style="font-size:1.2rem; color:#4caf50; position:absolute;">✔</div>';
-                        rewardIcon = ''; // Hide icon when done to clean up
-                    } else if (isToday) {
-                        bg = '#fff3e0';
-                        border = '2px solid #ff9800';
-                        opacity = '1';
-                        transform = 'scale(1.1)';
-                        checkMark = '<div style="font-size:0.6rem; color:#ff9800; font-weight:bold; position:absolute; bottom:2px;">GET</div>';
-                    }
-
-                    calHtml += `
-                    <div style="position:relative; aspect-ratio: 1; background:${bg}; border:${border}; border-radius:6px; opacity:${opacity}; transform:${transform}; transition:all 0.3s; display:flex; flex-direction:column; align-items:center; justify-content:center;">
-                        <div style="font-size:0.6rem; color:#666; position:absolute; top:2px; left:2px;">${i}</div>
-                        <div style="font-size:1.2rem;">${rewardIcon}</div>
-                        ${checkMark}
-                    </div>`;
-                }
-                calendarEl.innerHTML = calHtml;
-            }
-
-            let bonusHtml = `<div style="animation: bounce 1s infinite alternate;">
-                <div style="font-size: 4rem; text-shadow: 0 4px 10px rgba(0,0,0,0.2);">💰</div>
-            </div>
-            <div style="font-size: 2.5rem; font-weight: 900; color: #2e7d32; margin: 20px 0; text-shadow: 1px 1px 0 #fff;">
-                +${bonusMoney}<span style="font-size: 1.5rem;">G</span>
-            </div>
-            <div style="font-size: 2rem; font-weight: bold; color: #ff9800; animation: pulse 1.5s infinite;">GET!</div>`;
-
-            if (isSpecial) {
-                bonusHtml += `<div style="font-size: 1.1rem; font-weight: bold; color: #d84315; margin-top: 20px; background: #fff3e0; padding: 10px; border-radius: 10px;">${extraText}<br><span style="font-size: 0.8rem;">ボーナス大量GET！</span></div>`;
-            }
-
-            content.innerHTML = bonusHtml;
-
-            modal.style.display = 'flex';
-
-            // Allow closing
-            const closeHandler = () => {
-                modal.style.display = 'none';
-                closeBtn.removeEventListener('click', closeHandler);
-                // Play coin sound effect if available (optional)
-            };
-            closeBtn.innerText = "受け取る！";
-            closeBtn.style.fontSize = "1.2rem";
-            closeBtn.style.padding = "15px 40px";
-            closeBtn.style.marginTop = "20px";
-            closeBtn.addEventListener('click', closeHandler);
-        }
-
+        // GA Tracking
         if (typeof gtag === 'function') {
             gtag('event', 'login_bonus', {
                 'streak_days': loginStreak,
@@ -4061,12 +3963,106 @@ function checkLoginBonus() {
             });
         }
 
-        log(`🎁 ログインボーナスを受け取りました: ${bonusMoney}G (連続${loginStreak}日目)`);
+        log(`🎁 ログインボーナス受け取り: ${bonusMoney}G (連続${loginStreak}日目)`);
 
-        // Update State
+        // Update State & Save
         lastLoginDate = today;
         saveGame();
     }
+
+    // --- 4. Show Modal (未受取の場合のみ表示) ---
+    if (!isNewBonus) return; // 受取済みなら表示しない
+
+    // 既存のモーダルがあれば削除（CSSクラスの競合を避けるため）
+    const oldModal = document.getElementById('login-bonus-modal');
+    if (oldModal) oldModal.remove();
+
+    // 毎回新しいモーダルを作成（HTMLキャッシュやCSS競合を完全回避）
+    const modal = document.createElement('div');
+    modal.id = 'login-bonus-modal';
+    // CSSクラスを使わず、全てインラインスタイルで制御
+    modal.style.cssText = 'display:flex; align-items:center; justify-content:center; z-index:9999; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); backdrop-filter:blur(5px);';
+
+    // カレンダーHTML生成
+    let calHtml = '';
+    for (let i = 1; i <= 30; i++) {
+        const isToday = i === effectiveStreak;
+        const isPast = i < effectiveStreak;
+        let bg = '#eee', border = '1px solid #ccc', opacity = '0.5', transform = 'scale(0.9)';
+        let checkMark = '', rewardIcon = '💰';
+        if (i >= 10) rewardIcon = '💰';
+        if (i === 7 || i === 14 || i === 21) rewardIcon = '🎁';
+        if (i === 30) rewardIcon = '👑';
+        if (i === 3) rewardIcon = '💍';
+        if (isPast) {
+            bg = '#e8f5e9'; border = '2px solid #4caf50'; opacity = '0.8';
+            checkMark = '<div style="font-size:1.2rem;color:#4caf50;position:absolute;">✔</div>';
+            rewardIcon = '';
+        } else if (isToday) {
+            bg = '#fff3e0'; border = '2px solid #ff9800'; opacity = '1'; transform = 'scale(1.1)';
+            checkMark = '<div style="font-size:0.6rem;color:#ff9800;font-weight:bold;position:absolute;bottom:2px;">GET</div>';
+        }
+        calHtml += `<div style="position:relative;aspect-ratio:1;background:${bg};border:${border};border-radius:6px;opacity:${opacity};transform:${transform};display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <div style="font-size:0.6rem;color:#666;position:absolute;top:2px;left:2px;">${i}</div>
+            <div style="font-size:1.2rem;">${rewardIcon}</div>${checkMark}</div>`;
+    }
+
+    // ボーナス内容HTML
+    let bonusContentHtml;
+    let btnText;
+    if (isNewBonus) {
+        bonusContentHtml = `<div style="animation:bounce 1s infinite alternate;">
+            <div style="font-size:4rem;text-shadow:0 4px 10px rgba(0,0,0,0.2);">💰</div>
+        </div>
+        <div style="font-size:2.5rem;font-weight:900;color:#2e7d32;margin:20px 0;text-shadow:1px 1px 0 #fff;">
+            +${bonusMoney}<span style="font-size:1.5rem;">G</span>
+        </div>
+        <div style="font-size:2rem;font-weight:bold;color:#ff9800;animation:pulse 1.5s infinite;">GET!</div>`;
+        if (isSpecial) {
+            bonusContentHtml += `<div style="font-size:1.1rem;font-weight:bold;color:#d84315;margin-top:20px;background:#fff3e0;padding:10px;border-radius:10px;">${extraText}</div>`;
+        }
+        btnText = '受け取る！';
+    } else {
+        bonusContentHtml = `<div style="color:#666;font-size:1rem;margin-bottom:10px;">本日のボーナスは受取済みです</div>
+        <div style="font-size:1.5rem;font-weight:bold;color:#4caf50;">明日も来てね！</div>`;
+        btnText = '閉じる';
+    }
+
+    modal.innerHTML = `
+        <div style="max-width:850px;width:95%;text-align:center;padding:30px;background:rgba(255,255,255,0.97);border-radius:15px;box-shadow:0 10px 25px rgba(0,0,0,0.2);animation:popIn 0.8s cubic-bezier(0.175,0.885,0.32,1.275);max-height:90vh;overflow-y:auto;">
+            <div style="font-size:3rem;margin-bottom:10px;">🎁</div>
+            <h2 style="color:#d84315;margin-bottom:5px;">ログインボーナス！</h2>
+            <p style="font-size:1.2rem;font-weight:bold;color:#555;margin-bottom:20px;">連続ログイン: <span style="color:#d84315;font-size:1.5rem;">${loginStreak}</span> 日目</p>
+            
+            <div style="display:flex; flex-wrap:wrap; gap:20px; text-align:left; justify-content:center;">
+                <!-- 左側：カレンダー -->
+                <div style="flex:1; min-width:300px;">
+                    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:10px;">${calHtml}</div>
+                </div>
+
+                <!-- 右側：受け取り内容 -->
+                <div style="flex:0 0 300px; display:flex; flex-direction:column; justify-content:center; align-items:center; background:rgba(255,255,255,0.5); border-radius:12px; padding:20px; border:2px solid #ffcc80;">
+                     ${bonusContentHtml}
+                     <button id="close-login-bonus-btn" style="margin-top:20px; background:linear-gradient(135deg,#ff9800,#f57c00);color:white;border:none;padding:12px 30px;border-radius:50px;font-weight:bold;cursor:pointer;font-size:1rem;box-shadow:0 4px 6px rgba(0,0,0,0.1); width:100%;">${btnText}</button>
+                </div>
+            </div>
+        </div>`;
+
+    document.body.appendChild(modal);
+
+    console.log('[DEBUG] ログインボーナスモーダルを表示しました');
+
+    // 閉じるボタン
+    const closeBtn = document.getElementById('close-login-bonus-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+    // 背景クリックで閉じる
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
 }
 
 function unlockAllElements() {
@@ -5334,17 +5330,98 @@ function addItem(id, amount) {
         discovered.add(id);
         const dName = getItemName(id);
         log(`${getText('discovery')} [${dName}]`);
-        updateStats();
         updateCivilizationLevel();
+        updateStats();
     }
 
     debouncedSaveGame(); // Optimized save
     renderInventory();
+    updateCO2Gauge(); // Ensure gauge updates on every add
 
     // Tutorial Trigger
     if (id === 'water' || id === 'fresh_water' || id === 'wood' || id === 'earth') {
         checkTutorialTrigger('click');
     }
+
+    // Game Over Modes Check (Extensions)
+    const techOver = localStorage.getItem('nature_science_ext_gameover_tech') === 'true';
+    const co2Over = localStorage.getItem('nature_science_ext_gameover_co2') === 'true';
+    if (techOver || co2Over) {
+        checkGameOverCondition(techOver, co2Over);
+    }
+}
+
+// Check for game-over conditions (Pollution / Apocalypse)
+function checkGameOverCondition(checkTech, checkCo2) {
+    if (checkTech) {
+        // 1. Hazardous items count
+        const dangerousItems = [
+            'sludge', 'smog', 'acid_rain', 'mutant', 'virus', 'bioweapon',
+            'nuclear_winter', 'ai_weapon', 'deepfake', 'cyber_attack', 'doomsday_clock'
+        ];
+
+        let dangerScore = 0;
+        dangerousItems.forEach(id => {
+            if (discovered.has(id)) dangerScore++;
+        });
+
+        // If discovered more than 6 dangerous items, Game Over
+        if (dangerScore >= 7) {
+            triggerGameOver("hazardous");
+            return;
+        }
+    }
+
+    if (checkCo2) {
+        // 2. CO2 Level Check (Threshold: 200)
+        const co2Count = inventoryCounts['carbon_dioxide'] || 0;
+        if (co2Count >= 200) {
+            triggerGameOver("co2");
+            return;
+        } else if (co2Count >= 150) {
+            if (Math.random() < 0.1) {
+                log("⚠️ **警告**: 二酸化炭素濃度が上昇しています。植物を植えるか、技術的な回収を行ってください！ (現在: " + co2Count + "/200)");
+            }
+        }
+    }
+}
+
+function triggerGameOver(reason) {
+    let title = "THE END OF CIVILIZATION";
+    let desc = "環境汚染、兵器の拡散、そして制御不能な技術の進歩により、文明は崩壊しました。";
+    let sub = "終末時計は深夜0時を打ちました。";
+
+    if (reason === "co2") {
+        title = "GLOBAL WARMING CRISIS";
+        desc = "二酸化炭素の排出を抑えられず、壊滅的な気候変動により文明は維持不能となりました。地球はもはや人類の住める場所ではありません。";
+        sub = "海面が上昇し、全ての都市が沈んでいきました。";
+    }
+
+    // Show a dramatic overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:black; z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#f44336; font-family:serif; text-align:center; animation: fadeInRed 2s;';
+    overlay.innerHTML = `
+        <h1 style="font-size:4rem; margin-bottom:20px; text-shadow:0 0 20px #f44336;">${title}</h1>
+        <p style="font-size:1.5rem; color:#fff; max-width:600px;">${desc}</p>
+        <p style="margin-top:30px; font-size:1.2rem; color:#888;">${sub}</p>
+        <button id="restart-after-death" style="margin-top:50px; padding:15px 30px; background:#f44336; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">新たな歴史を刻む</button>
+    `;
+    document.body.appendChild(overlay);
+
+    const restartBtn = document.getElementById('restart-after-death');
+    restartBtn.onclick = () => {
+        if (confirm('全ての記録を初期化し、原始時代からやり直しますか？')) {
+            // resetGameData内のconfirmをバイパスして直接リセット
+            localStorage.removeItem('nature_science_save');
+            localStorage.removeItem('nature_science_tutorial_step');
+            setTimeout(() => {
+                location.reload(true);
+            }, 100);
+        } else {
+            // キャンセルした場合はオーバーレイを外してゲームに戻る
+            overlay.remove();
+        }
+    };
 }
 
 function consumeItem(id, amount) {
@@ -5371,6 +5448,7 @@ function consumeItem(id, amount) {
 
         debouncedSaveGame(); // Optimized save
         renderInventory();
+        updateCO2Gauge(); // Ensure gauge updates on every removal
         return true;
     }
     return false;
@@ -5722,7 +5800,14 @@ function clearResult() {
     ui.result.parentElement.classList.remove('pop-anim');
 }
 
+let lastCraftTime = 0;
+const CRAFT_COOLDOWN = 350; // ms
+
 function executeCraft() {
+    const now = Date.now();
+    if (now - lastCraftTime < CRAFT_COOLDOWN) return; // Prevent spam
+    lastCraftTime = now;
+
     if (!slot1 || !slot2) {
         log("素材が足りません。（最低2つ必要）");
         return;
@@ -6759,14 +6844,15 @@ function updateStats() {
         if (ui.navShop && ui.navShop.style.display === 'none') {
             ui.navShop.style.display = 'block';
             if (!isLoading && !unlockedFeats.has('shop_unlock')) {
-                log("💰 【貨幣の発見】 タカラガイを見つけました！[交換所]がオープンしました！");
+                log("💰 【貨幣の発見】 タカラガイを見つけました！[交換所]がオープンしました。");
                 unlockedFeats.add('shop_unlock');
                 saveGame();
             }
         }
     }
 
-
+    // Refresh CO2 Gauge
+    updateCO2Gauge();
 
     updateNextGoalDisplay();
 
@@ -6824,6 +6910,39 @@ function updateStats() {
     });
 }
 
+// Update CO2 Gauge UI
+function updateCO2Gauge() {
+    const container = document.getElementById('co2-gauge-container');
+    if (!container) return;
+
+    const isEnabled = localStorage.getItem('nature_science_ext_gameover_co2') === 'true';
+    if (!isEnabled) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'block';
+    const co2Count = inventoryCounts['carbon_dioxide'] || 0;
+    const maxCo2 = 200;
+    const percent = Math.min(100, (co2Count / maxCo2) * 100);
+
+    const bar = document.getElementById('co2-gauge-bar');
+    const label = document.getElementById('co2-gauge-value');
+
+    if (bar) bar.style.width = `${percent}%`;
+    if (label) label.innerText = `${co2Count} / ${maxCo2}`;
+
+    // Danger colors
+    if (co2Count >= 150) {
+        container.style.background = 'rgba(244, 67, 54, 0.2)';
+        container.style.borderColor = 'rgba(244, 67, 54, 0.5)';
+    } else {
+        container.style.background = 'rgba(244, 67, 54, 0.1)';
+        container.style.borderColor = 'rgba(244, 67, 54, 0.2)';
+    }
+}
+
+
 function updateNextGoalDisplay() {
     const nextGoalEl = document.getElementById('next-civ-goal');
     if (!nextGoalEl) return;
@@ -6846,14 +6965,33 @@ function updateNextGoalDisplay() {
                 const emoji = triggerInfo.emoji;
                 const name = triggerInfo.name;
                 nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明`;
+
+                // Add right-click listener for roadmap
+                const isRoadmapEnabled = localStorage.getItem('nature_science_ext_roadmap') !== 'false';
+                nextGoalEl.title = isRoadmapEnabled ? "右クリックでレシピを確認" : "";
+                nextGoalEl.style.cursor = isRoadmapEnabled ? "help" : "default";
+                nextGoalEl.oncontextmenu = (e) => {
+                    if (localStorage.getItem('nature_science_ext_roadmap') === 'false') return;
+                    e.preventDefault();
+                    showRoadmap(nextLevel.trigger);
+                };
             } else {
                 nextGoalEl.innerHTML = `Lv.${nextLevel.level} 未知の技術`;
+                nextGoalEl.oncontextmenu = null;
+                nextGoalEl.title = "";
+                nextGoalEl.style.cursor = "default";
             }
         } else {
             nextGoalEl.innerText = `Lv.${nextLevel.level} 新たな時代へ`;
+            nextGoalEl.oncontextmenu = null;
+            nextGoalEl.title = "";
+            nextGoalEl.style.cursor = "default";
         }
     } else {
         nextGoalEl.innerText = "🏆 文明の頂点に到達";
+        nextGoalEl.oncontextmenu = null;
+        nextGoalEl.title = "";
+        nextGoalEl.style.cursor = "default";
     }
 }
 
@@ -7748,13 +7886,33 @@ function showLockedElementHint(id) {
         'uranium_ore': 'オーストラリア（赤い砂漠）',
         'seaweed': '海',
         'fish': '海',
-        'mercury': '洞窟',
         'copper_ore': '南米（アンデス山脈）',
-        'titanium_sponge': '月面'
+        'titanium_sponge': '月面',
+        'meteorite': '南極大陸',
+        'cowrie': 'フィールド（海）',
+        'vegetable': 'フィールド（森）',
+        'fossil': 'フィールド（大地）',
+        'wheat': '北米（大農園）・北海道（雪原）',
+        'shale_rock': '北米（油田）',
+        'tomato': '南米大陸（アンデス山脈）',
+        'salt': '南米大陸（ウユニ塩湖）',
+        'coffee_bean': '南アフリカ（サバンナ）',
+        'diamond': '南アフリカ（サバンナ）',
+        'martian_soil': '火星',
+        'dry_ice': '火星',
+        'permafrost': '火星',
+        'calcium_carbonate': '沖縄（サンゴ礁）',
+        'ice': '南極大陸・北海道（雪原）',
+        'penguin': '南極大陸',
+        'ice_core': '南極大陸',
+        'colossal_squid': '深海',
+        'deep_sea_fish': '深海',
+        'hydrothermal_vent': '深海',
+        'manganese_nodule': '深海'
     };
 
     // Simple list of basic gatherables (Japan/Field)
-    const basicGatherables = ['water', 'sun', 'earth', 'air', 'wood', 'shell', 'iron_ore', 'sand', 'grape', 'plant', 'stone', 'clay', 'fire'];
+    const basicGatherables = ['water', 'sun', 'earth', 'air', 'stone', 'sand', 'fresh_water'];
 
     if (locationMap[id]) {
         hint = `ヒント: 【${locationMap[id]}】周辺を探してみよう。`;
@@ -7923,11 +8081,15 @@ function showElementDetail(id) {
         'lightning', 'fresh_water', 'urine', 'scheelite', 'magnetite', 'galena', 'sphalerite', 'calcite',
         'diatomaceous_earth', 'olive', 'crude_oil', 'barite',
         'rubber_tree', 'sugarcane', 'spice', 'corn', 'potato', 'cacao', 'fluorite',
-        'seaweed', 'fish', 'mercury', 'brine', 'copper_ore',
-        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'pgm_ore', 'palladium', 'rhodium', 'platinum', 'iridium',
+        'seaweed', 'fish', 'brine', 'copper_ore',
+        'chromite', 'pentlandite', 'molybdenite', 'pyrochlore', 'rutile', 'pgm_ore', 'platinum', 'iridium',
         'bauxite', 'cobalt_ore', 'monazite', 'lithium_ore', 'uranium_ore',
         'titanium_sponge', 'flower', 'animal', 'tea_leaf', 'egg', 'cotton',
-        'bismuth_ore', 'antimony', 'stibnite', 'borax'
+        'bismuth_ore', 'antimony', 'stibnite', 'borax',
+        'meteorite', 'cowrie', 'vegetable', 'fossil', 'wheat', 'shale_rock', 'tomato',
+        'salt', 'coffee_bean', 'diamond', 'martian_soil', 'dry_ice', 'permafrost',
+        'calcium_carbonate', 'ice', 'penguin', 'ice_core',
+        'colossal_squid', 'deep_sea_fish', 'hydrothermal_vent', 'manganese_nodule'
     ];
 
     const locationMap = {
@@ -7955,22 +8117,41 @@ function showElementDetail(id) {
         'lithium_ore': 'オーストラリア（赤い砂漠）',
         'uranium_ore': 'オーストラリア（赤い砂漠）',
         'seaweed': 'フィールド（海）',
-
-        'mercury': 'フィールド（洞窟）',
         'copper_ore': '南米（アンデス山脈）',
         'titanium_sponge': '月面（クレーター）',
         'flower': 'フィールド（森）',
-        'animal': 'フィールド（森）',
+        'animal': 'フィールド（森）・北海道・北米',
         'tea_leaf': '中国（竹林）',
         'egg': 'フィールド（森）',
-        'cotton': '中国（ウイグル）',
+        'cotton': '中国（ウイグル）・北米（大農園）',
         'gold_ore': '鹿児島（金山）',
         'bismuth_ore': '南米大陸（ボリビア鉱山）',
         'antimony': '南米大陸（ボリビア鉱山）',
         'stibnite': '中国（五台山）',
         'borax': 'トルコ（アナトリア）',
         'scheelite': '中国（五台山）・ボリビア',
-        'cassiterite': 'フィールド（洞窟）・ボリビア'
+        'cassiterite': 'フィールド（洞窟）・ボリビア',
+        'meteorite': '南極大陸',
+        'cowrie': 'フィールド（海）',
+        'vegetable': 'フィールド（森）',
+        'fossil': 'フィールド（大地）',
+        'wheat': '北米（大農園）・北海道（雪原）',
+        'shale_rock': '北米（油田）',
+        'tomato': '南米大陸（アンデス山脈）',
+        'salt': '南米大陸（ウユニ塩湖）',
+        'coffee_bean': '南アフリカ（サバンナ）',
+        'diamond': '南アフリカ（サバンナ）',
+        'martian_soil': '火星',
+        'dry_ice': '火星',
+        'permafrost': '火星',
+        'calcium_carbonate': '沖縄（サンゴ礁）',
+        'ice': '南極大陸・北海道（雪原）',
+        'penguin': '南極大陸',
+        'ice_core': '南極大陸',
+        'colossal_squid': '深海',
+        'deep_sea_fish': '深海',
+        'hydrothermal_vent': '深海',
+        'manganese_nodule': '深海'
     };
 
     if (gatherables.includes(id)) {
@@ -7984,7 +8165,7 @@ function showElementDetail(id) {
     }
     // 3. Carbonization Facility?
     else if (['charcoal', 'wood_vinegar', 'coke', 'coal_tar', 'coal_gas', 'methanol', 'acetone', 'calcium_carbonate'].includes(id)) {
-        if (['methanol', 'acetone', 'calcium_carbonate'].includes(id) && !gatherables.includes(id)) {
+        if (['methanol', 'acetone', 'calcium_carbonate'].includes(id)) {
             recipeHtml += `<p>入手方法：乾留所で「酢酸カルシウム」を乾留して抽出する（または合成）</p>`;
         } else {
             recipeHtml += `<p>入手方法：乾留所で木材や石炭を蒸し焼きにする</p>`;
@@ -8112,13 +8293,73 @@ function showElementDetail(id) {
         usagesHtml = `<div style="margin-top:15px; padding-top:10px; border-top:1px dashed #ccc;"><strong>${getText('uses')}</strong><div style="margin-top:5px; display:flex; flex-wrap:wrap; gap:2px;">${uniqueUsages.join('')}</div></div>`;
     }
 
+    // --- Navigation Logic ---
+    // Get all discovered IDs to determine Prev/Next
+    let discoveredIds = Object.keys(ELEMENTS).filter(k => discovered.has(k));
+
+    // Sort to match encyclopedia view
+    if (typeof currentSortMode !== 'undefined' && currentSortMode === 'emoji') {
+        discoveredIds.sort((a, b) => {
+            const emojiA = ELEMENTS[a].emoji;
+            const emojiB = ELEMENTS[b].emoji;
+            return emojiA.localeCompare(emojiB, 'en', { sensitivity: 'base' });
+        });
+    } else {
+        discoveredIds.sort();
+    }
+
+    const currentIndex = discoveredIds.indexOf(id);
+    const prevId = currentIndex > 0 ? discoveredIds[currentIndex - 1] : null;
+    const nextId = currentIndex < discoveredIds.length - 1 ? discoveredIds[currentIndex + 1] : null;
+
+    // === Keyboard Navigation ===
+    if (showElementDetail.keyHandler) {
+        document.removeEventListener('keydown', showElementDetail.keyHandler);
+        showElementDetail.keyHandler = null;
+    }
+
+    showElementDetail.keyHandler = (e) => {
+        // Validation: If modal is closed, remove listener
+        if (ui.modal.style.display === 'none') {
+            document.removeEventListener('keydown', showElementDetail.keyHandler);
+            showElementDetail.keyHandler = null;
+            return;
+        }
+
+        if (e.key === 'ArrowLeft' && prevId) {
+            showElementDetail(prevId);
+        } else if (e.key === 'ArrowRight' && nextId) {
+            showElementDetail(nextId);
+        }
+    };
+    document.addEventListener('keydown', showElementDetail.keyHandler);
+
+    const navBtnsStyle = "background:none; border:none; cursor:pointer; font-size:2rem; color:#555; padding:0 10px; min-width: 50px;";
+
+    // Header with Flexbox (Button - Emoji - Button)
+    const headerHtml = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="flex:0 0 50px; text-align:left;">
+                <button id="detail-prev-btn" style="${navBtnsStyle} ${!prevId ? 'visibility:hidden;' : ''}" onclick="showElementDetail('${prevId}')">❮</button>
+            </div>
+            
+            <div class="element-emoji" style="flex:1; font-size:4rem; overflow: visible; width: auto; text-align:center;">${data.emoji}</div>
+            
+            <div style="flex:0 0 50px; text-align:right;">
+                <button id="detail-next-btn" style="${navBtnsStyle} ${!nextId ? 'visibility:hidden;' : ''}" onclick="showElementDetail('${nextId}')">❯</button>
+            </div>
+        </div>
+    `;
+
     ui.modalBody.innerHTML = `
-        <div class="element-emoji" style="font-size:4rem; margin-bottom:10px; overflow: visible; width: auto;">${data.emoji}</div>
-        <h2>${getItemName(id)}</h2>
-        <p style="margin-bottom:20px;">${getItemDesc(id)}</p>
-        <div style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px;">
-            ${recipeHtml}
-            ${usagesHtml}
+        <div style="position:relative;">
+            ${headerHtml}
+            <h2>${getItemName(id)}</h2>
+            <p style="margin-bottom:20px;">${getItemDesc(id)}</p>
+            <div style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px;">
+                ${recipeHtml}
+                ${usagesHtml}
+            </div>
         </div>
     `;
     ui.modal.style.display = 'flex';
@@ -8332,6 +8573,12 @@ const TUTORIAL_STEPS = [
         id: 'lock_feature',
         text: '<h3>便利なロック機能</h3><p>同じアイテムを連続で作りたいときは、スロットの下にある<b>「🔓ロックボタン」</b>を使いましょう。<br>アイテムが固定され、連続合成が楽になります。</p>',
         target: '#lock-btn-1',
+        trigger: 'next_btn'
+    },
+    {
+        id: 'roadmap',
+        text: '<h3>🔍 道標：ロードマップ</h3><p>画面左上の<b>「次の目標」</b>を<b>右クリック</b>すると、作り方のヒント（ロードマップ）が表示されます。<br>何を作ればいいか分からなくなったら活用しましょう！</p>',
+        target: '#next-civ-goal',
         trigger: 'next_btn'
     },
     {
@@ -8724,58 +8971,7 @@ function processArcCandidate(target) {
 // renderArcRecipes and craftArcRecipe are no longer needed
 function renderArcRecipes() { }
 
-function setupSettingsUI() {
-    const navSettings = document.getElementById('nav-settings');
-    const modal = document.getElementById('settings-modal');
-    const closeBtn = document.getElementById('close-settings-modal');
-
-    // Open Modal
-    if (navSettings && modal) {
-        navSettings.addEventListener('click', () => {
-            modal.style.display = 'flex';
-        });
-    }
-
-    // Close Modal
-    if (closeBtn && modal) {
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    }
-
-    // Close on outside click
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    }
-    // Restart Tutorial
-    const btnRestartTutorial = document.getElementById('btn-restart-tutorial');
-    if (btnRestartTutorial) {
-        btnRestartTutorial.onclick = () => {
-            if (confirm("チュートリアルを最初から開始しますか？")) {
-                currentTutorialStep = 0;
-                tutorialActive = true;
-                localStorage.setItem('nature_science_tutorial_step', 0);
-
-                if (modal) modal.style.display = 'none';
-
-                // Reset UI for tutorial context
-                switchView('field');
-
-                // Ensure tutorial UI exists
-                if (!document.getElementById('tutorial-box')) {
-                    createTutorialUI();
-                }
-
-                showTutorialStep(0);
-                log("チュートリアルを再開しました。");
-            }
-        };
-    }
-}
+// setupSettingsUI は末尾（9912行付近）で定義済み。古い重複定義を削除。
 // === Simple Map UI Implementation (List based) ===
 function setupMapUI() {
     const mapModal = document.getElementById('map-modal');
@@ -9911,7 +10107,469 @@ function notifyAchievement(ach) {
 
 
 
+// === Settings UI (完全動的生成版) ===
+function setupSettingsUI() {
+    const settingsBtn = document.getElementById('nav-settings');
+    if (!settingsBtn) return;
+
+    // 設定ボタンクリック時の処理
+    settingsBtn.onclick = (e) => {
+        e.stopPropagation();
+
+        // 既存のモーダルがあれば削除（重複防止）
+        const oldModal = document.getElementById('settings-modal');
+        if (oldModal) oldModal.remove();
+
+        // モーダルを新規作成（CSSクラスを使わずインラインスタイルで制御）
+        const settingsModal = document.createElement('div');
+        settingsModal.id = 'settings-modal';
+        // z-indexを2001にしてログインボーナス(2000)より上、または同等に
+        settingsModal.style.cssText = 'display:flex; align-items:center; justify-content:center; z-index:2001; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); backdrop-filter:blur(5px);';
+
+        settingsModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width:450px; width:95%; max-height:90vh; overflow-y:auto; background:#f9f9f9; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.2); padding:25px; animation:popIn 0.3s; font-family:sans-serif;">
+                <div style="display:flex; justify-content:center; align-items:center; position:relative; margin-bottom:20px;">
+                    <h2 style="margin:0; color:#2e7d32; font-size:1.5rem; display:flex; align-items:center; gap:8px;">⚙️ 設定</h2>
+                    <span id="close-settings-dyn" style="cursor:pointer; font-size:1.8rem; color:#888; position:absolute; right:0; top:-5px; line-height:1;">&times;</span>
+                </div>
+
+                <div style="text-align:left; display:flex; flex-direction:column; gap:20px;">
+                    <!-- データ管理 -->
+                    <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#555; display:flex; align-items:center; gap:5px;">💾 データ管理</h3>
+                        <div style="display:flex; gap:10px; margin-bottom:10px;">
+                            <button id="settings-export-btn" style="flex:1; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; color:#333; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">📤 保存</button>
+                            <button id="settings-import-btn" style="flex:1; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; color:#333; font-weight:bold; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">📥 読込</button>
+                        </div>
+                        <div style="text-align:center;">
+                            <button id="settings-delete-btn" style="background:none; border:none; color:#e53935; text-decoration:underline; font-size:0.8rem; cursor:pointer; opacity:0.7;">🗑️ データを削除する</button>
+                        </div>
+                    </div>
+
+                    <!-- 表示設定 -->
+                    <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#555; display:flex; align-items:center; gap:5px;">🎨 表示設定</h3>
+                        <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+                            <label style="flex:1; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05); min-width:120px;">
+                                <input type="checkbox" id="settings-chk-lite" style="accent-color:#ff9800;">
+                                <span style="font-weight:bold; color:#555;">⚡ 軽量化</span>
+                            </label>
+                            <label style="flex:1; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05); min-width:120px;">
+                                <input type="checkbox" id="settings-chk-dark" style="accent-color:#212121;">
+                                <span style="font-weight:bold; color:#555;">🌙 ダーク</span>
+                            </label>
+                            <label style="width:100%; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+                                <input type="checkbox" id="settings-chk-glass" style="accent-color:#00e5ff;">
+                                <span style="font-weight:bold; color:#555;">🥃 ガラス(β版)</span>
+                            </label>
+                        </div>
+                        <div style="text-align:center; font-size:0.8rem; color:#999;">
+                            レイアウト: <span style="font-weight:bold; color:#555;">Auto</span> / PC / Mob
+                        </div>
+                    </div>
+
+                    <!-- 拡張機能 (Extensions) -->
+                    <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#555; display:flex; align-items:center; gap:5px;">🧩 拡張機能</h3>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
+                                <input type="checkbox" id="settings-ext-debug" style="accent-color:#4caf50;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#333;">デバッグ情報の表示</span>
+                                    <span style="font-size:0.7rem; color:#999;">アイテムIDなどの詳細情報を表示します。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
+                                <input type="checkbox" id="settings-ext-anim" style="accent-color:#4caf50;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#333;">アニメーションの短縮</span>
+                                    <span style="font-size:0.7rem; color:#999;">合成時などの演出時間を短縮します。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
+                                <input type="checkbox" id="settings-ext-roadmap" style="accent-color:#4caf50;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#333;">ロードマップ機能</span>
+                                    <span style="font-size:0.7rem; color:#999;">目標を右クリックして逆引きガイドを表示します。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
+                                <input type="checkbox" id="settings-ext-gameover-tech" style="accent-color:#f44336;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#f44336;">終末リスク (負の技術)</span>
+                                    <span style="font-size:0.7rem; color:#999;">核や兵器、汚染物質の発見が文明崩壊を招きます。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px;">
+                                <input type="checkbox" id="settings-ext-gameover-co2" style="accent-color:#ff5722;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#ff5722;">気候、危機 (CO2制限)</span>
+                                    <span style="font-size:0.7rem; color:#999;">二酸化炭素の過剰な蓄積で、地球が居住不能になります。</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ガイド -->
+                    <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#555; display:flex; align-items:center; gap:5px;">🎓 ガイド</h3>
+                        <button id="settings-restart-tutorial" style="width:100%; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; color:#333; font-weight:bold; cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.05);">チュートリアルを再開</button>
+                    </div>
+
+                    <!-- メモ -->
+                    <div style="background:#fff3e0; padding:15px; border-radius:15px; border:1px dashed #ffb74d;">
+                        <h3 style="margin:0 0 5px 0; font-size:0.9rem; color:#f57c00; display:flex; align-items:center; gap:5px;">📝 開発者メモ</h3>
+                        <p style="margin:0; font-size:0.8rem; color:#5d4037; line-height:1.4;">ログインボーナスを追加しました。ぜひ毎日来てもらえると嬉しいです😊</p>
+                    </div>
+
+                    <p style="font-size:0.75rem; color:#ccc; margin-top:10px; text-align:center;">Natural & Science v1.4 (Glass)</p>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(settingsModal);
+
+        // --- イベントバインド ---
+
+        // 閉じるボタン
+        const closeBtn = document.getElementById('close-settings-dyn');
+        if (closeBtn) {
+            closeBtn.onclick = () => settingsModal.remove();
+        }
+
+        // 背景クリックで閉じる
+        settingsModal.addEventListener('click', (e) => {
+            if (e.target === settingsModal) settingsModal.remove();
+        });
+
+        // データ管理ボタン
+        const expBtn = document.getElementById('settings-export-btn');
+        if (expBtn && typeof exportSaveData === 'function') expBtn.onclick = exportSaveData;
+
+        const impBtn = document.getElementById('settings-import-btn');
+        if (impBtn && typeof importSaveData === 'function') impBtn.onclick = importSaveData;
+
+        const delBtn = document.getElementById('settings-delete-btn');
+        if (delBtn && typeof resetGameData === 'function') delBtn.onclick = resetGameData;
+
+        // 軽量モード
+        const chkLite = document.getElementById('settings-chk-lite');
+        if (chkLite) {
+            if (typeof isLiteMode !== 'undefined') chkLite.checked = isLiteMode;
+            chkLite.addEventListener('change', (e) => {
+                if (typeof toggleLiteMode === 'function') toggleLiteMode(e.target.checked);
+            });
+        }
+
+        // チュートリアル再開
+        const tutBtn = document.getElementById('settings-restart-tutorial');
+        if (tutBtn) tutBtn.onclick = () => {
+            if (confirm('チュートリアルを再開しますか？')) {
+                localStorage.removeItem('nature_science_tutorial_step');
+                location.reload();
+            }
+        };
+
+        // ダークモード設定
+        const chkDark = document.getElementById('settings-chk-dark');
+        if (chkDark) {
+            // 現在の状態を反映
+            const isDarkMode = localStorage.getItem('nature_science_dark_mode') === 'true';
+            chkDark.checked = isDarkMode;
+            if (isDarkMode) document.body.classList.add('dark-mode');
+
+            chkDark.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('nature_science_dark_mode', 'true');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('nature_science_dark_mode', 'false');
+                }
+            });
+        }
+
+        // ガラスモード設定
+        const chkGlass = document.getElementById('settings-chk-glass');
+        if (chkGlass) {
+            const isGlass = localStorage.getItem('nature_science_glass_mode') === 'true';
+            chkGlass.checked = isGlass;
+            if (isGlass) document.body.classList.add('glass-mode');
+
+            chkGlass.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.body.classList.add('glass-mode');
+                    localStorage.setItem('nature_science_glass_mode', 'true');
+                } else {
+                    document.body.classList.remove('glass-mode');
+                    localStorage.setItem('nature_science_glass_mode', 'false');
+                }
+            });
+        }
+
+        // 拡張機能：デバッグ
+        const extDebug = document.getElementById('settings-ext-debug');
+        if (extDebug) {
+            extDebug.checked = localStorage.getItem('nature_science_ext_debug') === 'true';
+            extDebug.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_debug', e.target.checked);
+                log(e.target.checked ? "デバッグ情報を有効にしました。" : "デバッグ情報を無効にしました。");
+            });
+        }
+
+        // 拡張機能：アニメーション短縮
+        const extAnim = document.getElementById('settings-ext-anim');
+        if (extAnim) {
+            extAnim.checked = localStorage.getItem('nature_science_ext_anim') === 'true';
+            extAnim.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_anim', e.target.checked);
+                log(e.target.checked ? "アニメーションを短縮しました。" : "アニメーションを通常に戻しました。");
+            });
+        }
+
+        // 拡張機能：ロードマップ
+        const extRoadmap = document.getElementById('settings-ext-roadmap');
+        if (extRoadmap) {
+            const isRoadmapEnabled = localStorage.getItem('nature_science_ext_roadmap') !== 'false';
+            extRoadmap.checked = isRoadmapEnabled;
+            extRoadmap.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_roadmap', e.target.checked);
+                log(e.target.checked ? "ロードマップ機能を有効にしました。" : "ロードマップ機能を無効にしました。");
+                updateNextGoalDisplay(); // 即座に反映
+            });
+        }
+
+        // 拡張機能：ゲームオーバー（技術）
+        const extGOTech = document.getElementById('settings-ext-gameover-tech');
+        if (extGOTech) {
+            extGOTech.checked = localStorage.getItem('nature_science_ext_gameover_tech') === 'true';
+            extGOTech.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_gameover_tech', e.target.checked);
+                log(e.target.checked ? "負の技術による終末リスクを有効にしました。" : "終末リスクを無効にしました。");
+            });
+        }
+
+        // 拡張機能：ゲームオーバー（CO2）
+        const extGOCo2 = document.getElementById('settings-ext-gameover-co2');
+        if (extGOCo2) {
+            extGOCo2.checked = localStorage.getItem('nature_science_ext_gameover_co2') === 'true';
+            extGOCo2.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_gameover_co2', e.target.checked);
+                log(e.target.checked ? "二酸化炭素による気候危機モードを有効にしました。" : "気候危機モードを無効にしました。");
+                updateCO2Gauge(); // 視認性を即座に更新
+            });
+        }
+    };
+}
+
 window.onload = function () {
+    // ダークモード復元
+    if (localStorage.getItem('nature_science_dark_mode') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+    // ガラスモード復元
+    if (localStorage.getItem('nature_science_glass_mode') === 'true') {
+        document.body.classList.add('glass-mode');
+    }
+    // CO2ゲージ初期化
+    updateCO2Gauge();
     init();
     initTutorial();
 };
+
+
+
+
+// === Roadmap Feature ===
+function showRoadmap(targetId) {
+    var target = ELEMENTS[targetId];
+    if (!target) return;
+
+    var modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.style.zIndex = '10000';
+
+    var cClass = 'modal-content glass-panel';
+    var h = '';
+    h += '<div class="' + cClass + '" style="max-width:98%;width:98%;height:90vh;display:flex;flex-direction:column;position:relative;padding:20px;">';
+    h += '<button class="close-modal-btn" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:inherit;z-index:100;">×</button>';
+    h += '<div style="flex-shrink:0;">';
+    h += '<h2 style="text-align:center;border-bottom:1px solid rgba(100,100,100,0.1);padding-bottom:10px;margin-bottom:10px;">';
+    h += '<span style="font-size:2rem;vertical-align:middle;">' + target.emoji + '</span> ';
+    h += '<span style="vertical-align:middle;">' + target.name + ' ロードマップ</span>';
+    h += '</h2>';
+    h += '<div style="display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:10px;background:rgba(0,0,0,0.05);padding:5px;border-radius:30px;width:fit-content;margin-left:auto;margin-right:auto;">';
+    h += '<button id="rm-zoom-out" style="width:30px;height:30px;border-radius:50%;border:1px solid #ccc;background:white;cursor:pointer;">-</button>';
+    h += '<span id="rm-zoom-val" style="min-width:40px;text-align:center;font-size:0.9rem;">100%</span>';
+    h += '<button id="rm-zoom-in" style="width:30px;height:30px;border-radius:50%;border:1px solid #ccc;background:white;cursor:pointer;">+</button>';
+    h += '<button id="rm-zoom-reset" style="margin-left:5px;padding:2px 8px;border-radius:4px;border:1px solid #ccc;background:white;cursor:pointer;font-size:0.8rem;">Reset</button>';
+    h += '</div>';
+    h += '</div>';
+    h += '<div style="flex-grow:1;overflow:hidden;border:1px solid rgba(0,0,0,0.1);border-radius:8px;background:rgba(255,255,255,0.02);position:relative;">';
+    h += '<div id="roadmap-scroll-area" style="width:100%;height:100%;overflow:auto;">';
+    h += '<div id="roadmap-tree-container" class="roadmap-tree" style="transform-origin:top center;padding:50px;">';
+    h += '読み込み中...';
+    h += '</div></div></div>';
+    h += '<div style="text-align:center;margin-top:10px;font-size:0.85rem;color:#888;flex-shrink:0;">';
+    h += '※ ドラッグで移動可能（スクロールバー使用）';
+    h += '</div></div>';
+
+    modal.innerHTML = h;
+    document.body.appendChild(modal);
+
+    var zoomLevel = 1.0;
+    var treeContainer = modal.querySelector('#roadmap-tree-container');
+    var zoomVal = modal.querySelector('#rm-zoom-val');
+
+    // Drag Scroll Logic
+    var scrollArea = modal.querySelector('#roadmap-scroll-area');
+    scrollArea.style.cursor = 'grab';
+    var isDown = false;
+    var startX, startY, scrollLeft, scrollTop;
+
+    scrollArea.addEventListener('mousedown', function (e) {
+        isDown = true;
+        scrollArea.style.cursor = 'grabbing';
+        startX = e.pageX - scrollArea.offsetLeft;
+        startY = e.pageY - scrollArea.offsetTop;
+        scrollLeft = scrollArea.scrollLeft;
+        scrollTop = scrollArea.scrollTop;
+    });
+    scrollArea.addEventListener('mouseleave', function () {
+        isDown = false;
+        scrollArea.style.cursor = 'grab';
+    });
+    scrollArea.addEventListener('mouseup', function () {
+        isDown = false;
+        scrollArea.style.cursor = 'grab';
+    });
+    scrollArea.addEventListener('mousemove', function (e) {
+        if (!isDown) return;
+        e.preventDefault();
+        var x = e.pageX - scrollArea.offsetLeft;
+        var y = e.pageY - scrollArea.offsetTop;
+        var walkX = (x - startX); // scroll-fast
+        var walkY = (y - startY);
+        scrollArea.scrollLeft = scrollLeft - walkX;
+        scrollArea.scrollTop = scrollTop - walkY;
+    });
+
+    function updateZoom() {
+        treeContainer.style.transform = 'scale(' + zoomLevel + ')';
+        zoomVal.innerText = Math.round(zoomLevel * 100) + '%';
+    }
+
+    modal.querySelector('#rm-zoom-in').onclick = function () { zoomLevel = Math.min(zoomLevel + 0.1, 3.0); updateZoom(); };
+    modal.querySelector('#rm-zoom-out').onclick = function () { zoomLevel = Math.max(zoomLevel - 0.1, 0.2); updateZoom(); };
+    modal.querySelector('#rm-zoom-reset').onclick = function () { zoomLevel = 1.0; updateZoom(); };
+
+    modal.querySelector('.close-modal-btn').onclick = function () { modal.remove(); };
+    modal.onclick = function (e) { if (e.target === modal) modal.remove(); };
+    modal.oncontextmenu = function (e) { e.preventDefault(); modal.remove(); };
+
+    var treeHtml = '<ul>' + buildRecipeTreeHtml(targetId, 0, true) + '</ul>';
+    treeContainer.innerHTML = treeHtml;
+}
+
+function buildRecipeTreeHtml(itemId, depth, isRoot) {
+    var item = ELEMENTS[itemId];
+    if (!item) return '<li><span style="color:red;">Unknown: ' + itemId + '</span></li>';
+
+    var isDiscovered = discovered.has(itemId);
+    var statusClass = isDiscovered ? 'discovered' : 'undiscovered';
+
+    var displayName = item.name;
+    var displayEmoji = item.emoji;
+    if (!isDiscovered && !isRoot) { displayName = '？？？'; displayEmoji = '🔒'; }
+
+    var html = '<li class="' + statusClass + '">';
+    html += '<div class="node-content">';
+    html += '<span class="node-icon">' + displayEmoji + '</span>';
+    html += '<span class="node-name">' + displayName + '</span>';
+    html += '</div>';
+
+
+    // Cut off the tree if this item is already discovered (and not the root target)
+    if (!isRoot && isDiscovered) { return html + '</li>'; }
+
+    if (depth > 6) { return html + '</li>'; }
+
+    var ingredients = findIngredientsFor(itemId);
+
+    if (ingredients && ingredients.length > 0) {
+        html += '<ul>';
+        for (var i = 0; i < ingredients.length; i++) {
+            html += buildRecipeTreeHtml(ingredients[i], depth + 1, false);
+        }
+        html += '</ul>';
+    }
+
+    html += '</li>';
+    return html;
+}
+
+function findIngredientsFor(targetId) {
+    // 1. Special Processes (Refining, Carbonization, Distillation, Electric Refining)
+    // Priority: Special recipes often represent the primary industrial method.
+    var special = {
+        // Refining (Smelting)
+        'silver': ['noble_lead', 'ash_cupel', 'charcoal'],
+        'lead': ['lead_oxide', 'charcoal'],
+        'manganese': ['manganese_monoxide', 'charcoal'],
+        'tin': ['cassiterite', 'charcoal'],
+        'iron': ['iron_ore', 'charcoal', 'fire', 'earthenware'], // Representative
+        'mercury': ['cinnabar', 'charcoal'],
+        'bismuth': ['bismuth_oxide', 'charcoal'],
+
+        // Carbonization (Dry Distillation)
+        'coke': ['coal', 'fire', 'earthenware'],
+        'coal_tar': ['coal', 'fire', 'earthenware'],
+        'coal_gas': ['coal', 'fire', 'earthenware'],
+        'charcoal': ['wood', 'fire', 'earthenware'],
+        'wood_vinegar': ['wood', 'fire', 'earthenware'],
+        'acetone': ['calcium_acetate', 'fire', 'earthenware'],
+        'calcium_carbonate': ['calcium_acetate', 'fire', 'earthenware'],
+
+        // Distillation
+        'fresh_water': ['water', 'fire', 'earthenware'],
+        'salt': ['water', 'fire', 'earthenware'],
+        'alcohol': ['wine', 'fire', 'distillation_tower'],
+        'methanol': ['calcium_acetate', 'distillation_tower'],
+        'light_oil': ['coal_tar', 'distillation_tower'],
+        'middle_oil': ['coal_tar', 'distillation_tower'],
+        'heavy_oil': ['coal_tar', 'distillation_tower'],
+        'anthracene_oil': ['coal_tar', 'distillation_tower'],
+        'pitch': ['coal_tar', 'distillation_tower'],
+        'phenol': ['crude_phenol', 'distillation_tower'],
+
+        // Electric Refining
+        'aluminum': ['alumina', 'cryolite', 'electricity', 'carbon_rod'],
+        'sodium': ['sodium_hydroxide', 'electricity', 'iron_rod'],
+        'magnesium': ['magnesium_chloride', 'electricity', 'carbon_rod'],
+        'calcium': ['calcium_chloride', 'electricity', 'carbon_rod'],
+        'potassium': ['potassium_hydroxide', 'electricity', 'iron_rod'],
+        'zinc': ['zinc_sulfate', 'sulfuric_acid', 'electricity'],
+
+        // Arc Furnace (Approximate)
+        'titanium': ['titanium_tetrachloride', 'magnesium', 'electricity'],
+        'silicon': ['silica', 'coke', 'electricity'],
+        'phosphorus': ['calcium_phosphate', 'silica', 'coke', 'electricity'],
+        'calcium_carbide': ['lime', 'coke', 'electricity'],
+        'graphite': ['coke', 'electricity']
+    };
+
+    if (special[targetId]) {
+        return special[targetId];
+    }
+
+    // 2. Regular Recipes
+    for (var key in NORMALIZED_RECIPES) {
+        if (NORMALIZED_RECIPES.hasOwnProperty(key)) {
+            var val = NORMALIZED_RECIPES[key];
+            if (val === targetId) return key.split('+');
+            if (Array.isArray(val) && val.includes(targetId)) return key.split('+');
+        }
+    }
+
+    return null;
+}

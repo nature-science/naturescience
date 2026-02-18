@@ -56,6 +56,21 @@
                     設定</button>
             </div>
 
+            <!-- CO2 Level Gauge (Extension) -->
+            <div id="co2-gauge-container"
+                style="display: none; margin-top: 20px; padding: 10px; background: rgba(244, 67, 54, 0.1); border-radius: 12px; border: 1px solid rgba(244, 67, 54, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #d32f2f;">☁️ CO2 濃度</span>
+                    <span id="co2-gauge-value" style="font-size: 0.8rem; font-weight: bold; color: #333;">0 / 200</span>
+                </div>
+                <div
+                    style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                    <div id="co2-gauge-bar"
+                        style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff9800, #f44336); transition: width 0.3s ease;">
+                    </div>
+                </div>
+            </div>
+
             <div id="message-log" class="message-log"></div>
         </aside>
 
@@ -722,6 +737,53 @@
                 </div>
 
                 <p style="font-size: 0.75rem; color: #aaa; margin-top: 30px;">Natural & Science v1.3</p>
+            </div>
+        </div>
+
+        <!-- Settings Modal (New) -->
+        <div id="settings-modal" class="modal-overlay"
+            style="display: none; align-items: center; justify-content: center; z-index: 2000; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);">
+            <div class="modal-content glass-panel"
+                style="max-width: 600px; width: 95%; max-height: 90vh; overflow-y: auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); padding: 20px;">
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">
+                    <h2 style="margin: 0; color: #333;">⚙️ 設定</h2>
+                    <span id="close-settings" style="cursor: pointer; font-size: 2rem; color: #888;">&times;</span>
+                </div>
+
+                <div style="text-align: left;">
+                    <div style="margin-bottom: 25px;">
+                        <h3
+                            style="color: #555; border-left: 4px solid #2196f3; padding-left: 10px; margin-bottom: 15px;">
+                            データ管理</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button id="export-save-btn" class="action-btn"
+                                style="background: #2196f3; color: white;">📤 書き出し</button>
+                            <button id="import-save-btn" class="action-btn"
+                                style="background: #ff9800; color: white;">📥 読み込み</button>
+                            <button id="delete-save-btn" class="action-btn"
+                                style="background: #f44336; color: white;">🗑️ 全削除</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 25px;">
+                        <h3
+                            style="color: #555; border-left: 4px solid #4caf50; padding-left: 10px; margin-bottom: 15px;">
+                            表示設定</h3>
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                <input type="checkbox" id="chk-lite-mode">
+                                <span style="font-weight: bold;">軽量モード</span>
+                            </label>
+                            <p style="font-size: 0.8rem; color: #888; margin-left: 25px;">アニメーションを減らして動作を軽くします。</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 10px;">
+                        <button id="btn-restart-tutorial-settings" class="action-btn small"
+                            style="width: 100%; background: #eee; color: #555;">チュートリアルを再開</button>
+                    </div>
+                </div>
             </div>
         </div>
 
