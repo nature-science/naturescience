@@ -1862,11 +1862,20 @@ html body.dark-mode section {
     box-shadow: none !important;
 }
 
-html body.dark-mode input[type="text"],
-html body.dark-mode button.text-btn {
+html body.dark-mode input[type="text"] {
     background: rgba(255, 255, 255, 0.1) !important;
     color: #eee !important;
     border: 1px solid #555 !important;
+}
+
+html body.dark-mode button.text-btn {
+    background: transparent !important;
+    color: #aaa !important;
+    border: none !important;
+}
+
+html body.dark-mode button.text-btn:hover {
+    color: #fff !important;
 }
 
 html body.dark-mode h1,
@@ -2299,11 +2308,12 @@ body.glass-mode .element-slot.result.filled {
     }
 }
 
-/* --- Roadmap Tree (Org Chart Style) --- */
+/* --- Roadmap Tree (Org Chart Style - Inverted: ingredients on top, goal on bottom) --- */
 .roadmap-tree {
     text-align: center;
-    padding-bottom: 20px;
-    display: block;
+    padding-top: 40px;
+    /* Space for top connectors */
+    display: inline-block;
     width: max-content;
     min-width: 100%;
     margin: 0 auto;
@@ -2312,39 +2322,54 @@ body.glass-mode .element-slot.result.filled {
 
 .roadmap-tree ul {
     padding-top: 20px;
+    padding-bottom: 0;
+    /* Remove bottom padding to connect lines */
     position: relative;
     transition: all 0.5s;
     display: flex;
     justify-content: center;
+    align-items: stretch;
+    /* Allow siblings to stretch so top/bottom align perfectly */
     margin: 0;
     padding-left: 0;
 }
 
+.roadmap-tree li>ul {
+    flex-grow: 1;
+}
+
 .roadmap-tree li {
-    float: left;
+    /* Use flex column-reverse to put children (ul) ABOVE the parent node content */
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    /* Pack to bottom */
+    align-items: center;
+    gap: 20px;
+
     text-align: center;
     list-style-type: none;
     position: relative;
-    padding: 20px 5px 0 5px;
+    padding: 0 5px 20px 5px;
     transition: all 0.5s;
 }
 
-/* Lines */
+/* Lines connecting sibling nodes */
 .roadmap-tree li::before,
 .roadmap-tree li::after {
     content: '';
     position: absolute;
-    top: 0;
-    right: 50%;
-    border-top: 2px solid #ccc;
-    width: 50%;
+    bottom: 0;
+    right: calc(50% - 1px);
+    border-bottom: 2px solid #ccc;
+    width: calc(50% + 1px);
     height: 20px;
     z-index: 0;
 }
 
 .roadmap-tree li::after {
     right: auto;
-    left: 50%;
+    left: calc(50% - 1px);
     border-left: 2px solid #ccc;
 }
 
@@ -2355,7 +2380,7 @@ body.glass-mode .element-slot.result.filled {
 }
 
 .roadmap-tree li:only-child {
-    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .roadmap-tree li:first-child::before,
@@ -2365,24 +2390,26 @@ body.glass-mode .element-slot.result.filled {
 
 .roadmap-tree li:last-child::before {
     border-right: 2px solid #ccc;
-    border-radius: 0 5px 0 0;
+    border-radius: 0 0 5px 0;
 }
 
 .roadmap-tree li:first-child::after {
-    border-radius: 5px 0 0 0;
+    border-radius: 0 0 0 5px;
 }
 
-/* Vertical connector from parent to children ul */
+/* Vertical connector from children group (UL) down to parent node */
 .roadmap-tree ul ul::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: 100%;
     left: 50%;
     border-left: 2px solid #ccc;
     width: 0;
-    height: 20px;
+    height: 22px;
     transform: translateX(-50%);
+    z-index: 1;
 }
+
 
 /* Node Style */
 .roadmap-tree .node-content {
@@ -2515,4 +2542,189 @@ html body.dark-mode .roadmap-tree li.undiscovered .node-content {
 .nature-scene {
     margin: 0 auto;
     margin-bottom: auto;
+}
+
+/* --- Timeline UI for Civilization History --- */
+.timeline-container {
+    position: relative;
+    padding: 20px 0;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 4px;
+    background: linear-gradient(to bottom, #81c784, #ddd);
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 55px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUpFade 0.5s ease forwards;
+}
+
+@keyframes slideUpFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-icon {
+    position: absolute;
+    left: 3px;
+    top: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.timeline-item.reached .timeline-icon {
+    border-color: #4caf50;
+    background: #e8f5e9;
+}
+
+.timeline-item.current .timeline-icon {
+    border-color: #ff9800;
+    background: #fff3e0;
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(255, 152, 0, 0.4);
+}
+
+.timeline-content {
+    background: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.timeline-item.reached .timeline-content {
+    border-left: 4px solid #4caf50;
+}
+
+.timeline-item.current .timeline-content {
+    border-left: 5px solid #ff9800;
+    box-shadow: 0 4px 20px rgba(255, 152, 0, 0.15);
+    background: #fffcf5;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.timeline-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-year {
+    font-size: 0.85rem;
+    color: #888;
+    background: #f5f5f5;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-family: monospace;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.timeline-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.timeline-item.locked .timeline-content {
+    background: #fafafa;
+    border-style: dashed;
+    border-color: #ccc;
+}
+
+.timeline-item.locked .timeline-title {
+    color: #999;
+}
+
+/* Dark Mode Adjustments */
+body.dark-mode .timeline-container::before {
+    background: linear-gradient(to bottom, #4caf50, #444);
+}
+
+body.dark-mode .timeline-icon {
+    background: #252525;
+    border-color: #444;
+}
+
+body.dark-mode .timeline-item.reached .timeline-icon {
+    background: #1b5e20;
+    border-color: #4caf50;
+}
+
+body.dark-mode .timeline-item.current .timeline-icon {
+    background: #e65100;
+    border-color: #ffb74d;
+}
+
+body.dark-mode .timeline-content {
+    background: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode .timeline-item.current .timeline-content {
+    background: #2a2218;
+    border-color: #ffb74d;
+}
+
+body.dark-mode .timeline-title {
+    color: #eee;
+}
+
+body.dark-mode .timeline-year {
+    background: #333;
+    color: #aaa;
+    border-color: #555;
+}
+
+body.dark-mode .timeline-desc {
+    color: #bbb;
+}
+
+body.dark-mode .timeline-item.locked .timeline-content {
+    background: #151515;
+    border-color: #444;
 }

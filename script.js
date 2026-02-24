@@ -1067,7 +1067,11 @@ const ELEMENTS = {
     'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '👩‍🚀', desc: '真空、極低温、放射線から身を守る、着る宇宙船。', category: 'machine' },
 
     // === Food ===
-    'meat': { id: 'meat', name: '肉', emoji: '🍖', desc: '動物の肉。貴重なタンパク源。', category: 'food' },
+    'meat': { id: 'meat', name: '生肉', emoji: '🥩', desc: '動物の生の肉。焼いて食べよう。', category: 'food' },
+    'roasted_meat': { id: 'roasted_meat', name: '焼き肉', emoji: '🍖', desc: '火でこんがりと焼いた肉。香ばしい匂いが食欲をそそる。', category: 'food' },
+    'egg_yolk': { id: 'egg_yolk', name: '卵黄', emoji: '🟡', desc: '卵から取り出した黄身。濃厚な味わい。', category: 'food' },
+    'fried_egg': { id: 'fried_egg', name: '目玉焼き', emoji: '🍳', desc: '卵黄を焼いたシンプルな料理。朝食の定番。', category: 'food' },
+    'medicine': { id: 'medicine', name: '薬', emoji: '💊', desc: '病気を治すための薬品。', category: 'chemical' },
     'soybean': { id: 'soybean', name: '大豆', emoji: '🫘', desc: '畑の肉と呼ばれる栄養豊富な豆。', category: 'food' },
     'soy_sauce': { id: 'soy_sauce', name: '醤油', emoji: '🍶', desc: '大豆を発酵させて作る調味料。', category: 'food' },
     'retort_food': { id: 'retort_food', name: 'レトルト食品', emoji: '🍛', desc: '温めるだけで食べられる便利な食品。', category: 'food' },
@@ -1303,7 +1307,7 @@ const ELEMENTS = {
     'colossal_squid': { id: 'colossal_squid', name: 'ダイオウホウズキイカ', emoji: '🦑', desc: '深海に潜む巨大な頭足類。マッコウクジラの宿敵。', category: 'life' },
 
     // Vehicles & Fuel
-    'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' },
+    'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' }
 };
 
 const INDUSTRIAL_PROCESSES = [
@@ -1370,7 +1374,7 @@ const CIVILIZATION_LEVELS = [
     { level: 8, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
     { level: 9, name: '通信革命', year: '1876年', trigger: 'telephone', desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
     { level: 10, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', desc: '内燃機関により、陸と空の移動が自由になった時代。' },
-    { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'penicillin', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
+    { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'sulfanilamide', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
     { level: 12, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
     { level: 13, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
     { level: 14, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
@@ -1380,7 +1384,7 @@ const CIVILIZATION_LEVELS = [
     { level: 18, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
     { level: 19, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
     { level: 20, name: '月面開発時代', year: '未来', trigger: 'moon_base', desc: '月が地球の経済圏の一部となり、宇宙進出の足掛かりとなった時代。' },
-    { level: 21, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', desc: '人類が多惑星種族（Multi-planetary Species）への第一歩を踏み出した時代。' },
+    { level: 21, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', desc: '人類が多惑星種族への第一歩を踏み出した時代。' },
     { level: 22, name: 'テラフォーミング', year: '未来', trigger: 'blue_mars', desc: '惑星の環境そのものを改変し、生命が住める星を自らの手で作り上げた時代。' }
 ];
 
@@ -2709,8 +2713,10 @@ const RECIPES = {
     'blue_led+dvd': 'blu_ray',
 
     // Printer Technology Recipes
-    // Ink: Coal (Carbon) + Oil
-    'coal+vegetable_oil': 'ink',
+    // Ink 1 (Traditional Asian / Printing-like): Charcoal (Soot) + Water + Lacquer (Resin/Binder)
+    'charcoal+fresh_water+lacquer': 'ink',
+    // Ink 2 (Iron Gall / European Writing): Iron Sulfate + Water + Plant (Tannins)
+    'fresh_water+iron_sulfate+plant': 'ink',
     // Movable Type: Lead + Press Machine (Casting?) or just Lead + Fire + Mold
     // Simplified: Lead + Iron Tool (Chisel/Mold concept)
     'iron_tool+lead': 'movable_type',
@@ -2875,6 +2881,10 @@ const RECIPES = {
     'cassiterite+coal': 'tin',
 
     'animal+stone_tool': 'meat', // Changed from bird to animal
+    'fire+meat': 'roasted_meat',
+    'egg+stone_tool': 'egg_yolk',
+    'egg_yolk+fire': 'fried_egg',
+    'plant+fresh_water+fire': 'medicine',
     'soybean+corn+salt+moldy_bread': 'soy_sauce',
     'aluminum+polyethylene': 'retort_pouch',
 
@@ -3381,7 +3391,7 @@ const RECIPES = {
 
     // Level 3: Petrochemical
     // Zeolite: Stone + Aluminum + Silicon? Simplfied: Natural resource found in 'rock' or synthesized.
-    // Let's make it synthesizeable or found. Found is better. Adding to generic drop later? Or synthesize: Clay + Sodium Hydroxide
+    // Let's make it synthesizeable or found. Adding to generic drop later? Or synthesize: Clay + Sodium Hydroxide
     'clay+sodium_hydroxide': 'zeolite',
     // Catalytic Cracking (Gasoline): Heavy Oil + Zeolite (Catalyst)
     'heavy_oil+zeolite': 'gasoline',
@@ -3583,6 +3593,9 @@ const BASE_REUSABLE_ITEMS = [
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
 let visitedAreas = new Set(['japan']); // Tracks visited areas for achievements
+let currentHunger = 100;
+const MAX_HUNGER = 100;
+let isSick = false;
 let unlockedFeats = new Set(); // Track shown notifications
 let shownInventions = new Set(); // Track shown "Great Invention" logs
 // Utility: Debounce
@@ -3648,6 +3661,7 @@ const ui = {
     slot5: document.getElementById('slot-5'),
     result: document.getElementById('slot-result'),
     msgLog: document.getElementById('message-log'),
+    clearLogBtn: document.getElementById('clear-log-btn'),
     deleteSaveBtn: document.getElementById('delete-save-btn'),
     exportSaveBtn: document.getElementById('export-save-btn'),
     importSaveBtn: document.getElementById('import-save-btn'),
@@ -3718,7 +3732,13 @@ function init() {
     `;
     document.head.appendChild(style);
 
-    // Setup Reset
+    // Setup Reset & Log
+    if (ui.clearLogBtn) {
+        ui.clearLogBtn.addEventListener('click', () => {
+            ui.msgLog.innerHTML = '';
+        });
+    }
+
     if (ui.deleteSaveBtn) {
         ui.deleteSaveBtn.addEventListener('click', resetGameData);
         if (ui.exportSaveBtn) ui.exportSaveBtn.addEventListener('click', exportSaveData);
@@ -3942,6 +3962,25 @@ function checkLoginBonus() {
         isSpecial = true;
     }
 
+    // --- Holiday / Weekend Check ---
+    const d = new Date();
+    const isWeekend = (d.getDay() === 0 || d.getDay() === 6);
+    const monthDay = String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const holidays = [
+        '01-01', '01-12', '02-11', '02-23', '03-20', '04-29', '05-03', '05-04', '05-05',
+        '07-20', '08-11', '09-21', '09-22', '09-23', '10-12', '11-03', '11-23'
+    ];
+    let isHolidayBonus = isWeekend || holidays.includes(monthDay);
+
+    if (isHolidayBonus) {
+        bonusMoney += 500; // 休日・祝日は追加ボーナス+500G
+        if (extraText !== "") {
+            extraText += "<br>";
+        }
+        extraText += "🎉 休日・祝日ボーナス +500G！ 🎉";
+        isSpecial = true;
+    }
+
     // --- 3. Grant Bonus (Only if new) ---
     if (isNewBonus) {
         // Day 3 Platinum Reward Grant
@@ -4124,7 +4163,9 @@ function saveGame() {
         visitedAreas: Array.from(visitedAreas),
         currentArea: currentArea,
         lastLoginDate: lastLoginDate,
-        loginStreak: loginStreak
+        loginStreak: loginStreak,
+        hunger: currentHunger,
+        sick: isSick
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
 }
@@ -4177,6 +4218,12 @@ function loadGame() {
             if (data.recipeHistory) {
                 recipeHistory = data.recipeHistory;
             }
+            if (data.hunger !== undefined) {
+                currentHunger = data.hunger;
+            }
+            if (data.sick !== undefined) {
+                isSick = data.sick;
+            }
             if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
         } catch (e) {
             console.error(e);
@@ -4211,7 +4258,9 @@ function exportSaveData() {
         v: Array.from(visitedAreas),
         ca: currentArea,
         ld: lastLoginDate,
-        ls: loginStreak
+        ls: loginStreak,
+        h: currentHunger,
+        sick: isSick
     };
     if (userInventoryOrder && userInventoryOrder.length > 0) {
         minData.o = userInventoryOrder;
@@ -4263,14 +4312,6 @@ function importSaveData() {
             if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
             saveGame();
             alert("🔧 デバッグ: 所持金を0にしました。");
-            return;
-        }
-
-        if (val.toLowerCase() === 'rich') {
-            playerMoney = Infinity;
-            if (ui.playerMoney) ui.playerMoney.innerText = "∞";
-            saveGame();
-            alert("🔧 デバッグ: 所持金を無限にしました。");
             return;
         }
 
@@ -4329,7 +4370,9 @@ function importSaveData() {
                     visitedAreas: new Set(data.v || ['japan']),
                     currentArea: data.ca || 'japan',
                     lastLoginDate: data.ld || null,
-                    loginStreak: data.ls || 0
+                    loginStreak: data.ls || 0,
+                    hunger: data.h !== undefined ? data.h : 100,
+                    sick: data.sick || false
                 };
             } else {
                 // Maybe it was raw JSON without minified keys?
@@ -4365,7 +4408,9 @@ function parseLegacyData(data) {
         unlockedFeats: new Set(data.unlockedFeats || []),
         civLevel: data.civLevel || 0,
         money: data.money || 0,
-        order: data.order || []
+        order: data.order || [],
+        hunger: data.hunger !== undefined ? data.hunger : 100,
+        sick: data.sick || false
     };
 }
 
@@ -4381,6 +4426,8 @@ function applyLoadedData(data) {
     if (data.currentArea) currentArea = data.currentArea;
     if (data.lastLoginDate) lastLoginDate = data.lastLoginDate;
     if (data.loginStreak) loginStreak = data.loginStreak;
+    currentHunger = data.hunger;
+    isSick = data.sick;
 
     updateCivilizationLevel(true);
     if (ui.playerMoney) ui.playerMoney.innerText = playerMoney;
@@ -4426,6 +4473,13 @@ function setupNavigation() {
         ui.navShop.addEventListener('click', () => {
             switchView('shop');
             renderShop();
+        });
+    }
+
+    const eventGoLabBtn = document.getElementById('event-go-lab-btn');
+    if (eventGoLabBtn) {
+        eventGoLabBtn.addEventListener('click', () => {
+            switchView('lab');
         });
     }
 
@@ -4506,7 +4560,7 @@ function switchView(mode) {
 
     ui.navField.classList.remove('active');
     ui.navLab.classList.remove('active');
-    ui.navBook.classList.remove('active');
+    if (ui.navBook) ui.navBook.classList.remove('active');
     if (ui.navShop) ui.navShop.classList.remove('active');
     if (ui.navArchives) ui.navArchives.classList.remove('active');
 
@@ -5547,6 +5601,10 @@ function setupCraftingUI() {
     document.getElementById('reset-slots-btn').addEventListener('click', resetSlots);
 }
 
+document.getElementById('close-login-bonus').addEventListener('click', () => {
+    document.getElementById('login-bonus-modal').style.display = 'none';
+});
+
 // === Machine Reordering ===
 function setupMachineReordering() {
     const labView = document.getElementById('view-lab');
@@ -5964,6 +6022,165 @@ function executeCraft() {
     }
 }
 
+window.eatItem = function (id) {
+    if (inventoryCounts[id] && inventoryCounts[id] > 0) {
+        if (id === 'medicine' || id === 'penicillin') {
+            inventoryCounts[id]--;
+            if (inventoryCounts[id] === 0) {
+                delete inventoryCounts[id];
+                userInventoryOrder = userInventoryOrder.filter(itemId => itemId !== id);
+            }
+            if (isSick) {
+                cureSickness();
+            } else {
+                log(`💊 [${getItemName(id)}] を飲んだが、特に変化はない。`);
+            }
+        } else {
+            // Decrease count
+            inventoryCounts[id]--;
+            if (inventoryCounts[id] === 0) {
+                delete inventoryCounts[id];
+                userInventoryOrder = userInventoryOrder.filter(itemId => itemId !== id);
+            }
+
+            // Restore Hunger
+            currentHunger += 20;
+            if (id === 'roasted_meat' || id === 'fried_egg') {
+                currentHunger += 15; // Cooked food gives more
+            }
+            if (currentHunger > MAX_HUNGER) currentHunger = MAX_HUNGER;
+
+            log(`🍗 [${getItemName(id)}] を食べて空腹度が回復しました！ (現在: ${currentHunger}/${MAX_HUNGER})`);
+
+            // Sickness Risk
+            if ((id === 'meat' || id === 'egg_yolk') && !isSick) {
+                if (Math.random() < 0.4) {
+                    getSick();
+                }
+            }
+        }
+
+        updateHungerGauge();
+        renderInventory();
+        debouncedSaveGame();
+
+        // Modal update
+        if (!inventoryCounts[id]) {
+            document.getElementById('close-modal').click();
+        } else {
+            showElementDetail(id);
+        }
+    }
+};
+
+// Update Hunger Gauge UI and logic
+function updateHungerGauge() {
+    const isSurvival = localStorage.getItem('nature_science_ext_survival') === 'true';
+    const container = document.getElementById('hunger-gauge-container');
+    if (!container) return;
+
+    if (isSurvival) {
+        container.style.display = 'block';
+        const bar = document.getElementById('hunger-gauge-bar');
+        const val = document.getElementById('hunger-gauge-value');
+        if (bar) bar.style.width = `${(currentHunger / MAX_HUNGER) * 100}%`;
+        let statusText = ``;
+        if (isSick) {
+            statusText = `<span style="color:#f44336; margin-right: 5px;">🤢病気</span>`;
+            bar.style.background = 'linear-gradient(90deg, #f44336, #e53935)';
+        } else {
+            // Color transition
+            if (currentHunger <= 20) {
+                bar.style.background = 'linear-gradient(90deg, #f44336, #e53935)';
+            } else if (currentHunger <= 50) {
+                bar.style.background = 'linear-gradient(90deg, #ff9800, #fb8c00)';
+            } else {
+                bar.style.background = 'linear-gradient(90deg, #ba68c8, #9c27b0)';
+            }
+        }
+        if (val) val.innerHTML = `${statusText}${currentHunger} / ${MAX_HUNGER}`;
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function decreaseHunger(amount = 1) {
+    if (localStorage.getItem('nature_science_ext_survival') !== 'true') return;
+
+    // Random Sickness
+    if (!isSick && Math.random() < 0.005) {
+        getSick();
+    }
+
+    currentHunger -= (isSick ? amount * 3 : amount);
+    if (currentHunger < 0) currentHunger = 0;
+    updateHungerGauge();
+
+    if (currentHunger === 0) {
+        showGameOverHunger();
+    }
+}
+
+function getSick() {
+    if (isSick) return;
+    isSick = true;
+    log("🤢 [警告] 病気にかかってしまった！ 空腹の減りが3倍になります。「薬」を作って飲みましょう。");
+    updateHungerGauge();
+}
+
+function cureSickness() {
+    if (!isSick) return;
+    isSick = false;
+    log("✨ 薬を飲んで病気が治った！");
+    updateHungerGauge();
+}
+
+function showGameOverHunger() {
+    const isImmortal = discovered.has('immortality');
+    if (isImmortal) {
+        log("飢餓の危機に陥りましたが、あなたは【不老不死】であるため餓死を免れました。");
+        currentHunger = 10;
+        updateHungerGauge();
+        return;
+    }
+
+    log("💀 空腹で倒れてしまった...");
+
+    setTimeout(() => {
+        ui.co2GameOverScreen.style.display = 'flex';
+        const titleContent = `
+            <div style="font-size: 5rem; margin-bottom: 20px;">💀</div>
+            <h1 style="color: white; text-shadow: 0 0 10px #f44336;">GAME OVER</h1>
+        `;
+        document.getElementById('co2-gameover-title').innerHTML = titleContent;
+
+        const reasonHtml = `
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                食料が尽き、あなたは餓死してしまいました。<br>
+                サバイバルモードでは常に食料（Foodカテゴリのアイテム）を確保する必要があります。
+            </p>
+            <div style="font-size: 0.9rem; color: #ffcc80;">
+                ヒント: 図鑑でアイテムを選んで「これを食べる」ボタンを押しましょう。
+            </div>
+        `;
+        document.getElementById('co2-gameover-reason').innerHTML = reasonHtml;
+
+        ui.co2GameOverRestartBtn.onclick = () => {
+            resetGameData();
+            location.reload();
+        };
+
+        ui.co2GameOverContinueBtn.onclick = () => {
+            currentHunger = MAX_HUNGER;
+            log("⏳ 時を戻し、空腹を満たした状態でゲームを再開します...");
+            ui.co2GameOverScreen.style.display = 'none';
+            updateHungerGauge();
+            debouncedSaveGame();
+        };
+    }, 1000);
+}
+
+// === Industrial Facilities Updates ===
 // === Recipe History System ===
 function addToRecipeHistory(inputs, resultId) {
     // Sort inputs to ensure consistency
@@ -6851,8 +7068,18 @@ function updateStats() {
         }
     }
 
-    // Refresh CO2 Gauge
+    // Check for Yacht Trade Unlock
+    if (discovered.has('yacht')) {
+        if (!isLoading && !unlockedFeats.has('yacht_trade_unlock')) {
+            log("⛵ 【貿易の開始】 ヨットが発明されました！ 交換所に海外の特産品や資源が並ぶようになりました。");
+            unlockedFeats.add('yacht_trade_unlock');
+            saveGame();
+        }
+    }
+
+    // Refresh CO2 and Hunger Gauge
     updateCO2Gauge();
+    updateHungerGauge();
 
     updateNextGoalDisplay();
 
@@ -7051,7 +7278,23 @@ function renderShop() {
         // Sort: Discovered items (Buy: all discovered, Sell: inventory items)
         let targetIds = [];
         if (currentShopTab === 'buy') {
-            targetIds = visibleIds;
+            targetIds = [...visibleIds];
+
+            // 海外特産品・資源 (ヨット解禁で未発見でも買えるようになる)
+            if (discovered.has('yacht')) {
+                const overseasItems = [
+                    'rubber_tree', 'sugarcane', 'spice', 'corn', 'cotton', 'cacao',
+                    'potato', 'tomato', 'olive', 'fluorite', 'bismuth_ore', 'antimony',
+                    'pyrochlore', 'monazite', 'coffee_bean', 'tea_leaf', 'diamond',
+                    'bauxite', 'cobalt_ore', 'lithium_ore', 'uranium_ore', 'rutile',
+                    'pgm_ore', 'brine', 'shale_rock'
+                ];
+                for (let item of overseasItems) {
+                    if (ELEMENTS[item] && !targetIds.includes(item)) {
+                        targetIds.push(item);
+                    }
+                }
+            }
         } else {
             // Sell mode: items in inventory
             targetIds = Object.keys(inventoryCounts).filter(id => (inventoryCounts[id] || 0) > 0);
@@ -7961,6 +8204,8 @@ function showLockedElementHint(id) {
             ${hint}
         </div>
     `;
+    const mContent = ui.modal.querySelector('.modal-content');
+    if (mContent) mContent.style.maxWidth = '';
     ui.modal.style.display = 'flex';
 }
 
@@ -8066,6 +8311,8 @@ function showIndustrialDetail(procId) {
             ${infoHtml}
         </div>
     `;
+    const mContent = ui.modal.querySelector('.modal-content');
+    if (mContent) mContent.style.maxWidth = '';
     ui.modal.style.display = 'flex';
 }
 
@@ -8154,119 +8401,84 @@ function showElementDetail(id) {
         'manganese_nodule': '深海'
     };
 
+    // --- Dynamic Acquisition Analysis ---
+    let locationText = '';
     if (gatherables.includes(id)) {
         let loc = locationMap[id] || 'フィールド';
-        recipeHtml += `<p>採取可能：${loc}で探そう</p>`;
+        locationText = `<p style="margin-bottom:8px;"><strong>採取場所：</strong>${loc}で探そう</p>`;
     }
 
-    // 2. Smeltery?
-    if (['iron', 'lead', 'manganese', 'tin', 'mercury', 'bismuth'].includes(id)) {
-        recipeHtml += `<p>入手方法：製錬所で鉱石を高温で熱して取り出す</p>`;
-    }
-    // 3. Carbonization Facility?
-    else if (['charcoal', 'wood_vinegar', 'coke', 'coal_tar', 'coal_gas', 'methanol', 'acetone', 'calcium_carbonate'].includes(id)) {
-        if (['methanol', 'acetone', 'calcium_carbonate'].includes(id)) {
-            recipeHtml += `<p>入手方法：乾留所で「酢酸カルシウム」を乾留して抽出する（または合成）</p>`;
-        } else {
-            recipeHtml += `<p>入手方法：乾留所で木材や石炭を蒸し焼きにする</p>`;
-        }
-    }
-    // 4. Distillery?
-    else if (['fresh_water', 'salt', 'alcohol', 'light_oil', 'middle_oil', 'heavy_oil', 'anthracene_oil', 'pitch',
-        'crude_wood_alcohol', 'phenol', 'industrial_naphthalene', 'glacial_acetic_acid', 'sodium_sulfate'].includes(id)) {
-        if (id === 'fresh_water' || id === 'salt') {
-            recipeHtml += `<p>入手方法：蒸留所で「海水」を加熱・冷却して抽出する</p>`;
-        } else if (id === 'alcohol') {
-            recipeHtml += `<p>入手方法：蒸留所で「ワイン」を加熱・冷却して抽出する</p>`;
-        } else if (id === 'crude_wood_alcohol') {
-            recipeHtml += `<p>入手方法：蒸留所で「木酢液」を蒸留して抽出する</p>`;
-        } else if (id === 'phenol') {
-            recipeHtml += `<p>入手方法：蒸留所で「粗フェノール」を精製する</p>`;
-        } else if (id === 'industrial_naphthalene') {
-            recipeHtml += `<p>入手方法：蒸留所で「ナフタレン」を昇華精製する</p>`;
-        } else if (id === 'glacial_acetic_acid' || id === 'sodium_sulfate') {
-            recipeHtml += `<p>入手方法：蒸留所で「無水酢酸ナトリウム」+「硫酸」を蒸留</p>`;
-        } else {
-            recipeHtml += `<p>入手方法：蒸留所で「コールタール」を分留して抽出する</p>`;
-        }
-    }
-    // Argon / Liquid Air (Fractional Distillation)
-    else if (['argon', 'nitrogen', 'oxygen', 'liquid_air'].includes(id)) {
-        if (id === 'liquid_air') {
-            recipeHtml += `<p>入手方法：空気 + 圧縮機 + 冷却ユニット （空気液化サイクル）</p>`;
-        } else {
-            recipeHtml += `<p>入手方法：蒸留塔で「液体空気」を分留して抽出する</p>`;
-        }
-    }
-    // 5. Oil Refinery
-    else if (['lp_gas', 'gasoline', 'naphtha', 'kerosene', 'asphalt'].includes(id)) {
-        recipeHtml += `<p>入手方法：製油所で「原油」を精製する</p>`;
-    }
-    // Cowrie (Shop Currency Unlock)
-    else if (id === 'cowrie') {
-        recipeHtml += `<p>採取可能：フィールドで探そう</p>`;
-    }
-    // 5. Extraction Facility?
-    else if (['benzene', 'phenoxide', 'crude_naphthalene', 'naphthalene'].includes(id)) {
-        recipeHtml += `<p>入手方法：抽出所で化学処理を行って抽出する</p>`;
-    }
-    // Electric Refinery
-    else if (['aluminum', 'silicon', 'ferrochrome', 'titanium', 'zinc', 'magnesium', 'barium', 'nickel', 'chromium', 'cobalt', 'neodymium', 'indium'].includes(id)) {
-        recipeHtml += `<p>入手方法：電気精錬所で電気エネルギーを用いて精錬/電解する</p>`;
-    }
-    // 7. Industrial Processes
-    // Find processes that produce this item (key)
+    // Dynamic facility / process logic
+    let facilityText = '';
+
+    // Facility keywords (mapping some items to generic facility names if not in industrial processes)
+    const facilityMap = {
+        'smeltery': ['iron', 'lead', 'manganese', 'tin', 'mercury', 'bismuth', 'tamahagane', 'crude_silver', 'molten_pgm_matte'],
+        'distillery': ['fresh_water', 'salt', 'alcohol', 'light_oil', 'middle_oil', 'heavy_oil', 'anthracene_oil', 'pitch', 'crude_wood_alcohol', 'phenol', 'industrial_naphthalene', 'glacial_acetic_acid', 'sodium_sulfate'],
+        'carbonization': ['charcoal', 'wood_vinegar', 'coke', 'coal_tar', 'coal_gas', 'methanol', 'acetone', 'calcium_carbonate'],
+        'oil_refinery': ['lp_gas', 'gasoline', 'naphtha', 'kerosene', 'asphalt'],
+        'extraction': ['benzene', 'phenoxide', 'crude_naphthalene', 'naphthalene'],
+        'electric_refinery': ['aluminum', 'silicon', 'ferrochrome', 'titanium', 'zinc', 'magnesium', 'barium', 'nickel', 'chromium', 'cobalt', 'neodymium', 'indium']
+    };
+
+    if (facilityMap.smeltery.includes(id)) facilityText += `<p>入手方法：製錬所で鉱石を高温で処理する</p>`;
+    if (facilityMap.distillery.includes(id)) facilityText += `<p>入手方法：蒸留所で成分を熱分離/精製する</p>`;
+    if (facilityMap.carbonization.includes(id)) facilityText += `<p>入手方法：乾留所で蒸し焼きまたは乾留処理を行う</p>`;
+    if (facilityMap.oil_refinery.includes(id)) facilityText += `<p>入手方法：製油所で原油を精製する</p>`;
+    if (facilityMap.extraction.includes(id)) facilityText += `<p>入手方法：抽出所で化学処理を行って抽出する</p>`;
+    if (facilityMap.electric_refinery.includes(id)) facilityText += `<p>入手方法：電気精錬所で電解/精錬する</p>`;
+
+    // Industrial Processes lookups (Key matches)
     const indProcs = INDUSTRIAL_PROCESSES.filter(p => p.key === id);
     indProcs.forEach(proc => {
-        const req1 = proc.req ? discovered.has(proc.req) : true;
-        const req2 = proc.req2 ? discovered.has(proc.req2) : true;
-
-        if (req1 && req2) {
-            recipeHtml += `<p>入手方法：工業的製法「${proc.name}」により製造される（${proc.desc}）</p>`;
-        }
+        const canShowName = discovered.has(proc.id);
+        const nameText = canShowName ? `「${proc.name}」` : `「？？？」`;
+        facilityText += `<p>入手方法：工業的製法 ${nameText} により製造（${proc.desc}）</p>`;
     });
 
-    // 8. Dynamic Recipe (Battery)
-    if (id === 'battery') {
-        recipeHtml += `<h3>合成レシピ</h3><div style="margin:5px 0;">導電性物質(金属/炭) x2 + 食塩水 (※異なる2種類)</div>`;
-    }
+    recipeHtml += locationText + facilityText;
 
-    // 6. Crafted? (Check Recipes)
+    // --- Synthesis Recipes (with Hints for undiscovered items) ---
     const recipesFound = [];
     for (const [inputs, result] of Object.entries(RECIPES)) {
         const results = Array.isArray(result) ? result : [result];
         if (results.includes(id)) {
-            const inputsList = inputs.split('+');
-            // Hide recipe if ingredients are not discovered
-            if (!inputsList.every(inId => discovered.has(inId))) continue;
-
-            recipesFound.push({ inputs: inputsList });
+            recipesFound.push({ inputs: inputs.split('+') });
         }
     }
 
     if (recipesFound.length > 0) {
-        recipeHtml += `<h3>合成レシピ</h3>`;
+        recipeHtml += `<h3 style="margin-top:12px; border-bottom:1px solid #ddd; padding-bottom:3px;">合成レシピ</h3>`;
         recipesFound.forEach(r => {
+            const allDiscovered = r.inputs.every(inId => discovered.has(inId));
+
             const inputsHtml = r.inputs.map(inId => {
                 const el = ELEMENTS[inId];
-                return `<span class="recipe-ingredient" onclick="showElementDetail('${inId}')">${el ? el.emoji : ''}${el ? el.name : inId}</span>`;
+                if (discovered.has(inId)) {
+                    return `<span class="recipe-ingredient discovered" onclick="showElementDetail('${inId}')" style="cursor:pointer; color:#0056b3; text-decoration:underline;">${el ? el.emoji : ''}${el ? el.name : inId}</span>`;
+                } else {
+                    return `<span class="recipe-ingredient unknown" style="color:#888;">🔒 ？？？</span>`;
+                }
             }).join(' + ');
 
-            // Serialize inputs for onclick
             const inputsJson = JSON.stringify(r.inputs).replace(/"/g, "&quot;");
+            const btnHtml = allDiscovered ?
+                `<button class="small-btn" style="font-size:0.8rem; padding:2px 8px; cursor:pointer;" onclick="fillSlotsFromBook(${inputsJson})">セット</button>` :
+                `<button disabled title="未発見の素材があります" style="font-size:0.8rem; padding:2px 8px; opacity:0.5; cursor:not-allowed;">🔒</button>`;
 
             recipeHtml += `
-                <div class="recipe-row" style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.5); padding:5px; margin:5px 0; border-radius:5px;">
-                    <div>${inputsHtml}</div>
-                    <button class="small-btn" style="font-size:0.8rem; padding:2px 8px; cursor:pointer;" onclick="fillSlotsFromBook(${inputsJson})">セット</button>
+                <div class="recipe-row" style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.4); padding:8px; margin:5px 0; border-radius:8px; border:1px solid rgba(0,0,0,0.05);">
+                    <div style="font-size:0.95rem;">${inputsHtml}</div>
+                    ${btnHtml}
                 </div>
             `;
         });
     }
 
     if (recipeHtml === '') {
-        recipeHtml = `<p>${getText('howToMake')}${getText('unknown')}</p>`;
+        recipeHtml = `<p>入手方法：調査中... (${getText('unknown')})</p>`;
     }
+
 
     // === Usage Analysis (Reverse Lookup) ===
     let usagesHtml = '';
@@ -8336,6 +8548,20 @@ function showElementDetail(id) {
 
     const navBtnsStyle = "background:none; border:none; cursor:pointer; font-size:2rem; color:#555; padding:0 10px; min-width: 50px;";
 
+    let eatHtml = '';
+    const isSurvival = localStorage.getItem('nature_science_ext_survival') === 'true';
+    if (isSurvival && inventoryCounts[id] > 0) {
+        if (data.category === 'food' && id !== 'medicine') {
+            eatHtml = `<div style="text-align:center; margin: 15px 0;">
+                <button onclick="eatItem('${id}')" style="background:linear-gradient(135deg, #ba68c8, #9c27b0); color:white; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 10px rgba(156,39,176,0.3); transition: transform 0.2s;">🍗 これを食べる</button>
+            </div>`;
+        } else if (id === 'medicine' || id === 'penicillin') {
+            eatHtml = `<div style="text-align:center; margin: 15px 0;">
+                <button onclick="eatItem('${id}')" style="background:linear-gradient(135deg, #4caf50, #2e7d32); color:white; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 10px rgba(76,175,80,0.3); transition: transform 0.2s;">💊 これを飲む (病気治療)</button>
+            </div>`;
+        }
+    }
+
     // Header with Flexbox (Button - Emoji - Button)
     const headerHtml = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -8356,41 +8582,57 @@ function showElementDetail(id) {
             ${headerHtml}
             <h2>${getItemName(id)}</h2>
             <p style="margin-bottom:20px;">${getItemDesc(id)}</p>
+            ${eatHtml}
             <div style="text-align:left; background:rgba(0,0,0,0.05); padding:15px; border-radius:10px;">
                 ${recipeHtml}
                 ${usagesHtml}
             </div>
         </div>
     `;
+    const mContent = ui.modal.querySelector('.modal-content');
+    if (mContent) mContent.style.maxWidth = '';
     ui.modal.style.display = 'flex';
 }
 
 function showCivilizationList() {
-    let listHtml = '<div style="display:flex; flex-direction:column; gap:10px; text-align:left;">';
+    let listHtml = '<div class="timeline-container">';
 
-    CIVILIZATION_LEVELS.forEach(civ => {
+    CIVILIZATION_LEVELS.forEach((civ, index) => {
         const isReached = civ.level <= currentCivilizationLevel;
-        // Current Level Highlight
         const isCurrent = civ.level === currentCivilizationLevel;
 
-        let bgStyle = 'background: #f5f5f5; border: 1px solid #ddd; color: #888;'; // Locked
-        if (isReached) bgStyle = 'background: white; border: 1px solid #81c784; color: #2e7d32;';
-        if (isCurrent) bgStyle = 'background: #fff3e0; border: 2px solid #ff9800; color: #e65100; box-shadow: 0 2px 8px rgba(255,152,0,0.2);';
-
         const name = isReached ? civ.name : '???';
-        const desc = isReached ? civ.desc : '条件未達成';
+        const desc = isReached ? civ.desc : '未来の可能性は無限大。新たな要素を見つけて文明を切り開こう。';
         const year = isReached ? civ.year : '???';
-        const statusIcon = isCurrent ? '🚩' : (isReached ? '✅' : '🔒');
+
+        const eraEmojis = [
+            '🌱', '🪨', '🔥', '⛓️', '🏰', '⛵️', '📄', '🚂', '⚡️', '☎️',
+            '🚗', '💊', '🥤', '📻', '⚛️', '🌌', '🌐', '🤖', '🧬', '🧠',
+            '🌕', '🪐', '🌍'
+        ];
+        const fallbackEmoji = '🕰️';
+        const iconRaw = isReached ? (eraEmojis[civ.level] || fallbackEmoji) : '🔒';
+        const icon = isCurrent ? '🚩' : iconRaw;
+
+        const stateClass = isCurrent ? 'current' : (isReached ? 'reached' : 'locked');
+
+        // CSS anim delay for cascade effect
+        const delay = (index * 0.05) + 's';
 
         listHtml += `
-            <div style="padding:12px; border-radius:10px; ${bgStyle} display:flex; gap:10px; align-items:center;">
-                <div style="font-size:1.5rem;">${statusIcon}</div>
-                <div style="flex:1;">
-                    <div style="font-weight:bold; font-size:0.95rem; display:flex; justify-content:space-between;">
-                        <span>Lv.${civ.level} ${name}</span>
-                        <span style="font-size:0.8rem; opacity:0.8;">${year}</span>
+            <div class="timeline-item ${stateClass}" style="animation-delay: ${delay};">
+                <div class="timeline-icon">
+                    <span style="font-size: 1.2rem;">${icon}</span>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-header">
+                        <div class="timeline-title">
+                            <span style="margin-right: 5px;">Lv.${civ.level}</span>
+                            <span>${name}</span>
+                        </div>
+                        <div class="timeline-year">${year}</div>
                     </div>
-                    <div style="font-size:0.85rem; margin-top:4px;">${desc}</div>
+                    <div class="timeline-desc">${desc}</div>
                 </div>
             </div>
         `;
@@ -8398,14 +8640,27 @@ function showCivilizationList() {
     listHtml += '</div>';
 
     ui.modalBody.innerHTML = `
-        <div class="element-emoji" style="font-size:3rem; margin-bottom:10px;">📜</div>
-        <h2>文明の歴史</h2>
-        <p style="margin-bottom:15px; font-size:0.9rem; color:#666;">これまでの人類の進化の記録</p>
-        <div style="max-height:60vh; overflow-y:auto; padding:5px;">
+        <div class="element-emoji" style="font-size:3.5rem; margin-bottom:5px; text-shadow: 0 4px 10px rgba(0,0,0,0.1);">📜</div>
+        <h2 style="color: #2e7d32; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); margin-bottom: 5px; font-family: 'Zen Maru Gothic', sans-serif;">文明の歴史</h2>
+        <p style="margin-bottom:15px; font-size:0.9rem; color:#666; font-style: italic;">これまでの人類の進化の記録、そして未来への道程</p>
+        <div id="civ-timeline-scroll" style="max-height:60vh; overflow-y:auto; padding:15px; text-align:left; border-radius: 10px; background: rgba(0,0,0,0.02); box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);">
             ${listHtml}
         </div>
     `;
+    const mContent = ui.modal.querySelector('.modal-content');
+    if (mContent) mContent.style.maxWidth = '600px';
     ui.modal.style.display = 'flex';
+
+    // Auto-scroll to current civilization level
+    setTimeout(() => {
+        const scrollContainer = document.getElementById('civ-timeline-scroll');
+        const currentEl = scrollContainer ? scrollContainer.querySelector('.timeline-item.current') : null;
+        if (currentEl && scrollContainer) {
+            const containerHalf = scrollContainer.clientHeight / 2;
+            const itemHalf = currentEl.clientHeight / 2;
+            scrollContainer.scrollTop = currentEl.offsetTop - containerHalf + itemHalf;
+        }
+    }, 50);
 }
 
 
@@ -10200,11 +10455,18 @@ function setupSettingsUI() {
                                     <span style="font-size:0.7rem; color:#999;">核や兵器、汚染物質の発見が文明崩壊を招きます。</span>
                                 </div>
                             </label>
-                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px;">
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
                                 <input type="checkbox" id="settings-ext-gameover-co2" style="accent-color:#ff5722;">
                                 <div style="display:flex; flex-direction:column;">
                                     <span style="font-size:0.9rem; font-weight:bold; color:#ff5722;">気候、危機 (CO2制限)</span>
                                     <span style="font-size:0.7rem; color:#999;">二酸化炭素の過剰な蓄積で、地球が居住不能になります。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px;">
+                                <input type="checkbox" id="settings-ext-survival" style="accent-color:#9c27b0;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#9c27b0;">🔥 サバイバルモード</span>
+                                    <span style="font-size:0.7rem; color:#999;">より過酷な環境でのプレイに挑戦します。</span>
                                 </div>
                             </label>
                         </div>
@@ -10358,6 +10620,17 @@ function setupSettingsUI() {
                 updateCO2Gauge(); // 視認性を即座に更新
             });
         }
+
+        // 拡張機能：サバイバルモード
+        const extSurvival = document.getElementById('settings-ext-survival');
+        if (extSurvival) {
+            extSurvival.checked = localStorage.getItem('nature_science_ext_survival') === 'true';
+            extSurvival.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_survival', e.target.checked);
+                log(e.target.checked ? "🔥 サバイバルモードを有効にしました。食料に注意してください！" : "サバイバルモードを無効にしました。");
+                updateHungerGauge();
+            });
+        }
     };
 }
 
@@ -10372,6 +10645,7 @@ window.onload = function () {
     }
     // CO2ゲージ初期化
     updateCO2Gauge();
+    updateHungerGauge();
     init();
     initTutorial();
 };
@@ -10383,6 +10657,15 @@ window.onload = function () {
 function showRoadmap(targetId) {
     var target = ELEMENTS[targetId];
     if (!target) return;
+
+    // Google Analytics Tracking
+    if (typeof gtag === 'function') {
+        gtag('event', 'view_roadmap', {
+            'event_category': 'Roadmap',
+            'event_label': target.name,
+            'item_id': targetId
+        });
+    }
 
     var modal = document.createElement('div');
     modal.className = 'modal-overlay';
@@ -10407,7 +10690,7 @@ function showRoadmap(targetId) {
     h += '</div>';
     h += '<div style="flex-grow:1;overflow:hidden;border:1px solid rgba(0,0,0,0.1);border-radius:8px;background:rgba(255,255,255,0.02);position:relative;">';
     h += '<div id="roadmap-scroll-area" style="width:100%;height:100%;overflow:auto;">';
-    h += '<div id="roadmap-tree-container" class="roadmap-tree" style="transform-origin:top center;padding:50px;">';
+    h += '<div id="roadmap-tree-container" class="roadmap-tree" style="transform-origin:bottom center;padding:50px;">';
     h += '読み込み中...';
     h += '</div></div></div>';
     h += '<div style="text-align:center;margin-top:10px;font-size:0.85rem;color:#888;flex-shrink:0;">';
@@ -10517,7 +10800,9 @@ function findIngredientsFor(targetId) {
         'lead': ['lead_oxide', 'charcoal'],
         'manganese': ['manganese_monoxide', 'charcoal'],
         'tin': ['cassiterite', 'charcoal'],
-        'iron': ['iron_ore', 'charcoal', 'fire', 'earthenware'], // Representative
+        'iron': (typeof discovered !== 'undefined' && discovered.has('magnetite') && !discovered.has('iron_ore')) ? ['magnetite', 'charcoal', 'fire', 'earthenware'] :
+            (typeof discovered !== 'undefined' && discovered.has('iron_sand') && !discovered.has('iron_ore')) ? ['iron_sand', 'charcoal', 'fire', 'earthenware'] :
+                ['iron_ore', 'charcoal', 'fire', 'earthenware'],
         'mercury': ['cinnabar', 'charcoal'],
         'bismuth': ['bismuth_oxide', 'charcoal'],
 

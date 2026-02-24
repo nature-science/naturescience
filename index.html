@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="科学的なシミュレーションを行うための教育用プログラムです。科学の面白さを伝えるために開発しています。">
     <title>自然と科学</title>
-    <link rel="stylesheet" href="style.css?v=20260111">
+    <link rel="stylesheet" href="style.css?v=20260224_roadmap">
     <link rel="stylesheet" href="sort.css">
     <link rel="stylesheet" href="mobile.css" id="responsive-css" media="(max-width: 768px)">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,6 +52,7 @@
                     <strong>🎯 次の目標:</strong>
                     <div id="next-civ-goal" style="margin-top: 5px; color: #2e7d32; font-weight: bold;">---</div>
                 </div>
+
                 <button id="nav-settings" class="nav-btn" style="margin-top: 10px; border: 1px dashed #ccc;">⚙️
                     設定</button>
             </div>
@@ -71,6 +72,27 @@
                 </div>
             </div>
 
+            <!-- Survival Hunger Gauge (Extension) -->
+            <div id="hunger-gauge-container"
+                style="display: none; margin-top: 10px; padding: 10px; background: rgba(156, 39, 176, 0.1); border-radius: 12px; border: 1px solid rgba(156, 39, 176, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                    <span style="font-size: 0.8rem; font-weight: bold; color: #7b1fa2;">🍖 空腹度</span>
+                    <span id="hunger-gauge-value" style="font-size: 0.8rem; font-weight: bold; color: #333;">100 /
+                        100</span>
+                </div>
+                <div
+                    style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                    <div id="hunger-gauge-bar"
+                        style="width: 100%; height: 100%; background: linear-gradient(90deg, #ba68c8, #9c27b0); transition: width 0.3s ease;">
+                    </div>
+                </div>
+            </div>
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px; margin-bottom: 5px; padding: 0 5px;">
+                <span style="font-size: 0.8rem; font-weight: bold; color: #666;">📝 ログ</span>
+                <button id="clear-log-btn"
+                    style="background: none; border: 1px solid #ccc; border-radius: 4px; padding: 2px 8px; font-size: 0.7rem; color: #555; cursor: pointer; transition: 0.2s;">消去</button>
+            </div>
             <div id="message-log" class="message-log"></div>
         </aside>
 
@@ -486,7 +508,6 @@
             </div>
 
         </main>
-
         <!-- Bottom Panel: Inventory (Shared) -->
         <section class="inventory glass-panel">
             <div class="inventory-header">
@@ -733,7 +754,7 @@
                     📝 開発者メモ
                 </h3>
                 <div style="font-size: 0.85rem; color: #666; line-height: 1.5; max-height: 150px; overflow-y: auto;">
-                    <p>ログインボーナスを追加しました。ぜひ毎日来てもらえると嬉しいです😊</p>
+                    <p>いろいろ追加しました。これからも引き続きアップデートしてまいります。</p>
                 </div>
 
                 <p style="font-size: 0.75rem; color: #aaa; margin-top: 30px;">Natural & Science v1.3</p>
