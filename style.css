@@ -2405,7 +2405,7 @@ body.glass-mode .element-slot.result.filled {
     left: 50%;
     border-left: 2px solid #ccc;
     width: 0;
-    height: 22px;
+    height: 20px;
     transform: translateX(-50%);
     z-index: 1;
 }

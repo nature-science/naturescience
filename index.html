@@ -59,13 +59,14 @@
 
             <!-- CO2 Level Gauge (Extension) -->
             <div id="co2-gauge-container"
-                style="display: none; margin-top: 20px; padding: 10px; background: rgba(244, 67, 54, 0.1); border-radius: 12px; border: 1px solid rgba(244, 67, 54, 0.2);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                    <span style="font-size: 0.8rem; font-weight: bold; color: #d32f2f;">☁️ CO2 濃度</span>
-                    <span id="co2-gauge-value" style="font-size: 0.8rem; font-weight: bold; color: #333;">0 / 200</span>
+                style="display: none; margin-top: 10px; padding: 6px 10px; background: rgba(244, 67, 54, 0.05); border-radius: 8px; border: 1px solid rgba(244, 67, 54, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                    <span style="font-size: 0.75rem; font-weight: bold; color: #d32f2f;">☁️ CO2 濃度</span>
+                    <span id="co2-gauge-value" style="font-size: 0.75rem; font-weight: bold; color: #333;">0 /
+                        200</span>
                 </div>
                 <div
-                    style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                    style="width: 100%; height: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
                     <div id="co2-gauge-bar"
                         style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff9800, #f44336); transition: width 0.3s ease;">
                     </div>
@@ -74,16 +75,32 @@
 
             <!-- Survival Hunger Gauge (Extension) -->
             <div id="hunger-gauge-container"
-                style="display: none; margin-top: 10px; padding: 10px; background: rgba(156, 39, 176, 0.1); border-radius: 12px; border: 1px solid rgba(156, 39, 176, 0.2);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-                    <span style="font-size: 0.8rem; font-weight: bold; color: #7b1fa2;">🍖 空腹度</span>
-                    <span id="hunger-gauge-value" style="font-size: 0.8rem; font-weight: bold; color: #333;">100 /
+                style="display: none; margin-top: 6px; padding: 6px 10px; background: rgba(156, 39, 176, 0.05); border-radius: 8px; border: 1px solid rgba(156, 39, 176, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                    <span style="font-size: 0.75rem; font-weight: bold; color: #7b1fa2;">🍖 空腹</span>
+                    <span id="hunger-gauge-value" style="font-size: 0.75rem; font-weight: bold; color: #333;">100 /
                         100</span>
                 </div>
                 <div
-                    style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                    style="width: 100%; height: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
                     <div id="hunger-gauge-bar"
                         style="width: 100%; height: 100%; background: linear-gradient(90deg, #ba68c8, #9c27b0); transition: width 0.3s ease;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Survival Hard Thirst Gauge (Extension) -->
+            <div id="thirst-gauge-container"
+                style="display: none; margin-top: 6px; padding: 6px 10px; background: rgba(33, 150, 243, 0.05); border-radius: 8px; border: 1px solid rgba(33, 150, 243, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;">
+                    <span style="font-size: 0.75rem; font-weight: bold; color: #1976d2;">💧 水分</span>
+                    <span id="thirst-gauge-value" style="font-size: 0.75rem; font-weight: bold; color: #333;">100 /
+                        100</span>
+                </div>
+                <div
+                    style="width: 100%; height: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                    <div id="thirst-gauge-bar"
+                        style="width: 100%; height: 100%; background: linear-gradient(90deg, #64b5f6, #2196f3); transition: width 0.3s ease;">
                     </div>
                 </div>
             </div>
@@ -754,7 +771,7 @@
                     📝 開発者メモ
                 </h3>
                 <div style="font-size: 0.85rem; color: #666; line-height: 1.5; max-height: 150px; overflow-y: auto;">
-                    <p>いろいろ追加しました。これからも引き続きアップデートしてまいります。</p>
+                    <p>ロードマップの改善をしました。ぜひプレイしてみてください。</p>
                 </div>
 
                 <p style="font-size: 0.75rem; color: #aaa; margin-top: 30px;">Natural & Science v1.3</p>

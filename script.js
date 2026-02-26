@@ -11,7 +11,7 @@ const ELEMENTS = {
     'wood': { id: 'wood', name: '木材', emoji: '🪵', desc: '乾燥した木。燃えやすそう。', category: 'natural' },
     'iron_ore': { id: 'iron_ore', name: '鉄鉱石', emoji: '⛏️', desc: '鉄を含んだ鉱石。', category: 'natural' },
     'magnetite': { id: 'magnetite', name: '磁鉄鉱', emoji: '🌑', desc: '強い磁性を持つ黒い鉱石。鉄の重要な原料になる。', category: 'natural' },
-    'grape': { id: 'grape', name: 'ブドウ', emoji: '🍇', desc: '甘い果実。発酵しやすそう。', category: 'natural' },
+    'grape': { id: 'grape', name: 'ブドウ', emoji: '🍇', desc: '甘い果実。発酵しやすそう。', category: 'food' },
     'plant': { id: 'plant', name: '植物', emoji: '🌿', desc: '緑豊かな植物。', category: 'natural' },
     'sugarcane': { id: 'sugarcane', name: 'サトウキビ', emoji: '🎋', desc: '茎に甘い汁をたっぷり含んだ植物。', category: 'natural' },
     'bagasse': { id: 'bagasse', name: 'バガス', emoji: '🍂', desc: 'サトウキビの搾りかす。バイオマス資源として注目されている。', category: 'natural' },
@@ -171,6 +171,7 @@ const ELEMENTS = {
     'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'food' },
     'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'food' },
     'milk_tea': { id: 'milk_tea', name: 'ミルクティー', emoji: '🧋', desc: '紅茶にミルクと砂糖を入れた濃厚な飲み物。', category: 'food' },
+    'carbonated_water': { id: 'carbonated_water', name: '炭酸水', emoji: '🫧', desc: '二酸化炭素が溶け込んだシュワシュワする水。', category: 'food' },
     'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'food' },
     'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'food' },
     'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural' },
@@ -197,6 +198,7 @@ const ELEMENTS = {
     // Food & Ingredients
     'rice': { id: 'rice', name: '米', emoji: '🍚', desc: '日本人の主食。炊くとふっくら美味しい。', category: 'food' },
     'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'food' },
+    'boiled_egg': { id: 'boiled_egg', name: 'ゆで卵', emoji: '🥚', desc: 'お湯で茹でたヘルシーな卵。', category: 'food' },
     'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'food' },
     'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'food' },
     'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'food' },
@@ -436,7 +438,8 @@ const ELEMENTS = {
     'parachute': { id: 'parachute', name: 'パラシュート', emoji: '🪂', desc: 'ナイロン製の大きな布。空気抵抗を利用して安全に降下する。', category: 'tool' },
 
     // Penicillin
-    'fish': { id: 'fish', name: '魚', emoji: '🐟', desc: '海や川を泳ぐ生き物。', category: 'natural' },
+    'fish': { id: 'fish', name: '魚', emoji: '🐟', desc: '海や川を泳ぐ生き物。', category: 'food' },
+    'roasted_fish': { id: 'roasted_fish', name: '焼き魚', emoji: '🐟', desc: '火で香ばしく焼いた魚。', category: 'food' },
     'seaweed': { id: 'seaweed', name: '海藻', emoji: '🌿', desc: '海に生える藻類。寒天の原料。', category: 'natural' },
     'kelp_ash': { id: 'kelp_ash', name: '海藻灰', emoji: '🍂', desc: '海藻を焼いて作った灰。炭酸ナトリウムやヨウ素を含んでいる。', category: 'material' },
     'flour': { id: 'flour', name: '穀粉', emoji: '🌾', desc: '穀物を挽いて粉にしたもの。パンの原料。', category: 'material' },
@@ -466,7 +469,7 @@ const ELEMENTS = {
     'p_asc': { id: 'p_asc', name: 'p-ASC', emoji: '🧪', desc: 'アセトアミノベンゼンスルホニルクロリド。サルファ剤合成の中間体。', category: 'chemical' },
     'p_asa': { id: 'p_asa', name: 'p-ASA', emoji: '🧪', desc: 'アセトアミノベンゼンスルホンアミド。サルファ剤合成の中間体。', category: 'chemical' },
     'sulfanilamide_hcl': { id: 'sulfanilamide_hcl', name: 'スルファニルアミド塩酸塩', emoji: '🧪', desc: 'これを中和すると薬になる。', category: 'chemical' },
-    'sulfanilamide': { id: 'sulfanilamide', name: 'サルファ剤', emoji: '💊', desc: '世界初の合成抗菌薬（サルファニルアミド）。多くの命を救った。', category: 'chemical' },
+    'sulfanilamide': { id: 'sulfanilamide', name: 'サルファ剤', emoji: '💊', desc: '世界初の合成抗菌薬（スルファニルアミド）。多くの命を救った。', category: 'chemical' },
 
     'ceramics': { id: 'ceramics', name: 'セラミックス', emoji: '🏺', desc: '高温で焼き固めた白い焼き物。耐熱性と絶縁性に優れる。', category: 'material' },
 
@@ -993,7 +996,10 @@ const ELEMENTS = {
     'bullet': { id: 'bullet', name: '弾丸', emoji: '🔫', desc: '銃から発射される金属の塊。', category: 'tool' },
     'vinyl_chloride': { id: 'vinyl_chloride', name: '塩化ビニル', emoji: '🧪', desc: 'PVCの原料となるガス。', category: 'chemical' },
     'pvc': { id: 'pvc', name: 'ポリ塩化ビニル', emoji: '🚰', desc: '水道管などに使われる丈夫なプラスチック。', category: 'material' },
-    'bakelite': { id: 'bakelite', name: 'ベークライト', emoji: '🟤', desc: '世界初の合成樹脂。熱に強く絶縁性が高い。', category: 'material' },
+    'bakelite': { id: 'bakelite', name: 'ベークライト', emoji: '🟤', desc: '世界初の合成樹脂. 熱に強く絶縁性が高い。', category: 'material' },
+    'hexamethylenetetramine': { id: 'hexamethylenetetramine', name: 'ヘキサメチレンテトラミン', emoji: '⚪', desc: 'ホルマリンとアンモニアから合成される白い結晶。樹脂の硬化剤などに使われる。', category: 'chemical' },
+    'novolac': { id: 'novolac', name: 'ノボラック', emoji: '🟤', desc: 'フェノールとホルマリン（酸触媒）で合成される熱可塑性樹脂。硬化剤によりベークライトとなる。', category: 'material' },
+    'resol': { id: 'resol', name: 'レゾール', emoji: '🍯', desc: 'フェノールとホルマリン（塩基触媒）で合成される初期縮合物。加熱でそのままベークライトとなる。', category: 'material' },
     'pvc_pipe': { id: 'pvc_pipe', name: '塩ビ管', emoji: '🚰', desc: 'PVCで作られたパイプ。', category: 'part' },
     'picric_acid': { id: 'picric_acid', name: 'ピクリン酸', emoji: '💥', desc: '黄色い爆薬。かつては火傷の薬にも使われた。', category: 'chemical' },
     'methyl_salicylate': { id: 'methyl_salicylate', name: 'サリチル酸メチル', emoji: '🌿', desc: '湿布のような匂いのする液体。消炎鎮痛剤。', category: 'chemical' },
@@ -1368,7 +1374,7 @@ const CIVILIZATION_LEVELS = [
     { level: 2, name: '火の利用', year: '紀元前50万年', trigger: 'fire', desc: '火を操り、生活が劇的に変化した時代。' },
     { level: 3, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
     { level: 4, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
-    { level: 5, name: '大航海時代', year: '15世紀', trigger: 'compass', desc: '羅針盤を手に、未知の大海原へ乗り出した探検の時代。' },
+    { level: 5, name: '大航海時代', year: '15世紀', trigger: 'yacht', desc: 'ヨットを手に、未知の大海原へ乗り出した探検の時代。' },
     { level: 6, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', desc: '活版印刷により、知識が爆発的に広まった時代。' },
     { level: 7, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
     { level: 8, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
@@ -1541,11 +1547,11 @@ const RECIPES = {
     'iron+wood': 'iron_tool', // Iron + Wood -> Iron Tool
 
     // Mechanics Roadmap
-    'iron+fire': 'iron_rod', // Iron Rod
-    'copper+lacquer': 'enameled_wire', // Enameled Wire (Copper + Lacquer)
+    'iron+rod': 'iron_rod', // Iron Rod
+    // 'copper+lacquer': 'enameled_wire', // Enameled Wire (Copper + Lacquer) - Removed per user request
     'enameled_wire+iron_rod': 'coil', // Coil
-    'iron_plate+iron_rod': 'iron_pipe', // Iron Pipe
-    'iron_pipe+iron_plate': 'cylinder', // Cylinder (Iron)
+    'iron_rod+cylinder': 'iron_pipe', // Iron Pipe
+    // 'iron_pipe+iron_plate': 'cylinder', // Cylinder (Iron) - Changed to bamboo version per user request
     'iron_rod+iron_plate': 'piston', // Piston (Rod + Plate)
 
     'earthenware+glass': 'glass_vessel', // Earthenware + Glass -> Glass Vessel
@@ -1581,7 +1587,7 @@ const RECIPES = {
     'hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
     'carbon_dioxide+potassium_hydroxide': 'potassium_carbonate', // CO2 absorption
     'ammonia+hydrochloric_acid': 'ammonium_chloride', // Reaction
-    // 'bamboo+glass_vessel': 'cylinder',
+    'bamboo+glass_vessel': 'cylinder',
     'stone_tool+wood': 'rod',
     'rod+wheel': 'top',
     'acetone+chlorine': 'chloroacetone',
@@ -1597,6 +1603,8 @@ const RECIPES = {
     // 'ammonia+oxygen+platinum': 'nitric_acid', // RECIPE REMOVED
     'ammonium_nitrate+fresh_water': 'cold_pack',
     'sodium_hydroxide+vinegar': 'sodium_acetate',
+    'sodium_bicarbonate+vinegar': ['sodium_acetate', 'carbon_dioxide', 'fresh_water'],
+    'sodium_carbonate+vinegar': ['sodium_acetate', 'carbon_dioxide', 'fresh_water'],
     'rod+sun': 'sundial',
     'triangle+triangle': 'quadrilateral',
     'quadrilateral+wood': 'plank',
@@ -2811,7 +2819,14 @@ const RECIPES = {
     // Vinyl Chloride Tree
     'acetylene+hydrogen_chloride': 'vinyl_chloride',
     'vinyl_chloride+vinyl_chloride': 'pvc',
-    'formaldehyde+hydrochloric_acid+phenol': ['bakelite', 'fresh_water'],
+    'formaldehyde+hydrochloric_acid+phenol': ['bakelite', 'fresh_water'], // Original simple recipe (keep for backward compatibility or change?)
+
+    // Advanced Bakelite / Phenolic Resin Trees
+    'ammonia_water+formalin': ['hexamethylenetetramine', 'fresh_water'], // 6 CH2O + 4 NH3 -> (CH2)6N4 + 6 H2O
+    'fire+formalin+hydrochloric_acid+phenol+phenol': ['novolac', 'fresh_water'],
+    'fire+hexamethylenetetramine+novolac': ['bakelite', 'ammonia_water'],
+    'fire+formalin+formalin+phenol+sodium_hydroxide': ['resol', 'fresh_water'],
+    'fire+resol': ['bakelite', 'fresh_water'],
     'iron_tool+pvc': 'pvc_pipe',
 
     // Advanced Chemistry Recipes
@@ -2882,6 +2897,8 @@ const RECIPES = {
 
     'animal+stone_tool': 'meat', // Changed from bird to animal
     'fire+meat': 'roasted_meat',
+    'fire+fish': 'roasted_fish',
+    'egg+hot_water': 'boiled_egg',
     'egg+stone_tool': 'egg_yolk',
     'egg_yolk+fire': 'fried_egg',
     'plant+fresh_water+fire': 'medicine',
@@ -2891,6 +2908,7 @@ const RECIPES = {
     // Tea Time Roadmap
     // 1. Tea Processing
     'hot_water+tea_leaf': 'green_tea', // Green Tea
+    'carbon_dioxide+fresh_water': 'carbonated_water', // Carbonated Water
     'tea_leaf+sun': 'black_tea_leaf', // Fermentation (Sun drying/oxidizing metaphor)
     'black_tea_leaf+hot_water': 'black_tea', // Black Tea
     'black_tea+milk+sugar': 'milk_tea', // Milk Tea
@@ -3593,8 +3611,13 @@ const BASE_REUSABLE_ITEMS = [
 let inventoryCounts = {};
 let discovered = new Set(); // Start with nothing discovered
 let visitedAreas = new Set(['japan']); // Tracks visited areas for achievements
+
+let isGameOver = false;
+
 let currentHunger = 100;
 const MAX_HUNGER = 100;
+let currentThirst = 100;
+const MAX_THIRST = 100;
 let isSick = false;
 let unlockedFeats = new Set(); // Track shown notifications
 let shownInventions = new Set(); // Track shown "Great Invention" logs
@@ -4165,6 +4188,7 @@ function saveGame() {
         lastLoginDate: lastLoginDate,
         loginStreak: loginStreak,
         hunger: currentHunger,
+        thirst: currentThirst,
         sick: isSick
     };
     localStorage.setItem('nature_science_save', JSON.stringify(data));
@@ -4221,6 +4245,9 @@ function loadGame() {
             if (data.hunger !== undefined) {
                 currentHunger = data.hunger;
             }
+            if (data.thirst !== undefined) {
+                currentThirst = data.thirst;
+            }
             if (data.sick !== undefined) {
                 isSick = data.sick;
             }
@@ -4260,6 +4287,7 @@ function exportSaveData() {
         ld: lastLoginDate,
         ls: loginStreak,
         h: currentHunger,
+        t: currentThirst,
         sick: isSick
     };
     if (userInventoryOrder && userInventoryOrder.length > 0) {
@@ -4426,7 +4454,10 @@ function applyLoadedData(data) {
     if (data.currentArea) currentArea = data.currentArea;
     if (data.lastLoginDate) lastLoginDate = data.lastLoginDate;
     if (data.loginStreak) loginStreak = data.loginStreak;
-    currentHunger = data.hunger;
+    if (data.hunger !== undefined) currentHunger = data.hunger;
+    if (data.thirst !== undefined) currentThirst = data.thirst;
+    if (data.h !== undefined) currentHunger = data.h;
+    if (data.t !== undefined) currentThirst = data.t;
     isSick = data.sick;
 
     updateCivilizationLevel(true);
@@ -4918,6 +4949,7 @@ function setupGathering() {
     document.querySelectorAll('.gather-spot').forEach(spot => {
         // Left Click: Gather
         spot.addEventListener('click', (e) => {
+            if (isGameOver) return; // Prevent gathering when game over
             const spotType = spot.dataset.id;
 
             // Map Logic for Foreign Spot
@@ -5391,6 +5423,7 @@ function addItem(id, amount) {
     debouncedSaveGame(); // Optimized save
     renderInventory();
     updateCO2Gauge(); // Ensure gauge updates on every add
+    decreaseHunger(1); // サバイバルモード: アイテム獲得ごとに空腹が減る
 
     // Tutorial Trigger
     if (id === 'water' || id === 'fresh_water' || id === 'wood' || id === 'earth') {
@@ -5441,6 +5474,7 @@ function checkGameOverCondition(checkTech, checkCo2) {
 }
 
 function triggerGameOver(reason) {
+    isGameOver = true;
     let title = "THE END OF CIVILIZATION";
     let desc = "環境汚染、兵器の拡散、そして制御不能な技術の進歩により、文明は崩壊しました。";
     let sub = "終末時計は深夜0時を打ちました。";
@@ -5862,6 +5896,7 @@ let lastCraftTime = 0;
 const CRAFT_COOLDOWN = 350; // ms
 
 function executeCraft() {
+    if (isGameOver) return; // Prevent crafting when game over
     const now = Date.now();
     if (now - lastCraftTime < CRAFT_COOLDOWN) return; // Prevent spam
     lastCraftTime = now;
@@ -6024,7 +6059,10 @@ function executeCraft() {
 
 window.eatItem = function (id) {
     if (inventoryCounts[id] && inventoryCounts[id] > 0) {
-        if (id === 'medicine' || id === 'penicillin') {
+        const meds = ['medicine', 'penicillin', 'acetanilide', 'aspirin', 'sulfanilamide'];
+        const drinks = ['water', 'fresh_water', 'hot_water', 'green_tea', 'black_tea', 'wine', 'alcohol', 'milk', 'coffee', 'carbonated_water', 'cola'];
+
+        if (meds.includes(id)) {
             inventoryCounts[id]--;
             if (inventoryCounts[id] === 0) {
                 delete inventoryCounts[id];
@@ -6034,6 +6072,30 @@ window.eatItem = function (id) {
                 cureSickness();
             } else {
                 log(`💊 [${getItemName(id)}] を飲んだが、特に変化はない。`);
+            }
+        } else if (drinks.includes(id)) {
+            // Drink logic
+            inventoryCounts[id]--;
+            if (inventoryCounts[id] === 0) {
+                delete inventoryCounts[id];
+                userInventoryOrder = userInventoryOrder.filter(itemId => itemId !== id);
+            }
+
+            currentThirst += 20;
+            if (id === 'fresh_water' || id === 'hot_water') {
+                currentThirst += 20;
+            } else if (id !== 'water' && id !== 'alcohol') {
+                currentThirst += 30; // tea, milk, coffee
+            }
+            if (currentThirst > MAX_THIRST) currentThirst = MAX_THIRST;
+            log(`💧 [${getItemName(id)}] を飲んで喉の渇きが回復しました！ (現在: ${currentThirst}/${MAX_THIRST})`);
+
+            if (id === 'water' && !isSick && Math.random() < 0.3) {
+                log("🤢 生の海水を飲んで体調を崩した...");
+                getSick();
+            } else if (id === 'alcohol' && !isSick && Math.random() < 0.1) {
+                log("🍺 お酒が強すぎた...");
+                getSick();
             }
         } else {
             // Decrease count
@@ -6045,7 +6107,7 @@ window.eatItem = function (id) {
 
             // Restore Hunger
             currentHunger += 20;
-            if (id === 'roasted_meat' || id === 'fried_egg') {
+            if (id === 'roasted_meat' || id === 'fried_egg' || id === 'roasted_fish' || id === 'boiled_egg') {
                 currentHunger += 15; // Cooked food gives more
             }
             if (currentHunger > MAX_HUNGER) currentHunger = MAX_HUNGER;
@@ -6053,7 +6115,7 @@ window.eatItem = function (id) {
             log(`🍗 [${getItemName(id)}] を食べて空腹度が回復しました！ (現在: ${currentHunger}/${MAX_HUNGER})`);
 
             // Sickness Risk
-            if ((id === 'meat' || id === 'egg_yolk') && !isSick) {
+            if ((id === 'meat' || id === 'egg_yolk' || id === 'egg' || id === 'fish') && !isSick) {
                 if (Math.random() < 0.4) {
                     getSick();
                 }
@@ -6061,6 +6123,7 @@ window.eatItem = function (id) {
         }
 
         updateHungerGauge();
+        updateThirstGauge();
         renderInventory();
         debouncedSaveGame();
 
@@ -6104,8 +6167,41 @@ function updateHungerGauge() {
     }
 }
 
+function updateThirstGauge() {
+    const isHard = localStorage.getItem('nature_science_ext_survival_hard') === 'true';
+    const container = document.getElementById('thirst-gauge-container');
+    if (!container) return;
+
+    if (isHard) {
+        container.style.display = 'block';
+        const bar = document.getElementById('thirst-gauge-bar');
+        const val = document.getElementById('thirst-gauge-value');
+        if (bar) bar.style.width = `${(currentThirst / MAX_THIRST) * 100}%`;
+
+        let statusText = ``;
+        if (isSick) {
+            statusText = `<span style="color:#f44336; margin-right: 5px;">🤢病気</span>`;
+        }
+
+        if (currentThirst <= 20) {
+            if (bar) bar.style.background = 'linear-gradient(90deg, #f44336, #e53935)';
+        } else if (currentThirst <= 50) {
+            if (bar) bar.style.background = 'linear-gradient(90deg, #ffa726, #ff9800)';
+        } else {
+            if (bar) bar.style.background = 'linear-gradient(90deg, #64b5f6, #2196f3)';
+        }
+
+        if (val) val.innerHTML = `${statusText}${currentThirst} / ${MAX_THIRST}`;
+    } else {
+        container.style.display = 'none';
+    }
+}
+
 function decreaseHunger(amount = 1) {
-    if (localStorage.getItem('nature_science_ext_survival') !== 'true') return;
+    const isSurvival = localStorage.getItem('nature_science_ext_survival') === 'true';
+    if (!isSurvival) return;
+
+    const isHard = localStorage.getItem('nature_science_ext_survival_hard') === 'true';
 
     // Random Sickness
     if (!isSick && Math.random() < 0.005) {
@@ -6116,8 +6212,16 @@ function decreaseHunger(amount = 1) {
     if (currentHunger < 0) currentHunger = 0;
     updateHungerGauge();
 
+    if (isHard) {
+        currentThirst -= (isSick ? amount * 2 : amount);
+        if (currentThirst < 0) currentThirst = 0;
+        updateThirstGauge();
+    }
+
     if (currentHunger === 0) {
         showGameOverHunger();
+    } else if (isHard && currentThirst === 0) {
+        showGameOverThirst();
     }
 }
 
@@ -6145,14 +6249,16 @@ function showGameOverHunger() {
     }
 
     log("💀 空腹で倒れてしまった...");
+    isGameOver = true; // 採集などをストップさせる
 
     setTimeout(() => {
-        ui.co2GameOverScreen.style.display = 'flex';
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#f44336; font-family:serif; text-align:center; animation: fadeInRed 2s;';
+
         const titleContent = `
             <div style="font-size: 5rem; margin-bottom: 20px;">💀</div>
             <h1 style="color: white; text-shadow: 0 0 10px #f44336;">GAME OVER</h1>
         `;
-        document.getElementById('co2-gameover-title').innerHTML = titleContent;
 
         const reasonHtml = `
             <p style="font-size: 1.2rem; margin-bottom: 20px;">
@@ -6163,18 +6269,87 @@ function showGameOverHunger() {
                 ヒント: 図鑑でアイテムを選んで「これを食べる」ボタンを押しましょう。
             </div>
         `;
-        document.getElementById('co2-gameover-reason').innerHTML = reasonHtml;
 
-        ui.co2GameOverRestartBtn.onclick = () => {
+        overlay.innerHTML = `
+            ${titleContent}
+            ${reasonHtml}
+            <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center;">
+                <button id="hunger-restart-btn" style="padding:15px 30px; background:#f44336; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">はじめからやり直す</button>
+                <button id="hunger-continue-btn" style="padding:15px 30px; background:#ff9800; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">時を戻す(コンティニュー)</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        document.getElementById('hunger-restart-btn').onclick = () => {
             resetGameData();
             location.reload();
         };
 
-        ui.co2GameOverContinueBtn.onclick = () => {
+        document.getElementById('hunger-continue-btn').onclick = () => {
             currentHunger = MAX_HUNGER;
+            isGameOver = false; // 採集などを再開させる
             log("⏳ 時を戻し、空腹を満たした状態でゲームを再開します...");
-            ui.co2GameOverScreen.style.display = 'none';
+            document.body.removeChild(overlay);
             updateHungerGauge();
+            debouncedSaveGame();
+        };
+    }, 1000);
+}
+
+function showGameOverThirst() {
+    const isImmortal = discovered.has('immortality');
+    if (isImmortal) {
+        log("極度の脱水状態に陥りましたが、あなたは【不老不死】であるため命を取り留めました。");
+        currentThirst = 10;
+        updateThirstGauge();
+        return;
+    }
+
+    log("💀 脱水で倒れてしまった...");
+    isGameOver = true;
+
+    setTimeout(() => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.9); z-index:9999; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#2196f3; font-family:serif; text-align:center; animation: fadeInRed 2s;';
+
+        const titleContent = `
+            <div style="font-size: 5rem; margin-bottom: 20px;">💀</div>
+            <h1 style="color: white; text-shadow: 0 0 10px #2196f3;">GAME OVER</h1>
+        `;
+
+        const reasonHtml = `
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                水分が尽き、あなたは脱水で倒れてしまいました。<br>
+                サバイバル・ハードでは常に飲み物を確保する必要があります。
+            </p>
+            <div style="font-size: 0.9rem; color: #64b5f6;">
+                ヒント: 水やお茶などの液体を作り、「これを飲む」ボタンを押しましょう。
+            </div>
+        `;
+
+        overlay.innerHTML = `
+            ${titleContent}
+            ${reasonHtml}
+            <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center;">
+                <button id="thirst-restart-btn" style="padding:15px 30px; background:#f44336; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">はじめからやり直す</button>
+                <button id="thirst-continue-btn" style="padding:15px 30px; background:#2196f3; color:white; border:none; border-radius:30px; cursor:pointer; font-weight:bold;">時を戻す(コンティニュー)</button>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+
+        document.getElementById('thirst-restart-btn').onclick = () => {
+            resetGameData();
+            location.reload();
+        };
+
+        document.getElementById('thirst-continue-btn').onclick = () => {
+            currentThirst = MAX_THIRST;
+            isGameOver = false;
+            log("⏳ 時を戻し、喉の渇きを潤した状態でゲームを再開します...");
+            document.body.removeChild(overlay);
+            updateThirstGauge();
             debouncedSaveGame();
         };
     }, 1000);
@@ -7080,6 +7255,7 @@ function updateStats() {
     // Refresh CO2 and Hunger Gauge
     updateCO2Gauge();
     updateHungerGauge();
+    updateThirstGauge();
 
     updateNextGoalDisplay();
 
@@ -7419,13 +7595,16 @@ function getBasePrice(id) {
 
     // Specific Adjustments based on tier/rarity
     const TIER_1 = ['water', 'sun', 'earth', 'air', 'stone', 'sand', 'fresh_water'];
-    if (TIER_1.includes(id)) price = 10;
+    if (TIER_1.includes(id)) return 10;
 
-    const TIER_2 = ['wood', 'clay', 'plant', 'iron_ore', 'coal'];
-    if (TIER_2.includes(id)) price = 40;
+    const TIER_2 = ['wood', 'clay', 'plant', 'iron_ore', 'coal', 'copper_ore', 'lead_ore'];
+    if (TIER_2.includes(id)) return 40;
+
+    const BASE_METALS = ['iron', 'copper', 'lead', 'zinc', 'tin', 'aluminum'];
+    if (BASE_METALS.includes(id)) return 120; // 鉄、銅などの基本金属を値下げ（元600G）
 
     const EXPENSIVE = ['gold', 'platinum', 'diamond', 'titanium', 'uranium', 'jewelry', 'palladium', 'rhodium', 'osmium', 'ruthenium', 'cobalt', 'neodymium', 'indium'];
-    if (EXPENSIVE.includes(id)) price = 5000;
+    if (EXPENSIVE.includes(id)) return 5000;
 
     const CHEAP_TOOLS = ['stone_tool', 'processed_stone', 'stone_axe', 'flint', 'fiber', 'nail', 'screw_part'];
     if (CHEAP_TOOLS.includes(id)) return 100;
@@ -8475,6 +8654,16 @@ function showElementDetail(id) {
         });
     }
 
+    // Dynamic Recipe Hints (not in RECIPES table)
+    if (id === 'battery') {
+        recipeHtml += `<h3 style="margin-top:12px; border-bottom:1px solid #ddd; padding-bottom:3px;">合成レシピ</h3>`;
+        recipeHtml += `
+            <div class="recipe-row" style="display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.4); padding:8px; margin:5px 0; border-radius:8px; border:1px solid rgba(0,0,0,0.05);">
+                <div style="font-size:0.95rem;">🧂 食塩水 + ⚡ 電極A（金属） + ⚡ 電極B（金属 or 炭素）<br><span style="font-size:0.8rem;color:#888;">※ 異なる2種類の電極と食塩水を合成ラボにセット（例：亜鉛+銅+食塩水）</span></div>
+            </div>
+        `;
+    }
+
     if (recipeHtml === '') {
         recipeHtml = `<p>入手方法：調査中... (${getText('unknown')})</p>`;
     }
@@ -8551,13 +8740,20 @@ function showElementDetail(id) {
     let eatHtml = '';
     const isSurvival = localStorage.getItem('nature_science_ext_survival') === 'true';
     if (isSurvival && inventoryCounts[id] > 0) {
-        if (data.category === 'food' && id !== 'medicine') {
+        const meds = ['medicine', 'penicillin', 'acetanilide', 'aspirin', 'sulfanilamide'];
+        const drinks = ['water', 'fresh_water', 'hot_water', 'green_tea', 'black_tea', 'wine', 'alcohol', 'milk', 'coffee', 'carbonated_water', 'cola'];
+
+        if (data.category === 'food' && !meds.includes(id) && !drinks.includes(id)) {
             eatHtml = `<div style="text-align:center; margin: 15px 0;">
                 <button onclick="eatItem('${id}')" style="background:linear-gradient(135deg, #ba68c8, #9c27b0); color:white; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 10px rgba(156,39,176,0.3); transition: transform 0.2s;">🍗 これを食べる</button>
             </div>`;
-        } else if (id === 'medicine' || id === 'penicillin') {
+        } else if (meds.includes(id)) {
             eatHtml = `<div style="text-align:center; margin: 15px 0;">
                 <button onclick="eatItem('${id}')" style="background:linear-gradient(135deg, #4caf50, #2e7d32); color:white; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 10px rgba(76,175,80,0.3); transition: transform 0.2s;">💊 これを飲む (病気治療)</button>
+            </div>`;
+        } else if (drinks.includes(id)) {
+            eatHtml = `<div style="text-align:center; margin: 15px 0;">
+                <button onclick="eatItem('${id}')" style="background:linear-gradient(135deg, #64b5f6, #2196f3); color:white; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; font-size:1.1rem; box-shadow:0 4px 10px rgba(33,150,243,0.3); transition: transform 0.2s;">💧 これを飲む (水分補給)</button>
             </div>`;
         }
     }
@@ -10462,11 +10658,18 @@ function setupSettingsUI() {
                                     <span style="font-size:0.7rem; color:#999;">二酸化炭素の過剰な蓄積で、地球が居住不能になります。</span>
                                 </div>
                             </label>
-                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px;">
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px; border-bottom:1px solid #f0f0f0;">
                                 <input type="checkbox" id="settings-ext-survival" style="accent-color:#9c27b0;">
                                 <div style="display:flex; flex-direction:column;">
                                     <span style="font-size:0.9rem; font-weight:bold; color:#9c27b0;">🔥 サバイバルモード</span>
                                     <span style="font-size:0.7rem; color:#999;">より過酷な環境でのプレイに挑戦します。</span>
+                                </div>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; cursor:pointer; padding:5px;">
+                                <input type="checkbox" id="settings-ext-survival-hard" style="accent-color:#2196f3;">
+                                <div style="display:flex; flex-direction:column;">
+                                    <span style="font-size:0.9rem; font-weight:bold; color:#2196f3;">💧 サバイバル・ハード</span>
+                                    <span style="font-size:0.7rem; color:#999;">サバイバルに加えて「喉の渇き」が追加されます。</span>
                                 </div>
                             </label>
                         </div>
@@ -10631,6 +10834,16 @@ function setupSettingsUI() {
                 updateHungerGauge();
             });
         }
+
+        const extSurvivalHard = document.getElementById('settings-ext-survival-hard');
+        if (extSurvivalHard) {
+            extSurvivalHard.checked = localStorage.getItem('nature_science_ext_survival_hard') === 'true';
+            extSurvivalHard.addEventListener('change', (e) => {
+                localStorage.setItem('nature_science_ext_survival_hard', e.target.checked);
+                log(e.target.checked ? "💧 サバイバル・ハードを有効にしました。水分補給に注意してください！" : "サバイバル・ハードを無効にしました。");
+                updateThirstGauge();
+            });
+        }
     };
 }
 
@@ -10646,6 +10859,7 @@ window.onload = function () {
     // CO2ゲージ初期化
     updateCO2Gauge();
     updateHungerGauge();
+    updateThirstGauge();
     init();
     initTutorial();
 };
@@ -10750,11 +10964,20 @@ function showRoadmap(targetId) {
     modal.onclick = function (e) { if (e.target === modal) modal.remove(); };
     modal.oncontextmenu = function (e) { e.preventDefault(); modal.remove(); };
 
-    var treeHtml = '<ul>' + buildRecipeTreeHtml(targetId, 0, true) + '</ul>';
+    var globalVisited = new Set();
+    var treeHtml = '<ul>' + buildRecipeTreeHtml(targetId, 0, true, globalVisited) + '</ul>';
     treeContainer.innerHTML = treeHtml;
+
+    // 初回表示時にターゲット(ルート)付近にスクロールを合わせる
+    setTimeout(function () {
+        if (scrollArea) {
+            scrollArea.scrollLeft = (scrollArea.scrollWidth - scrollArea.clientWidth) / 2;
+            scrollArea.scrollTop = scrollArea.scrollHeight;
+        }
+    }, 10);
 }
 
-function buildRecipeTreeHtml(itemId, depth, isRoot) {
+function buildRecipeTreeHtml(itemId, depth, isRoot, globalVisited) {
     var item = ELEMENTS[itemId];
     if (!item) return '<li><span style="color:red;">Unknown: ' + itemId + '</span></li>';
 
@@ -10772,17 +10995,24 @@ function buildRecipeTreeHtml(itemId, depth, isRoot) {
     html += '</div>';
 
 
-    // Cut off the tree if this item is already discovered (and not the root target)
+    // 発見済みアイテム（ルート以外）は、子要素（材料）を表示せずに終了
     if (!isRoot && isDiscovered) { return html + '</li>'; }
 
-    if (depth > 6) { return html + '</li>'; }
+    // 無限ループおよび重延防止のための階層制限
+    if (depth > 20) { return html + '</li>'; }
+
+    // 重複展開の防止（未発見アイテムでも、同じツリー内で一度展開されていれば二度目は展開しない）
+    if (!isRoot && globalVisited && globalVisited.has(itemId)) {
+        return html + '</li>';
+    }
+    if (globalVisited) globalVisited.add(itemId);
 
     var ingredients = findIngredientsFor(itemId);
 
     if (ingredients && ingredients.length > 0) {
         html += '<ul>';
         for (var i = 0; i < ingredients.length; i++) {
-            html += buildRecipeTreeHtml(ingredients[i], depth + 1, false);
+            html += buildRecipeTreeHtml(ingredients[i], depth + 1, false, globalVisited);
         }
         html += '</ul>';
     }
@@ -10798,6 +11028,8 @@ function findIngredientsFor(targetId) {
         // Refining (Smelting)
         'silver': ['noble_lead', 'ash_cupel', 'charcoal'],
         'lead': ['lead_oxide', 'charcoal'],
+        'copper': ['copper_sulfate_solution', 'iron'],
+        'copper_sulfate_solution': ['copper_sulfate', 'fresh_water'],
         'manganese': ['manganese_monoxide', 'charcoal'],
         'tin': ['cassiterite', 'charcoal'],
         'iron': (typeof discovered !== 'undefined' && discovered.has('magnetite') && !discovered.has('iron_ore')) ? ['magnetite', 'charcoal', 'fire', 'earthenware'] :
@@ -10813,7 +11045,6 @@ function findIngredientsFor(targetId) {
         'charcoal': ['wood', 'fire', 'earthenware'],
         'wood_vinegar': ['wood', 'fire', 'earthenware'],
         'acetone': ['calcium_acetate', 'fire', 'earthenware'],
-        'calcium_carbonate': ['calcium_acetate', 'fire', 'earthenware'],
 
         // Distillation
         'fresh_water': ['water', 'fire', 'earthenware'],
@@ -10831,29 +11062,52 @@ function findIngredientsFor(targetId) {
         'aluminum': ['alumina', 'cryolite', 'electricity', 'carbon_rod'],
         'sodium': ['sodium_hydroxide', 'electricity', 'iron_rod'],
         'magnesium': ['magnesium_chloride', 'electricity', 'carbon_rod'],
-        'calcium': ['calcium_chloride', 'electricity', 'carbon_rod'],
-        'potassium': ['potassium_hydroxide', 'electricity', 'iron_rod'],
         'zinc': ['zinc_sulfate', 'sulfuric_acid', 'electricity'],
 
         // Arc Furnace (Approximate)
         'titanium': ['titanium_tetrachloride', 'magnesium', 'electricity'],
-        'silicon': ['silica', 'coke', 'electricity'],
-        'phosphorus': ['calcium_phosphate', 'silica', 'coke', 'electricity'],
-        'calcium_carbide': ['lime', 'coke', 'electricity'],
-        'graphite': ['coke', 'electricity']
+        'silicon': ['sand', 'coke', 'electricity'],
+        'yellow_phosphorus': ['magnesium_diphosphate', 'sand', 'coke', 'electricity'],
+        'calcium_carbide': ['calcium_oxide', 'coke', 'electricity'],
+        'graphite': ['coke', 'electricity'],
+
+        // Dynamic Recipes
+        'battery': ['salt_water', 'zinc', 'copper'],
+        'methane': ['carbon_dioxide', 'hydrogen', 'sabatier_reactor']
     };
 
     if (special[targetId]) {
         return special[targetId];
     }
 
-    // 2. Regular Recipes
+    // 2. Regular Recipes - Find all matches and choose the "best" one
+    var candidates = [];
     for (var key in NORMALIZED_RECIPES) {
         if (NORMALIZED_RECIPES.hasOwnProperty(key)) {
             var val = NORMALIZED_RECIPES[key];
-            if (val === targetId) return key.split('+');
-            if (Array.isArray(val) && val.includes(targetId)) return key.split('+');
+            var isMatch = (val === targetId) || (Array.isArray(val) && val.includes(targetId));
+            if (isMatch) {
+                candidates.push(key.split('+'));
+            }
         }
+    }
+
+    if (candidates.length > 0) {
+        // アルゴリズム: 
+        // 1. 金(gold)やプラチナ(platinum)を含む「高価な副産物」レシピを避ける
+        // 2. 材料数が少ないものを優先する
+        candidates.sort(function (a, b) {
+            var scoreA = a.length;
+            var scoreB = b.length;
+
+            // 高価な素材が含まれている場合はペナルティを与える
+            var expensive = ['gold', 'platinum', 'chloroauric_acid', 'chloroplatinic_acid', 'precious_metal_solution'];
+            a.forEach(function (ing) { if (expensive.includes(ing)) scoreA += 100; });
+            b.forEach(function (ing) { if (expensive.includes(ing)) scoreB += 100; });
+
+            return scoreA - scoreB;
+        });
+        return candidates[0];
     }
 
     return null;
