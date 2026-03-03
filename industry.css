@@ -1,0 +1,93 @@
+/* industry.css - Exclusive styling for Industry Mode */
+:root {
+    --bg-color: #eceff1;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(144, 164, 174, 0.3);
+    --text-color: #263238;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    background-image: radial-gradient(#cfd8dc 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--text-color);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+}
+
+.sidebar {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #455a64;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, #455a64, #78909c);
+    color: white;
+}
+
+.workspace {
+    flex: 1;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

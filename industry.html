@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自然と科学 - 工業モード</title>
+    <link rel="stylesheet" href="industry.css">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <h1 style="color: #37474f;">工業エリア 🏭</h1>
+            <p style="color: #78909c; font-size: 0.85rem; margin-top: -10px; margin-bottom: 20px;">自動化と生産ラインの構築</p>
+
+            <nav class="main-nav">
+                <button class="nav-btn active">📦 ファクトリー</button>
+                <button class="nav-btn">⚡ 電力インフラ</button>
+                <button class="nav-btn">📝 設計・レシピ</button>
+                <hr style="border: none; border-top: 1px dashed #ccc; margin: 15px 0;">
+                <button id="return-science-btn" class="nav-btn" style="color: #0277bd; font-weight: bold;">🧪
+                    科学モードへ戻る</button>
+            </nav>
+
+            <div class="stats" style="margin-top: auto; padding-top: 20px;">
+                <p style="font-size: 0.9rem; color: #555;">利用可能なレシピ: <span id="ind-recipes-count"
+                        style="font-weight: bold; color: #43a047;">0</span></p>
+                <div style="background: rgba(0,0,0,0.05); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                    <p style="font-size: 0.8rem; color: #666; font-weight: bold;">引き継ぎ状況</p>
+                    <p style="font-size: 0.75rem; color: #888; line-height: 1.4; margin-top: 5px;">
+                        科学モードでアンロックしたアイテムとその合成レシピのみが工業モードで「設計図」として利用可能です。
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="workspace glass-panel"
+            style="display: flex; flex-direction: column; padding: 30px; overflow-y: auto;">
+            <div style="margin-bottom: 20px;">
+                <h2 style="color: #263238; font-size: 2rem;">工業的製法プラント</h2>
+                <p style="color: #546e7a; font-size: 1rem; margin-top: 5px;">
+                    基礎資源を大量生産・精錬する自動化設備を建設・稼働させます。生産品は科学モードと共有されます。</p>
+            </div>
+
+            <div id="industry-goal-container"
+                style="margin-bottom: 30px; width: 100%; max-width: 600px; align-self: center;"></div>
+
+            <div id="plants-container" style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Plants will be injected here by JS -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar: Inventory -->
+        <aside class="sidebar glass-panel" style="width: 250px;">
+            <h2 style="color: #37474f; font-size: 1.2rem; margin-bottom: 10px;">🏭 工業倉庫</h2>
+            <div id="industry-inventory"
+                style="display: flex; flex-direction: column; gap: 8px; overflow-y: auto; flex: 1; padding-right: 5px;">
+                <!-- Inventory items injected by JS -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Data Import (from Science Mode) -->
+    <script src="script.js"></script>
+    <script src="industry.js"></script>
+</body>
+
+</html>

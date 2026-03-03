@@ -505,7 +505,7 @@ const ELEMENTS = {
     'chromite': { id: 'chromite', name: 'クロム鉄鉱', emoji: '🌑', desc: 'クロムを含む黒い鉱石。ステンレスの原料。', category: 'natural' },
     'pentlandite': { id: 'pentlandite', name: 'ペントランド鉱', emoji: '🌑', desc: 'ニッケルと鉄を含む金色の鉱石。', category: 'natural' },
     'molybdenite': { id: 'molybdenite', name: '輝水鉛鉱', emoji: '🌑', desc: 'モリブデンを含む柔らかい鉱石。黒鉛に似ている。', category: 'natural' },
-    'pyrochlore': { id: 'pyrochlore', name: 'パイクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural' },
+    'pyrochlore': { id: 'pyrochlore', name: 'パイロクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural' },
     'rutile': { id: 'rutile', name: 'ルチル', emoji: '✨', desc: 'チタンを含む金色の針状結晶。', category: 'natural' },
     'copper_ore': { id: 'copper_ore', name: '輝銅鉱', emoji: '🟤', desc: '銅を含む岩石。緑青色の斑点が見られることが多い。', category: 'natural' },
     'copper_oxide_1': { id: 'copper_oxide_1', name: '酸化銅(I)', emoji: '🔴', desc: '赤色の粉末。輝銅鉱を焙焼して得られる。', category: 'chemical' },
@@ -590,10 +590,10 @@ const ELEMENTS = {
     'alkyl_mercaptan': { id: 'alkyl_mercaptan', name: 'アルキルメルカプタン', emoji: '💨', desc: '特異な悪臭を持つ硫黄化合物。', category: 'chemical' },
     'dialkyl_sulfide': { id: 'dialkyl_sulfide', name: 'ジアルキルスルフィド', emoji: '🧪', desc: '有機溶媒に溶けやすい硫黄化合物。抽出剤として利用。', category: 'chemical' },
     'extractant_solution': { id: 'extractant_solution', name: '抽出液', emoji: '🧪', desc: 'PGMを抽出するための有機溶媒混合液。', category: 'chemical' },
+    'ammonia_water': { id: 'ammonia_water', name: 'アンモニア水', emoji: '💧', desc: 'アンモニアが水に溶けたもの。アルカリ性。', category: 'chemical' },
     'raffinate': { id: 'raffinate', name: '抽残液', emoji: '💧', desc: '抽出工程で目的成分を取り除かれた残液。', category: 'chemical' },
     'loaded_organic_phase': { id: 'loaded_organic_phase', name: '負荷有機相', emoji: '🧪', desc: '目的成分を取り込んだ有機溶媒。', category: 'chemical' },
     'ammonium_hexachloroplatinate': { id: 'ammonium_hexachloroplatinate', name: '塩化白金酸アンモニウム', emoji: '🟡', desc: '黄色の沈殿。白金の精製中間体。', category: 'chemical' },
-    'sponge_platinum': { id: 'sponge_platinum', name: 'スポンジ白金', emoji: '🧽', desc: '多孔質の金属白金。触媒として非常に活性が高い。', category: 'material' },
     'regenerated_organic_phase': { id: 'regenerated_organic_phase', name: '再生有機層', emoji: '♻️', desc: '逆抽出を行い、再利用可能になった有機溶媒。', category: 'chemical' },
     'palladium_ammine_solution': { id: 'palladium_ammine_solution', name: 'パラジウムアンミン溶液', emoji: '🧪', desc: 'パラジウムがアンモニアと錯体を形成した溶液。', category: 'chemical' },
     'dichlorodiammine_palladium': { id: 'dichlorodiammine_palladium', name: 'ジクロロジアンミンパラジウム', emoji: '🟡', desc: '黄色の結晶。パラジウムの精製中間体。', category: 'chemical' },
@@ -1316,6 +1316,74 @@ const ELEMENTS = {
     'submarine': { id: 'submarine', name: '潜水艦', emoji: '🚤', desc: '高圧に耐えるチタン製の潜水船。深海の謎に挑む。', category: 'machine' }
 };
 
+// --- Industry Mode Automation Plants ---
+const IND_PLANTS = [
+    {
+        id: 'iron_smelter',
+        name: '自動製鉄炉',
+        desc: '鉄源(鉄鉱石/砂鉄/磁鉄鉱)と炭素源(木炭/コークス)を消費し、継続的に「鉄」を自動精錬します。',
+        reqDiscover: [['iron_ore', 'iron_sand', 'magnetite'], 'steam_engine'],
+        cost: 1000, // Cost in money (G)
+        inputs: [
+            { options: ['iron_ore', 'iron_sand', 'magnetite'], amount: 1, name: '鉄源' },
+            { options: ['charcoal', 'coke'], amount: 1, name: '炭素源' }
+        ],
+        outputs: { 'iron': 1 },
+        cycleMs: 5000,
+        emoji: '🏭'
+    },
+    {
+        id: 'pgm_smelter',
+        name: 'PGMマット製錬プラント',
+        desc: 'PGM鉱石を硫酸と高温で処理し、卑金属(銅・ニッケル)を分離して「PGM濃縮物」を生成します。',
+        reqDiscover: ['pgm_ore', 'sulfuric_acid'],
+        cost: 5000,
+        inputs: [
+            { options: ['pgm_ore'], amount: 5, name: 'PGM鉱石' },
+            { options: ['sulfuric_acid'], amount: 2, name: '硫酸' },
+            { options: ['charcoal', 'coke'], amount: 2, name: '炭素源' },
+            { options: ['sand'], amount: 2, name: '砂' }
+        ],
+        outputs: { 'pgm_concentrate': 5, 'copper_sulfate': 2, 'nickel_sulfate': 2 },
+        cycleMs: 10000,
+        emoji: '🔥'
+    },
+    {
+        id: 'pgm_separator',
+        name: 'PGM溶媒抽出プラント',
+        desc: '王水と抽出液を用いてPGM濃縮物を溶解し、金、白金、パラジウムを連続的に抽出分離します。',
+        reqDiscover: ['pgm_concentrate', 'extractant_solution'],
+        cost: 12000,
+        inputs: [
+            { options: ['pgm_concentrate'], amount: 5, name: 'PGM濃縮物' },
+            { options: ['aqua_regia'], amount: 2, name: '王水' },
+            { options: ['extractant_solution'], amount: 1, name: '抽出液' },
+            { options: ['iron_sulfate'], amount: 1, name: '硫酸鉄' },
+            { options: ['hydrogen'], amount: 2, name: '水素' }
+        ],
+        outputs: { 'gold': 2, 'platinum_sponge': 2, 'palladium': 2, 'insoluble_residue': 5 },
+        cycleMs: 15000,
+        emoji: '🧪'
+    },
+    {
+        id: 'pgm_residue_processor',
+        name: 'PGM残渣処理プラント',
+        desc: '難溶性残渣を過酸化ナトリウムでアルカリ溶融し、高度なレアメタル(Rh, Ru, Os, Ir)を回収します。',
+        reqDiscover: ['insoluble_residue', 'sodium_peroxide'],
+        cost: 25000,
+        inputs: [
+            { options: ['insoluble_residue'], amount: 3, name: '難溶性残渣' },
+            { options: ['sodium_peroxide'], amount: 1, name: '過酸化Na' },
+            { options: ['sodium_hydroxide'], amount: 1, name: '水酸化Na' },
+            { options: ['sodium_nitrate'], amount: 1, name: '硝酸Na' },
+            { options: ['hydrogen'], amount: 3, name: '水素' }
+        ],
+        outputs: { 'rhodium': 1, 'ruthenium_sponge': 1, 'osmium_sponge': 1, 'iridium': 1 },
+        cycleMs: 20000,
+        emoji: '⚡'
+    }
+];
+
 const INDUSTRIAL_PROCESSES = [
     { id: 'cupellation', name: '灰吹法', key: 'silver', req: 'noble_lead', desc: '貴鉛からの銀精錬技術。' },
     { id: 'amalgam', name: 'アマルガム法', key: 'gold_plating', req: 'mercury', desc: '水銀を使ったメッキ技術。' },
@@ -1369,29 +1437,29 @@ const GREAT_INVENTIONS = {
 };
 
 const CIVILIZATION_LEVELS = [
-    { level: 0, name: '原始時代', year: '紀元前330万年', trigger: null, desc: '自然と共に生きる時代。' },
-    { level: 1, name: '石器時代', year: '紀元前250万年', trigger: 'stone_tool', desc: '石を道具として使い始めた時代。' },
-    { level: 2, name: '火の利用', year: '紀元前50万年', trigger: 'fire', desc: '火を操り、生活が劇的に変化した時代。' },
-    { level: 3, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
-    { level: 4, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
-    { level: 5, name: '大航海時代', year: '15世紀', trigger: 'yacht', desc: 'ヨットを手に、未知の大海原へ乗り出した探検の時代。' },
-    { level: 6, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', desc: '活版印刷により、知識が爆発的に広まった時代。' },
-    { level: 7, name: '産業革命', year: '1760年代', trigger: 'steam_engine', desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
-    { level: 8, name: '電気革命', year: '1870年代', trigger: 'light_bulb', desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
-    { level: 9, name: '通信革命', year: '1876年', trigger: 'telephone', desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
-    { level: 10, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', desc: '内燃機関により、陸と空の移動が自由になった時代。' },
-    { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'sulfanilamide', desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
-    { level: 12, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
-    { level: 13, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
-    { level: 14, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
-    { level: 15, name: '宇宙時代', year: '1960年代', trigger: 'rocket', desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
-    { level: 16, name: '情報革命', year: '1990年代', trigger: 'computer', desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
-    { level: 17, name: 'ロボット社会', year: '2010年代', trigger: 'robot', desc: '自動化された機械が労働を担い、効率化が進む時代。' },
-    { level: 18, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
-    { level: 19, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
-    { level: 20, name: '月面開発時代', year: '未来', trigger: 'moon_base', desc: '月が地球の経済圏の一部となり、宇宙進出の足掛かりとなった時代。' },
-    { level: 21, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', desc: '人類が多惑星種族への第一歩を踏み出した時代。' },
-    { level: 22, name: 'テラフォーミング', year: '未来', trigger: 'blue_mars', desc: '惑星の環境そのものを改変し、生命が住める星を自らの手で作り上げた時代。' }
+    { level: 0, name: '原始時代', year: '紀元前330万年', trigger: null, reqCount: 0, desc: '自然と共に生きる時代。' },
+    { level: 1, name: '石器時代', year: '紀元前250万年', trigger: 'stone_tool', reqCount: 5, desc: '石を道具として使い始めた時代。' },
+    { level: 2, name: '火の利用', year: '紀元前50万年', trigger: 'fire', reqCount: 15, desc: '火を操り、生活が劇的に変化した時代。' },
+    { level: 3, name: '金属器時代', year: '紀元前1200年', trigger: 'iron', reqCount: 30, desc: '強靭な鉄を手に入れ、農業や戦争が変わった時代。' },
+    { level: 4, name: '中世', year: '5～15世紀', trigger: 'mechanical_clock', reqCount: 50, desc: '歯車などの機械技術が発展し、職人が活躍した時代。' },
+    { level: 5, name: '大航海時代', year: '15世紀', trigger: 'yacht', reqCount: 75, desc: 'ヨットを手に、未知の大海原へ乗り出した探検の時代。' },
+    { level: 6, name: '印刷革命', year: '1450年頃', trigger: 'printing_press', reqCount: 100, desc: '活版印刷により、知識が爆発的に広まった時代。' },
+    { level: 7, name: '産業革命', year: '1760年代', trigger: 'steam_engine', reqCount: 130, desc: '蒸気の力が世界を動かし始めた機械化の時代。' },
+    { level: 8, name: '電気革命', year: '1870年代', trigger: 'light_bulb', reqCount: 160, desc: '夜を照らす光と、万能のエネルギーを手に入れた時代。' },
+    { level: 9, name: '通信革命', year: '1876年', trigger: 'telephone', reqCount: 200, desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
+    { level: 10, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', reqCount: 240, desc: '内燃機関により、陸と空の移動が自由になった時代。' },
+    { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'sulfanilamide', reqCount: 280, desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
+    { level: 12, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', reqCount: 330, desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
+    { level: 13, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', reqCount: 380, desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
+    { level: 14, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', reqCount: 430, desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
+    { level: 15, name: '宇宙時代', year: '1960年代', trigger: 'rocket', reqCount: 490, desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
+    { level: 16, name: '情報革命', year: '1990年代', trigger: 'computer', reqCount: 550, desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
+    { level: 17, name: 'ロボット社会', year: '2010年代', trigger: 'robot', reqCount: 620, desc: '自動化された機械が労働を担い、効率化が進む時代。' },
+    { level: 18, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', reqCount: 690, desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
+    { level: 19, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', reqCount: 770, desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
+    { level: 20, name: '月面開発時代', year: '未来', trigger: 'moon_base', reqCount: 850, desc: '月が地球の経済圏の一部となり、宇宙進出の足掛かりとなった時代。' },
+    { level: 21, name: '惑星間航行時代', year: '未来', trigger: 'deep_space_ship', reqCount: 930, desc: '人類が多惑星種族への第一歩を踏み出した時代。' },
+    { level: 22, name: 'テラフォーミング', year: '未来', trigger: 'blue_mars', reqCount: 1000, desc: '惑星の環境そのものを改変し、生命が住める星を自らの手で作り上げた時代。' }
 ];
 
 const countItemsByCategory = (cat) => {
@@ -2225,7 +2293,7 @@ const RECIPES = {
 
     // Platinum Line
     'ammonium_chloride+raffinate': 'ammonium_hexachloroplatinate',
-    'ammonium_hexachloroplatinate+fire': ['sponge_platinum', 'nitrogen', 'ammonia', 'hydrogen_chloride', 'chlorine'],
+    'ammonium_hexachloroplatinate+fire': ['platinum_sponge', 'nitrogen', 'ammonia', 'hydrogen_chloride', 'chlorine'],
 
     // Palladium Line
     'ammonia_water+loaded_organic_phase+mixer_settler': ['regenerated_organic_phase', 'palladium_ammine_solution'],
@@ -3604,7 +3672,7 @@ const BASE_REUSABLE_ITEMS = [
     'refrigerator', 'glass_vessel', 'matchlock_gun', 'cannon', 'rifle', 'pvc_pipe',
     'pendulum_clock', 'chronometer', 'quartz_clock', 'atomic_clock', 'fuel_cell',
     'lathe', 'boring_machine', 'milling_machine', 'rifling_machine', 'printing_press', 'typewriter',
-    'movable_type', 'scales', 'balance', 'anvil', 'hammer'
+    'movable_type', 'scales', 'balance', 'anvil', 'hammer', 'distillation_tower'
 ];
 
 
@@ -3672,9 +3740,9 @@ const ui = {
     navLab: document.getElementById('nav-lab'),
     navBook: document.getElementById('nav-book'), // New
     navArchives: document.getElementById('nav-archives'), // New
-    navShop: document.getElementById('nav-shop'), // New Shop
-    shopView: document.getElementById('view-shop'), // New Shop
+    navShop: document.getElementById('nav-shop'), // New
     archivesView: document.getElementById('view-archives'), // New
+    shopView: document.getElementById('view-shop'), // New
     playerMoney: document.getElementById('player-money'), // New Shop
     inventory: document.getElementById('element-list'),
     slot1: document.getElementById('slot-1'),
@@ -5416,6 +5484,17 @@ function addItem(id, amount) {
         discovered.add(id);
         const dName = getItemName(id);
         log(`${getText('discovery')} [${dName}]`);
+
+        // Unlock Industry Mode (Industrial Revolution trigger)
+        if (id === 'steam_engine') {
+            log('✨ 【工業モード解放】 蒸気機関により「産業革命」が起きました！次回スタート画面から【工業モード】を開始できます！');
+            const industryBtn = document.getElementById('start-industry-btn');
+            if (industryBtn) {
+                industryBtn.style.display = 'block';
+                industryBtn.innerText = '🏭 工業モードを開始';
+            }
+        }
+
         updateCivilizationLevel();
         updateStats();
     }
@@ -5635,9 +5714,12 @@ function setupCraftingUI() {
     document.getElementById('reset-slots-btn').addEventListener('click', resetSlots);
 }
 
-document.getElementById('close-login-bonus').addEventListener('click', () => {
-    document.getElementById('login-bonus-modal').style.display = 'none';
-});
+const closeBonusBtn = document.getElementById('close-login-bonus');
+if (closeBonusBtn) {
+    closeBonusBtn.addEventListener('click', () => {
+        document.getElementById('login-bonus-modal').style.display = 'none';
+    });
+}
 
 // === Machine Reordering ===
 function setupMachineReordering() {
@@ -5985,12 +6067,16 @@ function executeCraft() {
         }
 
         // Tools that are not consumed
-        const reusableIds = [...BASE_REUSABLE_ITEMS];
+        let reusableIds = [...BASE_REUSABLE_ITEMS];
         if (discovered.has('platinum_catalyst_flag')) reusableIds.push('nitric_acid');
         if (discovered.has('contact_process_flag')) reusableIds.push('sulfuric_acid');
         if (discovered.has('hydroelectric_power')) reusableIds.push('electricity');
         if (discovered.has('high_pressure_reactor')) reusableIds.push('ammonia');
         if (discovered.has('sabatier_reaction_flag')) reusableIds.push('methane');
+
+        // ▼ ルール追加: 道具系アイテムが2つ以上合成枠にある場合、それらは消費される
+        const toolInputs = currentInputs.filter(id => ELEMENTS[id] && ELEMENTS[id].category === 'tool');
+        const forceConsumeTools = toolInputs.length >= 2;
 
         currentInputs.forEach(id => {
             // Special Exception: Earthenware breaks when making Shards
@@ -5999,7 +6085,14 @@ function executeCraft() {
                 return;
             }
 
-            if (!reusableIds.includes(id)) {
+            let isReusable = reusableIds.includes(id);
+
+            // もし「道具同士の合成」であれば、道具カテゴリのアイテムは強制的に消費（reusable扱いを取り消す）
+            if (forceConsumeTools && ELEMENTS[id] && ELEMENTS[id].category === 'tool') {
+                isReusable = false;
+            }
+
+            if (!isReusable) {
                 consumeItem(id, 1);
             }
         });
@@ -7367,7 +7460,16 @@ function updateNextGoalDisplay() {
             if (triggerInfo) {
                 const emoji = triggerInfo.emoji;
                 const name = triggerInfo.name;
-                nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明`;
+
+                let reqHtml = '';
+                if (nextLevel.reqCount) {
+                    const remaining = nextLevel.reqCount - discovered.size;
+                    if (remaining > 0) {
+                        reqHtml = `<div style="font-size:0.8rem;color:#888;margin-top:2px;">(さらに要素を ${remaining} 個発見)</div>`;
+                    }
+                }
+
+                nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明${reqHtml}`;
 
                 // Add right-click listener for roadmap
                 const isRoadmapEnabled = localStorage.getItem('nature_science_ext_roadmap') !== 'false';
@@ -8046,7 +8148,7 @@ function renderPriceChart(id) {
 function updateCivilizationLevel(silent = false) {
     let maxLevel = 0;
     CIVILIZATION_LEVELS.forEach(civ => {
-        if (civ.trigger === null || discovered.has(civ.trigger)) {
+        if ((civ.trigger === null || discovered.has(civ.trigger)) && (civ.reqCount === undefined || discovered.size >= civ.reqCount)) {
             if (civ.level > maxLevel) maxLevel = civ.level;
         }
     });
@@ -9028,7 +9130,7 @@ const TUTORIAL_STEPS = [
     },
     {
         id: 'roadmap',
-        text: '<h3>🔍 道標：ロードマップ</h3><p>画面左上の<b>「次の目標」</b>を<b>右クリック</b>すると、作り方のヒント（ロードマップ）が表示されます。<br>何を作ればいいか分からなくなったら活用しましょう！</p>',
+        text: '<h3>🔍 道標：ロードマップ</h3><p>サイドバーの<b>「次の目標」</b>を<b>右クリック</b>すると、作り方のヒント（ロードマップ）が表示されます。<br>何を作ればいいか分からなくなったら活用しましょう！</p>',
         target: '#next-civ-goal',
         trigger: 'next_btn'
     },
@@ -10856,12 +10958,159 @@ window.onload = function () {
     if (localStorage.getItem('nature_science_glass_mode') === 'true') {
         document.body.classList.add('glass-mode');
     }
-    // CO2ゲージ初期化
-    updateCO2Gauge();
-    updateHungerGauge();
-    updateThirstGauge();
-    init();
-    initTutorial();
+
+    const industryBtn = document.getElementById('start-industry-btn');
+    if (industryBtn) {
+        industryBtn.addEventListener('click', () => {
+            window.location.href = 'industry.html';
+        });
+    }
+
+    // Only run main UI initializers if we are on the main game page
+    if (document.getElementById('element-list')) {
+        // CO2ゲージ初期化
+        updateCO2Gauge();
+        updateHungerGauge();
+        updateThirstGauge();
+        init();
+        initTutorial();
+    } else {
+        // If we are on Industry Mode page, we still need to load data
+        loadGame();
+        if (typeof initIndustryUI === 'function') initIndustryUI();
+    }
+
+    // Check if industry mode is unlocked (Industrial Revolution)
+    if (industryBtn && typeof discovered !== 'undefined' && discovered.has('steam_engine')) {
+        industryBtn.style.display = 'block';
+    }
+
+    // --- Global Industry Automation Loop (With Offline Progress) ---
+    setInterval(() => {
+        // Stop background polling if Science Mode saves haven't loaded yet.
+        if (typeof discovered === 'undefined' || typeof inventoryCounts === 'undefined') return;
+        if (!discovered.has('steam_engine')) return; // Ensure they reached industrial revolution
+
+        let indSaveStr = localStorage.getItem('nature_science_ind_save');
+        let indData = { plants: {} };
+        if (indSaveStr) {
+            try { indData = Object.assign(indData, JSON.parse(indSaveStr)); } catch (e) { }
+        }
+
+        let changedInd = false;
+        let changedInv = false;
+
+        const now = Date.now();
+        if (!indData.lastTick) {
+            indData.lastTick = now;
+            changedInd = true;
+        }
+
+        // Calculate elapsed time since last tick
+        let elapsed = now - indData.lastTick;
+        // Cap offline calculation to 24 hours (86,400,000 ms) to prevent infinite loops
+        if (elapsed > 86400000) elapsed = 86400000;
+
+        let offlineMsg = "";
+
+        // Ensure at least 1 second has passed (throttle)
+        if (elapsed >= 1000) {
+            IND_PLANTS.forEach(p => {
+                let state = indData.plants[p.id];
+                if (state && state.built && state.active) {
+                    state.progress = (state.progress || 0) + elapsed;
+
+                    if (state.progress >= p.cycleMs) {
+                        let potentialCycles = Math.floor(state.progress / p.cycleMs);
+                        let actualCycles = potentialCycles;
+
+                        // Check limits of raw materials
+                        if (actualCycles > 0) {
+                            for (let i = 0; i < p.inputs.length; i++) {
+                                let inputReq = p.inputs[i];
+                                let totalAvailable = 0;
+                                inputReq.options.forEach(opt => totalAvailable += (inventoryCounts[opt] || 0));
+                                let limit = Math.floor(totalAvailable / inputReq.amount);
+                                if (limit < actualCycles) actualCycles = limit;
+                            }
+                        }
+
+                        if (actualCycles > 0) {
+                            // Consume Inputs
+                            for (let i = 0; i < p.inputs.length; i++) {
+                                let inputReq = p.inputs[i];
+                                let needed = inputReq.amount * actualCycles;
+                                for (let j = 0; j < inputReq.options.length; j++) {
+                                    let opt = inputReq.options[j];
+                                    let available = inventoryCounts[opt] || 0;
+                                    if (available > 0) {
+                                        if (available >= needed) {
+                                            inventoryCounts[opt] -= needed;
+                                            needed = 0;
+                                            break;
+                                        } else {
+                                            inventoryCounts[opt] = 0;
+                                            needed -= available;
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Produce Outputs
+                            for (let ko in p.outputs) {
+                                let produced = (p.outputs[ko] * actualCycles);
+                                inventoryCounts[ko] = (inventoryCounts[ko] || 0) + produced;
+                                if (!discovered.has(ko)) {
+                                    discovered.add(ko);
+                                    log(`🏭 [工業モード] 自動生産により【${ELEMENTS[ko].name}】を獲得！`);
+                                    if (typeof updateCivilizationLevel === 'function') updateCivilizationLevel();
+                                }
+                            }
+                            changedInv = true;
+
+                            // If calculated offline multiple cycles
+                            if (actualCycles > 20) {
+                                offlineMsg += `・[${p.name}] フル稼働で ${actualCycles} サイクル完了<br>`;
+                            }
+                        }
+
+                        // Remove consumed progress time
+                        if (actualCycles > 0) {
+                            state.progress -= (p.cycleMs * actualCycles);
+                        } else {
+                            // If we starved (no materials), prevent progress from accumulating past cycle completion
+                            // so it doesn't instantly craft right when resources are gained in the future
+                            state.progress = p.cycleMs - 1;
+                        }
+                    }
+                    changedInd = true;
+                }
+            });
+
+            // Log large offline accumulations 
+            if (offlineMsg.length > 0) {
+                log(`🏭 <b>[オフライン生産報告]</b><br>留守の間にも工場は稼働し続けました！<br>${offlineMsg}`);
+            }
+
+            indData.lastTick = now;
+            changedInd = true;
+        }
+
+        if (changedInv) {
+            // Trigger UI update using Science Mode's functions if they exist on the page
+            if (typeof updateStats === 'function' && (document.getElementById('stats-panel') || document.getElementById('player-money'))) updateStats();
+            if (typeof renderInventory === 'function' && document.getElementById('element-list')) renderInventory();
+            if (typeof checkAchievements === 'function' && document.getElementById('element-list')) checkAchievements();
+            if (typeof saveGame === 'function') saveGame();
+        }
+
+        if (changedInd) {
+            localStorage.setItem('nature_science_ind_save', JSON.stringify(indData));
+            // Trigger Industry UI update if running on industry.html 
+            // Only re-render inventory to prevent flickering the plant UI
+            if (changedInv && window.renderIndustryInventory) window.renderIndustryInventory();
+        }
+    }, 1000); // Check every 1s
 };
 
 
@@ -10964,8 +11213,37 @@ function showRoadmap(targetId) {
     modal.onclick = function (e) { if (e.target === modal) modal.remove(); };
     modal.oncontextmenu = function (e) { e.preventDefault(); modal.remove(); };
 
-    var globalVisited = new Set();
-    var treeHtml = '<ul>' + buildRecipeTreeHtml(targetId, 0, true, globalVisited) + '</ul>';
+    if (!window.toggleRoadmapNode) {
+        window.toggleRoadmapNode = function (e, btn, itemId, pathStr) {
+            if (e) e.stopPropagation();
+            var li = btn.closest('li');
+            var ul = li.querySelector(':scope > ul');
+            if (ul) {
+                if (ul.style.display === 'none') {
+                    ul.style.display = 'block';
+                    btn.innerText = '-';
+                } else {
+                    ul.style.display = 'none';
+                    btn.innerText = '+';
+                }
+            } else {
+                var ingredients = findIngredientsFor(itemId);
+                if (ingredients && ingredients.length > 0) {
+                    var newUl = document.createElement('ul');
+                    var html = '';
+                    for (var i = 0; i < ingredients.length; i++) {
+                        var childPath = pathStr + ',' + ingredients[i];
+                        html += buildRecipeTreeHtml(ingredients[i], false, childPath);
+                    }
+                    newUl.innerHTML = html;
+                    li.appendChild(newUl);
+                    btn.innerText = '-';
+                }
+            }
+        };
+    }
+
+    var treeHtml = '<ul>' + buildRecipeTreeHtml(targetId, true, targetId) + '</ul>';
     treeContainer.innerHTML = treeHtml;
 
     // 初回表示時にターゲット(ルート)付近にスクロールを合わせる
@@ -10977,7 +11255,8 @@ function showRoadmap(targetId) {
     }, 10);
 }
 
-function buildRecipeTreeHtml(itemId, depth, isRoot, globalVisited) {
+function buildRecipeTreeHtml(itemId, isRoot, pathStr) {
+    if (!pathStr) pathStr = itemId;
     var item = ELEMENTS[itemId];
     if (!item) return '<li><span style="color:red;">Unknown: ' + itemId + '</span></li>';
 
@@ -10988,31 +11267,54 @@ function buildRecipeTreeHtml(itemId, depth, isRoot, globalVisited) {
     var displayEmoji = item.emoji;
     if (!isDiscovered && !isRoot) { displayName = '？？？'; displayEmoji = '🔒'; }
 
-    var html = '<li class="' + statusClass + '">';
-    html += '<div class="node-content">';
-    html += '<span class="node-icon">' + displayEmoji + '</span>';
-    html += '<span class="node-name">' + displayName + '</span>';
-    html += '</div>';
-
-
-    // 発見済みアイテム（ルート以外）は、子要素（材料）を表示せずに終了
-    if (!isRoot && isDiscovered) { return html + '</li>'; }
-
-    // 無限ループおよび重延防止のための階層制限
-    if (depth > 20) { return html + '</li>'; }
-
-    // 重複展開の防止（未発見アイテムでも、同じツリー内で一度展開されていれば二度目は展開しない）
-    if (!isRoot && globalVisited && globalVisited.has(itemId)) {
-        return html + '</li>';
-    }
-    if (globalVisited) globalVisited.add(itemId);
-
     var ingredients = findIngredientsFor(itemId);
 
-    if (ingredients && ingredients.length > 0) {
+    // 注釈（プロセス名）の判定
+    var method = null;
+    if (ingredients) {
+        if (ingredients.includes('distillation_tower')) method = '蒸留';
+        else if (ingredients.includes('arc_furnace') || ['titanium', 'silicon', 'yellow_phosphorus', 'calcium_carbide', 'graphite'].includes(itemId)) method = 'アーク炉';
+        else if (['silver', 'lead', 'copper', 'manganese', 'tin', 'iron', 'mercury', 'bismuth'].includes(itemId)) method = '製錬';
+        else if (['coke', 'coal_tar', 'coal_gas', 'charcoal', 'wood_vinegar', 'acetone'].includes(itemId)) method = '乾留';
+        else if (['fresh_water'].includes(itemId) && ingredients.includes('fire')) method = '蒸留';
+        else if (['salt'].includes(itemId) && ingredients.includes('fire')) method = '蒸発';
+        else if (['aluminum', 'sodium', 'magnesium', 'zinc'].includes(itemId) && ingredients.includes('electricity')) method = '電解製錬';
+    }
+
+    var annotationHtml = '';
+    var hasIngredients = (ingredients && ingredients.length > 0);
+    var pathArr = pathStr.split(',');
+    var loopCount = pathArr.filter(id => id === itemId).length;
+    var isLoop = loopCount > 1;
+
+    if (isLoop) {
+        annotationHtml += '<span style="font-size:0.65rem; color:#888; background:rgba(0,0,0,0.05); white-space:nowrap; padding:2px 4px; border-radius:4px; margin-left:6px; vertical-align:middle;">(ループ)</span>';
+    }
+
+    if (method && (isDiscovered || isRoot)) {
+        annotationHtml = '<span style="font-size:0.65rem; color:#d84315; background:rgba(216,67,21,0.1); white-space:nowrap; padding:2px 4px; border-radius:4px; margin-left:6px; font-weight:bold; vertical-align:middle;">' + method + '</span>' + annotationHtml;
+    }
+
+    var html = '<li class="' + statusClass + '" data-path="' + pathStr + '">';
+    html += '<div class="node-content" style="display:flex; align-items:center;">';
+
+    // Toggle button
+    if (hasIngredients && !isLoop) {
+        var btnText = isRoot ? '-' : '+';
+        html += '<button class="rm-toggle-btn" onclick="toggleRoadmapNode(event, this, \'' + itemId + '\', \'' + pathStr + '\')" style="margin-right:5px;flex-shrink:0;cursor:pointer;width:20px;height:20px;line-height:0.8;border-radius:4px;border:1px solid #ccc;background:white;font-weight:bold;padding:0;text-align:center;color:#333;">' + btnText + '</button>';
+    } else {
+        html += '<span style="width:25px;display:inline-block;flex-shrink:0;"></span>'; // Spacer for alignment
+    }
+
+    html += '<span class="node-icon" style="flex-shrink:0;">' + displayEmoji + '</span>';
+    html += '<span class="node-name" style="display:inline-flex; align-items:center; flex-wrap:wrap;">' + displayName + annotationHtml + '</span>';
+    html += '</div>';
+
+    if (isRoot && hasIngredients && !isLoop) {
         html += '<ul>';
         for (var i = 0; i < ingredients.length; i++) {
-            html += buildRecipeTreeHtml(ingredients[i], depth + 1, false, globalVisited);
+            var childPath = pathStr + ',' + ingredients[i];
+            html += buildRecipeTreeHtml(ingredients[i], false, childPath);
         }
         html += '</ul>';
     }
@@ -11026,17 +11328,17 @@ function findIngredientsFor(targetId) {
     // Priority: Special recipes often represent the primary industrial method.
     var special = {
         // Refining (Smelting)
-        'silver': ['noble_lead', 'ash_cupel', 'charcoal'],
-        'lead': ['lead_oxide', 'charcoal'],
+        'silver': ['noble_lead', 'ash_cupel', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware', 'air'],
+        'lead': ['lead_oxide', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
         'copper': ['copper_sulfate_solution', 'iron'],
         'copper_sulfate_solution': ['copper_sulfate', 'fresh_water'],
-        'manganese': ['manganese_monoxide', 'charcoal'],
-        'tin': ['cassiterite', 'charcoal'],
-        'iron': (typeof discovered !== 'undefined' && discovered.has('magnetite') && !discovered.has('iron_ore')) ? ['magnetite', 'charcoal', 'fire', 'earthenware'] :
-            (typeof discovered !== 'undefined' && discovered.has('iron_sand') && !discovered.has('iron_ore')) ? ['iron_sand', 'charcoal', 'fire', 'earthenware'] :
-                ['iron_ore', 'charcoal', 'fire', 'earthenware'],
-        'mercury': ['cinnabar', 'charcoal'],
-        'bismuth': ['bismuth_oxide', 'charcoal'],
+        'manganese': ['manganese_monoxide', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
+        'tin': ['cassiterite', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
+        'iron': (typeof discovered !== 'undefined' && discovered.has('magnetite') && !discovered.has('iron_ore')) ? ['magnetite', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'] :
+            (typeof discovered !== 'undefined' && discovered.has('iron_sand') && !discovered.has('iron_ore')) ? ['iron_sand', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'] :
+                ['iron_ore', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
+        'mercury': ['cinnabar', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
+        'bismuth': ['bismuth_oxide', (typeof discovered !== 'undefined' && discovered.has('coke') && !discovered.has('charcoal')) ? 'coke' : 'charcoal', 'fire', 'earthenware'],
 
         // Carbonization (Dry Distillation)
         'coke': ['coal', 'fire', 'earthenware'],
@@ -11049,14 +11351,17 @@ function findIngredientsFor(targetId) {
         // Distillation
         'fresh_water': ['water', 'fire', 'earthenware'],
         'salt': ['water', 'fire', 'earthenware'],
-        'alcohol': ['wine', 'fire', 'distillation_tower'],
-        'methanol': ['calcium_acetate', 'distillation_tower'],
-        'light_oil': ['coal_tar', 'distillation_tower'],
-        'middle_oil': ['coal_tar', 'distillation_tower'],
-        'heavy_oil': ['coal_tar', 'distillation_tower'],
-        'anthracene_oil': ['coal_tar', 'distillation_tower'],
-        'pitch': ['coal_tar', 'distillation_tower'],
-        'phenol': ['crude_phenol', 'distillation_tower'],
+        'alcohol': ['wine', 'fire', 'earthenware'],
+        'methanol': ['calcium_acetate', 'fire', 'earthenware'],
+        'light_oil': ['coal_tar', 'glass_vessel', 'fire', 'earthenware'],
+        'middle_oil': ['coal_tar', 'glass_vessel', 'fire', 'earthenware'],
+        'heavy_oil': ['coal_tar', 'glass_vessel', 'fire', 'earthenware'],
+        'anthracene_oil': ['coal_tar', 'glass_vessel', 'fire', 'earthenware'],
+        'pitch': ['coal_tar', 'glass_vessel', 'fire', 'earthenware'],
+        'phenol': ['crude_phenol', 'fire', 'earthenware'],
+        'nitrogen': ['liquid_air', 'distillation_tower'],
+        'oxygen': ['liquid_air', 'distillation_tower'],
+        'argon': ['liquid_air', 'distillation_tower'],
 
         // Electric Refining
         'aluminum': ['alumina', 'cryolite', 'electricity', 'carbon_rod'],

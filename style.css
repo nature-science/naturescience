@@ -44,6 +44,85 @@ body::before {
     /* Smooth transition for overlay color */
 }
 
+/* --- Start Screen --- */
+.start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+.start-content {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 60px 40px;
+    border-radius: 25px;
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.start-title {
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: var(--accent-color, #2e7d32);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.start-subtitle {
+    font-size: 1.1rem;
+    color: #888;
+    margin: 5px 0 25px 0;
+    letter-spacing: 1px;
+}
+
+.start-btn {
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, var(--accent-color, #2e7d32), var(--secondary-color, #ef6c00));
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    outline: none;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.start-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
 .app-container {
     display: grid;
     grid-template-columns: 240px 1fr;
@@ -1478,69 +1557,22 @@ body.lite-mode.dark-mode .nav-btn.active {
 
 /* === Civilization Themes === */
 
-/* Level 0-4: Ancient (Nature & Harmony) */
-/* Subtle earth tones and natural greens, staying close to the original feel */
+/* Level 0-1: Ancient (Nature & Harmony) */
 body.theme-ancient {
     --bg-color: #f1f8e9;
-    /* Very light green-white */
     --accent-color: #2e7d32;
-    /* Strong forest green */
     --secondary-color: #ef6c00;
-    /* Muted orange */
-    --glass-bg: #ffffff;
-    /* Solid white */
-    --glass-border: rgba(255, 255, 255, 0.6);
-    --text-color: #33691e;
-    --bg-overlay: rgba(255, 255, 255, 0.3);
-    /* Very subtle nature peek */
-    background-image: none !important;
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --text-color: #2e431f;
+    --bg-overlay: rgba(240, 250, 235, 0.2);
 }
 
-/* Level 5-7: Classical (History & Craft) */
-/* Warm cream/beige tones, evoked by parchment/wood but minimal */
-body.theme-classical {
-    --bg-color: #fafafa;
-    /* Modern off-white */
-    --accent-color: #8d6e63;
-    /* Wood brown */
-    --secondary-color: #ffca28;
-    /* Amber/Gold */
-    --glass-bg: rgba(255, 253, 231, 0.9);
-    /* Very faint cream */
-    --glass-border: #d7ccc8;
-    --text-color: #4e342e;
-    --bg-overlay: rgba(250, 250, 250, 0.2);
-    /* Bright Greek Architecture - Removed as requested */
-    background-image: none !important;
-}
-
-body.theme-classical .glass-panel {
-    border: 1px solid #d7ccc8;
-    box-shadow: 0 4px 20px rgba(141, 110, 99, 0.1);
-    /* Softer shadow */
-}
-
-/* Level 8-11: Industrial (Structure & Steel) */
-/* Cool grays and slate blues, clean and constructed */
-body.theme-industrial {
-    --bg-color: #eceff1;
-    /* Light cool gray */
-    --accent-color: #546e7a;
-    /* Blue Grey */
-    --secondary-color: #ff7043;
-    /* Softer industrial orange */
-    --glass-bg: rgba(255, 255, 255, 0.9);
-    --glass-border: #b0bec5;
-    --text-color: #37474f;
-    --bg-overlay: rgba(236, 240, 241, 0.3);
-    /* Industrial Gears / Steam */
-    background-image: url('https://images.unsplash.com/photo-1565610222-5b8437320b3f?q=80&w=2544&auto=format&fit=crop') !important;
-}
-
-body.theme-industrial .glass-panel {
-    border-radius: 12px;
-    border: 1px solid #cfd8dc;
-    box-shadow: 0 4px 15px rgba(55, 71, 79, 0.1);
+body.theme-ancient .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(46, 125, 50, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
 
 /* Level 2-3: Ice Age (Survival) */
@@ -1548,48 +1580,103 @@ body.theme-iceage {
     --bg-color: #e3f2fd;
     --accent-color: #0277bd;
     --secondary-color: #00bcd4;
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: #b3e5fc;
-    --text-color: #01579b;
-    --bg-overlay: rgba(227, 242, 253, 0.2);
-    background-image: url('https://images.unsplash.com/photo-1516466723877-e462d73008e9?q=80&w=2544&auto=format&fit=crop') !important;
-    /* Snowy mountains bright */
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(179, 229, 252, 0.6);
+    --text-color: #014175;
+    --bg-overlay: rgba(200, 230, 250, 0.3);
+}
+
+body.theme-iceage .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 24px rgba(2, 119, 189, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* Level 4-5: Classical (History & Craft) */
+body.theme-classical {
+    --bg-color: #fafafa;
+    --accent-color: #795548;
+    --secondary-color: #ffb300;
+    --glass-bg: rgba(255, 253, 245, 0.85);
+    --glass-border: rgba(215, 204, 200, 0.8);
+    --text-color: #4e342e;
+    --bg-overlay: rgba(250, 245, 240, 0.4);
+}
+
+body.theme-classical .glass-panel {
+    border: 1px solid rgba(215, 204, 200, 0.6);
+    box-shadow: 0 10px 40px rgba(121, 85, 72, 0.15);
+    backdrop-filter: blur(16px);
 }
 
 /* Level 6-7: Medieval (Craft & Commerce) */
 body.theme-medieval {
     --bg-color: #efebe9;
-    --accent-color: #5d4037;
+    --accent-color: #4e342e;
     --secondary-color: #8d6e63;
-    --glass-bg: rgba(253, 245, 230, 0.95);
-    /* Old paper */
-    --glass-border: #d7ccc8;
+    --glass-bg: rgba(245, 240, 235, 0.88);
+    --glass-border: rgba(141, 110, 99, 0.4);
     --text-color: #3e2723;
-    --bg-overlay: rgba(239, 235, 233, 0.3);
-    background-image: url('https://images.unsplash.com/photo-1463130456064-28a277dc4463?q=80&w=2544&auto=format&fit=crop') !important;
-    /* Foggy majestic landscape */
+    --bg-overlay: rgba(220, 215, 210, 0.5);
 }
 
-/* Level 14-16: Digital (Information Age) */
+body.theme-medieval .glass-panel {
+    border: 1px solid rgba(141, 110, 99, 0.4);
+    box-shadow: 0 8px 30px rgba(62, 39, 35, 0.25);
+    backdrop-filter: blur(8px);
+}
+
+/* Level 8-11: Industrial (Structure & Steel) */
+body.theme-industrial {
+    --bg-color: #e0e0e0;
+    --accent-color: #37474f;
+    --secondary-color: #e64a19;
+    --glass-bg: rgba(245, 247, 248, 0.85);
+    --glass-border: #90a4ae;
+    --text-color: #263238;
+    --bg-overlay: rgba(200, 205, 210, 0.4);
+}
+
+body.theme-industrial .glass-panel {
+    border-radius: 12px;
+    border: 1px solid rgba(144, 164, 174, 0.6);
+    box-shadow: 0 12px 35px rgba(55, 71, 79, 0.2);
+    backdrop-filter: blur(14px);
+}
+
+/* Level 12-14: Modern (Technology & Science) */
+body.theme-modern {
+    --bg-color: #f0f7ff;
+    --accent-color: #0277bd;
+    --secondary-color: #d32f2f;
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(225, 245, 254, 0.9);
+    --text-color: #01579b;
+    --bg-overlay: rgba(230, 240, 255, 0.3);
+}
+
+body.theme-modern .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 30px rgba(2, 119, 189, 0.1);
+    backdrop-filter: blur(16px);
+}
+
+/* Level 15-16: Digital (Information Age) */
 body.theme-digital {
-    --bg-color: #1a1a1a;
-    /* Dark background */
+    --bg-color: #0d1117;
     --accent-color: #00e676;
-    /* Matrix Green */
     --secondary-color: #2979ff;
-    /* Electric Blue */
-    --glass-bg: rgba(20, 20, 20, 0.9);
-    --glass-border: #333;
-    --text-color: #e0e0e0;
-    --slot-bg: rgba(255, 255, 255, 0.1);
-    --bg-overlay: rgba(10, 10, 10, 0.4);
-    background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2544&auto=format&fit=crop') !important;
-    /* Cyberpunk City */
+    --glass-bg: rgba(15, 20, 25, 0.85);
+    --glass-border: rgba(0, 230, 118, 0.3);
+    --text-color: #e6edf3;
+    --slot-bg: rgba(255, 255, 255, 0.05);
+    --bg-overlay: rgba(5, 5, 10, 0.6);
 }
 
 body.theme-digital .glass-panel {
-    border: 1px solid #444;
-    box-shadow: 0 0 15px rgba(0, 230, 118, 0.1);
+    border: 1px solid rgba(0, 230, 118, 0.3);
+    box-shadow: 0 0 25px rgba(0, 230, 118, 0.15);
+    backdrop-filter: blur(20px);
 }
 
 body.theme-digital .element-name {
@@ -1598,61 +1685,35 @@ body.theme-digital .element-name {
 
 body.theme-digital .machine-title {
     color: #2979ff;
-    text-shadow: 0 0 5px rgba(41, 121, 255, 0.5);
+    text-shadow: 0 0 8px rgba(41, 121, 255, 0.6);
 }
 
-/* Level 12-16: Modern (Technology & Science) */
-/* The default clean, blue-based look (Glassmorphism) */
-body.theme-modern {
-    --bg-color: #f5f9fc;
-    /* Very clean, almost white blue */
-    --accent-color: #0277bd;
-    /* Intelligent, crisp blue */
-    --secondary-color: #e57373;
-    /* Soft red accent */
-    --glass-bg: rgba(255, 255, 255, 0.95);
-    /* High clarity */
-    --glass-border: #e1f5fe;
-    --text-color: #01579b;
-    --bg-overlay: rgba(245, 249, 252, 0.2);
-    /* Clean white lab / City */
-    background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2301&auto=format&fit=crop') !important;
-}
-
-/* Level 17+: Future (Innovation & Evolution) */
-/* Dark mode base, but refined and elegant. Not neon-blasting. */
 /* Level 17+: Future (Innovation & Evolution) */
 /* Whitish sleek design, "Laboratory/Clean" feel */
 body.theme-future {
     --bg-color: #f5fafd;
-    /* Very light cyan-white */
     --accent-color: #00bcd4;
-    /* Cyan */
-    --secondary-color: #673ab7;
-    /* Deep Purple */
+    --secondary-color: #7c4dff;
     --glass-bg: rgba(255, 255, 255, 0.9);
     --glass-border: rgba(0, 188, 212, 0.3);
-    --text-color: #37474f;
-    --slot-bg: rgba(0, 0, 0, 0.05);
-    --bg-overlay: rgba(255, 255, 255, 0.2);
-    /* Earth Sunrise from Space */
-    background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21cd?q=80&w=2544&auto=format&fit=crop') !important;
+    --text-color: #263238;
+    --slot-bg: rgba(0, 0, 0, 0.03);
+    --bg-overlay: rgba(255, 255, 255, 0.4);
 }
-
-
 
 body.theme-future .glass-panel {
     border: 1px solid rgba(0, 188, 212, 0.2);
-    box-shadow: 0 10px 30px rgba(0, 188, 212, 0.1);
-    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 10px 40px rgba(0, 188, 212, 0.1);
+    background: rgba(255, 255, 255, 0.85);
     color: var(--text-color);
+    backdrop-filter: blur(24px);
 }
 
 body.theme-future .element-card {
     background: #ffffff;
     border: 1px solid rgba(0, 188, 212, 0.2);
     color: #37474f;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 body.theme-future .book-card {
