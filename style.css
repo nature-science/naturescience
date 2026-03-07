@@ -84,6 +84,17 @@ body::before {
     }
 }
 
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .start-title {
     font-size: 2.8rem;
     font-weight: bold;
@@ -185,6 +196,23 @@ body::before {
 .nav-btn:hover:not(.active) {
     background: rgba(255, 255, 255, 0.8);
     transform: translateX(5px);
+}
+
+/* Specific styles for small footer nav buttons */
+.stats .nav-btn:hover:not(.active) {
+    transform: translateY(-2px);
+}
+
+.stats .nav-btn {
+    text-align: center;
+    border: 1px dashed rgba(0,0,0,0.1) !important;
+    background: rgba(255,255,255,0.3);
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
 }
 
 .lite-mode-container {
@@ -1435,125 +1463,182 @@ body.lite-mode.dark-mode .nav-btn.active {
 }
 
 /* Tutorial Styles */
+/* --- Modern Tutorial System (Premium Refresh) --- */
 .tutorial-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: 9998;
     display: none;
     pointer-events: none;
-    /* Allow clicking through to highlighted elements if needed, but usually we block */
-}
-
-/* Specific highlight for tutorial target */
-.tutorial-highlight {
-    position: relative;
-    z-index: 1000 !important;
-    background: white;
-    box-shadow: 0 0 0 4px #ff9800, 0 0 20px rgba(255, 152, 0, 0.5) !important;
-    transition: all 0.3s ease;
-    animation: pulse-border 1.5s infinite;
-}
-
-@keyframes pulse-border {
-    0% {
-        box-shadow: 0 0 0 2px #ff9800, 0 0 10px rgba(255, 152, 0, 0.5);
-    }
-
-    50% {
-        box-shadow: 0 0 0 6px #ff9800, 0 0 20px rgba(255, 152, 0, 0.8);
-    }
-
-    100% {
-        box-shadow: 0 0 0 2px #ff9800, 0 0 10px rgba(255, 152, 0, 0.5);
-    }
+    transition: opacity 0.5s ease;
 }
 
 .tutorial-box {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 420px;
     width: 90%;
-    max-width: 600px;
-    background: #fff;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    z-index: 2000;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255,255,255,0.5);
+    z-index: 10000;
     display: none;
     flex-direction: column;
-    gap: 10px;
-    animation: slideUp 0.3s ease;
-    border-left: 5px solid #ff9800;
+    gap: 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+.tutorial-box.active {
+    animation: tutorialBounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes tutorialBounceIn {
+    from { opacity: 0; transform: translateY(30px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tutorial-content-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.tutorial-mascot {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #64b5f6, #42a5f5);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: 0 8px 15px rgba(33, 150, 243, 0.3);
+    flex-shrink: 0;
+    animation: mascotFloat 3s infinite ease-in-out;
+}
+
+@keyframes mascotFloat {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+}
+
+.tutorial-text-area {
+    flex-grow: 1;
 }
 
 .tutorial-box h3 {
-    margin: 0;
-    color: #e65100;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: move;
-    /* Indicate draggable */
-    user-select: none;
-    /* Prevent text selection while dragging */
+    margin: 0 0 8px 0;
+    color: #1565c0;
+    font-size: 1.2rem;
+    font-weight: 800;
 }
 
 .tutorial-box p {
     margin: 0;
     font-size: 0.95rem;
-    line-height: 1.5;
-    color: #333;
+    line-height: 1.6;
+    color: #444;
 }
 
 .tutorial-controls {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.tutorial-progress {
+    font-size: 0.8rem;
+    color: #888;
+    background: rgba(0,0,0,0.05);
+    padding: 4px 12px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+
+.tutorial-btns {
+    display: flex;
     gap: 10px;
-    margin-top: 5px;
 }
 
 .tutorial-btn {
-    padding: 6px 16px;
-    border-radius: 20px;
+    padding: 10px 22px;
+    border-radius: 14px;
     border: none;
     cursor: pointer;
     font-weight: bold;
     font-size: 0.9rem;
-    transition: transform 0.1s;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .tutorial-btn-next {
-    background: #ff9800;
+    background: linear-gradient(135deg, #4caf50, #43a047);
     color: white;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.tutorial-btn-next:hover {
+    box-shadow: 0 6px 18px rgba(76, 175, 80, 0.4);
+    transform: translateY(-2px);
 }
 
 .tutorial-btn-skip {
     background: transparent;
-    color: #999;
-    border: 1px solid #ddd;
+    color: #888;
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
-.tutorial-btn:active {
-    transform: scale(0.95);
+.tutorial-btn-skip:hover {
+    background: rgba(0,0,0,0.03);
+    color: #666;
 }
 
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translate(-50%, 20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translate(-50%, 0);
-    }
+/* Enhanced Highlight */
+.tutorial-highlight {
+    position: relative;
+    z-index: 9999 !important;
+    box-shadow: 0 0 0 4px #4caf50, 0 0 30px rgba(76, 175, 80, 0.8) !important;
+    border-color: #4caf50 !important;
+    pointer-events: auto !important; /* Ensure user can click the highlighted part */
 }
+
+/* Pointer animation to draw attention */
+.tutorial-pointer {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #4caf50;
+    border-radius: 50%;
+    z-index: 10001;
+    pointer-events: none;
+    animation: tutorialPointerPulse 1.5s infinite;
+}
+
+@keyframes tutorialPointerPulse {
+    0% { transform: scale(0.8); opacity: 1; box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+    70% { transform: scale(1.2); opacity: 0.5; box-shadow: 0 0 0 15px rgba(76, 175, 80, 0); }
+    100% { transform: scale(0.8); opacity: 0; }
+}
+
+.dark-mode .tutorial-box {
+    background: rgba(30, 30, 30, 0.85);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .tutorial-box h3 { color: #64b5f6; }
+.dark-mode .tutorial-box p { color: #ccc; }
+.dark-mode .tutorial-progress { background: rgba(255,255,255,0.05); color: #777; }
 
 /* === Civilization Themes === */
 
@@ -2370,168 +2455,131 @@ body.glass-mode .element-slot.result.filled {
 }
 
 /* --- Roadmap Tree (Org Chart Style - Inverted: ingredients on top, goal on bottom) --- */
+/* --- Roadmap Tree Logic (Upward Growth - Anti-Glitch Fix) --- */
+.roadmap-tree, .roadmap-tree ul, .roadmap-tree li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .roadmap-tree {
     text-align: center;
-    padding-top: 40px;
-    /* Space for top connectors */
+    padding: 120px;
     display: inline-block;
     width: max-content;
     min-width: 100%;
-    margin: 0 auto;
-    min-height: 200px;
 }
 
 .roadmap-tree ul {
-    padding-top: 20px;
-    padding-bottom: 0;
-    /* Remove bottom padding to connect lines */
     position: relative;
-    transition: all 0.5s;
     display: flex;
     justify-content: center;
-    align-items: stretch;
-    /* Allow siblings to stretch so top/bottom align perfectly */
-    margin: 0;
-    padding-left: 0;
-}
-
-.roadmap-tree li>ul {
-    flex-grow: 1;
+    align-items: flex-end;
 }
 
 .roadmap-tree li {
-    /* Use flex column-reverse to put children (ul) ABOVE the parent node content */
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: flex-start;
-    /* Pack to bottom */
-    align-items: center;
-    gap: 20px;
-
-    text-align: center;
-    list-style-type: none;
     position: relative;
-    padding: 0 5px 20px 5px;
-    transition: all 0.5s;
+    display: flex;
+    flex-direction: column-reverse; /* 上に子(材料)、下に親(完成品) */
+    align-items: center;
 }
 
-/* Lines connecting sibling nodes */
-.roadmap-tree li::before,
-.roadmap-tree li::after {
+/* 1. ノード内容（箱）の設定 */
+.roadmap-tree .node-content {
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    min-width: 100px;
+    position: relative;
+    z-index: 10;
+    margin: 40px 10px !important; /* 上下に絶対的な隙間を確保 */
+}
+
+/* 2. 垂直線 (箱から外に伸ばす) */
+/* 上へ（親から材料の合流点へ） */
+.roadmap-tree .node-content::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    right: calc(50% - 1px);
-    border-bottom: 2px solid #ccc;
-    width: calc(50% + 1px);
-    height: 20px;
-    z-index: 0;
+    bottom: 100%; /* 箱の上端から開始 */
+    left: 50%;
+    width: 2px;
+    height: 40px; /* マージン分を埋める */
+    background: #bbb;
+    transform: translateX(-50%);
+    display: block;
 }
 
-.roadmap-tree li::after {
-    right: auto;
-    left: calc(50% - 1px);
-    border-left: 2px solid #ccc;
-}
-
-/* Connectors */
-.roadmap-tree li:only-child::after,
-.roadmap-tree li:only-child::before {
+/* 材料を持たない最上部のノードは、上に線を引かない */
+.roadmap-tree li:not(:has(ul)) > .node-content::before {
     display: none;
 }
 
-.roadmap-tree li:only-child {
-    padding-bottom: 0;
-}
-
-.roadmap-tree li:first-child::before,
-.roadmap-tree li:last-child::after {
-    border: 0 none;
-}
-
-.roadmap-tree li:last-child::before {
-    border-right: 2px solid #ccc;
-    border-radius: 0 0 5px 0;
-}
-
-.roadmap-tree li:first-child::after {
-    border-radius: 0 0 0 5px;
-}
-
-/* Vertical connector from children group (UL) down to parent node */
-.roadmap-tree ul ul::before {
+/* 下へ (材料から親への合流点へ) */
+.roadmap-tree ul ul li > .node-content::after {
     content: '';
     position: absolute;
-    top: 100%;
+    top: 100%; /* 箱の下端から開始 */
     left: 50%;
-    border-left: 2px solid #ccc;
-    width: 0;
-    height: 20px;
+    width: 2px;
+    height: 40px; /* マージン分を埋める */
+    background: #bbb;
     transform: translateX(-50%);
+    display: block;
+}
+
+/* 3. 水平線 (材料たちを繋ぐ) */
+/* 材料「li」そのものに横線を担当させる */
+.roadmap-tree ul ul li::before,
+.roadmap-tree ul ul li::after {
+    content: '';
+    position: absolute;
+    bottom: 0px; /* liの底（＝完成品ノードの上端と同じ高さ） */
+    right: 50%;
+    border-top: 2px solid #bbb;
+    width: 50%;
+    height: 0;
     z-index: 1;
 }
 
-
-/* Node Style */
-.roadmap-tree .node-content {
-    border: 2px solid #ccc;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #333;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    min-width: 80px;
-    position: relative;
-    z-index: 10;
+.roadmap-tree ul ul li::after {
+    right: auto;
+    left: 50%;
 }
 
-.roadmap-tree .node-icon {
-    font-size: 1.8rem;
-    line-height: 1.2;
+/* 端の余計な横棒を消す */
+.roadmap-tree ul ul li:first-child::before,
+.roadmap-tree ul ul li:last-child::after {
+    border: none;
+}
+.roadmap-tree ul ul li:only-child::before,
+.roadmap-tree ul ul li:only-child::after {
+    display: none;
 }
 
-.roadmap-tree .node-name {
-    font-size: 0.8rem;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-/* Status Styles */
+/* 発見・未発見のスタイル */
 .roadmap-tree li.discovered .node-content {
     background: #e8f5e9;
-    border-color: #4caf50;
+    border: 2px solid #4caf50;
     color: #2e7d32;
 }
 
 .roadmap-tree li.undiscovered .node-content {
-    background: #f5f5f5;
-    border-color: #ddd;
-    color: #999;
+    background: #fdfdfd;
+    color: #bbb;
 }
 
-/* Dark/Glass Mode Overrides */
-html body.dark-mode .roadmap-tree .node-content {
-    background: #333;
-    border-color: #555;
-    color: #eee;
+/* 描画の安定 */
+#roadmap-scroll-area {
+    background: #f8fbff;
+    backdrop-filter: none !important;
 }
 
-html body.dark-mode .roadmap-tree li.discovered .node-content {
-    background: #1b5e20;
-    border-color: #4caf50;
-    color: #e8f5e9;
-}
-
-html body.dark-mode .roadmap-tree li.undiscovered .node-content {
-    background: #212121;
+.dark-mode .roadmap-tree .node-content {
+    background: #2a2a2a;
     border-color: #444;
-    color: #777;
+    color: #eee;
 }
 
 /* --- Small Screen Adjustments --- */

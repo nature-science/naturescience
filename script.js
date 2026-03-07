@@ -1,4 +1,4 @@
-﻿// Game Internal Data
+// Game Internal Data
 const ELEMENTS = {
     // Basic (Gatherable) - Now includes Ore
     'water': { id: 'water', name: '海水', emoji: '🌊', desc: 'しょっぱい海の恵み。', category: 'natural' },
@@ -564,8 +564,8 @@ const ELEMENTS = {
     'concrete': { id: 'concrete', name: 'コンクリート', emoji: '⬜', desc: 'セメント、水、砂、石を混ぜて固めた、現代建築の基礎となる人造石。', category: 'material' },
     'launch_pad': { id: 'launch_pad', name: '発射台', emoji: '🏗️', desc: 'ロケットを垂直に固定し、安全に打ち上げるための巨大な施設。', category: 'tool' },
 
-    // Space Suit
-    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '🧑‍🚀', desc: '過酷な宇宙環境から身を守るための生命維持装置付きの服。', category: 'tool' },
+    // Space Suit Components
+    'spacesuit_inner': { id: 'spacesuit_inner', name: '宇宙服用下着', emoji: '👕', desc: '体温調節用の冷却チューブが張り巡らされた専用アンダーウェア。', category: 'part' },
 
     // Bismuth Chain
     'bismuth_oxide': { id: 'bismuth_oxide', name: '三酸化二ビスマス', emoji: '🟡', desc: '輝蒼鉛鉱を焙焼して得られる黄色の粉末。', category: 'chemical' },
@@ -1070,7 +1070,7 @@ const ELEMENTS = {
     'disposable_warmer': { id: 'disposable_warmer', name: '使い捨てカイロ', emoji: '🔥', desc: '鉄が酸化する熱を利用した、ポケットの中の暖房。', category: 'tool' },
     // 'hand_warmer' defined via multi-replace earlier, check if collision
     'gore_tex': { id: 'gore_tex', name: '透湿防水素材', emoji: '💧', desc: '水は通さず水蒸気は通す、魔法の布。ゴアテックス。', category: 'material' },
-    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '👩‍🚀', desc: '真空、極低温、放射線から身を守る、着る宇宙船。', category: 'machine' },
+    'spacesuit': { id: 'spacesuit', name: '宇宙服', emoji: '👩‍🚀', desc: '真空、極低温、放射線、熱、隕石から身を守り、生命維持装置を統合した防護服。着る宇宙船。', category: 'machine' },
 
     // === Food ===
     'meat': { id: 'meat', name: '生肉', emoji: '🥩', desc: '動物の生の肉。焼いて食べよう。', category: 'food' },
@@ -3778,6 +3778,32 @@ const ui = {
     btnViewPC: document.getElementById('btn-view-pc'),    // View Mode
     btnViewMob: document.getElementById('btn-view-mobile'), // View Mode
     trashCanBtn: document.getElementById('trash-can-btn'), // Trash feature
+    // Friends System
+    navFriends: document.getElementById('nav-friends'),
+    friendsView: document.getElementById('view-friends'),
+    friendLoginAlert: document.getElementById('friend-login-alert'),
+    friendMainControls: document.getElementById('friend-main-controls'),
+    friendSearchInput: document.getElementById('friend-search-email'),
+    friendSearchBtn: document.getElementById('btn-friend-search'),
+    friendSearchResult: document.getElementById('friend-search-result'),
+    friendRequestsSection: document.getElementById('friend-requests-section'),
+    friendRequestsList: document.getElementById('friend-requests-list'),
+    friendsList: document.getElementById('friends-list'),
+    // Chat Modal
+    chatModal: document.getElementById('chat-modal'),
+    chatFriendName: document.getElementById('chat-friend-name'),
+    chatFriendImg: document.getElementById('chat-friend-img'),
+    chatMessages: document.getElementById('chat-messages'),
+    chatInput: document.getElementById('chat-input'),
+    chatSendBtn: document.getElementById('chat-send-btn'),
+    // Suggestion Box
+    btnSuggestionBox: document.getElementById('btn-suggestion-box'),
+    suggestionModal: document.getElementById('suggestion-modal'),
+    closeSuggestionModal: document.getElementById('close-suggestion-modal'),
+    suggestionText: document.getElementById('suggestion-text'),
+    submitSuggestionBtn: document.getElementById('submit-suggestion-btn'),
+    suggestionStatus: document.getElementById('suggestion-status'),
+    navSuggestionBox: document.getElementById('nav-suggestion-box'),
 };
 
 let isTrashMode = false;
@@ -3796,6 +3822,7 @@ function init() {
     } catch (e) {
         console.error('[DEBUG] setupSettingsUI でエラー:', e);
     }
+    setupSuggestionBoxUI(); // Setup Suggestion Box Modal
 
     // Global Keyboard Shortcuts
     // Remove existing if any (requires named function, but for now just add once with check)
@@ -4540,13 +4567,22 @@ function applyLoadedData(data) {
 }
 
 function updateLevelDebug(targetLevel) {
+    let targetReqCount = 0;
     CIVILIZATION_LEVELS.forEach(civ => {
         if (civ.level <= targetLevel) {
             if (civ.trigger && !discovered.has(civ.trigger)) {
                 discovered.add(civ.trigger);
             }
+            if (civ.reqCount && civ.reqCount > targetReqCount) {
+                targetReqCount = civ.reqCount;
+            }
         }
     });
+
+    let dummyCount = 0;
+    while (discovered.size < targetReqCount) {
+        discovered.add('debug_dummy_' + dummyCount++);
+    }
     updateCivilizationLevel();
     alert(`🔧 デバッグ: 文明レベルを Lv.${targetLevel} に変更しました。`);
     saveGame();
@@ -4568,6 +4604,8 @@ function setupNavigation() {
         });
     }
     // New Shop Nav
+    
+    if (ui.navFriends) ui.navFriends.addEventListener('click', () => { switchView('friends'); refreshFriendsData(); });
     if (ui.navShop) {
         ui.navShop.addEventListener('click', () => {
             switchView('shop');
@@ -4656,6 +4694,8 @@ function switchView(mode) {
     ui.bookView.style.display = 'none';
     if (ui.shopView) ui.shopView.style.display = 'none';
     if (ui.archivesView) ui.archivesView.style.display = 'none';
+    if (ui.friendsView) ui.friendsView.style.display = 'none';
+    if (ui.navFriends) ui.navFriends.classList.remove('active');
 
     ui.navField.classList.remove('active');
     ui.navLab.classList.remove('active');
@@ -8384,6 +8424,169 @@ function renderElementsEncyclopedia(grid) {
     });
 }
 
+function setupVisualMapUI() {
+    const mapModal = document.getElementById('map-modal');
+    if (!mapModal) return;
+
+    // Helper to get pin styles based on discovered locations
+    function getPinStyles() {
+        let styles = '';
+        const locations = {
+            'china': 'dest-china', 'foreign': 'dest-foreign', 'australia': 'dest-australia',
+            'europe': 'dest-europe', 'turkey': 'dest-turkey', 'south_africa': 'dest-south-africa',
+            'america': 'dest-america', 'south_america': 'dest-south-america',
+            'moon': 'dest-moon', 'mars': 'dest-mars',
+            'hokkaido': 'dest-hokkaido', 'local': 'dest-local', 'kagoshima': 'dest-kagoshima', 'okinawa': 'dest-okinawa'
+        };
+
+        for (const key in locations) {
+            if (discovered.has(key)) {
+                styles += `#${locations[key]} .pin-icon { filter: grayscale(0); } #${locations[key]} .pin-label { opacity: 1; }`;
+            }
+        }
+        return `<style>${styles}</style>`;
+    }
+
+    // Render map based on currentMapMode
+    if (currentMapMode === 'world') {
+        // === WORLD MAP ===
+        mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 900px; width: 95%; padding: 0; background: #e0f2f7; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <h2 style="margin:0; font-size: 1.2rem; color: #01579b; font-weight: bold;">🌍 世界地図</h2>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- World Map Container -->
+                <div id="world-map-container" style="position: relative; width: 100%; padding-bottom: 50.5%; background: #81d4fa; overflow: hidden;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/1280px-World_map_blank_without_borders.svg.png" 
+                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png';"
+                         alt="World Map"
+                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; background: #81d4fa;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Pins -->
+                    <button id="nav-japan" class="map-pin" style="top: 36%; left: 86%;">
+                        <span class="pin-icon">🗾</span><span class="pin-label">日本(詳細)</span>
+                    </button>
+                    
+                    <button id="dest-china" class="map-pin" style="top: 36%; left: 75%;">
+                        <span class="pin-icon">🇨🇳</span><span class="pin-label">中国</span>
+                    </button>
+                    <button id="dest-foreign" class="map-pin" style="top: 48%; left: 78%;">
+                        <span class="pin-icon">🌏</span><span class="pin-label">東南アジア</span>
+                    </button>
+                    <button id="dest-australia" class="map-pin" style="top: 75%; left: 86%;">
+                        <span class="pin-icon">🇦🇺</span><span class="pin-label">豪州</span>
+                    </button>
+
+                    <button id="dest-europe" class="map-pin" style="top: 28%; left: 49%;">
+                        <span class="pin-icon">🇪🇸</span><span class="pin-label">欧州</span>
+                    </button>
+                    <button id="dest-turkey" class="map-pin" style="top: 33%; left: 56%;">
+                        <span class="pin-icon">🇹🇷</span><span class="pin-label">トルコ</span>
+                    </button>
+                    <button id="dest-south-africa" class="map-pin" style="top: 75%; left: 53%;">
+                        <span class="pin-icon">🇿🇦</span><span class="pin-label">南ア</span>
+                    </button>
+
+                    <button id="dest-america" class="map-pin" style="top: 30%; left: 18%;">
+                        <span class="pin-icon">🇺🇸</span><span class="pin-label">北米</span>
+                    </button>
+                    <button id="dest-south-america" class="map-pin" style="top: 65%; left: 29%;">
+                        <span class="pin-icon">🇧🇷</span><span class="pin-label">南米</span>
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div style="padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; justify-content: center;">
+                    <span style="color: #666; font-size: 0.9rem; font-weight: bold;">宇宙:</span>
+                    <div id="rocket-map-section" style="display: inline-flex; gap: 10px;">
+                        <button id="dest-moon" class="action-btn small" style="width: auto; background: #546e7a; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🌕 月面</button>
+                        <button id="dest-mars" class="action-btn small" style="width: auto; background: #d84315; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🪐 火星</button>
+                    </div>
+                </div>
+            </div>`;
+        } else {
+            // === JAPAN MAP ===
+            mapModal.innerHTML = `
+            <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <button id="back-to-world" style="background:none; border:1px solid #aaa; border-radius:50%; width:30px; height:30px; cursor:pointer;" title="世界地図へ戻る">⬅️</button>
+                        <h2 style="margin:0; font-size: 1.2rem; color: #33691e; font-weight: bold;">🗾 日本列島</h2>
+                    </div>
+                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
+                </div>
+
+                <!-- Japan Map Container -->
+                <div id="japan-map-container" style="position: relative; width: 100%; padding-bottom: 100%; background: #b3e5fc; overflow: hidden;">
+                     <!-- Japan Map (Wikimedia) -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg/1024px-Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg.png" 
+                          onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Japan_location_map.svg/1024px-Japan_location_map.svg.png';"
+                          alt="Japan Map"
+                          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 1;">
+                    
+                    ${getPinStyles()}
+
+                    <!-- Hokkaido (Top Right) -->
+                    <button id="dest-hokkaido" class="map-pin" style="top: 15%; left: 80%;">
+                        <span class="pin-icon">🐻</span><span class="pin-label">北海道</span>
+                    </button>
+
+                    <!-- Home (Honshu Center) -->
+                    <button id="dest-local" class="map-pin" style="top: 55%; left: 65%;">
+                        <span class="pin-icon">🏠</span><span class="pin-label">拠点(本州)</span>
+                    </button>
+
+                    <!-- Kagoshima (Kyushu South) -->
+                    <button id="dest-kagoshima" class="map-pin" style="top: 75%; left: 35%;">
+                        <span class="pin-icon">🌋</span><span class="pin-label">鹿児島</span>
+                    </button>
+
+                    <!-- Okinawa (Inset Map - Bottom Left) -->
+                    <button id="dest-okinawa" class="map-pin" style="top: 80%; left: 15%;">
+                        <span class="pin-icon">🌺</span><span class="pin-label">沖縄</span>
+                    </button>
+                </div>
+            </div>`;
+        }
+
+    // Attach event listeners after rendering
+    document.getElementById('close-map').onclick = () => mapModal.style.display = 'none';
+
+    if (currentMapMode === 'world') {
+        document.getElementById('nav-japan').onclick = () => {
+            currentMapMode = 'japan';
+            setupVisualMapUI(); // Re-render for Japan map
+        };
+        // World map destinations
+        document.getElementById('dest-china').onclick = () => selectDestination('china');
+        document.getElementById('dest-foreign').onclick = () => selectDestination('foreign');
+        document.getElementById('dest-australia').onclick = () => selectDestination('australia');
+        document.getElementById('dest-europe').onclick = () => selectDestination('europe');
+        document.getElementById('dest-turkey').onclick = () => selectDestination('turkey');
+        document.getElementById('dest-south-africa').onclick = () => selectDestination('south_africa');
+        document.getElementById('dest-america').onclick = () => selectDestination('america');
+        document.getElementById('dest-south-america').onclick = () => selectDestination('south_america');
+        document.getElementById('dest-moon').onclick = () => selectDestination('moon');
+        document.getElementById('dest-mars').onclick = () => selectDestination('mars');
+    } else if (currentMapMode === 'japan') {
+        document.getElementById('back-to-world').onclick = () => {
+            currentMapMode = 'world';
+            setupVisualMapUI(); // Re-render for World map
+        };
+        // Japan map destinations
+        document.getElementById('dest-hokkaido').onclick = () => selectDestination('hokkaido');
+        document.getElementById('dest-local').onclick = () => selectDestination('local');
+        document.getElementById('dest-kagoshima').onclick = () => selectDestination('kagoshima');
+        document.getElementById('dest-okinawa').onclick = () => selectDestination('okinawa');
+    }
+
+    mapModal.style.display = 'flex';
+}
+
 function showLockedElementHint(id) {
     let hint = "ヒント: まだ情報が足りないようだ...";
 
@@ -9088,57 +9291,67 @@ if (btnToggleDark) {
 const TUTORIAL_STEPS = [
     {
         id: 'intro',
-        text: '<h3>ようこそ！</h3><p>自然と科学の世界へようこそ。<br>この世界にはたくさんの素材が隠されています。<br>まずは<b>「海」</b>ボタンをクリックして、海水を採取してみましょう！</p>',
-        target: '.water-spot', // Changed to class selector from index.html
-        trigger: 'click'
+        title: 'ようこそ！',
+        text: '「自然と科学」の世界へようこそ！ここは、何もない大地から文明を築き上げる場所です。<br><br>まずは、大地の恵みを探してみましょう。<b>「採取ポイント」</b>（水や草、石など）をどれかクリックしてみてください。',
+        target: '.water-spot',
+        trigger: 'click',
+        mascot: '🔬'
     },
     {
-        id: 'check_inventory',
-        text: '<h3>素材を入手しました！</h3><p>採取した素材は画面下の<b>インベントリ</b>に保存されます。<br>ここからいつでも素材を使うことができます。</p>',
+        id: 'inventory_info',
+        title: 'インベントリ',
+        text: '素材を採取すると、画面右側の<b>「インベントリ」</b>に保管されます。ここには採取した材料や、新しく作り出したアイテムが貯まっていくよ！',
         target: '#inventory',
-        trigger: 'next_btn' // User clicks "Next" or specific action handled manually
+        trigger: 'next_btn',
+        mascot: '🎒'
     },
     {
         id: 'go_to_lab',
-        text: '<h3>合成ラボへ移動</h3><p>次は集めた素材を組み合わせて、新しい物質を作り出しましょう。<br>画面上の<b>「⚗️ 合成ラボ」</b>タブをクリックしてください。</p>',
-        target: '#nav-lab', // Corrected ID
-        trigger: 'tab_switch_lab'
+        title: '研究室へ行こう',
+        text: '集めた素材を組み合わせて、新しい発見をしましょう！<br>画面下部の<b>「🧪 研究室」</b>タブをクリックして、実験の準備をします。',
+        target: '#nav-lab',
+        trigger: 'tab_switch_lab',
+        mascot: '🧪'
     },
     {
         id: 'set_slot',
-        text: '<h3>素材をセット研究</h3><p>インベントリの素材をクリックすると、<b>合成スロット</b>にセットされます。<br>まずは適当な素材を2つセットしてみましょう。</p>',
+        title: '素材のセット',
+        text: 'インベントリの素材をクリックすると、中央の<b>「スロット」</b>にセットされます。<br>まずは適当な素材を2つセットしてみましょう！',
         target: '.machine-container',
-        trigger: 'slots_filled'
+        trigger: 'slots_filled',
+        mascot: '💡'
     },
     {
-        id: 'craft',
-        text: '<h3>実験開始！</h3><p>スロットに素材がセットされました。<br><b>「合成する！」</b>ボタンを押して、化学反応を起こしましょう！</p>',
+        id: 'craft_action',
+        title: '大発明の瞬間',
+        text: '素材をセットしたら、運命の<b>「⚡ 合成」</b>ボタンを。新しい文明の種が生まれるかもしれません！',
         target: '#craft-btn',
-        trigger: 'craft_success' // Changed to explicit trigger
+        trigger: 'craft_success',
+        mascot: '⚡'
     },
     {
-        id: 'success',
-        text: '<h3>大発見！</h3><p>おめでとうございます！新しいアイテムを作り出しました。<br>このように、様々な組み合わせを試して文明を発展させていきましょう。<br>発見したアイテムは<b>「図鑑」</b>で確認できます。</p>',
+        id: 'book_info',
+        title: '図鑑と成長',
+        text: '発見したものは<b>「📓 図鑑」</b>に記録されます。文明が進化するにつれて、より高度なアイテムが作れるようになりますよ。',
         target: '#nav-book',
-        trigger: 'next_btn'
+        trigger: 'next_btn',
+        mascot: '📖'
     },
     {
-        id: 'lock_feature',
-        text: '<h3>便利なロック機能</h3><p>同じアイテムを連続で作りたいときは、スロットの下にある<b>「🔓ロックボタン」</b>を使いましょう。<br>アイテムが固定され、連続合成が楽になります。</p>',
-        target: '#lock-btn-1',
-        trigger: 'next_btn'
-    },
-    {
-        id: 'roadmap',
-        text: '<h3>🔍 道標：ロードマップ</h3><p>サイドバーの<b>「次の目標」</b>を<b>右クリック</b>すると、作り方のヒント（ロードマップ）が表示されます。<br>何を作ればいいか分からなくなったら活用しましょう！</p>',
+        id: 'roadmap_info',
+        title: '文明の道標',
+        text: '次に何を目指せばいいか迷ったら、右上の<b>「目標アイテム」</b>を<b>右クリック</b>してみて。完成までの最短ルート（ロードマップ）を確認できるよ！',
         target: '#next-civ-goal',
-        trigger: 'next_btn'
+        trigger: 'next_btn',
+        mascot: '🗺️'
     },
     {
-        id: 'shop_info',
-        text: '<h3>交換所を活用しよう</h3><p>海で<b>「タカラガイ」</b>を見つけると、<b>「交換所」</b>がオープンします。<br>余った素材を売ってお金を貯め、レアな素材を購入しましょう！<br>これで基本的な説明は終わりです。自由な研究の旅へ行ってらっしゃい！</p>',
-        target: '.water-spot',
-        trigger: 'finish'
+        id: 'finish',
+        title: '冒険の始まり',
+        text: 'これで基本の操作はバッチリです！あとはあなたの直感と探究心で、科学の極地を目指してください。<br><br><b>さあ、文明の夜明けを始めましょう！</b>',
+        target: null,
+        trigger: 'finish',
+        mascot: '✨'
     }
 ];
 
@@ -9272,35 +9485,107 @@ function setupTutorialDrag(box) {
     document.addEventListener('touchend', endDrag);
 }
 
-function showTutorialStep(stepIndex) {
-    if (!tutorialActive || stepIndex >= TUTORIAL_STEPS.length) return;
-
-    const step = TUTORIAL_STEPS[stepIndex];
-    if (!step) return;
-
+function showTutorialStep(index) {
+    if (!tutorialActive || index < 0 || index >= TUTORIAL_STEPS.length) return;
+    const step = TUTORIAL_STEPS[index];
     const box = document.getElementById('tutorial-box');
-    const content = document.getElementById('tutorial-content');
-    const nextBtn = document.getElementById('tutorial-next-btn');
+    const overlay = document.getElementById('tutorial-overlay');
+    if (!box || !overlay) return;
 
-    // Update text
+    overlay.style.display = 'block';
+    
+    // Clear previous UI
+    box.innerHTML = '';
+    box.classList.remove('active');
+    void box.offsetWidth; 
+    box.classList.add('active');
+
+    // Remove old pointer
+    const oldPointer = document.querySelector('.tutorial-pointer');
+    if (oldPointer) oldPointer.remove();
+
+    // Create New Structure
+    const wrapper = document.createElement('div');
+    wrapper.className = 'tutorial-content-wrapper';
+
+    const mascot = document.createElement('div');
+    mascot.className = 'tutorial-mascot';
+    mascot.innerText = step.mascot || '👨‍🔬';
+
+    const textArea = document.createElement('div');
+    textArea.className = 'tutorial-text-area';
+    
+    const title = document.createElement('h3');
+    title.innerText = step.title;
+    
+    const content = document.createElement('p');
     content.innerHTML = step.text;
 
-    // Show navigation button only if trigger is manual
-    nextBtn.style.display = step.trigger === 'next_btn' || step.trigger === 'finish' ? 'block' : 'none';
-    if (step.trigger === 'finish') nextBtn.innerText = '完了';
-    else nextBtn.innerText = '次へ';
+    textArea.appendChild(title);
+    textArea.appendChild(content);
+    wrapper.appendChild(mascot);
+    wrapper.appendChild(textArea);
+    box.appendChild(wrapper);
 
-    // Highlight target
+    // Controls
+    const controls = document.createElement('div');
+    controls.className = 'tutorial-controls';
+
+    const progress = document.createElement('div');
+    progress.className = 'tutorial-progress';
+    progress.innerText = (index + 1) + ' / ' + TUTORIAL_STEPS.length;
+
+    const btns = document.createElement('div');
+    btns.className = 'tutorial-btns';
+
+    const skipBtn = document.createElement('button');
+    skipBtn.className = 'tutorial-btn tutorial-btn-skip';
+    skipBtn.innerText = 'スキップ';
+    skipBtn.onclick = skipTutorial;
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'tutorial-btn tutorial-btn-next';
+    nextBtn.innerText = step.trigger === 'finish' ? '冒険を始める' : '次へ →';
+    nextBtn.onclick = nextTutorialStep;
+    nextBtn.style.display = (step.trigger === 'next_btn' || step.trigger === 'finish') ? 'flex' : 'none';
+
+    btns.appendChild(skipBtn);
+    btns.appendChild(nextBtn);
+    controls.appendChild(progress);
+    controls.appendChild(btns);
+    box.appendChild(controls);
+
+    // Positioning and Highlight
     removeHighlights();
-    let targetEl = null;
-    if (step.target) {
-        targetEl = document.querySelector(step.target);
-    }
+    const targetEl = step.target ? document.querySelector(step.target) : null;
+    
+    // Default Box Position
+    box.style.left = '50%';
+    box.style.transform = 'translateX(-50%)';
+    box.style.bottom = '30px';
+    box.style.top = 'auto';
 
     if (targetEl) {
         targetEl.classList.add('tutorial-highlight');
-        // Scroll into view if needed
         targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        // Add Pointer
+        const pointer = document.createElement('div');
+        pointer.className = 'tutorial-pointer';
+        document.body.appendChild(pointer);
+        
+        const rect = targetEl.getBoundingClientRect();
+        pointer.style.top = (rect.top + rect.height / 2 + window.scrollY - 10) + 'px';
+        pointer.style.left = (rect.left + rect.width / 2 + window.scrollX - 10) + 'px';
+
+        // Position Box near target but visible
+        if (rect.top > (window.innerHeight / 2)) {
+            box.style.bottom = 'auto';
+            box.style.top = '30px';
+        } else {
+            box.style.top = 'auto';
+            box.style.bottom = '30px';
+        }
     }
 
     box.style.display = 'flex';
@@ -9386,15 +9671,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!isNaN(targetLevel) && targetLevel >= 0) {
                     console.log('Debug: Setting Civ Level to', targetLevel);
                     // Unlock triggers for all levels up to target
-                    let changed = false;
+                    let targetReqCount = 0;
                     CIVILIZATION_LEVELS.forEach(civ => {
                         if (civ.level <= targetLevel) {
                             if (civ.trigger && !discovered.has(civ.trigger)) {
                                 discovered.add(civ.trigger);
                                 changed = true;
                             }
+                            if (civ.reqCount && civ.reqCount > targetReqCount) {
+                                targetReqCount = civ.reqCount;
+                            }
                         }
                     });
+
+                    let dummyCount = 0;
+                    while (discovered.size < targetReqCount) {
+                        if (!discovered.has('debug_dummy_' + dummyCount)) {
+                            discovered.add('debug_dummy_' + dummyCount);
+                            changed = true;
+                        }
+                        dummyCount++;
+                    }
 
                     if (changed || currentCivilizationLevel !== targetLevel) {
                         updateCivilizationLevel();
@@ -10099,236 +10396,7 @@ function setupAbstractMapUI() {
     if (mapModal) renderMap();
 }
 
-// === Visual Map UI Implementation ===
-function setupVisualMapUI() {
-    const mapModal = document.getElementById('map-modal');
-
-    // Map State
-    let currentMap = 'world'; // 'world' or 'japan'
-
-    // Define Render Functions
-    const renderMap = () => {
-        if (!mapModal) return;
-
-        if (currentMap === 'world') {
-            // === WORLD MAP ===
-            mapModal.innerHTML = `
-            <div class="modal-content glass-panel" style="max-width: 1000px; width: 95%; padding: 0; background: #e0f7fa; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
-                    <h2 style="margin:0; font-size: 1.2rem; color: #006064; font-weight: bold;">🌍 世界地図</h2>
-                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
-                </div>
-
-                <!-- World Map Container -->
-                <div id="world-map-container" style="position: relative; width: 100%; padding-bottom: 50.5%; background: #81d4fa; overflow: hidden;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/World_map_blank_without_borders.svg/1280px-World_map_blank_without_borders.svg.png" 
-                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1280px-World_map_-_low_resolution.svg.png';"
-                         alt="World Map (Image Load Failed)"
-                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; background: #81d4fa;">
-                    
-                    ${getPinStyles()}
-
-                    <!-- Pins -->
-                    <button id="nav-japan" class="map-pin" style="top: 36%; left: 86%;">
-                        <span class="pin-icon">🗾</span><span class="pin-label">日本(詳細)</span>
-                    </button>
-                    
-                    <button id="dest-china" class="map-pin" style="top: 36%; left: 75%;">
-                        <span class="pin-icon">🇨🇳</span><span class="pin-label">中国</span>
-                    </button>
-                    <button id="dest-foreign" class="map-pin" style="top: 48%; left: 78%;">
-                        <span class="pin-icon">🌏</span><span class="pin-label">東南アジア</span>
-                    </button>
-                    <button id="dest-australia" class="map-pin" style="top: 75%; left: 86%;">
-                        <span class="pin-icon">🇦🇺</span><span class="pin-label">豪州</span>
-                    </button>
-
-                    <button id="dest-europe" class="map-pin" style="top: 28%; left: 49%;">
-                        <span class="pin-icon">🇪🇸</span><span class="pin-label">欧州</span>
-                    </button>
-                    <button id="dest-turkey" class="map-pin" style="top: 33%; left: 56%;">
-                        <span class="pin-icon">🇹🇷</span><span class="pin-label">トルコ</span>
-                    </button>
-                    <button id="dest-south-africa" class="map-pin" style="top: 75%; left: 53%;">
-                        <span class="pin-icon">🇿🇦</span><span class="pin-label">南ア</span>
-                    </button>
-
-                    <button id="dest-america" class="map-pin" style="top: 30%; left: 18%;">
-                        <span class="pin-icon">🇺🇸</span><span class="pin-label">北米</span>
-                    </button>
-                    <button id="dest-south-america" class="map-pin" style="top: 65%; left: 29%;">
-                        <span class="pin-icon">🇧🇷</span><span class="pin-label">南米</span>
-                    </button>
-                </div>
-
-                <!-- Footer -->
-                <div style="padding: 15px; background: #fff; border-top: 1px solid #eee; display: flex; gap: 10px; align-items: center; justify-content: center;">
-                    <span style="color: #666; font-size: 0.9rem; font-weight: bold;">宇宙:</span>
-                    <div id="rocket-map-section" style="display: inline-flex; gap: 10px;">
-                        <button id="dest-moon" class="action-btn small" style="width: auto; background: #546e7a; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🌕 月面</button>
-                        <button id="dest-mars" class="action-btn small" style="width: auto; background: #d84315; color: white; padding: 6px 14px; margin: 0; font-size: 0.9rem;">🪐 火星</button>
-                    </div>
-                </div>
-            </div>`;
-        } else {
-            // === JAPAN MAP ===
-            mapModal.innerHTML = `
-            <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <button id="back-to-world" style="background:none; border:1px solid #aaa; border-radius:50%; width:30px; height:30px; cursor:pointer;" title="世界地図へ戻る">⬅️</button>
-                        <h2 style="margin:0; font-size: 1.2rem; color: #33691e; font-weight: bold;">🗾 日本列島</h2>
-                    </div>
-                    <span id="close-map" class="close-btn" style="color:#555; font-size: 2rem; cursor: pointer;">&times;</span>
-                </div>
-
-                <!-- Japan Map Container -->
-                <div id="japan-map-container" style="position: relative; width: 100%; padding-bottom: 100%; background: #b3e5fc; overflow: hidden;">
-                     <!-- Japan Map (Wikimedia Commons: Japan location map with side map of the Ryukyu Islands) -->
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg/1024px-Japan_location_map_with_side_map_of_the_Ryukyu_Islands.svg.png" 
-                         onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Japan_location_map.svg/1024px-Japan_location_map.svg.png';"
-                         alt="Japan Map (Image Load Failed)"
-                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 1; background: #b3e5fc;">
-                    
-                    ${getPinStyles()}
-
-                    <!-- Hokkaido (Top Right) -->
-                    <button id="dest-hokkaido" class="map-pin" style="top: 15%; left: 80%;">
-                        <span class="pin-icon">🐻</span><span class="pin-label">北海道</span>
-                    </button>
-
-                    <!-- Home (Honshu Center) -->
-                    <button id="dest-local" class="map-pin" style="top: 55%; left: 65%;">
-                        <span class="pin-icon">🏠</span><span class="pin-label">拠点(本州)</span>
-                    </button>
-
-                    <!-- Kagoshima (Kyushu South) -->
-                    <button id="dest-kagoshima" class="map-pin" style="top: 75%; left: 35%;">
-                        <span class="pin-icon">🌋</span><span class="pin-label">鹿児島</span>
-                    </button>
-
-                    <!-- Okinawa (Inset Map - Bottom Left) -->
-                    <button id="dest-okinawa" class="map-pin" style="top: 80%; left: 15%;">
-                        <span class="pin-icon">🌺</span><span class="pin-label">沖縄</span>
-                    </button>
-                </div>
-            </div>`;
-        }
-
-        bindEvents();
-    };
-
-    const getPinStyles = () => `
-        <style>
-            .map-pin {
-                position: absolute;
-                transform: translate(-50%, -100%);
-                cursor: pointer;
-                border: none;
-                background: transparent;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                transition: transform 0.2s;
-                z-index: 10;
-                padding: 0;
-                outline: none;
-            }
-            .map-pin:hover {
-                transform: translate(-50%, -115%) scale(1.1);
-                z-index: 20;
-            }
-            .pin-icon {
-                font-size: 2.5rem;
-                text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-                filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
-            }
-            .pin-label {
-                background: rgba(255,255,255,0.95);
-                color: #333;
-                padding: 3px 10px;
-                border-radius: 12px;
-                font-size: 0.85rem;
-                font-weight: bold;
-                margin-top: -8px;
-                white-space: nowrap;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-                pointer-events: none;
-                border: 1px solid rgba(0,0,0,0.1);
-            }
-        </style>
-    `;
-
-    const bindEvents = () => {
-        const closeMap = document.getElementById('close-map');
-        if (closeMap) closeMap.addEventListener('click', () => mapModal.style.display = 'none');
-
-        // Navigation between Maps
-        const navJapan = document.getElementById('nav-japan');
-        if (navJapan) {
-            navJapan.addEventListener('click', () => {
-                currentMap = 'japan';
-                renderMap();
-            });
-        }
-        const backToWorld = document.getElementById('back-to-world');
-        if (backToWorld) {
-            backToWorld.addEventListener('click', () => {
-                currentMap = 'world';
-                renderMap();
-            });
-        }
-
-        // Destinations
-        const bindDest = (id, area) => {
-            const el = document.getElementById(id);
-            if (el) {
-                el.addEventListener('click', () => {
-                    mapModal.style.display = 'none';
-                    switchArea(area);
-                });
-            }
-        };
-
-        // World Dests
-        bindDest('dest-china', 'china');
-        bindDest('dest-foreign', 'asia');
-        bindDest('dest-america', 'america');
-        bindDest('dest-south-america', 'south_america');
-        bindDest('dest-europe', 'europe');
-        bindDest('dest-turkey', 'turkey');
-        bindDest('dest-south-africa', 'south_africa');
-        bindDest('dest-australia', 'australia');
-        bindDest('dest-moon', 'moon');
-        bindDest('dest-mars', 'mars');
-
-        // Japan Dests
-        bindDest('dest-local', 'japan');
-        bindDest('dest-hokkaido', 'hokkaido');
-        bindDest('dest-okinawa', 'okinawa');
-        bindDest('dest-kagoshima', 'kagoshima');
-
-        // Modal Background Click
-        if (mapModal) {
-            mapModal.onclick = (e) => {
-                if (e.target === mapModal) mapModal.style.display = 'none';
-            };
-        }
-
-        // Space visibility
-        const rocketMapSection = document.getElementById('rocket-map-section');
-        if (rocketMapSection) {
-            rocketMapSection.style.display = discovered.has('space') ? 'inline-flex' : 'none';
-            const destMars = document.getElementById('dest-mars');
-            if (destMars) destMars.style.display = discovered.has('moon_base') ? 'inline-block' : 'none';
-        }
-    };
-
-    // Initial Render
-    if (document.getElementById('map-modal')) setupCardMapUI();
-}
-
-// === Card Layout Map UI (Restored Design) ===
+// --- Card Layout Map UI (Restored Design) ---
 function setupCardMapUI() {
     const mapModal = document.getElementById('map-modal');
     if (!mapModal) return;
@@ -10676,8 +10744,8 @@ function setupSettingsUI() {
         // モーダルを新規作成（CSSクラスを使わずインラインスタイルで制御）
         const settingsModal = document.createElement('div');
         settingsModal.id = 'settings-modal';
-        // z-indexを2001にしてログインボーナス(2000)より上、または同等に
-        settingsModal.style.cssText = 'display:flex; align-items:center; justify-content:center; z-index:2001; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); backdrop-filter:blur(5px);';
+        // z-indexを100005にして、スタート画面(10000)より上に表示するように
+        settingsModal.style.cssText = 'display:flex; align-items:center; justify-content:center; z-index:100005; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.5); backdrop-filter:blur(5px);';
 
         settingsModal.innerHTML = `
             <div class="modal-content glass-panel" style="max-width:450px; width:95%; max-height:90vh; overflow-y:auto; background:#f9f9f9; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.2); padding:25px; animation:popIn 0.3s; font-family:sans-serif;">
@@ -10696,6 +10764,20 @@ function setupSettingsUI() {
                         </div>
                         <div style="text-align:center;">
                             <button id="settings-delete-btn" style="background:none; border:none; color:#e53935; text-decoration:underline; font-size:0.8rem; cursor:pointer; opacity:0.7;">🗑️ データを削除する</button>
+                        </div>
+                    </div>
+
+                    <!-- クラウド同期 -->
+                    <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05); margin-top: 15px;">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#9c27b0; display:flex; align-items:center; gap:5px;">☁️ クラウド同期</h3>
+                        <div id="settings-account-status" style="margin-bottom: 10px; font-weight: bold; color: #666; font-size: 0.85rem; text-align: center;">状態: ロード中...</div>
+                        <div style="display: flex; gap: 10px; flex-direction: column; align-items: center;">
+                            <button id="settings-btn-login-google" style="width: 80%; padding: 10px; background: #4285F4; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">Googleでログイン</button>
+                            <button id="settings-btn-logout" style="width: 80%; padding: 10px; background: #757575; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">ログアウト</button>
+                            <div style="display: flex; gap: 10px; width: 100%; justify-content: center;">
+                                <button id="settings-btn-cloud-save" style="flex: 1; padding: 10px; background: #9c27b0; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📤 クラウドへ保存</button>
+                                <button id="settings-btn-cloud-load" style="flex: 1; padding: 10px; background: #ab47bc; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📥 クラウドから読込</button>
+                            </div>
                         </div>
                     </div>
 
@@ -10946,10 +11028,17 @@ function setupSettingsUI() {
                 updateThirstGauge();
             });
         }
+
+        // Bind Firebase buttons inside dynamically created modal
+        if (typeof bindFirebaseSettingsUI === 'function') {
+            bindFirebaseSettingsUI();
+        }
     };
 }
 
 window.onload = function () {
+    if (ui.friendSearchBtn) ui.friendSearchBtn.onclick = handleFriendSearch;
+
     // ダークモード復元
     if (localStorage.getItem('nature_science_dark_mode') === 'true') {
         document.body.classList.add('dark-mode');
@@ -10957,6 +11046,26 @@ window.onload = function () {
     // ガラスモード復元
     if (localStorage.getItem('nature_science_glass_mode') === 'true') {
         document.body.classList.add('glass-mode');
+    }
+
+    const startBtn = document.getElementById('btn-start-game');
+    const startSettingsBtn = document.getElementById('btn-start-settings');
+    const startScreen = document.getElementById('start-screen');
+    if (startBtn && startScreen) {
+        startBtn.addEventListener('click', () => {
+            // Fade out
+            startScreen.style.opacity = '0';
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+            }, 500);
+        });
+    }
+    if (startSettingsBtn) {
+        startSettingsBtn.addEventListener('click', () => {
+            // Programmatically trigger the main settings modal
+            const realSettingsBtn = document.getElementById('nav-settings');
+            if (realSettingsBtn) realSettingsBtn.click();
+        });
     }
 
     const industryBtn = document.getElementById('start-industry-btn');
@@ -11137,24 +11246,31 @@ function showRoadmap(targetId) {
 
     var cClass = 'modal-content glass-panel';
     var h = '';
-    h += '<div class="' + cClass + '" style="max-width:98%;width:98%;height:90vh;display:flex;flex-direction:column;position:relative;padding:20px;">';
-    h += '<button class="close-modal-btn" style="position:absolute;top:10px;right:10px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:inherit;z-index:100;">×</button>';
+    h += '<div class="' + cClass + '" style="max-width:98%;width:98%;height:92vh;display:flex;flex-direction:column;position:relative;padding:15px;background:#fdfdfd;color:#333;box-shadow:0 20px 60px rgba(0,0,0,0.3);">';
+    h += '<button class="close-modal-btn" style="position:absolute;top:15px;right:20px;background:none;border:none;font-size:2rem;cursor:pointer;color:#888;z-index:100;line-height:1;">×</button>';
     h += '<div style="flex-shrink:0;">';
-    h += '<h2 style="text-align:center;border-bottom:1px solid rgba(100,100,100,0.1);padding-bottom:10px;margin-bottom:10px;">';
-    h += '<span style="font-size:2rem;vertical-align:middle;">' + target.emoji + '</span> ';
+    h += '<h2 style="text-align:center;padding-top:10px;margin-bottom:15px;color:#2e7d32;font-weight:bold;">';
+    h += '<span style="font-size:1.8rem;vertical-align:middle;">' + target.emoji + '</span> ';
     h += '<span style="vertical-align:middle;">' + target.name + ' ロードマップ</span>';
     h += '</h2>';
-    h += '<div style="display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:10px;background:rgba(0,0,0,0.05);padding:5px;border-radius:30px;width:fit-content;margin-left:auto;margin-right:auto;">';
-    h += '<button id="rm-zoom-out" style="width:30px;height:30px;border-radius:50%;border:1px solid #ccc;background:white;cursor:pointer;">-</button>';
-    h += '<span id="rm-zoom-val" style="min-width:40px;text-align:center;font-size:0.9rem;">100%</span>';
-    h += '<button id="rm-zoom-in" style="width:30px;height:30px;border-radius:50%;border:1px solid #ccc;background:white;cursor:pointer;">+</button>';
-    h += '<button id="rm-zoom-reset" style="margin-left:5px;padding:2px 8px;border-radius:4px;border:1px solid #ccc;background:white;cursor:pointer;font-size:0.8rem;">Reset</button>';
+    h += '<div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:15px;">';
+    // ズームコントロール
+    h += '<div style="display:flex;justify-content:center;align-items:center;gap:12px;background:rgba(0,0,0,0.03);padding:8px 15px;border-radius:30px;border:1px solid rgba(0,0,0,0.05);">';
+    h += '<button id="rm-zoom-out" style="width:32px;height:32px;border-radius:50%;border:1px solid #ddd;background:white;cursor:pointer;font-weight:bold;display:flex;align-items:center;justify-content:center;">−</button>';
+    h += '<span id="rm-zoom-val" style="min-width:50px;text-align:center;font-size:1rem;font-weight:bold;color:#555;">100%</span>';
+    h += '<button id="rm-zoom-in" style="width:32px;height:32px;border-radius:50%;border:1px solid #ddd;background:white;cursor:pointer;font-weight:bold;display:flex;align-items:center;justify-content:center;">+</button>';
+    h += '<button id="rm-zoom-reset" style="margin-left:8px;padding:4px 12px;border-radius:20px;border:1px solid #ddd;background:white;cursor:pointer;font-size:0.85rem;font-weight:bold;color:#444;">リセット</button>';
+    h += '</div>';
+    // 段階的操作コントロール
+    h += '<div style="display:flex;justify-content:center;align-items:center;gap:10px;">';
+    h += '<button id="rm-expand-step" style="padding:6px 15px;border-radius:20px;border:1px solid #4caf50;background:#e8f5e9;color:#2e7d32;cursor:pointer;font-size:0.85rem;font-weight:bold;transition:all 0.2s;">＋ 一層広げる</button>';
+    h += '<button id="rm-collapse-step" style="padding:6px 15px;border-radius:20px;border:1px solid #999;background:#f5f5f5;color:#666;cursor:pointer;font-size:0.85rem;font-weight:bold;transition:all 0.2s;">－ 一層閉じる</button>';
     h += '</div>';
     h += '</div>';
-    h += '<div style="flex-grow:1;overflow:hidden;border:1px solid rgba(0,0,0,0.1);border-radius:8px;background:rgba(255,255,255,0.02);position:relative;">';
-    h += '<div id="roadmap-scroll-area" style="width:100%;height:100%;overflow:auto;">';
-    h += '<div id="roadmap-tree-container" class="roadmap-tree" style="transform-origin:bottom center;padding:50px;">';
-    h += '読み込み中...';
+    h += '<div style="flex-grow:1;overflow:hidden;border:1px solid #eee;border-radius:12px;background:#f5faff;position:relative;">';
+    h += '<div id="roadmap-scroll-area" style="width:100%;height:100%;overflow:auto;outline:none;">';
+    h += '<div id="roadmap-tree-container" class="roadmap-tree" style="transform-origin:center top; transition: transform 0.1s ease-out;">';
+    h += '<div style="padding:100px; color:#aaa;">読み込み中...</div>';
     h += '</div></div></div>';
     h += '<div style="text-align:center;margin-top:10px;font-size:0.85rem;color:#888;flex-shrink:0;">';
     h += '※ ドラッグで移動可能（スクロールバー使用）';
@@ -11209,6 +11325,24 @@ function showRoadmap(targetId) {
     modal.querySelector('#rm-zoom-out').onclick = function () { zoomLevel = Math.max(zoomLevel - 0.1, 0.2); updateZoom(); };
     modal.querySelector('#rm-zoom-reset').onclick = function () { zoomLevel = 1.0; updateZoom(); };
 
+    // 段階的展開・折り畳み
+    modal.querySelector('#rm-expand-step').onclick = function() {
+        const btns = Array.from(treeContainer.querySelectorAll('.rm-toggle-btn')).filter(b => b.innerText === '+');
+        btns.forEach(btn => btn.click());
+    };
+
+    modal.querySelector('#rm-collapse-step').onclick = function() {
+        // 深い層から順に閉じるため、DOMの下方にあるボタンから処理する
+        const btns = Array.from(treeContainer.querySelectorAll('.rm-toggle-btn')).filter(b => b.innerText === '-');
+        for (let i = btns.length - 1; i >= 0; i--) {
+            // ルートノード(最初の要素)は閉じない(お好みで変更可能)
+            const isRootBtn = !btns[i].closest('li').parentElement.parentElement.closest('li');
+            if (!isRootBtn) {
+                btns[i].click();
+            }
+        }
+    };
+
     modal.querySelector('.close-modal-btn').onclick = function () { modal.remove(); };
     modal.onclick = function (e) { if (e.target === modal) modal.remove(); };
     modal.oncontextmenu = function (e) { e.preventDefault(); modal.remove(); };
@@ -11220,7 +11354,7 @@ function showRoadmap(targetId) {
             var ul = li.querySelector(':scope > ul');
             if (ul) {
                 if (ul.style.display === 'none') {
-                    ul.style.display = 'block';
+                    ul.style.display = ''; // CSS側の flex を活かすために空にする
                     btn.innerText = '-';
                 } else {
                     ul.style.display = 'none';
@@ -11238,6 +11372,7 @@ function showRoadmap(targetId) {
                     newUl.innerHTML = html;
                     li.appendChild(newUl);
                     btn.innerText = '-';
+                    // 新しく追加した直後も display: flex が効くようにする (CSSで定義済み)
                 }
             }
         };
@@ -11417,3 +11552,464 @@ function findIngredientsFor(targetId) {
 
     return null;
 }
+
+// === Firebase Cloud Save Feature ===
+let currentFirebaseUser = null;
+
+function bindFirebaseSettingsUI() {
+    if (!window.firebaseAPI) {
+        // Retry if API not ready yet when modal opens
+        setTimeout(bindFirebaseSettingsUI, 500);
+        return;
+    }
+    
+    // Auth State Observer (only set once globally)
+    if (!window.firebaseAPI_init_done) {
+        window.firebaseAPI.onAuthStateChanged((user) => {
+            currentFirebaseUser = user;
+            updateCloudUI(); // Update UI if modal is open when state changes
+        });
+        window.firebaseAPI_init_done = true;
+    }
+
+    // Grab both dynamic modal elements and fallback to older modal elements if possible
+    const btnLogin = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
+    const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
+    const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
+    const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
+
+    if (btnLogin && !btnLogin.dataset.bound) {
+        btnLogin.addEventListener('click', async () => {
+            btnLogin.innerText = '⏳ 通信中...';
+            await window.firebaseAPI.signInGoogle();
+            btnLogin.innerText = 'Googleでログイン';
+        });
+        btnLogin.dataset.bound = "true";
+    }
+    if (btnLogout && !btnLogout.dataset.bound) {
+        btnLogout.addEventListener('click', async () => {
+            await window.firebaseAPI.signOut();
+        });
+        btnLogout.dataset.bound = "true";
+    }
+    
+    if (btnSave && !btnSave.dataset.bound) {
+        btnSave.addEventListener('click', async () => {
+            if(!currentFirebaseUser) return;
+            saveGame(); // Ensure local storage is up to date
+            const data = localStorage.getItem('nature_science_save');
+            if(!data) {
+                alert("保存するデータがありません");
+                return;
+            }
+            btnSave.innerText = "⏳ 保存中...";
+            btnSave.disabled = true;
+            const success = await window.firebaseAPI.saveDataToCloud(currentFirebaseUser.uid, data);
+            btnSave.innerText = "📤 クラウドへ保存";
+            btnSave.disabled = false;
+            if(success) alert("クラウドにセーブデータをバックアップしました！\n（別の端末でログインして読込できます）");
+            else alert("クラウド保存に失敗しました。インターネット接続を確認してください。");
+        });
+        btnSave.dataset.bound = "true";
+    }
+
+    if (btnLoad && !btnLoad.dataset.bound) {
+        btnLoad.addEventListener('click', async () => {
+            if(!currentFirebaseUser) return;
+            if(!confirm("現在のローカルセーブデータはクラウドのデータで上書きされ、元に戻せません。\n本当によろしいですか？")) return;
+            
+            btnLoad.innerText = "⏳ 読込中...";
+            btnLoad.disabled = true;
+            const dataStr = await window.firebaseAPI.loadDataFromCloud(currentFirebaseUser.uid);
+            btnLoad.innerText = "📥 クラウドから読込";
+            btnLoad.disabled = false;
+            
+            if(dataStr) {
+                localStorage.setItem('nature_science_save', dataStr);
+                alert("クラウドからデータを復元しました。\nゲームをリロードします。");
+                location.reload();
+            } else {
+                alert("クラウドにセーブデータが見つかりませんでした。\n（まだ一度も保存していない可能性があります）");
+            }
+        });
+        btnLoad.dataset.bound = "true";
+    }
+
+    // Force an immediate UI update corresponding to current state
+    updateCloudUI();
+}
+
+function updateCloudUI() {
+    const status = document.getElementById('settings-account-status') || document.getElementById('account-status');
+    const btnLogin = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
+    const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
+    const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
+    const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
+
+    if (!status) return; // Modal is probably closed
+
+    if (currentFirebaseUser) {
+        status.innerText = '状態: ログイン済み (' + (currentFirebaseUser.displayName || currentFirebaseUser.email) + ')';
+        status.style.color = '#4caf50';
+        if(btnLogin) btnLogin.style.display = 'none';
+        if(btnLogout) btnLogout.style.display = 'inline-block';
+        if(btnSave) btnSave.style.display = 'block';
+        if(btnLoad) btnLoad.style.display = 'block';
+    } else {
+        status.innerText = '状態: 未ログイン（クラウド機能は使えません）';
+        status.style.color = '#666';
+        if(btnLogin) btnLogin.style.display = 'block';
+        if(btnLogout) btnLogout.style.display = 'none';
+        if(btnSave) btnSave.style.display = 'none';
+        if(btnLoad) btnLoad.style.display = 'none';
+    }
+}
+
+// Optionally prep the connection silently in the background
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.firebaseAPI && !window.firebaseAPI_init_done) {
+        window.firebaseAPI.onAuthStateChanged((user) => {
+            currentFirebaseUser = user;
+            updateCloudUI(); // Will safely ignore if modal closed
+        });
+        window.firebaseAPI_init_done = true;
+    }
+});
+// --- Science Friend (フレンド機能) のコアロジック ---
+
+// 1. プロフィール同期（ログイン時や進捗保存時に呼び出し）
+async function syncUserProfile() {
+    if (!currentFirebaseUser || !window.firebaseAPI) return;
+    
+    const profile = {
+        name: currentFirebaseUser.displayName || "研究者",
+        email: currentFirebaseUser.email,
+        level: civilizationLevel,
+        discoveryCount: discovered.size,
+        totalElements: ELEMENTS_DATA ? Object.keys(ELEMENTS_DATA).length : 0,
+        photoURL: currentFirebaseUser.photoURL
+    };
+    
+    await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, profile);
+}
+
+// 2. 仲間の情報を定期的にリフレッシュ（タブ切り替え時などに呼び出し）
+function refreshFriendsData() {
+    if (!currentFirebaseUser || !window.firebaseAPI) {
+        if (ui.friendLoginAlert) ui.friendLoginAlert.style.display = 'block';
+        if (ui.friendMainControls) ui.friendMainControls.style.display = 'none';
+        return;
+    }
+
+    if (ui.friendLoginAlert) ui.friendLoginAlert.style.display = 'none';
+    if (ui.friendMainControls) ui.friendMainControls.style.display = 'block';
+
+    // フレンドデータのリアルタイムリスナー開始
+    if (window._friendsUnsubscribe) window._friendsUnsubscribe();
+    window._friendsUnsubscribe = window.firebaseAPI.getFriendsData(currentFirebaseUser.uid, (friends) => {
+        renderFriendsList(friends);
+    });
+
+    // フレンド申請のリアルタイムリスナー開始
+    if (window._friendRequestsUnsubscribe) window._friendRequestsUnsubscribe();
+    window._friendRequestsUnsubscribe = window.firebaseAPI.getFriendRequests(currentFirebaseUser.uid, (requests) => {
+        renderFriendRequests(requests);
+    });
+}
+
+// 3. フレンドリストの描画
+function renderFriendsList(friends) {
+    if (!ui.friendsList) return;
+    
+    if (friends.length === 0) {
+        ui.friendsList.innerHTML = '<p style="color:#aaa; text-align:center; grid-column:1/-1; padding:40px; font-style:italic;">仲間がまだいません。メールアドレスで検索して申請してみよう！</p>';
+        return;
+    }
+
+    ui.friendsList.innerHTML = friends.map(friend => `
+        <div class="glass-panel" style="padding:15px; display:flex; gap:12px; align-items:center; background:rgba(255,255,255,0.7); box-shadow:0 4px 10px rgba(0,0,0,0.05);">
+            <img src="${friend.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:50px; height:50px; border-radius:50%; border:2px solid #4caf50;">
+            <div style="flex:1;">
+                <div style="font-weight:bold; color:#2e7d32; font-size:1.1rem;">${friend.name || '研究者'}</div>
+                <div style="font-size:0.85rem; color:#666;">Lv.${friend.level} | 発見: ${friend.discoveryCount}/${friend.totalElements || '??'}</div>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
+                <button onclick="openChat('${friend.uid}', '${friend.name}', '${friend.photoURL || ''}')" style="background:#2196f3; color:white; border:none; padding:5px 12px; border-radius:15px; font-size:0.8rem; cursor:pointer; font-weight:bold; display:flex; align-items:center; gap:4px;">💬 トーク</button>
+                <div style="text-align:right;">
+                    <div style="font-size:0.65rem; color:#999;">最終活動</div>
+                    <div style="font-size:0.7rem; color:#666;">${timeSince(friend.lastSeen?.toDate())}</div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// 4. フレンド申請の描画
+function renderFriendRequests(requests) {
+    if (!ui.friendRequestsSection || !ui.friendRequestsList) return;
+
+    if (requests.length === 0) {
+        ui.friendRequestsSection.style.display = 'none';
+        return;
+    }
+
+    ui.friendRequestsSection.style.display = 'block';
+    ui.friendRequestsList.innerHTML = requests.map(req => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:white; padding:10px 15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
+            <div>
+                <span style="font-weight:bold; color:#1976d2;">${req.fromName}</span> さんから申請
+            </div>
+            <div style="display:flex; gap:8px;">
+                <button onclick="handleAcceptFriend('${req.id}', '${req.from}')" style="background:#4caf50; color:white; border:none; padding:5px 15px; border-radius:20px; cursor:pointer; font-weight:bold;">承認</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function handleAcceptFriend(requestId, fromUid) {
+    if (!currentFirebaseUser || !window.firebaseAPI) return;
+    const ok = await window.firebaseAPI.acceptFriendRequest(requestId, currentFirebaseUser.uid, fromUid);
+    if (ok) {
+        log("🤝 仲間と繋がりました！");
+    } else {
+        alert("承認に失敗しました。");
+    }
+}
+
+// 5. 仲間検索ロジック
+async function handleFriendSearch() {
+    if (!currentFirebaseUser || !window.firebaseAPI) {
+        alert("まずログインしてください。");
+        return;
+    }
+
+    const email = ui.friendSearchInput.value.trim();
+    if (!email) return;
+
+    ui.friendSearchResult.innerHTML = '<span style="color:#999;">検索中...</span>';
+    const target = await window.firebaseAPI.searchUserByEmail(email);
+
+    if (!target) {
+        ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">ユーザーが見つかりませんでした。正確なメールアドレスを入力してください。</span>';
+    } else if (target.uid === currentFirebaseUser.uid) {
+        ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">自分自身は検索できません。</span>';
+    } else {
+        ui.friendSearchResult.innerHTML = `
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#f1f8e9; padding:10px 15px; border-radius:10px; border:1px solid #4caf50;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <img src="${target.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:40px; height:40px; border-radius:50%;">
+                    <div>
+                        <div style="font-weight:bold;">${target.name || '研究者'}</div>
+                        <div style="font-size:0.75rem; color:#666;">Lv.${target.level}</div>
+                    </div>
+                </div>
+                <button id="btn-send-request" style="background:#4caf50; color:white; border:none; padding:8px 15px; border-radius:25px; cursor:pointer; font-weight:bold;">仲間に誘う</button>
+            </div>
+        `;
+        document.getElementById('btn-send-request').onclick = async () => {
+            const ok = await window.firebaseAPI.sendFriendRequest(currentFirebaseUser.uid, currentFirebaseUser.displayName || "研究者", target.uid);
+            if (ok) {
+                ui.friendSearchResult.innerHTML = '<span style="color:#4caf50; font-weight:bold;">✅ 申請を送信しました！</span>';
+                log(`🚀 ${target.name} さんにフレンド申請を送信しました。`);
+            } else {
+                alert("送信に失敗しました。既に申請済みかもしれません。");
+            }
+        };
+    }
+}
+
+// Helper: Time since
+function timeSince(date) {
+    if (!date) return "---";
+    const seconds = Math.floor((new Date() - date) / 1000);
+    let interval = seconds / 31536000;
+    if (interval > 1) return Math.floor(interval) + "年前";
+    interval = seconds / 2592000;
+    if (interval > 1) return Math.floor(interval) + "ヶ月前";
+    interval = seconds / 86400;
+    if (interval > 1) return Math.floor(interval) + "日前";
+    interval = seconds / 3600;
+    if (interval > 1) return Math.floor(interval) + "時間前";
+    interval = seconds / 60;
+    if (interval > 1) return Math.floor(interval) + "分前";
+    return "たった今";
+}
+
+// --- Chat Logic ---
+
+let currentChatFriendId = null;
+let chatUnsubscribe = null;
+
+function openChat(friendId, friendName, friendPhoto) {
+    if (!currentFirebaseUser) {
+        alert("チャットを利用するにはログインしてください。");
+        return;
+    }
+
+    currentChatFriendId = friendId;
+    ui.chatFriendName.innerText = friendName + " さんとのトーク";
+    ui.chatFriendImg.src = friendPhoto || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+    ui.chatMessages.innerHTML = '<div style="text-align:center; color:#999; padding:20px;">読み込み中...</div>';
+    ui.chatModal.classList.add('active');
+
+    // 以前のリスナーを解除
+    if (chatUnsubscribe) chatUnsubscribe();
+
+    // リアルタイムリスナー開始
+    const chatId = [currentFirebaseUser.uid, friendId].sort().join('_');
+    chatUnsubscribe = window.firebaseAPI.listenToMessages(chatId, (messages) => {
+        renderChatMessages(messages);
+    });
+
+    // 入力欄にフォーカス
+    setTimeout(() => ui.chatInput.focus(), 300);
+}
+
+function closeChat() {
+    ui.chatModal.classList.remove('active');
+    if (chatUnsubscribe) {
+        chatUnsubscribe();
+        chatUnsubscribe = null;
+    }
+    currentChatFriendId = null;
+}
+
+function renderChatMessages(messages) {
+    if (!ui.chatMessages) return;
+
+    if (messages.length === 0) {
+        ui.chatMessages.innerHTML = '<div style="text-align:center; color:#999; padding:40px; font-style:italic;">メッセージはまだありません。</div>';
+        return;
+    }
+
+    ui.chatMessages.innerHTML = messages.map(msg => {
+        const isMe = msg.senderId === currentFirebaseUser.uid;
+        const time = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '...';
+        
+        return `
+            <div style="display:flex; justify-content:${isMe ? 'flex-end' : 'flex-start'}; margin-bottom:12px;">
+                <div style="max-width:80%; display:flex; flex-direction:column; align-items:${isMe ? 'flex-end' : 'flex-start'};">
+                    <div style="background:${isMe ? '#4caf50' : '#f1f1f1'}; color:${isMe ? 'white' : '#333'}; padding:8px 12px; border-radius:${isMe ? '15px 15px 2px 15px' : '15px 15px 15px 2px'}; font-size:0.95rem; box-shadow:0 1px 2px rgba(0,0,0,0.1); line-height:1.4; word-break:break-word;">
+                        ${msg.text}
+                    </div>
+                    <div style="font-size:0.65rem; color:#999; margin-top:4px; padding:0 4px;">${time}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // 最下部へスクロール
+    ui.chatMessages.scrollTop = ui.chatMessages.scrollHeight;
+}
+
+async function handleSendMessage() {
+    const text = ui.chatInput.value.trim();
+    if (!text || !currentChatFriendId || !currentFirebaseUser) return;
+
+    ui.chatInput.value = '';
+    const chatId = [currentFirebaseUser.uid, currentChatFriendId].sort().join('_');
+    
+    const ok = await window.firebaseAPI.sendMessage(chatId, currentFirebaseUser.uid, currentFirebaseUser.displayName || "研究者", text);
+
+    if (!ok) {
+        alert("送信に失敗しました。");
+    }
+}
+
+// チャットボタライベント
+if (ui.chatSendBtn) {
+    ui.chatSendBtn.onclick = handleSendMessage;
+}
+if (ui.chatInput) {
+    ui.chatInput.onkeypress = (e) => {
+        if (e.key === 'Enter') handleSendMessage();
+    };
+}
+
+// --- Suggestion Box Logic ---
+
+function setupSuggestionBoxUI() {
+    console.log('[DEBUG] setupSuggestionBoxUI initial load');
+    
+    // DOM要素を毎回取得するようにして、動的なUI更新に対応
+    const getElements = () => ({
+        btnStart: document.getElementById('btn-suggestion-box'),
+        btnNav: document.getElementById('nav-suggestion-box'),
+        modal: document.getElementById('suggestion-modal'),
+        close: document.getElementById('close-suggestion-modal'),
+        input: document.getElementById('suggestion-text'),
+        submit: document.getElementById('submit-suggestion-btn'),
+        status: document.getElementById('suggestion-status')
+    });
+
+    const elements = getElements();
+    if (!elements.modal) {
+        console.warn('[DEBUG] setupSuggestionBoxUI: suggestion-modal not found');
+        return;
+    }
+
+    const openBox = () => {
+        const fresh = getElements();
+        if (fresh.modal) fresh.modal.style.display = 'flex';
+        if (fresh.status) fresh.status.innerText = '';
+        setTimeout(() => { if (fresh.input) fresh.input.focus(); }, 300);
+    };
+
+    if (elements.btnStart) elements.btnStart.onclick = openBox;
+    if (elements.btnNav) elements.btnNav.onclick = openBox;
+
+    if (elements.close) {
+        elements.close.onclick = () => {
+            const fresh = getElements();
+            if (fresh.modal) fresh.modal.style.display = 'none';
+        };
+    }
+
+    if (elements.submit && elements.input) {
+        elements.submit.onclick = async () => {
+            const fresh = getElements();
+            const text = fresh.input.value.trim();
+            if (!text) {
+                if (fresh.status) {
+                    fresh.status.innerText = '⚠️ メッセージを入力してください。';
+                    fresh.status.style.color = '#e53935';
+                }
+                return;
+            }
+
+            fresh.submit.disabled = true;
+            if (fresh.status) {
+                fresh.status.innerText = '送信中...';
+                fresh.status.style.color = '#666';
+            }
+
+            const user = (typeof currentFirebaseUser !== 'undefined') ? currentFirebaseUser : null;
+            const ok = await window.firebaseAPI.submitSuggestion(
+                user ? user.uid : null,
+                user ? (user.displayName || user.email) : "匿名研究者",
+                text
+            );
+
+            if (ok) {
+                if (fresh.status) {
+                    fresh.status.innerText = '✅ 送信しました！ありがとうございます。';
+                    fresh.status.style.color = '#4caf50';
+                }
+                fresh.input.value = '';
+                setTimeout(() => {
+                    if (fresh.modal) fresh.modal.style.display = 'none';
+                    if (fresh.submit) fresh.submit.disabled = false;
+                }, 2000);
+            } else {
+                if (fresh.status) {
+                    fresh.status.innerText = '❌ 送信に失敗しました。';
+                    fresh.status.style.color = '#e53935';
+                }
+                fresh.submit.disabled = false;
+            }
+        };
+    }
+}
+
+
+
