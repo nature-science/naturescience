@@ -10772,8 +10772,17 @@ function setupSettingsUI() {
                         <h3 style="margin:0 0 10px 0; font-size:1rem; color:#9c27b0; display:flex; align-items:center; gap:5px;">☁️ クラウド同期</h3>
                         <div id="settings-account-status" style="margin-bottom: 10px; font-weight: bold; color: #666; font-size: 0.85rem; text-align: center;">状態: ロード中...</div>
                         <div style="display: flex; gap: 10px; flex-direction: column; align-items: center;">
-                            <button id="settings-btn-login-google" style="width: 80%; padding: 10px; background: #4285F4; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">Googleでログイン</button>
-                            <button id="settings-btn-logout" style="width: 80%; padding: 10px; background: #757575; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">ログアウト</button>
+                            <div id="settings-login-form" style="width: 100%; display: none; flex-direction: column; gap: 8px;">
+                                <input type="email" id="settings-email" placeholder="メールアドレス" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%; font-size: 0.9rem;">
+                                <input type="password" id="settings-password" placeholder="パスワード (6文字以上)" style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; width: 100%; font-size: 0.9rem;">
+                                <div style="display: flex; gap: 10px;">
+                                    <button id="settings-btn-login-email" style="flex: 1; padding: 10px; background: #2196f3; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer;">ログイン</button>
+                                    <button id="settings-btn-register-email" style="flex: 1; padding: 10px; background: #8bc34a; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer;">新規登録</button>
+                                </div>
+                                <div style="text-align: center; margin: 10px 0; color: #999; font-size: 0.8rem;">または</div>
+                                <button id="settings-btn-login-google" style="width: 100%; padding: 10px; background: white; color: #444; border: 1px solid #ccc; border-radius: 30px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 18px;"> Googleでログイン</button>
+                            </div>
+                            <button id="settings-btn-logout" style="width: 100%; padding: 10px; background: #f44336; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">ログアウト</button>
                             <div style="display: flex; gap: 10px; width: 100%; justify-content: center;">
                                 <button id="settings-btn-cloud-save" style="flex: 1; padding: 10px; background: #9c27b0; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📤 クラウドへ保存</button>
                                 <button id="settings-btn-cloud-load" style="flex: 1; padding: 10px; background: #ab47bc; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📥 クラウドから読込</button>
@@ -11573,18 +11582,49 @@ function bindFirebaseSettingsUI() {
     }
 
     // Grab both dynamic modal elements and fallback to older modal elements if possible
-    const btnLogin = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
+    const btnLoginGoogle = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
     const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
     const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
     const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
 
-    if (btnLogin && !btnLogin.dataset.bound) {
-        btnLogin.addEventListener('click', async () => {
-            btnLogin.innerText = '⏳ 通信中...';
+    const btnLoginEmail = document.getElementById('settings-btn-login-email');
+    const btnRegisterEmail = document.getElementById('settings-btn-register-email');
+    const emailInput = document.getElementById('settings-email');
+    const passwordInput = document.getElementById('settings-password');
+
+    if (btnLoginGoogle && !btnLoginGoogle.dataset.bound) {
+        btnLoginGoogle.addEventListener('click', async () => {
+            const originalText = btnLoginGoogle.innerHTML;
+            btnLoginGoogle.innerHTML = '⏳ 通信中...';
             await window.firebaseAPI.signInGoogle();
-            btnLogin.innerText = 'Googleでログイン';
+            btnLoginGoogle.innerHTML = originalText;
         });
-        btnLogin.dataset.bound = "true";
+        btnLoginGoogle.dataset.bound = "true";
+    }
+
+    if(btnLoginEmail && !btnLoginEmail.dataset.bound) {
+        btnLoginEmail.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            if(!email || !password) return alert("メールアドレスとパスワードを入力してください");
+            btnLoginEmail.innerText = '⏳ 通信中...';
+            await window.firebaseAPI.signInWithEmail(email, password);
+            btnLoginEmail.innerText = 'ログイン';
+        });
+        btnLoginEmail.dataset.bound = "true";
+    }
+
+    if(btnRegisterEmail && !btnRegisterEmail.dataset.bound) {
+        btnRegisterEmail.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+            if(!email || !password) return alert("メールアドレスとパスワードを入力してください");
+            if(password.length < 6) return alert("パスワードは6文字以上で入力してください");
+            btnRegisterEmail.innerText = '⏳ 通信中...';
+            await window.firebaseAPI.registerWithEmail(email, password);
+            btnRegisterEmail.innerText = '新規登録';
+        });
+        btnRegisterEmail.dataset.bound = "true";
     }
     if (btnLogout && !btnLogout.dataset.bound) {
         btnLogout.addEventListener('click', async () => {
@@ -11641,7 +11681,10 @@ function bindFirebaseSettingsUI() {
 
 function updateCloudUI() {
     const status = document.getElementById('settings-account-status') || document.getElementById('account-status');
-    const btnLogin = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
+    const loginForm = document.getElementById('settings-login-form');
+    let btnLoginGoogle = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
+    // If we have loginForm, we use that for displaying all login controls instead of just the Google button directly if possible
+    
     const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
     const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
     const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
@@ -11651,14 +11694,22 @@ function updateCloudUI() {
     if (currentFirebaseUser) {
         status.innerText = '状態: ログイン済み (' + (currentFirebaseUser.displayName || currentFirebaseUser.email) + ')';
         status.style.color = '#4caf50';
-        if(btnLogin) btnLogin.style.display = 'none';
-        if(btnLogout) btnLogout.style.display = 'inline-block';
+        if(loginForm) loginForm.style.display = 'none';
+        else if(btnLoginGoogle) btnLoginGoogle.style.display = 'none'; // Fallback
+        
+        if(btnLogout) btnLogout.style.display = 'block';
         if(btnSave) btnSave.style.display = 'block';
         if(btnLoad) btnLoad.style.display = 'block';
     } else {
         status.innerText = '状態: 未ログイン（クラウド機能は使えません）';
         status.style.color = '#666';
-        if(btnLogin) btnLogin.style.display = 'block';
+        
+        if(loginForm) {
+            loginForm.style.display = 'flex';
+        } else if(btnLoginGoogle) {
+            btnLoginGoogle.style.display = 'block'; // Fallback
+        }
+
         if(btnLogout) btnLogout.style.display = 'none';
         if(btnSave) btnSave.style.display = 'none';
         if(btnLoad) btnLoad.style.display = 'none';

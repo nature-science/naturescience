@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -29,6 +29,26 @@ window.firebaseAPI = {
         } catch (error) {
             console.error('Login error', error);
             alert('ログインに失敗しました: ' + error.message);
+            return null;
+        }
+    },
+    registerWithEmail: async (email, password) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Registration error', error);
+            alert('アカウント作成に失敗しました: ' + error.message);
+            return null;
+        }
+    },
+    signInWithEmail: async (email, password) => {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            return userCredential.user;
+        } catch (error) {
+            console.error('Email Login error', error);
+            alert('ログインに失敗しました: メールアドレスかパスワードが間違っています。');
             return null;
         }
     },
