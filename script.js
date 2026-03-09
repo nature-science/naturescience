@@ -3783,7 +3783,7 @@ const ui = {
     friendsView: document.getElementById('view-friends'),
     friendLoginAlert: document.getElementById('friend-login-alert'),
     friendMainControls: document.getElementById('friend-main-controls'),
-    friendSearchInput: document.getElementById('friend-search-email'),
+    friendSearchInput: document.getElementById('friend-search-code'),
     friendSearchBtn: document.getElementById('btn-friend-search'),
     friendSearchResult: document.getElementById('friend-search-result'),
     friendRequestsSection: document.getElementById('friend-requests-section'),
@@ -3809,20 +3809,18 @@ const ui = {
 let isTrashMode = false;
 
 function init() {
+    setupSuggestionBoxUI(); // Initialize Suggestion Box logic early
     setupNavigation();
-    setupCardMapUI(); // Card Layout Map UI (Restored Design)
+    setupCardMapUI();
     setupGathering();
     setupCraftingUI();
-    updateGatherSpotDisplay(); // Initialize Area Display
-    setupMachineReordering(); // Setup Lab Reordering
-    console.log('[DEBUG] setupSettingsUI を呼び出します');
+    updateGatherSpotDisplay();
+    setupMachineReordering();
     try {
-        setupSettingsUI(); // Setup Settings Modal
-        console.log('[DEBUG] setupSettingsUI 完了');
+        setupSettingsUI(); 
     } catch (e) {
-        console.error('[DEBUG] setupSettingsUI でエラー:', e);
+        console.error('Settings UI Error:', e);
     }
-    setupSuggestionBoxUI(); // Setup Suggestion Box Modal
 
     // Global Keyboard Shortcuts
     // Remove existing if any (requires named function, but for now just add once with check)
@@ -4613,6 +4611,16 @@ function setupNavigation() {
         });
     }
 
+    // Suggestion Box is handled by inline onclick in HTML, no JS binding needed here.
+    // If openSuggestionBox exists, it's a bonus fallback.
+    // Do NOT add click listeners here as they conflict with inline onclick.
+    if (ui.navSettings) {
+        ui.navSettings.addEventListener('click', (e) => {
+            console.log('[DEBUG] Nav Settings Clicked');
+            setupSettingsUI();
+        });
+    }
+
     const eventGoLabBtn = document.getElementById('event-go-lab-btn');
     if (eventGoLabBtn) {
         eventGoLabBtn.addEventListener('click', () => {
@@ -4720,6 +4728,9 @@ function switchView(mode) {
     } else if (mode === 'archives') {
         if (ui.archivesView) ui.archivesView.style.display = 'block';
         if (ui.navArchives) ui.navArchives.classList.add('active');
+    } else if (mode === 'friends') {
+        if (ui.friendsView) ui.friendsView.style.display = 'block';
+        if (ui.navFriends) ui.navFriends.classList.add('active');
     }
 }
 
@@ -7485,33 +7496,41 @@ function updateNextGoalDisplay() {
 
     // Find next level
     let nextLevel = null;
-    // Find the current level object first
     const currentIdx = CIVILIZATION_LEVELS.findIndex(c => c.level === currentCivilizationLevel);
     if (currentIdx !== -1 && currentIdx < CIVILIZATION_LEVELS.length - 1) {
         nextLevel = CIVILIZATION_LEVELS[currentIdx + 1];
     } else {
-        // Fallback: search by level number
         nextLevel = CIVILIZATION_LEVELS.find(c => c.level === currentCivilizationLevel + 1);
     }
 
     if (nextLevel) {
         if (nextLevel.trigger) {
             const triggerInfo = ELEMENTS[nextLevel.trigger];
-            if (triggerInfo) {
+            const hasDiscovered = discovered.has(nextLevel.trigger);
+
+            if (hasDiscovered) {
+                // 目標アイテム発見済み → レベルアップボタンを表示
+                const emoji = triggerInfo ? triggerInfo.emoji : '🔬';
+                const name = triggerInfo ? triggerInfo.name : nextLevel.trigger;
+                nextGoalEl.innerHTML = `
+                    <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+                        <div style="font-size:0.85rem; color:#4caf50;">✅ ${emoji} ${name} を発見済み！</div>
+                        <button id="btn-level-up" style="background:linear-gradient(135deg, #ff9800, #f57c00); color:white; border:none; padding:8px 20px; border-radius:50px; font-weight:bold; cursor:pointer; font-size:0.9rem; box-shadow:0 3px 10px rgba(255,152,0,0.4); animation:pulse 1.5s infinite; font-family:'Zen Maru Gothic',sans-serif;">⬆️ Lv.${nextLevel.level} にレベルアップ！</button>
+                    </div>
+                `;
+                const lvUpBtn = document.getElementById('btn-level-up');
+                if (lvUpBtn) {
+                    lvUpBtn.onclick = () => performLevelUp(nextLevel.level);
+                }
+                nextGoalEl.oncontextmenu = null;
+                nextGoalEl.title = '';
+                nextGoalEl.style.cursor = 'default';
+            } else if (triggerInfo) {
+                // まだ発見していない → 目標を表示
                 const emoji = triggerInfo.emoji;
                 const name = triggerInfo.name;
+                nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明`;
 
-                let reqHtml = '';
-                if (nextLevel.reqCount) {
-                    const remaining = nextLevel.reqCount - discovered.size;
-                    if (remaining > 0) {
-                        reqHtml = `<div style="font-size:0.8rem;color:#888;margin-top:2px;">(さらに要素を ${remaining} 個発見)</div>`;
-                    }
-                }
-
-                nextGoalEl.innerHTML = `Lv.${nextLevel.level} ${emoji} ${name} の発明${reqHtml}`;
-
-                // Add right-click listener for roadmap
                 const isRoadmapEnabled = localStorage.getItem('nature_science_ext_roadmap') !== 'false';
                 nextGoalEl.title = isRoadmapEnabled ? "右クリックでレシピを確認" : "";
                 nextGoalEl.style.cursor = isRoadmapEnabled ? "help" : "default";
@@ -7523,21 +7542,74 @@ function updateNextGoalDisplay() {
             } else {
                 nextGoalEl.innerHTML = `Lv.${nextLevel.level} 未知の技術`;
                 nextGoalEl.oncontextmenu = null;
-                nextGoalEl.title = "";
-                nextGoalEl.style.cursor = "default";
+                nextGoalEl.title = '';
+                nextGoalEl.style.cursor = 'default';
             }
         } else {
             nextGoalEl.innerText = `Lv.${nextLevel.level} 新たな時代へ`;
             nextGoalEl.oncontextmenu = null;
-            nextGoalEl.title = "";
-            nextGoalEl.style.cursor = "default";
+            nextGoalEl.title = '';
+            nextGoalEl.style.cursor = 'default';
         }
     } else {
-        nextGoalEl.innerText = "🏆 文明の頂点に到達";
+        const total = Object.keys(ELEMENTS).length;
+        const found = Array.from(discovered).filter(id => ELEMENTS[id]).length;
+        if (found < total) {
+            nextGoalEl.innerHTML = `<div style="font-size:0.9rem; color:#2e7d32; font-weight:bold;">🏆 最後の目標：全要素（${found}/${total}）を発見する！</div>`;
+        } else {
+            nextGoalEl.innerHTML = `<div style="font-size:1rem; color:#d84315; font-weight:bold; animation: pulse 1.5s infinite;">🎉 完全制覇！すべての要素を発見しました！</div>`;
+        }
         nextGoalEl.oncontextmenu = null;
-        nextGoalEl.title = "";
-        nextGoalEl.style.cursor = "default";
+        nextGoalEl.title = '';
+        nextGoalEl.style.cursor = 'default';
     }
+}
+
+// 手動レベルアップ実行
+function performLevelUp(targetLevel) {
+    const civData = CIVILIZATION_LEVELS.find(c => c.level === targetLevel);
+    if (!civData) return;
+
+    // 条件チェック: triggerアイテムが発見済みか
+    if (civData.trigger && !discovered.has(civData.trigger)) {
+        log('⚠️ まだ目標アイテムを発見していません。');
+        return;
+    }
+
+    currentCivilizationLevel = targetLevel;
+
+    // テーマ更新
+    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
+    let newTheme = 'theme-ancient';
+    if (targetLevel >= 17) newTheme = 'theme-future';
+    else if (targetLevel >= 15) newTheme = 'theme-digital';
+    else if (targetLevel >= 12) newTheme = 'theme-modern';
+    else if (targetLevel >= 8) newTheme = 'theme-industrial';
+    else if (targetLevel >= 6) newTheme = 'theme-medieval';
+    else if (targetLevel >= 4) newTheme = 'theme-classical';
+    else if (targetLevel >= 2) newTheme = 'theme-iceage';
+    document.body.classList.add(newTheme);
+
+    // Google Analytics
+    if (typeof gtag === 'function') {
+        gtag('event', 'level_up', { 'level': targetLevel });
+    }
+
+    log(`🎉 **文明レベルアップ！** [Lv.${targetLevel} ${civData.name}] に到達しました！`);
+    log(`📜 ${civData.desc}`);
+
+    // 図鑑ボタンのパルスアニメーション
+    const btn = document.getElementById('nav-book');
+    if (btn) {
+        btn.style.animation = 'pulse 1s infinite';
+        setTimeout(() => btn.style.animation = '', 5000);
+    }
+
+    // 表示を更新
+    updateNextGoalDisplay();
+    renderEncyclopedia();
+    saveGame();
+    checkAchievements();
 }
 
 // === Shop Logic ===
@@ -8186,51 +8258,23 @@ function renderPriceChart(id) {
 }
 
 function updateCivilizationLevel(silent = false) {
-    let maxLevel = 0;
-    CIVILIZATION_LEVELS.forEach(civ => {
-        if ((civ.trigger === null || discovered.has(civ.trigger)) && (civ.reqCount === undefined || discovered.size >= civ.reqCount)) {
-            if (civ.level > maxLevel) maxLevel = civ.level;
-        }
-    });
+    // テーマを現在のレベルに合わせて更新（自動レベルアップはしない）
+    let currentLevel = currentCivilizationLevel;
 
-    if (maxLevel > currentCivilizationLevel || !document.body.classList.contains('theme-ancient') && maxLevel >= 0) { // Initial application or update
-        // Theme Update Logic
-        document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
+    // テーマ更新
+    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
+    let newTheme = 'theme-ancient';
+    if (currentLevel >= 17) newTheme = 'theme-future';
+    else if (currentLevel >= 15) newTheme = 'theme-digital';
+    else if (currentLevel >= 12) newTheme = 'theme-modern';
+    else if (currentLevel >= 8) newTheme = 'theme-industrial';
+    else if (currentLevel >= 6) newTheme = 'theme-medieval';
+    else if (currentLevel >= 4) newTheme = 'theme-classical';
+    else if (currentLevel >= 2) newTheme = 'theme-iceage';
+    document.body.classList.add(newTheme);
 
-        let newTheme = 'theme-ancient';
-        if (maxLevel >= 17) newTheme = 'theme-future';
-        else if (maxLevel >= 15) newTheme = 'theme-digital'; // New: Digital Era (Electronics)
-        else if (maxLevel >= 12) newTheme = 'theme-modern';
-        else if (maxLevel >= 8) newTheme = 'theme-industrial';
-        else if (maxLevel >= 6) newTheme = 'theme-medieval'; // New: Middle Ages
-        else if (maxLevel >= 4) newTheme = 'theme-classical';
-        else if (maxLevel >= 2) newTheme = 'theme-iceage';   // New: Ice Age survival
-
-        document.body.classList.add(newTheme);
-
-        if (maxLevel > currentCivilizationLevel) {
-            currentCivilizationLevel = maxLevel;
-            if (!silent && !isLoading) {
-                // Google Analytics: Level Up Event
-                if (typeof gtag === 'function') {
-                    gtag('event', 'level_up', {
-                        'level': maxLevel
-                    });
-                }
-
-                const civData = CIVILIZATION_LEVELS.find(c => c.level === maxLevel);
-                log(`🎉 **文明レベルアップ！** [Lv.${maxLevel} ${civData.name}] に到達しました！`);
-                log(`📜 ${civData.desc}`);
-
-                // Notification effect
-                const btn = document.getElementById('nav-book');
-                if (btn) {
-                    btn.style.animation = 'pulse 1s infinite';
-                    setTimeout(() => btn.style.animation = '', 5000);
-                }
-            }
-        }
-    }
+    // 目標表示を更新（ボタン表示の判定含む）
+    updateNextGoalDisplay();
 }
 
 function updateIndustrialList() {
@@ -8412,13 +8456,23 @@ function renderElementsEncyclopedia(grid) {
             card.style.cursor = 'pointer';
             card.onclick = () => showElementDetail(data.id);
         } else {
-            card.innerHTML = `
-                <div class="element-emoji">❓</div>
-                <div class="element-name">???</div>
-                <div class="element-desc">未発見</div>
-            `;
-            card.style.cursor = 'pointer';
-            card.onclick = () => showLockedElementHint(id);
+            if (currentCivilizationLevel >= 22) {
+                card.innerHTML = `
+                    <div class="element-emoji">❓</div>
+                    <div class="element-name">???</div>
+                    <div style="margin-top:5px; font-size:0.75rem; color:#d84315; text-decoration:underline;">レシピを見る</div>
+                `;
+                card.style.cursor = 'help';
+                card.onclick = () => showRoadmap(id);
+            } else {
+                card.innerHTML = `
+                    <div class="element-emoji">❓</div>
+                    <div class="element-name">???</div>
+                    <div class="element-desc">未発見</div>
+                `;
+                card.style.cursor = 'pointer';
+                card.onclick = () => showLockedElementHint(id);
+            }
         }
         grid.appendChild(card);
     });
@@ -10733,15 +10787,21 @@ function setupSettingsUI() {
     const settingsBtn = document.getElementById('nav-settings');
     if (!settingsBtn) return;
 
-    // 設定ボタンクリック時の処理
-    settingsBtn.onclick = (e) => {
-        e.stopPropagation();
+    // 設定ボタンクリック時の初期化
+    if (!settingsBtn.dataset.bound) {
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            console.log('[DEBUG] Settings Modal Opening');
+            // 既存のモーダルがあれば削除（重複防止）
+            const oldModal = document.getElementById('settings-modal');
+            if (oldModal) oldModal.remove();
+            
+            createSettingsModal();
+        });
+        settingsBtn.dataset.bound = 'true';
+    }
 
-        // 既存のモーダルがあれば削除（重複防止）
-        const oldModal = document.getElementById('settings-modal');
-        if (oldModal) oldModal.remove();
-
-        // モーダルを新規作成（CSSクラスを使わずインラインスタイルで制御）
+    function createSettingsModal() {
         const settingsModal = document.createElement('div');
         settingsModal.id = 'settings-modal';
         // z-indexを100005にして、スタート画面(10000)より上に表示するように
@@ -10801,10 +10861,6 @@ function setupSettingsUI() {
                             <label style="flex:1; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05); min-width:120px;">
                                 <input type="checkbox" id="settings-chk-dark" style="accent-color:#212121;">
                                 <span style="font-weight:bold; color:#555;">🌙 ダーク</span>
-                            </label>
-                            <label style="width:100%; padding:10px; background:white; border:1px solid #ddd; border-radius:30px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
-                                <input type="checkbox" id="settings-chk-glass" style="accent-color:#00e5ff;">
-                                <span style="font-weight:bold; color:#555;">🥃 ガラス(β版)</span>
                             </label>
                         </div>
                         <div style="text-align:center; font-size:0.8rem; color:#999;">
@@ -10946,24 +11002,6 @@ function setupSettingsUI() {
             });
         }
 
-        // ガラスモード設定
-        const chkGlass = document.getElementById('settings-chk-glass');
-        if (chkGlass) {
-            const isGlass = localStorage.getItem('nature_science_glass_mode') === 'true';
-            chkGlass.checked = isGlass;
-            if (isGlass) document.body.classList.add('glass-mode');
-
-            chkGlass.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    document.body.classList.add('glass-mode');
-                    localStorage.setItem('nature_science_glass_mode', 'true');
-                } else {
-                    document.body.classList.remove('glass-mode');
-                    localStorage.setItem('nature_science_glass_mode', 'false');
-                }
-            });
-        }
-
         // 拡張機能：デバッグ
         const extDebug = document.getElementById('settings-ext-debug');
         if (extDebug) {
@@ -11052,10 +11090,6 @@ window.onload = function () {
     if (localStorage.getItem('nature_science_dark_mode') === 'true') {
         document.body.classList.add('dark-mode');
     }
-    // ガラスモード復元
-    if (localStorage.getItem('nature_science_glass_mode') === 'true') {
-        document.body.classList.add('glass-mode');
-    }
 
     const startBtn = document.getElementById('btn-start-game');
     const startSettingsBtn = document.getElementById('btn-start-settings');
@@ -11092,6 +11126,7 @@ window.onload = function () {
         updateThirstGauge();
         init();
         initTutorial();
+        setupSuggestionBoxUI(); // Ensure it's ready
     } else {
         // If we are on Industry Mode page, we still need to load data
         loadGame();
@@ -11258,9 +11293,12 @@ function showRoadmap(targetId) {
     h += '<div class="' + cClass + '" style="max-width:98%;width:98%;height:92vh;display:flex;flex-direction:column;position:relative;padding:15px;background:#fdfdfd;color:#333;box-shadow:0 20px 60px rgba(0,0,0,0.3);">';
     h += '<button class="close-modal-btn" style="position:absolute;top:15px;right:20px;background:none;border:none;font-size:2rem;cursor:pointer;color:#888;z-index:100;line-height:1;">×</button>';
     h += '<div style="flex-shrink:0;">';
+    var displayEmoji = discovered.has(targetId) ? target.emoji : '❓';
+    var displayName = discovered.has(targetId) ? target.name : '？？？';
+
     h += '<h2 style="text-align:center;padding-top:10px;margin-bottom:15px;color:#2e7d32;font-weight:bold;">';
-    h += '<span style="font-size:1.8rem;vertical-align:middle;">' + target.emoji + '</span> ';
-    h += '<span style="vertical-align:middle;">' + target.name + ' ロードマップ</span>';
+    h += '<span style="font-size:1.8rem;vertical-align:middle;">' + displayEmoji + '</span> ';
+    h += '<span style="vertical-align:middle;">' + displayName + ' ロードマップ</span>';
     h += '</h2>';
     h += '<div style="display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:15px;">';
     // ズームコントロール
@@ -11409,7 +11447,7 @@ function buildRecipeTreeHtml(itemId, isRoot, pathStr) {
 
     var displayName = item.name;
     var displayEmoji = item.emoji;
-    if (!isDiscovered && !isRoot) { displayName = '？？？'; displayEmoji = '🔒'; }
+    if (!isDiscovered) { displayName = '？？？'; displayEmoji = '❓'; }
 
     var ingredients = findIngredientsFor(itemId);
 
@@ -11731,11 +11769,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. プロフィール同期（ログイン時や進捗保存時に呼び出し）
 async function syncUserProfile() {
     if (!currentFirebaseUser || !window.firebaseAPI) return;
-    
+    // Fallbacks for non-Google signins
+    let defaultName = currentFirebaseUser.displayName;
+    if (!defaultName && currentFirebaseUser.email) {
+        defaultName = currentFirebaseUser.email.split('@')[0];
+    }
+    if (!defaultName) defaultName = "研究者";
+
     const profile = {
-        name: currentFirebaseUser.displayName || "研究者",
-        email: currentFirebaseUser.email,
-        level: civilizationLevel,
+        name: defaultName,
+        email: currentFirebaseUser.email || "",
+        friendCode: currentFirebaseUser.uid.substring(0, 8).toUpperCase(),
+        level: currentCivilizationLevel,
         discoveryCount: discovered.size,
         totalElements: ELEMENTS_DATA ? Object.keys(ELEMENTS_DATA).length : 0,
         photoURL: currentFirebaseUser.photoURL
@@ -11754,6 +11799,11 @@ function refreshFriendsData() {
 
     if (ui.friendLoginAlert) ui.friendLoginAlert.style.display = 'none';
     if (ui.friendMainControls) ui.friendMainControls.style.display = 'block';
+
+    const myCodeEl = document.getElementById('my-friend-code');
+    if (myCodeEl && currentFirebaseUser) {
+        myCodeEl.innerText = currentFirebaseUser.uid.substring(0, 8).toUpperCase();
+    }
 
     // フレンドデータのリアルタイムリスナー開始
     if (window._friendsUnsubscribe) window._friendsUnsubscribe();
@@ -11834,14 +11884,14 @@ async function handleFriendSearch() {
         return;
     }
 
-    const email = ui.friendSearchInput.value.trim();
-    if (!email) return;
+    const fCode = ui.friendSearchInput.value.trim().toUpperCase();
+    if (!fCode) return;
 
     ui.friendSearchResult.innerHTML = '<span style="color:#999;">検索中...</span>';
-    const target = await window.firebaseAPI.searchUserByEmail(email);
+    const target = await window.firebaseAPI.searchUserByFriendCode(fCode);
 
     if (!target) {
-        ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">ユーザーが見つかりませんでした。正確なメールアドレスを入力してください。</span>';
+        ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">ユーザーが見つかりませんでした。正しい仲間コードを入力してください。</span>';
     } else if (target.uid === currentFirebaseUser.uid) {
         ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">自分自身は検索できません。</span>';
     } else {
@@ -11980,58 +12030,70 @@ if (ui.chatInput) {
 // --- Suggestion Box Logic ---
 
 function setupSuggestionBoxUI() {
-    console.log('[DEBUG] setupSuggestionBoxUI initial load');
-    
-    // DOM要素を毎回取得するようにして、動的なUI更新に対応
-    const getElements = () => ({
-        btnStart: document.getElementById('btn-suggestion-box'),
-        btnNav: document.getElementById('nav-suggestion-box'),
-        modal: document.getElementById('suggestion-modal'),
-        close: document.getElementById('close-suggestion-modal'),
-        input: document.getElementById('suggestion-text'),
-        submit: document.getElementById('submit-suggestion-btn'),
-        status: document.getElementById('suggestion-status')
-    });
+    const modal = document.getElementById('suggestion-modal');
+    const closeBtn = document.getElementById('close-suggestion-modal');
+    const inputEl = document.getElementById('suggestion-text');
+    const submitBtn = document.getElementById('submit-suggestion-btn');
+    const statusEl = document.getElementById('suggestion-status');
+    const btnStart = document.getElementById('btn-suggestion-box');
+    const btnNav = document.getElementById('nav-suggestion-box');
 
-    const elements = getElements();
-    if (!elements.modal) {
-        console.warn('[DEBUG] setupSuggestionBoxUI: suggestion-modal not found');
+    if (!modal) {
+        console.warn('[SuggestionBox] Modal not found, retrying in 500ms...');
+        setTimeout(setupSuggestionBoxUI, 500);
         return;
     }
 
-    const openBox = () => {
-        const fresh = getElements();
-        if (fresh.modal) fresh.modal.style.display = 'flex';
-        if (fresh.status) fresh.status.innerText = '';
-        setTimeout(() => { if (fresh.input) fresh.input.focus(); }, 300);
-    };
+    function openModal(e) {
+        if (e) { e.preventDefault(); e.stopPropagation(); }
+        console.log('[DEBUG] Opening suggestion modal');
+        modal.style.setProperty('display', 'flex', 'important');
+        if (statusEl) statusEl.innerText = '';
+        setTimeout(() => { if (inputEl) inputEl.focus(); }, 300);
+    }
 
-    if (elements.btnStart) elements.btnStart.onclick = openBox;
-    if (elements.btnNav) elements.btnNav.onclick = openBox;
+    // Expose globally
+    window.openSuggestionBox = openModal;
 
-    if (elements.close) {
-        elements.close.onclick = () => {
-            const fresh = getElements();
-            if (fresh.modal) fresh.modal.style.display = 'none';
+    if (btnStart && !btnStart.dataset.suggBound) {
+        btnStart.addEventListener('click', openModal);
+        btnStart.dataset.suggBound = 'true';
+    }
+    if (btnNav && !btnNav.dataset.suggBound) {
+        btnNav.addEventListener('click', openModal);
+        btnNav.dataset.suggBound = 'true';
+    }
+
+    if (closeBtn) {
+        closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            modal.style.setProperty('display', 'none', 'important');
         };
     }
 
-    if (elements.submit && elements.input) {
-        elements.submit.onclick = async () => {
-            const fresh = getElements();
-            const text = fresh.input.value.trim();
+    // Close on background click
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.style.setProperty('display', 'none', 'important');
+        }
+    };
+
+    if (submitBtn && inputEl) {
+        submitBtn.onclick = async (e) => {
+            e.stopPropagation();
+            const text = inputEl.value.trim();
             if (!text) {
-                if (fresh.status) {
-                    fresh.status.innerText = '⚠️ メッセージを入力してください。';
-                    fresh.status.style.color = '#e53935';
+                if (statusEl) {
+                    statusEl.innerText = '⚠️ メッセージを入力してください。';
+                    statusEl.style.color = '#e53935';
                 }
                 return;
             }
 
-            fresh.submit.disabled = true;
-            if (fresh.status) {
-                fresh.status.innerText = '送信中...';
-                fresh.status.style.color = '#666';
+            submitBtn.disabled = true;
+            if (statusEl) {
+                statusEl.innerText = '送信中...';
+                statusEl.style.color = '#666';
             }
 
             const user = (typeof currentFirebaseUser !== 'undefined') ? currentFirebaseUser : null;
@@ -12042,25 +12104,29 @@ function setupSuggestionBoxUI() {
             );
 
             if (ok) {
-                if (fresh.status) {
-                    fresh.status.innerText = '✅ 送信しました！ありがとうございます。';
-                    fresh.status.style.color = '#4caf50';
+                if (statusEl) {
+                    statusEl.innerText = '✅ 送信しました！ありがとうございます。';
+                    statusEl.style.color = '#4caf50';
                 }
-                fresh.input.value = '';
+                inputEl.value = '';
                 setTimeout(() => {
-                    if (fresh.modal) fresh.modal.style.display = 'none';
-                    if (fresh.submit) fresh.submit.disabled = false;
+                    modal.style.setProperty('display', 'none', 'important');
+                    submitBtn.disabled = false;
                 }, 2000);
             } else {
-                if (fresh.status) {
-                    fresh.status.innerText = '❌ 送信に失敗しました。';
-                    fresh.status.style.color = '#e53935';
+                if (statusEl) {
+                    statusEl.innerText = '❌ 送信に失敗しました。';
+                    statusEl.style.color = '#e53935';
                 }
-                fresh.submit.disabled = false;
+                submitBtn.disabled = false;
             }
         };
     }
 }
 
 
+// Ensure suggestion box is ready after DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setupSuggestionBoxUI();
+});
 

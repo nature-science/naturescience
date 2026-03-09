@@ -52,8 +52,6 @@ body::before {
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
     z-index: 99999;
     display: flex;
     justify-content: center;
@@ -144,9 +142,8 @@ body::before {
 }
 
 .glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    background: white;
+    border: 1px solid #ddd;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     padding: 20px;
@@ -295,6 +292,11 @@ main {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Field View */
@@ -736,6 +738,7 @@ main {
     align-items: center;
     z-index: 1000;
     animation: fadeIn 0.2s;
+    pointer-events: auto !important;
 }
 
 .modal-content {
@@ -985,7 +988,6 @@ body.lite-mode::before {
 }
 
 body.lite-mode * {
-    backdrop-filter: none !important;
     box-shadow: none !important;
     animation: none !important;
     transition: none !important;
@@ -1482,8 +1484,6 @@ body.lite-mode.dark-mode .nav-btn.active {
     max-width: 420px;
     width: 90%;
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 24px;
     padding: 25px;
@@ -1656,8 +1656,6 @@ body.theme-ancient {
 body.theme-ancient .glass-panel {
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(46, 125, 50, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
 }
 
 /* Level 2-3: Ice Age (Survival) */
@@ -1674,7 +1672,6 @@ body.theme-iceage {
 body.theme-iceage .glass-panel {
     border: 1px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 4px 24px rgba(2, 119, 189, 0.2);
-    backdrop-filter: blur(10px);
 }
 
 /* Level 4-5: Classical (History & Craft) */
@@ -1691,7 +1688,6 @@ body.theme-classical {
 body.theme-classical .glass-panel {
     border: 1px solid rgba(215, 204, 200, 0.6);
     box-shadow: 0 10px 40px rgba(121, 85, 72, 0.15);
-    backdrop-filter: blur(16px);
 }
 
 /* Level 6-7: Medieval (Craft & Commerce) */
@@ -1708,7 +1704,6 @@ body.theme-medieval {
 body.theme-medieval .glass-panel {
     border: 1px solid rgba(141, 110, 99, 0.4);
     box-shadow: 0 8px 30px rgba(62, 39, 35, 0.25);
-    backdrop-filter: blur(8px);
 }
 
 /* Level 8-11: Industrial (Structure & Steel) */
@@ -1726,7 +1721,6 @@ body.theme-industrial .glass-panel {
     border-radius: 12px;
     border: 1px solid rgba(144, 164, 174, 0.6);
     box-shadow: 0 12px 35px rgba(55, 71, 79, 0.2);
-    backdrop-filter: blur(14px);
 }
 
 /* Level 12-14: Modern (Technology & Science) */
@@ -1743,7 +1737,6 @@ body.theme-modern {
 body.theme-modern .glass-panel {
     border: 1px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 10px 30px rgba(2, 119, 189, 0.1);
-    backdrop-filter: blur(16px);
 }
 
 /* Level 15-16: Digital (Information Age) */
@@ -1761,7 +1754,6 @@ body.theme-digital {
 body.theme-digital .glass-panel {
     border: 1px solid rgba(0, 230, 118, 0.3);
     box-shadow: 0 0 25px rgba(0, 230, 118, 0.15);
-    backdrop-filter: blur(20px);
 }
 
 body.theme-digital .element-name {
@@ -1791,7 +1783,6 @@ body.theme-future .glass-panel {
     box-shadow: 0 10px 40px rgba(0, 188, 212, 0.1);
     background: rgba(255, 255, 255, 0.85);
     color: var(--text-color);
-    backdrop-filter: blur(24px);
 }
 
 body.theme-future .element-card {
@@ -2038,23 +2029,23 @@ html body.dark-mode label {
 
 
 html body.dark-mode .gather-spot {
-    /* 明るさを少し抑えることで、どぎつい色をなじませる */
+    /* 譏弱ｋ縺輔ｒ蟆代＠謚代∴繧九％縺ｨ縺ｧ縲√←縺弱▽縺・牡繧偵↑縺倥∪縺帙ｋ */
     filter: brightness(0.7) contrast(1.1);
     color: #ffffff !important;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5) !important;
-    /* 背景色はJSで動的に変更される場合もあるので、filterで対応するのが吉 */
+    /* 閭梧勹濶ｲ縺ｯJS縺ｧ蜍慕噪縺ｫ螟画峩縺輔ｌ繧句ｴ蜷医ｂ縺ゅｋ縺ｮ縺ｧ縲’ilter縺ｧ蟇ｾ蠢懊☆繧九・縺悟翠 */
 }
 
-/* ホバー時は少し明るく */
+/* 繝帙ヰ繝ｼ譎ゅ・蟆代＠譏弱ｋ縺・*/
 html body.dark-mode .gather-spot:hover {
     filter: brightness(0.85) contrast(1.1);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7) !important;
     transform: translateY(-2px);
 }
 
-/* ついでにタイトルバーも少し暗く */
+/* 縺､縺・〒縺ｫ繧ｿ繧､繝医Ν繝舌・繧ょｰ代＠證励￥ */
 html body.dark-mode .field-header,
 html body.dark-mode .shop-header,
 html body.dark-mode .book-header,
@@ -2068,7 +2059,7 @@ html body.dark-mode .machine-title {
 }
 
 /* --- Settings Modal Dark Mode Specifics --- */
-/* 白いカード背景を暗く透過させる */
+/* 逋ｽ縺・き繝ｼ繝芽レ譎ｯ繧呈囓縺城城℃縺輔○繧・*/
 html body.dark-mode #settings-modal div[style*="background:white"],
 html body.dark-mode #settings-modal div[style*="background: white"],
 html body.dark-mode #settings-modal div[style*="background:rgba(0,0,0,0.03)"],
@@ -2079,7 +2070,7 @@ html body.dark-mode #settings-modal div[style*="background: rgba(0,0,0,0.03)"] {
     color: #eee !important;
 }
 
-/* ボタンとラベル (通常のもの) */
+/* 繝懊ち繝ｳ縺ｨ繝ｩ繝吶Ν (騾壼ｸｸ縺ｮ繧ゅ・) */
 html body.dark-mode #settings-modal button:not(.action-btn):not(.text-btn),
 html body.dark-mode #settings-modal label {
     background: rgba(255, 255, 255, 0.1) !important;
@@ -2087,7 +2078,7 @@ html body.dark-mode #settings-modal label {
     color: #eee !important;
 }
 
-/* 開発者メモ (クリーム色) を暗いオレンジ系に */
+/* 髢狗匱閠・Γ繝｢ (繧ｯ繝ｪ繝ｼ繝濶ｲ) 繧呈囓縺・が繝ｬ繝ｳ繧ｸ邉ｻ縺ｫ */
 html body.dark-mode #settings-modal div[style*="background:#fff3e0"],
 html body.dark-mode #settings-modal div[style*="background: #fff3e0"] {
     background: rgba(255, 152, 0, 0.15) !important;
@@ -2101,14 +2092,14 @@ html body.dark-mode #settings-modal div[style*="background: #fff3e0"] h3 {
     color: #ffcc80 !important;
 }
 
-/* 見出しの文字色調整 */
+/* 隕句・縺励・譁・ｭ苓牡隱ｿ謨ｴ */
 html body.dark-mode #settings-modal h2,
 html body.dark-mode #settings-modal h3 {
     color: #fff !important;
     border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* 削除ボタンのテキスト */
+/* 蜑企勁繝懊ち繝ｳ縺ｮ繝・く繧ｹ繝・*/
 html body.dark-mode #settings-delete-btn {
     color: #ef5350 !important;
     background: transparent !important;
@@ -2138,321 +2129,7 @@ html body.glass-mode {
     animation: gradientBG 15s ease infinite;
 }
 
-html body.glass-mode .glass-panel,
-html body.glass-mode .machine-section,
-html body.glass-mode .view-panel,
-html body.glass-mode .sidebar,
-html body.glass-mode .inventory,
-html body.glass-mode .field-container,
-html body.glass-mode .modal-content,
-html body.glass-mode aside,
-html body.glass-mode section {
-    background: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px) !important;
-    -webkit-backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    border-radius: 15px !important;
-    color: #333 !important;
-}
 
-/* Dark Glass Mode (Overrides Light Glass & Normal Dark) */
-html body.glass-mode.dark-mode {
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
-    background-size: 400% 400%;
-    animation: gradientBG 20s ease infinite;
-}
-
-html body.glass-mode.dark-mode .glass-panel,
-html body.glass-mode.dark-mode .machine-section,
-html body.glass-mode.dark-mode .view-panel,
-html body.glass-mode.dark-mode .sidebar,
-html body.glass-mode.dark-mode .inventory,
-html body.glass-mode.dark-mode .field-container,
-html body.glass-mode.dark-mode .modal-content,
-html body.glass-mode.dark-mode aside,
-html body.glass-mode.dark-mode section {
-    background: rgba(30, 30, 30, 0.5) !important;
-    /* Make it translucent */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    color: #eee !important;
-}
-
-/* Button tweaks for Glass Dark Mode */
-html body.glass-mode.dark-mode .gather-spot {
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4) !important;
-    /* Remove gradient here to let specific spot styles handle it */
-    background-image: none;
-}
-
-/* --- Liquid Glass Buttons (Specific Spots) --- */
-/* Common Glass Button Style */
-body.glass-mode .gather-spot {
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.8) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow:
-        inset 0 10px 20px rgba(255, 255, 255, 0.2),
-        inset 0 -10px 20px rgba(0, 0, 0, 0.1),
-        0 8px 20px rgba(0, 0, 0, 0.15) !important;
-    color: #fff !important;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
-    transition: transform 0.2s, box-shadow 0.2s;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Glossy Shine Overlay */
-body.glass-mode .gather-spot::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
-    pointer-events: none;
-    border-radius: 10px 10px 60% 60% / 10px 10px 20px 20px;
-}
-
-body.glass-mode .gather-spot:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow:
-        inset 0 10px 20px rgba(255, 255, 255, 0.4),
-        0 15px 30px rgba(0, 0, 0, 0.2) !important;
-    z-index: 10;
-}
-
-/* Specific Colors for Glass Mode (Translucent) */
-/* Override inline styles with !important */
-body.glass-mode .water-spot,
-body.glass-mode .coast-spot,
-body.glass-mode .river-spot {
-    background: rgba(33, 150, 243, 0.6) !important;
-}
-
-body.glass-mode .forest-spot,
-body.glass-mode .jungle-spot,
-body.glass-mode .sugar-spot,
-body.glass-mode .amazon-spot {
-    background: rgba(76, 175, 80, 0.6) !important;
-}
-
-body.glass-mode .earth-spot,
-body.glass-mode .andes-spot {
-    background: rgba(121, 85, 72, 0.6) !important;
-}
-
-body.glass-mode .tree-spot,
-body.glass-mode .olive-spot,
-body.glass-mode .savannah-spot {
-    background: rgba(139, 195, 74, 0.6) !important;
-}
-
-body.glass-mode .sun-spot,
-body.glass-mode .corn-spot,
-body.glass-mode .spice-spot,
-body.glass-mode .gold-spot {
-    background: rgba(255, 152, 0, 0.6) !important;
-}
-
-body.glass-mode .cave-spot,
-body.glass-mode .mine-spot,
-body.glass-mode .coal-spot,
-body.glass-mode .bolivia-spot {
-    background: rgba(96, 125, 139, 0.6) !important;
-}
-
-body.glass-mode .onsen-spot,
-body.glass-mode .uyghur-spot,
-body.glass-mode .china-spot {
-    background: rgba(240, 98, 146, 0.6) !important;
-}
-
-body.glass-mode .home-spot,
-body.glass-mode .china-mine-spot {
-    background: rgba(141, 110, 99, 0.6) !important;
-}
-
-body.glass-mode .oil-spot,
-body.glass-mode .mars-spot,
-body.glass-mode .desert-spot {
-    background: rgba(230, 74, 25, 0.6) !important;
-}
-
-body.glass-mode .snow-spot,
-body.glass-mode .salt-lake-spot,
-body.glass-mode .turkey-spot,
-body.glass-mode .antarctica-spot {
-    background: rgba(200, 230, 255, 0.4) !important;
-    color: #0277bd !important;
-    text-shadow: none !important;
-}
-
-body.glass-mode .deep-sea-spot {
-    background: rgba(26, 35, 126, 0.6) !important;
-}
-
-body.glass-mode .plant-spot,
-body.glass-mode .coral-spot {
-    background: rgba(0, 188, 212, 0.6) !important;
-}
-
-body.glass-mode .crater-spot,
-body.glass-mode .moon-spot {
-    background: rgba(69, 90, 100, 0.6) !important;
-}
-
-/* Dark Glass Mode Adjustments */
-body.glass-mode.dark-mode .gather-spot {
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    /* Darker translucent backgrounds */
-}
-
-/* Re-apply translucency for dark mode but slightly darker */
-body.glass-mode.dark-mode .water-spot,
-body.glass-mode.dark-mode .coast-spot {
-    background: rgba(21, 101, 192, 0.5) !important;
-}
-
-body.glass-mode.dark-mode .forest-spot,
-body.glass-mode.dark-mode .jungle-spot {
-    background: rgba(46, 125, 50, 0.5) !important;
-}
-
-body.glass-mode.dark-mode .earth-spot {
-    background: rgba(78, 52, 46, 0.5) !important;
-}
-
-body.glass-mode.dark-mode .sun-spot {
-    background: rgba(239, 108, 0, 0.5) !important;
-}
-
-body.glass-mode.dark-mode .snow-spot {
-    background: rgba(225, 245, 254, 0.3) !important;
-    color: #fff !important;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important;
-}
-
-/* --- Glass Mode for Slots & Cards --- */
-
-/* Element Slots (Crafting Lab) - Concave Glass Effect */
-body.glass-mode .element-slot {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.4) !important;
-    box-shadow:
-        inset 0 4px 8px rgba(0, 0, 0, 0.1),
-        inset 0 -4px 8px rgba(255, 255, 255, 0.2) !important;
-    backdrop-filter: blur(4px);
-    border-radius: 12px !important;
-    color: #555;
-    transition: all 0.3s;
-}
-
-body.glass-mode.dark-mode .element-slot {
-    background: rgba(0, 0, 0, 0.2) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow:
-        inset 0 4px 10px rgba(0, 0, 0, 0.5),
-        inset 0 -1px 2px rgba(255, 255, 255, 0.1) !important;
-    color: #ccc;
-}
-
-/* Filled Slot (Item inside) */
-body.glass-mode .element-slot.filled {
-    background: rgba(255, 255, 255, 0.3) !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.1),
-        inset 0 0 10px rgba(255, 255, 255, 0.5) !important;
-}
-
-body.glass-mode.dark-mode .element-slot.filled {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Inventory Cards - Convex Glass Shard Effect */
-body.glass-mode .element-card {
-    background: rgba(255, 255, 255, 0.25) !important;
-    border: 1px solid rgba(255, 255, 255, 0.6) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.9) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow:
-        0 4px 10px rgba(31, 38, 135, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-    backdrop-filter: blur(6px);
-    border-radius: 15px !important;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Card Shine */
-body.glass-mode .element-card::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transform: rotate(45deg);
-    transition: 0.5s;
-    opacity: 0;
-    pointer-events: none;
-}
-
-body.glass-mode .element-card:hover::before {
-    opacity: 1;
-    left: 100%;
-    transition: 0.5s;
-}
-
-body.glass-mode .element-card:hover {
-    transform: translateY(-5px) scale(1.03) !important;
-    box-shadow: 0 10px 20px rgba(31, 38, 135, 0.2) !important;
-    background: rgba(255, 255, 255, 0.4) !important;
-    z-index: 10;
-}
-
-/* Dark Mode Cards */
-body.glass-mode.dark-mode .element-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
-    color: #eee !important;
-}
-
-body.glass-mode.dark-mode .element-card:hover {
-    background: rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5) !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-}
-
-/* Result Slot Special Glow */
-body.glass-mode .element-slot.result.filled {
-    background: rgba(255, 215, 0, 0.2) !important;
-    border: 2px solid rgba(255, 215, 0, 0.6) !important;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4) !important;
-    animation: glassPulse 2s infinite alternate;
-}
-
-@keyframes glassPulse {
-    from {
-        box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-    }
-
-    to {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
-    }
-}
 
 /* --- Roadmap Tree (Org Chart Style - Inverted: ingredients on top, goal on bottom) --- */
 /* --- Roadmap Tree Logic (Upward Growth - Anti-Glitch Fix) --- */
@@ -2480,11 +2157,11 @@ body.glass-mode .element-slot.result.filled {
 .roadmap-tree li {
     position: relative;
     display: flex;
-    flex-direction: column-reverse; /* 上に子(材料)、下に親(完成品) */
+    flex-direction: column-reverse; /* 荳翫↓蟄・譚先侭)縲∽ｸ九↓隕ｪ(螳梧・蜩・ */
     align-items: center;
 }
 
-/* 1. ノード内容（箱）の設定 */
+/* 1. 繝弱・繝牙・螳ｹ・育ｮｱ・峨・險ｭ螳・*/
 .roadmap-tree .node-content {
     border: 1px solid #ccc;
     padding: 10px 15px;
@@ -2494,48 +2171,48 @@ body.glass-mode .element-slot.result.filled {
     min-width: 100px;
     position: relative;
     z-index: 10;
-    margin: 40px 10px !important; /* 上下に絶対的な隙間を確保 */
+    margin: 40px 10px !important; /* 荳贋ｸ九↓邨ｶ蟇ｾ逧・↑髫咎俣繧堤｢ｺ菫・*/
 }
 
-/* 2. 垂直線 (箱から外に伸ばす) */
-/* 上へ（親から材料の合流点へ） */
+/* 2. 蝙ら峩邱・(邂ｱ縺九ｉ螟悶↓莨ｸ縺ｰ縺・ */
+/* 荳翫∈・郁ｦｪ縺九ｉ譚先侭縺ｮ蜷域ｵ∫せ縺ｸ・・*/
 .roadmap-tree .node-content::before {
     content: '';
     position: absolute;
-    bottom: 100%; /* 箱の上端から開始 */
+    bottom: 100%; /* 邂ｱ縺ｮ荳顔ｫｯ縺九ｉ髢句ｧ・*/
     left: 50%;
     width: 2px;
-    height: 40px; /* マージン分を埋める */
+    height: 40px; /* 繝槭・繧ｸ繝ｳ蛻・ｒ蝓九ａ繧・*/
     background: #bbb;
     transform: translateX(-50%);
     display: block;
 }
 
-/* 材料を持たない最上部のノードは、上に線を引かない */
+/* 譚先侭繧呈戟縺溘↑縺・怙荳企Κ縺ｮ繝弱・繝峨・縲∽ｸ翫↓邱壹ｒ蠑輔°縺ｪ縺・*/
 .roadmap-tree li:not(:has(ul)) > .node-content::before {
     display: none;
 }
 
-/* 下へ (材料から親への合流点へ) */
+/* 荳九∈ (譚先侭縺九ｉ隕ｪ縺ｸ縺ｮ蜷域ｵ∫せ縺ｸ) */
 .roadmap-tree ul ul li > .node-content::after {
     content: '';
     position: absolute;
-    top: 100%; /* 箱の下端から開始 */
+    top: 100%; /* 邂ｱ縺ｮ荳狗ｫｯ縺九ｉ髢句ｧ・*/
     left: 50%;
     width: 2px;
-    height: 40px; /* マージン分を埋める */
+    height: 40px; /* 繝槭・繧ｸ繝ｳ蛻・ｒ蝓九ａ繧・*/
     background: #bbb;
     transform: translateX(-50%);
     display: block;
 }
 
-/* 3. 水平線 (材料たちを繋ぐ) */
-/* 材料「li」そのものに横線を担当させる */
+/* 3. 豌ｴ蟷ｳ邱・(譚先侭縺溘■繧堤ｹ九＄) */
+/* 譚先侭縲畦i縲阪◎縺ｮ繧ゅ・縺ｫ讓ｪ邱壹ｒ諡・ｽ薙＆縺帙ｋ */
 .roadmap-tree ul ul li::before,
 .roadmap-tree ul ul li::after {
     content: '';
     position: absolute;
-    bottom: 0px; /* liの底（＝完成品ノードの上端と同じ高さ） */
+    bottom: 0px; /* li縺ｮ蠎包ｼ茨ｼ晏ｮ梧・蜩√ヮ繝ｼ繝峨・荳顔ｫｯ縺ｨ蜷後§鬮倥＆・・*/
     right: 50%;
     border-top: 2px solid #bbb;
     width: 50%;
@@ -2548,7 +2225,7 @@ body.glass-mode .element-slot.result.filled {
     left: 50%;
 }
 
-/* 端の余計な横棒を消す */
+/* 遶ｯ縺ｮ菴呵ｨ医↑讓ｪ譽偵ｒ豸医☆ */
 .roadmap-tree ul ul li:first-child::before,
 .roadmap-tree ul ul li:last-child::after {
     border: none;
@@ -2558,7 +2235,7 @@ body.glass-mode .element-slot.result.filled {
     display: none;
 }
 
-/* 発見・未発見のスタイル */
+/* 逋ｺ隕九・譛ｪ逋ｺ隕九・繧ｹ繧ｿ繧､繝ｫ */
 .roadmap-tree li.discovered .node-content {
     background: #e8f5e9;
     border: 2px solid #4caf50;
@@ -2570,10 +2247,9 @@ body.glass-mode .element-slot.result.filled {
     color: #bbb;
 }
 
-/* 描画の安定 */
+/* 謠冗判縺ｮ螳牙ｮ・*/
 #roadmap-scroll-area {
     background: #f8fbff;
-    backdrop-filter: none !important;
 }
 
 .dark-mode .roadmap-tree .node-content {
