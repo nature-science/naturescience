@@ -961,7 +961,7 @@
 
         <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, addDoc, deleteDoc, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -997,21 +997,54 @@ window.firebaseAPI = {
     signInWithEmail: async (email, password) => {
         try {
             const result = await signInWithEmailAndPassword(auth, email, password);
+            if (!result.user.emailVerified) {
+                try {
+                    await sendEmailVerification(result.user);
+                } catch (e) {
+                    console.log("Verification email already sent or rate limited");
+                }
+                await signOut(auth);
+                alert('メールアドレスがまだ確認されていません。\n確認メールを再送信しましたので、受信したメール内のリンクをクリックして認証を完了させてから再度ログインしてください。\n（迷惑メールフォルダに届くこともあります）');
+                return null;
+            }
             return result.user;
         } catch (error) {
             console.error('Email login error', error);
-            alert('メールアドレスでのログインに失敗しました: ' + error.message);
+            alert('ログインに失敗しました。\nメールアドレスやパスワードが間違っているか、存在しないアカウントです。');
             return null;
         }
     },
     registerWithEmail: async (email, password) => {
         try {
             const result = await createUserWithEmailAndPassword(auth, email, password);
-            return result.user;
+            await sendEmailVerification(result.user);
+            await signOut(auth);
+            alert('【仮登録完了】\nまだ登録は完了していません！\n\n入力していただいたメールアドレスあてに「確認メール」を送信しました。メール内のURLをクリックして本登録を完了させてください。\n\n※認証完了後に、改めてログインボタンからログインしてください。');
+            return null;
         } catch (error) {
             console.error('Email register error', error);
-            alert('アカウントの作成に失敗しました: ' + error.message);
+            if (error.code === 'auth/email-already-in-use') {
+                alert('このメールアドレスは既に登録されています。ログイン画面からログインしてください。');
+            } else if (error.code === 'auth/invalid-email') {
+                alert('メールアドレスの形式が正しくありません。');
+            } else {
+                alert('アカウントの作成に失敗しました: ' + error.message);
+            }
             return null;
+        }
+    },
+    resetPasswordEmail: async (email) => {
+        try {
+            await sendPasswordResetEmail(auth, email);
+            return true;
+        } catch (error) {
+            console.error('Password reset error', error);
+            if (error.code === 'auth/invalid-email') {
+                alert('メールアドレスの形式が正しくありません。');
+            } else {
+                alert('パスワード再設定メールの送信に失敗しました: ' + error.message);
+            }
+            return false;
         }
     },
     signOut: async () => {

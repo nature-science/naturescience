@@ -10839,6 +10839,9 @@ function setupSettingsUI() {
                                     <button id="settings-btn-login-email" style="flex: 1; padding: 10px; background: #2196f3; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer;">ログイン</button>
                                     <button id="settings-btn-register-email" style="flex: 1; padding: 10px; background: #8bc34a; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer;">新規登録</button>
                                 </div>
+                                <div style="text-align: right; margin-top: 2px;">
+                                    <span id="settings-btn-forgot-password" style="font-size: 0.8rem; color: #2196f3; cursor: pointer; text-decoration: underline;">パスワードを忘れた場合</span>
+                                </div>
                                 <div style="text-align: center; margin: 10px 0; color: #999; font-size: 0.8rem;">または</div>
                                 <button id="settings-btn-login-google" style="width: 100%; padding: 10px; background: white; color: #444; border: 1px solid #ccc; border-radius: 30px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width: 18px;"> Googleでログイン</button>
                             </div>
@@ -11615,6 +11618,10 @@ function bindFirebaseSettingsUI() {
         window.firebaseAPI.onAuthStateChanged((user) => {
             currentFirebaseUser = user;
             updateCloudUI(); // Update UI if modal is open when state changes
+            if (user) {
+                // Ensure profile exists in Firestore (especially for friendCode)
+                if (typeof syncUserProfile === 'function') syncUserProfile();
+            }
         });
         window.firebaseAPI_init_done = true;
     }
@@ -11629,6 +11636,7 @@ function bindFirebaseSettingsUI() {
     const btnRegisterEmail = document.getElementById('settings-btn-register-email');
     const emailInput = document.getElementById('settings-email');
     const passwordInput = document.getElementById('settings-password');
+    const btnForgotPassword = document.getElementById('settings-btn-forgot-password');
 
     if (btnLoginGoogle && !btnLoginGoogle.dataset.bound) {
         btnLoginGoogle.addEventListener('click', async () => {
@@ -11664,6 +11672,20 @@ function bindFirebaseSettingsUI() {
         });
         btnRegisterEmail.dataset.bound = "true";
     }
+
+    if(btnForgotPassword && !btnForgotPassword.dataset.bound) {
+        btnForgotPassword.addEventListener('click', async () => {
+            const email = emailInput.value.trim();
+            if(!email) return alert("パスワードをリセットするメールアドレスを入力してください");
+            btnForgotPassword.innerText = '送信中...';
+            const ok = await window.firebaseAPI.resetPasswordEmail(email);
+            if(ok) {
+                alert("パスワード再設定用のメールを送信しました。\nメール内のリンクから新しいパスワードを設定してください。\n※迷惑メールフォルダに分類されることがありますのでご注意ください。");
+            }
+            btnForgotPassword.innerText = 'パスワードを忘れた場合';
+        });
+        btnForgotPassword.dataset.bound = "true";
+    }
     if (btnLogout && !btnLogout.dataset.bound) {
         btnLogout.addEventListener('click', async () => {
             await window.firebaseAPI.signOut();
@@ -11685,8 +11707,12 @@ function bindFirebaseSettingsUI() {
             const success = await window.firebaseAPI.saveDataToCloud(currentFirebaseUser.uid, data);
             btnSave.innerText = "📤 クラウドへ保存";
             btnSave.disabled = false;
-            if(success) alert("クラウドにセーブデータをバックアップしました！\n（別の端末でログインして読込できます）");
-            else alert("クラウド保存に失敗しました。インターネット接続を確認してください。");
+            if(success) {
+                if (typeof syncUserProfile === 'function') await syncUserProfile();
+                alert("クラウドにセーブデータをバックアップしました！\n（別の端末でログインして読込できます）");
+            } else {
+                alert("クラウド保存に失敗しました。インターネット接続を確認してください。");
+            }
         });
         btnSave.dataset.bound = "true";
     }
@@ -11760,6 +11786,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.firebaseAPI.onAuthStateChanged((user) => {
             currentFirebaseUser = user;
             updateCloudUI(); // Will safely ignore if modal closed
+            if (user) {
+                // Ensure profile exists in Firestore
+                if (typeof syncUserProfile === 'function') syncUserProfile();
+            }
         });
         window.firebaseAPI_init_done = true;
     }
@@ -11783,7 +11813,8 @@ async function syncUserProfile() {
         level: currentCivilizationLevel,
         discoveryCount: discovered.size,
         totalElements: ELEMENTS_DATA ? Object.keys(ELEMENTS_DATA).length : 0,
-        photoURL: currentFirebaseUser.photoURL
+        photoURL: currentFirebaseUser.photoURL,
+        status: document.visibilityState === 'visible' ? 'online' : 'away'
     };
     
     await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, profile);
@@ -11823,7 +11854,7 @@ function renderFriendsList(friends) {
     if (!ui.friendsList) return;
     
     if (friends.length === 0) {
-        ui.friendsList.innerHTML = '<p style="color:#aaa; text-align:center; grid-column:1/-1; padding:40px; font-style:italic;">仲間がまだいません。メールアドレスで検索して申請してみよう！</p>';
+        ui.friendsList.innerHTML = '<p style="color:#aaa; text-align:center; grid-column:1/-1; padding:40px; font-style:italic;">仲間がまだいません。仲間コードで検索して申請してみよう！</p>';
         return;
     }
 
@@ -11837,8 +11868,7 @@ function renderFriendsList(friends) {
             <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
                 <button onclick="openChat('${friend.uid}', '${friend.name}', '${friend.photoURL || ''}')" style="background:#2196f3; color:white; border:none; padding:5px 12px; border-radius:15px; font-size:0.8rem; cursor:pointer; font-weight:bold; display:flex; align-items:center; gap:4px;">💬 トーク</button>
                 <div style="text-align:right;">
-                    <div style="font-size:0.65rem; color:#999;">最終活動</div>
-                    <div style="font-size:0.7rem; color:#666;">${timeSince(friend.lastSeen?.toDate())}</div>
+                    ${renderFriendStatus(friend)}
                 </div>
             </div>
         </div>
@@ -11934,6 +11964,39 @@ function timeSince(date) {
     interval = seconds / 60;
     if (interval > 1) return Math.floor(interval) + "分前";
     return "たった今";
+}
+
+// Presence Logic
+async function updateOnlineStatus(status) {
+    if (!currentFirebaseUser || !window.firebaseAPI) return;
+    try {
+        await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, {
+            status: status
+        });
+    } catch(e) {}
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+        updateOnlineStatus("online");
+    } else {
+        updateOnlineStatus("away");
+    }
+});
+
+window.addEventListener("pagehide", () => {
+    updateOnlineStatus("offline");
+});
+
+function renderFriendStatus(friend) {
+    if (!friend.status || friend.status === 'offline') {
+        const timeCalc = timeSince(friend.lastSeen?.toDate());
+        return `<span style="color:#999; display:flex; align-items:center; justify-content:flex-end; gap:4px; font-weight:bold; font-size:0.8rem;">⚪ オフライン</span><div style="font-size:0.65rem; color:#888; margin-top:2px; text-align:right;">（${timeCalc}）</div>`;
+    }
+    if (friend.status === 'away') {
+        return `<span style="color:#ffb300; display:flex; align-items:center; justify-content:flex-end; gap:4px; font-weight:bold; font-size:0.8rem;">🟡 退席中</span>`;
+    }
+    return `<span style="color:#4caf50; display:flex; align-items:center; justify-content:flex-end; gap:4px; font-weight:bold; font-size:0.8rem;">🟢 オンライン</span>`;
 }
 
 // --- Chat Logic ---
