@@ -37,8 +37,23 @@
 
         <div class="start-content" style="position: relative; z-index: 10001; text-align: center; color: white; padding: 60px 40px; border-radius: 30px; max-width: 600px; width: 90%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.3); animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
             <div style="font-size: 5rem; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));">🧪</div>
-            <h1 style="font-size: 4rem; font-weight: 700; margin-bottom: 5px; color: white; text-shadow: 0 0 20px rgba(76,175,80,0.4); font-family: 'Zen Maru Gothic', sans-serif;">自然と科学</h1>
-            <p style="font-size: 1.2rem; letter-spacing: 6px; margin-bottom: 50px; opacity: 0.8; color: #ddd; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">- 万物を創造する錬金術 -</p>
+            <h1 style="font-size: 3rem; font-weight: 500; margin-bottom: 5px; color: white; text-shadow: 0 0 10px rgba(76,175,80,0.3); font-family: 'Zen Maru Gothic', sans-serif; letter-spacing: 2px;">自然と科学</h1>
+            <p id="start-subtitle" style="font-size: 1.2rem; letter-spacing: 6px; margin-bottom: 50px; opacity: 0.8; color: #ddd; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">- 万物を創造する錬金術 -</p>
+            
+            <script>
+                const subtitleEl = document.getElementById('start-subtitle');
+                const phrases = [
+                    "- 万物を創造する錬金術 -",
+                    "- 未知の要素を探求せよ -",
+                    "- 無限の科学と発見の旅 -",
+                    "- 進化する文明の物語 -",
+                    "- 新たな時代を切り開け -"
+                ];
+                if (subtitleEl) {
+                    const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                    subtitleEl.innerText = randomPhrase;
+                }
+            </script>
             
             <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
                 <button id="btn-start-game" class="action-btn" style="width: 280px; font-size: 1.4rem; padding: 18px; background: linear-gradient(135deg, #4caf50, #2e7d32); color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 40px rgba(46, 175, 80, 0.6); transition: all 0.3s ease; font-weight: bold; font-family: 'Zen Maru Gothic', sans-serif;">
@@ -961,7 +976,7 @@
 
         <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, deleteUser } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, onSnapshot, updateDoc, arrayUnion, addDoc, deleteDoc, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1052,6 +1067,22 @@ window.firebaseAPI = {
             await signOut(auth);
         } catch (error) {
             console.error('Logout error', error);
+        }
+    },
+    deleteAccount: async (user) => {
+        try {
+            await deleteDoc(doc(db, "users", user.uid));
+            await deleteDoc(doc(db, "saves", user.uid));
+            await deleteUser(user);
+            return true;
+        } catch (error) {
+            console.error('Delete account error', error);
+            if (error.code === 'auth/requires-recent-login') {
+                alert('アカウントを削除するには、再度ログインし直す必要があります。一度ログアウトし、再ログインしてからもう一度お試しください。');
+            } else {
+                alert('アカウントの削除に失敗しました: ' + error.message);
+            }
+            return false;
         }
     },
     onAuthStateChanged: (callback) => {

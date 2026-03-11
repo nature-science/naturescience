@@ -10850,6 +10850,9 @@ function setupSettingsUI() {
                                 <button id="settings-btn-cloud-save" style="flex: 1; padding: 10px; background: #9c27b0; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📤 クラウドへ保存</button>
                                 <button id="settings-btn-cloud-load" style="flex: 1; padding: 10px; background: #ab47bc; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; display: none;">📥 クラウドから読込</button>
                             </div>
+                            <div style="width: 100%; text-align: center; margin-top: 5px;">
+                                <span id="settings-btn-delete-account" style="font-size: 0.75rem; color: #f44336; cursor: pointer; text-decoration: underline; display: none;">⚠️アカウントを完全に削除する</span>
+                            </div>
                         </div>
                     </div>
 
@@ -11739,6 +11742,27 @@ function bindFirebaseSettingsUI() {
         btnLoad.dataset.bound = "true";
     }
 
+    const btnDeleteAccount = document.getElementById('settings-btn-delete-account');
+    if (btnDeleteAccount && !btnDeleteAccount.dataset.bound) {
+        btnDeleteAccount.addEventListener('click', async () => {
+            if (!currentFirebaseUser) return;
+            const confirm1 = confirm("⚠️ 警告 ⚠️\n\nアカウントを削除すると、クラウド上のセーブデータやフレンド機能のデータがすべて「完全に削除」され、二度と復元できなくなります。\n\n本当にアカウントを削除しますか？");
+            if (!confirm1) return;
+            const confirm2 = confirm("最終確認です。\n本当に削除してよろしいですね？（元には戻せません！）");
+            if (!confirm2) return;
+
+            btnDeleteAccount.innerText = "⏳ 削除処理中...";
+            const success = await window.firebaseAPI.deleteAccount(currentFirebaseUser);
+            if (success) {
+                alert("アカウントとクラウドデータの削除が完了しました。\nご利用ありがとうございました。");
+                location.reload();
+            } else {
+                btnDeleteAccount.innerText = "⚠️アカウントを完全に削除する";
+            }
+        });
+        btnDeleteAccount.dataset.bound = "true";
+    }
+
     // Force an immediate UI update corresponding to current state
     updateCloudUI();
 }
@@ -11752,6 +11776,7 @@ function updateCloudUI() {
     const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
     const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
     const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
+    const btnDeleteAccount = document.getElementById('settings-btn-delete-account');
 
     if (!status) return; // Modal is probably closed
 
@@ -11764,6 +11789,7 @@ function updateCloudUI() {
         if(btnLogout) btnLogout.style.display = 'block';
         if(btnSave) btnSave.style.display = 'block';
         if(btnLoad) btnLoad.style.display = 'block';
+        if(btnDeleteAccount) btnDeleteAccount.style.display = 'inline';
     } else {
         status.innerText = '状態: 未ログイン（クラウド機能は使えません）';
         status.style.color = '#666';
@@ -11777,6 +11803,7 @@ function updateCloudUI() {
         if(btnLogout) btnLogout.style.display = 'none';
         if(btnSave) btnSave.style.display = 'none';
         if(btnLoad) btnLoad.style.display = 'none';
+        if(btnDeleteAccount) btnDeleteAccount.style.display = 'none';
     }
 }
 
