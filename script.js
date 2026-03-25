@@ -12246,11 +12246,17 @@ function setupSuggestionBoxUI() {
                 return;
             }
 
-            const ok = await window.firebaseAPI.submitSuggestion(
-                user ? user.uid : null,
-                user ? (user.displayName || user.email) : "匿名研究者",
-                text
-            );
+            let ok = false;
+            try {
+                ok = await window.firebaseAPI.submitSuggestion(
+                    user ? user.uid : null,
+                    user ? (user.displayName || user.email) : "匿名研究者",
+                    text
+                );
+            } catch (err) {
+                console.error("Submit error:", err);
+                ok = false;
+            }
 
             if (ok) {
                 if (statusEl) {

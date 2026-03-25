@@ -1,6 +1,34 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    signOut, 
+    onAuthStateChanged, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword,
+    sendEmailVerification,
+    sendPasswordResetEmail,
+    deleteUser
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { 
+    getFirestore, 
+    doc, 
+    setDoc, 
+    getDoc, 
+    addDoc, 
+    collection, 
+    serverTimestamp,
+    query, 
+    where, 
+    getDocs, 
+    onSnapshot, 
+    updateDoc, 
+    arrayUnion,
+    deleteDoc,
+    orderBy,
+    limit
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBM1k0ZaGTXwL4VS4Aj10DgfL2F0HV3X6w",
@@ -34,22 +62,40 @@ window.firebaseAPI = {
     },
     registerWithEmail: async (email, password) => {
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            return userCredential.user;
+            const result = await createUserWithEmailAndPassword(auth, email, password);
+            await sendEmailVerification(result.user);
+            await signOut(auth);
+            alert('【仮登録完了】\n確認メールを送信しました。メール内のURLをクリックして本登録を完了させてからログインしてください。');
+            return null;
         } catch (error) {
-            console.error('Registration error', error);
-            alert('アカウント作成に失敗しました: ' + error.message);
+            console.error('Email register error', error);
+            alert('アカウントの作成に失敗しました: ' + error.message);
             return null;
         }
     },
     signInWithEmail: async (email, password) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            return userCredential.user;
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            if (!result.user.emailVerified) {
+                try { await sendEmailVerification(result.user); } catch (e) {}
+                await signOut(auth);
+                alert('メール認証が完了していません。確認メールを再送しましたので認証を完了させてください。');
+                return null;
+            }
+            return result.user;
         } catch (error) {
             console.error('Email Login error', error);
             alert('ログインに失敗しました: メールアドレスかパスワードが間違っています。');
             return null;
+        }
+    },
+    resetPasswordEmail: async (email) => {
+        try {
+            await sendPasswordResetEmail(auth, email);
+            return true;
+        } catch (error) {
+            console.error('Password reset error', error);
+            return false;
         }
     },
     signOut: async () => {
@@ -59,6 +105,17 @@ window.firebaseAPI = {
             console.error('Logout error', error);
         }
     },
+    deleteAccount: async (user) => {
+        try {
+            await deleteDoc(doc(db, "users", user.uid));
+            await deleteDoc(doc(db, "saves", user.uid));
+            await deleteUser(user);
+            return true;
+        } catch (error) {
+            console.error('Delete account error', error);
+            return false;
+        }
+    },
     onAuthStateChanged: (callback) => {
         onAuthStateChanged(auth, callback);
     },
@@ -66,7 +123,7 @@ window.firebaseAPI = {
         try {
             await setDoc(doc(db, "saves", uid), {
                 saveData: dataString,
-                timestamp: new Date()
+                timestamp: serverTimestamp()
             }, { merge: true });
             return true;
         } catch (e) {
@@ -85,20 +142,100 @@ window.firebaseAPI = {
         }
         return null;
     },
-    // --- Suggestion Box ---
-    submitSuggestion: async (text, user = null) => {
+    
+    // --- Science Friend Features ---
+    updateUserProfile: async (uid, profile) => {
         try {
-            const docRef = await addDoc(collection(db, "suggestions"), {
-                text: text,
-                uid: user ? user.uid : 'anonymous',
-                email: user ? user.email : 'anonymous',
+            await setDoc(doc(db, "users", uid), {
+                ...profile,
+                lastSeen: serverTimestamp()
+            }, { merge: true });
+            return true;
+        } catch (e) { console.error(e); return false; }
+    },
+    searchUserByFriendCode: async (friendCode) => {
+        try {
+            const q = query(collection(db, "users"), where("friendCode", "==", friendCode));
+            const snap = await getDocs(q);
+            if (snap.empty) return null;
+            const docItem = snap.docs[0];
+            return { uid: docItem.id, ...docItem.data() };
+        } catch (e) { console.error(e); return null; }
+    },
+    sendFriendRequest: async (fromUid, fromName, toUid) => {
+        try {
+            await addDoc(collection(db, "friendRequests"), {
+                from: fromUid,
+                fromName: fromName,
+                to: toUid,
+                status: "pending",
                 timestamp: serverTimestamp()
             });
-            console.log("Suggestion submitted with ID: ", docRef.id);
+            return true;
+        } catch (e) { console.error(e); return false; }
+    },
+    getFriendRequests: (uid, callback) => {
+        const q = query(collection(db, "friendRequests"), where("to", "==", uid), where("status", "==", "pending"));
+        return onSnapshot(q, (snap) => {
+            const reqs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            callback(reqs);
+        });
+    },
+    acceptFriendRequest: async (requestId, uidA, uidB) => {
+        try {
+            await deleteDoc(doc(db, "friendRequests", requestId));
+            await updateDoc(doc(db, "users", uidA), { friends: arrayUnion(uidB) });
+            await updateDoc(doc(db, "users", uidB), { friends: arrayUnion(uidA) });
+            return true;
+        } catch (e) { console.error(e); return false; }
+    },
+    getFriendsData: (uid, callback) => {
+        return onSnapshot(doc(db, "users", uid), async (snap) => {
+            if (!snap.exists()) return callback([]);
+            const userData = snap.data();
+            const friends = userData.friends || [];
+            if (friends.length === 0) return callback([]);
+            const q = query(collection(db, "users"), where("__name__", "in", friends.slice(0, 10)));
+            const friendsSnap = await getDocs(q);
+            const friendsData = friendsSnap.docs.map(d => ({ uid: d.id, ...d.data() }));
+            callback(friendsData);
+        });
+    },
+    sendMessage: async (chatId, senderId, senderName, text) => {
+        try {
+            await addDoc(collection(db, "chats", chatId, "messages"), {
+                senderId: senderId,
+                senderName: senderName,
+                text: text,
+                timestamp: serverTimestamp()
+            });
+            return true;
+        } catch (e) { console.error(e); return false; }
+    },
+    listenToMessages: (chatId, callback) => {
+        const q = query(
+            collection(db, "chats", chatId, "messages"),
+            orderBy("timestamp", "asc"),
+            limit(50)
+        );
+        return onSnapshot(q, (snap) => {
+            const msgs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            callback(msgs);
+        });
+    },
+    // --- Suggestion Box ---
+    submitSuggestion: async (uid, name, text) => {
+        try {
+            const docRef = await addDoc(collection(db, "suggestions"), {
+                uid: uid || 'anonymous',
+                name: name || '匿名研究者',
+                text: text || '',
+                timestamp: serverTimestamp()
+            });
             return true;
         } catch (e) {
-            console.error("Error adding suggestion: ", e);
-            throw e; // Standard error handling to be caught by UI
+            console.error(e);
+            return false;
         }
     }
 };
