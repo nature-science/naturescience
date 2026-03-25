@@ -45,14 +45,25 @@ function initIndustryUI() {
                 IND_PLANTS.forEach(p => {
                     let state = latestData.plants[p.id];
                     let progEl = document.getElementById('prog-' + p.id);
-                    if (state && state.active && progEl) {
+                    let starvedMsg = document.getElementById('starved-' + p.id);
+                    if (state && state.active && !state.isStarved && progEl) {
                         let currentProg = (state.progress || 0) + elapsed;
                         let percent = (currentProg / p.cycleMs) * 100;
                         if (percent > 100) percent = 100;
                         if (percent < 0) percent = 0;
                         progEl.style.width = percent + '%';
                     } else if (progEl) {
-                        progEl.style.width = '0%';
+                        if (state && state.isStarved) {
+                            // Keep progress but don't add elapsed
+                            let percent = ((state.progress || 0) / p.cycleMs) * 100;
+                            progEl.style.width = percent + '%';
+                        } else {
+                            progEl.style.width = '0%';
+                        }
+                    }
+
+                    if (starvedMsg) {
+                        starvedMsg.style.display = (state && state.active && state.isStarved) ? 'block' : 'none';
                     }
                 });
             } catch (e) { }
@@ -82,7 +93,7 @@ function saveIndDataUI() {
 
 // --- Goal System ---
 const GOALS = [
-    { title: "🏭 産業革命の基盤", targetItem: "iron", targetAmount: 50, rewardDesc: "資金 +500 G", onComplete: () => { playerMoney += 500; } }
+    { title: "🏭 産業革命の基盤", targetItem: "iron", targetAmount: 50, rewardDesc: "資金 +500 G", onComplete: () => { window.isLegitMoneyUpdate = true; playerMoney += 500; } }
 ];
 
 function renderGoal() {
@@ -226,7 +237,12 @@ function renderPlants() {
                         <div style="flex: 1;"><strong>🔺 生産:</strong><br>${outsHtml}</div>
                         <div style="flex: 1;">
                             <strong>⏱ サイクル:</strong><br>${p.cycleMs / 1000}秒
-                            ${(state && state.built) ? `<div style="margin-top: 5px; width: 100%; height: 6px; background: #cfd8dc; border-radius: 3px; overflow: hidden;"><div id="prog-${p.id}" style="height: 100%; width: 0%; background: #4caf50; transition: width 0.1s linear;"></div></div>` : ''}
+                            ${(state && state.built) ? `
+                            <div style="margin-top: 5px; width: 100%; height: 6px; background: #cfd8dc; border-radius: 3px; overflow: hidden;">
+                                <div id="prog-${p.id}" style="height: 100%; width: 0%; background: #4caf50; transition: width 0.1s linear;"></div>
+                            </div>
+                            <div id="starved-${p.id}" style="font-size:0.75rem; color:#e53935; font-weight:bold; margin-top:4px; display:${(state.active && state.isStarved) ? 'block' : 'none'};">⚠️ 材料がありません！</div>
+                            ` : ''}
                         </div>
                     </div>
                 </div>

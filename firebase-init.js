@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBM1k0ZaGTXwL4VS4Aj10DgfL2F0HV3X6w",
@@ -84,5 +84,21 @@ window.firebaseAPI = {
             console.error(e);
         }
         return null;
+    },
+    // --- Suggestion Box ---
+    submitSuggestion: async (text, user = null) => {
+        try {
+            const docRef = await addDoc(collection(db, "suggestions"), {
+                text: text,
+                uid: user ? user.uid : 'anonymous',
+                email: user ? user.email : 'anonymous',
+                timestamp: serverTimestamp()
+            });
+            console.log("Suggestion submitted with ID: ", docRef.id);
+            return true;
+        } catch (e) {
+            console.error("Error adding suggestion: ", e);
+            throw e; // Standard error handling to be caught by UI
+        }
     }
 };

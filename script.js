@@ -13,7 +13,7 @@ const ELEMENTS = {
     'magnetite': { id: 'magnetite', name: '磁鉄鉱', emoji: '🌑', desc: '強い磁性を持つ黒い鉱石。鉄の重要な原料になる。', category: 'natural' },
     'grape': { id: 'grape', name: 'ブドウ', emoji: '🍇', desc: '甘い果実。発酵しやすそう。', category: 'food' },
     'plant': { id: 'plant', name: '植物', emoji: '🌿', desc: '緑豊かな植物。', category: 'natural' },
-    'sugarcane': { id: 'sugarcane', name: 'サトウキビ', emoji: '🎋', desc: '茎に甘い汁をたっぷり含んだ植物。', category: 'natural' },
+    'sugarcane': { id: 'sugarcane', name: 'サトウキビ', emoji: '🎋', desc: '茎に甘い汁をたっぷり含んだ植物。', category: 'natural', isOverseas: true },
     'bagasse': { id: 'bagasse', name: 'バガス', emoji: '🍂', desc: 'サトウキビの搾りかす。バイオマス資源として注目されている。', category: 'natural' },
     'molasses': { id: 'molasses', name: '廃糖蜜', emoji: '🍯', desc: '砂糖精製の副産物。糖分を含んだ黒い液体。', category: 'chemical' },
     'bio_plastic': { id: 'bio_plastic', name: 'バイオプラスチック', emoji: '🥤', desc: '植物由来のプラスチック。土に還る環境に優しい素材。', category: 'chemical' },
@@ -75,7 +75,7 @@ const ELEMENTS = {
     'alcohol_lamp': { id: 'alcohol_lamp', name: 'アルコールランプ', emoji: '🏮', desc: 'アルコールと紐、ガラス容器を組み合わせた実験用の加熱器具。', category: 'tool' },
     'sodium_sulfite': { id: 'sodium_sulfite', name: '亜硫酸ナトリウム', emoji: '🧪', desc: '亜硫酸と水酸化ナトリウムが反応してできた塩。還元剤として使われる。', category: 'chemical' },
     'graphite': { id: 'graphite', name: '黒鉛', emoji: '✏️', desc: '洞窟で採れる黒い鉱物。炭素の結晶。', category: 'natural' },
-    'manganese_dioxide': { id: 'manganese_dioxide', name: '軟マンガン鉱', emoji: '🌑', desc: '洞窟で稀に採れる黒い鉱石。過マンガン酸カリウムの原料になる。', category: 'natural' },
+    'manganese_dioxide': { id: 'manganese_dioxide', name: '軟マンガン鉱', emoji: '🌑', desc: '洞窟などの海外エリアで採れる黒い鉱石。過マンガン酸カリウムの原料になる。', category: 'natural', isOverseas: true },
     'potassium_permanganate': { id: 'potassium_permanganate', name: '過マンガン酸カリウム', emoji: '🟣', desc: '強力な酸化作用を持つ紫色の結晶。', category: 'chemical' },
     'graphene_oxide': { id: 'graphene_oxide', name: '酸化グラフェン', emoji: '🍂', desc: '黒鉛を強力に酸化させて得られるシート状の物質。', category: 'chemical' },
     'graphite_shards': { id: 'graphite_shards', name: '黒鉛の破片', emoji: '🧩', desc: '黒鉛を細かく砕いたもの。', category: 'chemical' },
@@ -123,7 +123,7 @@ const ELEMENTS = {
     'mercury': { id: 'mercury', name: '水銀', emoji: '💧', desc: '常温で液体の重い金属。真空の発見や温度計に使われた。', category: 'natural' },
     'vacuum_pump': { id: 'vacuum_pump', name: '真空ポンプ', emoji: '💨', desc: 'ピストンとゴムを使って容器内の空気を排出し、真空を作る道具。', category: 'tool' },
     'vacuum_apparatus': { id: 'vacuum_apparatus', name: '真空装置', emoji: '🌌', desc: '空気が完全に取り除かれた空間を作り出す装置。', category: 'tool' },
-    'borax': { id: 'borax', name: 'ホウ砂', emoji: '⚪', desc: 'トルコなどで採れる鉱物。ガラスや釉薬の原料になる。', category: 'natural' },
+    'borax': { id: 'borax', name: 'ホウ砂', emoji: '⚪', desc: 'トルコなどで採れる鉱物。ガラスや釉薬の原料になる。', category: 'natural', isOverseas: true },
     'boric_acid': { id: 'boric_acid', name: 'ホウ酸', emoji: '⚪', desc: '殺菌作用のある白い粉末。目薬や防腐剤、ガラスの原料になる。', category: 'chemical' },
     'borosilicate_glass': { id: 'borosilicate_glass', name: 'ホウケイ酸ガラス', emoji: '⚗️', desc: '熱膨張率が低く、熱衝撃に強いガラス。理化学実験器具や耐熱食器に使われる。', category: 'material' },
     'crystal_glass': { id: 'crystal_glass', name: 'クリスタルガラス', emoji: '🍷', desc: '酸化鉛を含む、透明度と屈折率が高い美しいガラス。', category: 'material' },
@@ -157,7 +157,7 @@ const ELEMENTS = {
     'sabatier_reactor': { id: 'sabatier_reactor', name: 'サバティエ反応炉', emoji: '⚛️', desc: '二酸化炭素と水素からメタンを作る装置。宇宙での燃料生成に重要。', category: 'device' },
 
     // === Shale Revolution ===
-    'shale_rock': { id: 'shale_rock', name: '頁岩', emoji: '🌑', desc: '古代の泥が固まってできた堆積岩。微細な隙間に石油やガスを閉じ込めている。', category: 'natural' },
+    'shale_rock': { id: 'shale_rock', name: '頁岩', emoji: '🌑', desc: '古代の泥が固まってできた堆積岩。微細な隙間に石油やガスを閉じ込めている。', category: 'natural', isOverseas: true },
     'shale_oil': { id: 'shale_oil', name: 'シェールオイル', emoji: '🛢️', desc: '頁岩層から採取された原油。採掘技術の進歩により利用可能になった。', category: 'chemical' },
     'natural_gas': { id: 'natural_gas', name: '天然ガス', emoji: '🔥', desc: 'メタンを主成分とする可燃性のガス。クリーンなエネルギー源。', category: 'chemical' },
     'fracking_fluid': { id: 'fracking_fluid', name: 'フラッキング液', emoji: '🧪', desc: '水、砂、化学薬品の混合液。高圧で岩盤を破砕するために使う。', category: 'chemical' },
@@ -166,7 +166,7 @@ const ELEMENTS = {
     'methane': { id: 'methane', name: 'メタン', emoji: '🔥', desc: '最も単純な炭化水素。天然ガスの主成分で、燃料になる。', category: 'chemical' },
     'hydrogen_cyanide': { id: 'hydrogen_cyanide', name: 'シアン化水素', emoji: '☠️', desc: 'アンドルッソフ法で合成される猛毒の気体。青酸。工業原料として重要。', category: 'chemical' },
     'sodium_cyanide': { id: 'sodium_cyanide', name: 'シアン化ナトリウム', emoji: '💀', desc: '青酸ソーダ。金の製錬（青化法）に使われる。取り扱い注意。', category: 'chemical' },
-    'tea_leaf': { id: 'tea_leaf', name: '茶葉', emoji: '🍃', desc: '香り高い葉。加工の方法で緑茶にも紅茶にもなる。', category: 'natural' },
+    'tea_leaf': { id: 'tea_leaf', name: '茶葉', emoji: '🍃', desc: '香り高い葉。加工の方法で緑茶にも紅茶にもなる。', category: 'natural', isOverseas: true },
     'black_tea_leaf': { id: 'black_tea_leaf', name: '発酵した茶葉', emoji: '🍂', desc: '酸化発酵させた茶葉。紅茶の原料。', category: 'natural' },
     'green_tea': { id: 'green_tea', name: '緑茶', emoji: '🍵', desc: '茶葉にお湯を注いで出したお茶。心が落ち着く香り。', category: 'food' },
     'black_tea': { id: 'black_tea', name: '紅茶', emoji: '☕', desc: '発酵茶葉から抽出した赤いお茶。優雅な香りが特徴。', category: 'food' },
@@ -174,7 +174,7 @@ const ELEMENTS = {
     'carbonated_water': { id: 'carbonated_water', name: '炭酸水', emoji: '🫧', desc: '二酸化炭素が溶け込んだシュワシュワする水。', category: 'food' },
     'cookie': { id: 'cookie', name: 'クッキー', emoji: '🍪', desc: 'サクサクに焼き上げた素朴なお菓子。ティータイムのお供。', category: 'food' },
     'cake': { id: 'cake', name: 'ショートケーキ', emoji: '🍰', desc: 'ふわふわのスポンジにクリームとイチゴ（の代わり）を飾ったケーキ。', category: 'food' },
-    'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural' },
+    'coffee_bean': { id: 'coffee_bean', name: 'コーヒー豆', emoji: '🫘', desc: '赤い果実の種。カフェインを含む。', category: 'natural', isOverseas: true },
     'roasted_coffee_bean': { id: 'roasted_coffee_bean', name: '焙煎コーヒー豆', emoji: '🟤', desc: '火で煎って香ばしくなったコーヒー豆。', category: 'chemical' },
     'coffee_powder': { id: 'coffee_powder', name: 'コーヒー粉', emoji: '🤎', desc: '豆を挽いて粉状にしたもの。お湯を注げばコーヒーになる。', category: 'chemical' },
     'coffee': { id: 'coffee', name: 'ホットコーヒー', emoji: '☕', desc: '苦味と酸味のバランスが絶妙な黒い液体。眠気覚ましに。', category: 'food' },
@@ -191,7 +191,7 @@ const ELEMENTS = {
     'knife': { id: 'knife', name: 'ナイフ', emoji: '🔪', desc: '物を切るための基本的な道具。料理や工作に必須。', category: 'tool' },
     'saw': { id: 'saw', name: 'ノコギリ', emoji: '🪚', desc: '木材を切断するためのギザギザの刃がついた道具。', category: 'tool' },
     'scissors': { id: 'scissors', name: 'ハサミ', emoji: '✂️', desc: '2枚の刃で挟んで切る道具。紙や布の加工に便利。', category: 'tool' },
-    'diamond': { id: 'diamond', name: 'ダイヤモンド', emoji: '💎', desc: 'もっとも硬い天然の鉱物。炭素の結晶。', category: 'natural' },
+    'diamond': { id: 'diamond', name: 'ダイヤモンド', emoji: '💎', desc: 'もっとも硬い天然の鉱物。炭素の結晶。', category: 'natural', isOverseas: true },
     'artificial_diamond': { id: 'artificial_diamond', name: '人工ダイヤモンド', emoji: '💠', desc: '高温高圧法（HPHT）で合成されたダイヤモンド。天然と化学組成は同じ。', category: 'chemical' },
     'hydraulic_press': { id: 'hydraulic_press', name: '油圧プレス機', emoji: '🚜', desc: 'パスカルの原理を利用して巨大な圧力を生み出す装置。', category: 'machine' },
 
@@ -200,7 +200,7 @@ const ELEMENTS = {
     'egg': { id: 'egg', name: '卵', emoji: '🥚', desc: '栄養満点の食材。様々な料理に使われる。', category: 'food' },
     'boiled_egg': { id: 'boiled_egg', name: 'ゆで卵', emoji: '🥚', desc: 'お湯で茹でたヘルシーな卵。', category: 'food' },
     'vegetable': { id: 'vegetable', name: '野菜', emoji: '🥬', desc: '畑で採れた新鮮な野菜。ビタミン豊富。', category: 'food' },
-    'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'food' },
+    'tomato': { id: 'tomato', name: 'トマト', emoji: '🍅', desc: '真っ赤な太陽の恵み。リコピンたっぷり。', category: 'food', isOverseas: true },
     'noodle': { id: 'noodle', name: '麺', emoji: '🍜', desc: '小麦粉を練って伸ばしたもの。', category: 'food' },
 
     // Seasonings
@@ -246,7 +246,7 @@ const ELEMENTS = {
     'chloroplatinic_acid': { id: 'chloroplatinic_acid', name: 'ヘキサクロロ白金(IV)酸', emoji: '🟤', desc: 'プラチナを王水に溶かした赤褐色の結晶。塩化白金酸。', category: 'chemical' },
     'cinnabar': { id: 'cinnabar', name: '辰砂', emoji: '🔴', desc: '水銀を含む赤い鉱石。加熱すると水銀を取り出せる。', category: 'natural' },
     'molybdenum_dioxide': { id: 'molybdenum_dioxide', name: '二酸化モリブデン', emoji: '🟤', desc: '三酸化モリブデンを水素還元して得られる茶褐色の粉末。', category: 'chemical' },
-    'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural' },
+    'brine': { id: 'brine', name: '塩湖かん水', emoji: '🧂', desc: '塩分濃度が非常に高い水。リチウムなどの資源を含む。', category: 'natural', isOverseas: true },
     'cassiterite': { id: 'cassiterite', name: 'スズ石', emoji: '🌑', desc: 'スズを含む鉱石。製錬するとスズを取り出せる。', category: 'natural' },
     'tin': { id: 'tin', name: 'スズ', emoji: '⛓️', desc: '低融点で加工しやすい銀白色の金属。青銅の材料やハンダに使われる。', category: 'chemical' },
     'tin_chloride': { id: 'tin_chloride', name: '塩化スズ(II)', emoji: '🧪', desc: 'スズを塩酸に溶かして得られる白い結晶。還元剤として使われる。', category: 'chemical' },
@@ -379,7 +379,7 @@ const ELEMENTS = {
     'barium_sulfide': { id: 'barium_sulfide', name: '硫化バリウム', emoji: '🌑', desc: '重晶石を還元して得られる化合物。', category: 'chemical' },
     'barium_chloride': { id: 'barium_chloride', name: '塩化バリウム', emoji: '🧂', desc: 'バリウムの塩化物。毒性がある。', category: 'chemical' },
     'barium': { id: 'barium', name: 'バリウム', emoji: '⚪', desc: '銀白色のアルカリ土類金属。反応性が高い。', category: 'chemical' },
-    'barite': { id: 'barite', name: '重晶石', emoji: '💎', desc: 'バリウムを含む非常に重い鉱石。X線の造影剤などに使われる。', category: 'natural' },
+    'barite': { id: 'barite', name: '重晶石', emoji: '💎', desc: 'バリウムを含む非常に重い鉱石。X線の造影剤などに使われる。', category: 'natural', isOverseas: true },
     'kerosene': { id: 'kerosene', name: '灯油', emoji: '🔥', desc: 'ストーブやジェット機の燃料に使われる油。', category: 'chemical' },
     'refined_brine': { id: 'refined_brine', name: '精製かん水', emoji: '💧', desc: '不純物を取り除いた塩湖かん水。リチウムの濃度が高まっている。', category: 'material' },
     'lithium_hydroxide': { id: 'lithium_hydroxide', name: '水酸化リチウム', emoji: '🧪', desc: 'リチウムの水酸化物。電池の電解質やグリースの原料になる。', category: 'chemical' },
@@ -390,9 +390,9 @@ const ELEMENTS = {
     'screw': { id: 'screw', name: 'スクリュー', emoji: '🌀', desc: '水をかいて船を進めるための螺旋状の羽根車。', category: 'tool' },
     'marine_engine': { id: 'marine_engine', name: '船舶用機関', emoji: '⚙️', desc: 'スクリューと舵を組み込んだ、船を動かすための動力システム。', category: 'tool' },
     'steamship': { id: 'steamship', name: '機帆船', emoji: '🚢', desc: '蒸気機関と帆の両方で進む船。近代航海の幕開け。', category: 'tool' },
-    'rubber_tree': { id: 'rubber_tree', name: 'ゴムノキ', emoji: '🌳', desc: '樹液からゴムが採れる熱帯の木。', category: 'natural' },
-    'spice': { id: 'spice', name: '香辛料', emoji: '🌶️', desc: '東南アジア原産のスパイス。料理に風味を加える。', category: 'natural' },
-    'cacao': { id: 'cacao', name: 'カカオ', emoji: '🍫', desc: '南米アマゾン原産の豆。チョコレートの原料。', category: 'natural' },
+    'rubber_tree': { id: 'rubber_tree', name: 'ゴムノキ', emoji: '🌳', desc: '樹液からゴムが採れる熱帯の木。', category: 'natural', isOverseas: true },
+    'spice': { id: 'spice', name: '香辛料', emoji: '🌶️', desc: '東南アジア原産のスパイス。料理に風味を加える。', category: 'natural', isOverseas: true },
+    'cacao': { id: 'cacao', name: 'カカオ', emoji: '🍫', desc: '南米アマゾン原産の豆。チョコレートの原料。', category: 'natural', isOverseas: true },
 
     // Chocolate & Sweets
     'sugar': { id: 'sugar', name: '砂糖', emoji: '🧂', desc: '甘い白い結晶。サトウキビなどから精製する。', category: 'material' },
@@ -410,8 +410,8 @@ const ELEMENTS = {
     'cola_syrup': { id: 'cola_syrup', name: 'コーラシロップ', emoji: '🏺', desc: 'スパイス、カラメル、コーラナッツを煮詰めた秘伝の原液。', category: 'food' },
     'cola': { id: 'cola', name: 'コーラ', emoji: '🥤', desc: '世界で最も有名な炭酸飲料。スカッと爽やか！', category: 'food' },
 
-    'olive': { id: 'olive', name: 'オリーブ', emoji: '🫒', desc: '地中海沿岸で栽培される果実。オイルが採れる。', category: 'natural' },
-    'fluorite': { id: 'fluorite', name: '蛍石', emoji: '💎', desc: '美しい結晶の鉱石。加熱すると発光する。フッ素の原料。', category: 'natural' },
+    'olive': { id: 'olive', name: 'オリーブ', emoji: '🫒', desc: '地中海沿岸で栽培される果実。オイルが採れる。', category: 'natural', isOverseas: true },
+    'fluorite': { id: 'fluorite', name: '蛍石', emoji: '💎', desc: '美しい結晶の鉱石。加熱すると発光する。フッ素の原料。', category: 'natural', isOverseas: true },
     'raft': { id: 'raft', name: 'いかだ', emoji: '🪵', desc: '丸太を組んで作った原始的な船。', category: 'tool' },
     'yacht': { id: 'yacht', name: 'ヨット', emoji: '⛵', desc: '風を受けて進む軽快な船。', category: 'tool' },
     'asphalt': { id: 'asphalt', name: 'アスファルト', emoji: '🛣️', desc: '原油の蒸留残渣。道路の舗装や防水材に使われる黒い粘着物質。', category: 'material' },
@@ -502,11 +502,11 @@ const ELEMENTS = {
     'mechanical_clock': { id: 'mechanical_clock', name: '機械式時計', emoji: '🕰️', desc: '歯車とばねを組み合わせた精密な時を刻む装置。', category: 'tool' },
 
     // South Africa & Rare Metals
-    'chromite': { id: 'chromite', name: 'クロム鉄鉱', emoji: '🌑', desc: 'クロムを含む黒い鉱石。ステンレスの原料。', category: 'natural' },
-    'pentlandite': { id: 'pentlandite', name: 'ペントランド鉱', emoji: '🌑', desc: 'ニッケルと鉄を含む金色の鉱石。', category: 'natural' },
-    'molybdenite': { id: 'molybdenite', name: '輝水鉛鉱', emoji: '🌑', desc: 'モリブデンを含む柔らかい鉱石。黒鉛に似ている。', category: 'natural' },
-    'pyrochlore': { id: 'pyrochlore', name: 'パイロクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural' },
-    'rutile': { id: 'rutile', name: 'ルチル', emoji: '✨', desc: 'チタンを含む金色の針状結晶。', category: 'natural' },
+    'chromite': { id: 'chromite', name: 'クロム鉄鉱', emoji: '🌑', desc: 'クロムを含む黒い鉱石。ステンレスの原料。', category: 'natural', isOverseas: true },
+    'pentlandite': { id: 'pentlandite', name: 'ペントランド鉱', emoji: '🌑', desc: 'ニッケルと鉄を含む金色の鉱石。', category: 'natural', isOverseas: true },
+    'molybdenite': { id: 'molybdenite', name: '輝水鉛鉱', emoji: '🌑', desc: 'モリブデンを含む柔らかい鉱石。黒鉛に似ている。', category: 'natural', isOverseas: true },
+    'pyrochlore': { id: 'pyrochlore', name: 'パイロクロア', emoji: '🟤', desc: 'ニオブを含む茶色の鉱石。アラシャとも呼ばれる。', category: 'natural', isOverseas: true },
+    'rutile': { id: 'rutile', name: 'ルチル', emoji: '✨', desc: 'チタンを含む金色の針状結晶。', category: 'natural', isOverseas: true },
     'copper_ore': { id: 'copper_ore', name: '輝銅鉱', emoji: '🟤', desc: '銅を含む岩石。緑青色の斑点が見られることが多い。', category: 'natural' },
     'copper_oxide_1': { id: 'copper_oxide_1', name: '酸化銅(I)', emoji: '🔴', desc: '赤色の粉末。輝銅鉱を焙焼して得られる。', category: 'chemical' },
 
@@ -530,17 +530,17 @@ const ELEMENTS = {
     'inconel': { id: 'inconel', name: 'インコネル', emoji: '🚀', desc: 'ニッケルをベースにした超耐熱合金。ロケットエンジンなどに使われる。', category: 'chemical' },
 
     // New Metals: Cobalt, Neodymium, Indium
-    'cobalt_ore': { id: 'cobalt_ore', name: 'コバルト輝鉱', emoji: '🔵', desc: 'オーストラリアで採れるコバルトを含む鉱石。ヒ素を含んでいる。', category: 'natural' },
+    'cobalt_ore': { id: 'cobalt_ore', name: 'コバルト輝鉱', emoji: '🔵', desc: 'オーストラリアで採れるコバルトを含む鉱石。ヒ素を含んでいる。', category: 'natural', isOverseas: true },
     'cobalt_oxide': { id: 'cobalt_oxide', name: '酸化コバルト', emoji: '🌑', desc: 'コバルト輝鉱を焙焼して得られる黒い粉末。', category: 'chemical' },
     'arsenic_trioxide': { id: 'arsenic_trioxide', name: '三酸化二ヒ素', emoji: '💀', desc: '亜砒酸。猛毒の白い粉末。取扱注意。', category: 'chemical' },
     'cobalt_sulfate': { id: 'cobalt_sulfate', name: '硫酸コバルト', emoji: '🔴', desc: '酸化コバルトを硫酸に溶かして得られる赤色の塩。', category: 'chemical' },
     'cobalt': { id: 'cobalt', name: 'コバルト', emoji: '🔵', desc: '青い光沢の金属。リチウムイオン電池の正極材や耐熱合金に不可欠。', category: 'chemical' },
-    'monazite': { id: 'monazite', name: 'モナズ石', emoji: '🟠', desc: 'レアアース（希土類）を含む黄褐色の鉱石。', category: 'natural' },
+    'monazite': { id: 'monazite', name: 'モナズ石', emoji: '🟠', desc: 'レアアース（希土類）を含む黄褐色の鉱石。', category: 'natural', isOverseas: true },
     'neodymium': { id: 'neodymium', name: 'ネオジム', emoji: '🧲', desc: '最強の永久磁石を作れる希土類元素。モーターやスピーカーに使われる。', category: 'chemical' },
     'indium': { id: 'indium', name: 'インジウム', emoji: '📱', desc: '透明導電膜（ITO）の原料。タッチパネルに不可欠な希少金属。', category: 'chemical' },
 
     // Aluminum & Silicon
-    'bauxite': { id: 'bauxite', name: 'ボーキサイト', emoji: '🟤', desc: 'アルミニウムの原料となる赤褐色の鉱石。', category: 'natural' },
+    'bauxite': { id: 'bauxite', name: 'ボーキサイト', emoji: '🟤', desc: 'アルミニウムの原料となる赤褐色の鉱石。', category: 'natural', isOverseas: true },
     'alumina': { id: 'alumina', name: 'α-アルミナ', emoji: '💎', desc: '高温で焼成して安定化した酸化アルミニウム。非常に硬い。', category: 'chemical' },
     'gamma_alumina': { id: 'gamma_alumina', name: 'γ-アルミナ', emoji: '⚪', desc: '低温で脱水して得られる多孔質の酸化アルミニウム。触媒担体に使われる。', category: 'chemical' },
     'aluminum_chloride': { id: 'aluminum_chloride', name: '塩化アルミニウム', emoji: '🧪', desc: 'アルミニウムと塩素の化合物。有機合成の触媒として重要。', category: 'chemical' },
@@ -569,7 +569,7 @@ const ELEMENTS = {
 
     // Bismuth Chain
     'bismuth_oxide': { id: 'bismuth_oxide', name: '三酸化二ビスマス', emoji: '🟡', desc: '輝蒼鉛鉱を焙焼して得られる黄色の粉末。', category: 'chemical' },
-    'pgm_ore': { id: 'pgm_ore', name: 'PGM鉱石', emoji: '🪨', desc: '南アフリカで採掘される、白金族元素(Pt, Pd, Rhなど)を含む貴重な鉱石。', category: 'natural' },
+    'pgm_ore': { id: 'pgm_ore', name: 'PGM鉱石', emoji: '🪨', desc: '南アフリカで採掘される、白金族元素(Pt, Pd, Rhなど)を含む貴重な鉱石。', category: 'natural', isOverseas: true },
     'iron_rod': { id: 'iron_rod', name: '鉄の棒', emoji: '➖', desc: '鉄を細長く加工した棒。', category: 'part' },
     'iron_plate': { id: 'iron_plate', name: '鉄板', emoji: '⬜', desc: '鉄を平たく伸ばしたもの。加工しやすい。', category: 'part' },
     'enameled_wire': { id: 'enameled_wire', name: 'エナメル線', emoji: '🧶', desc: '銅線に絶縁体の漆を塗ったもの。コイルの材料。', category: 'part' },
@@ -648,7 +648,7 @@ const ELEMENTS = {
     'lithium': { id: 'lithium', name: 'リチウム', emoji: '🔋', desc: '最も軽い金属。反応性が高く、電池に使われる。', category: 'chemical' },
 
     // Smartphone Materials
-    'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石(α)', emoji: '🪨', desc: 'リチウムを含む鉱石（α-スポジュメン）。非常に硬く、そのままでは成分を取り出せない。', category: 'natural' },
+    'lithium_ore': { id: 'lithium_ore', name: 'リチウム鉱石(α)', emoji: '🪨', desc: 'リチウムを含む鉱石（α-スポジュメン）。非常に硬く、そのままでは成分を取り出せない。', category: 'natural', isOverseas: true },
     'lithium_ore_beta': { id: 'lithium_ore_beta', name: 'リチウム鉱石(β)', emoji: '🧱', desc: '加熱処理して結晶構造が変化した鉱石（β-スポジュメン）。酸に溶けやすくなっている。', category: 'chemical' },
     'lithium_sulfate': { id: 'lithium_sulfate', name: '硫酸リチウム', emoji: '🧪', desc: 'リチウム鉱石(β)を硫酸で処理して得られる水溶性の塩。', category: 'chemical' },
     'lcd': { id: 'lcd', name: '液晶ディスプレイ', emoji: '🖥️', desc: '電圧で光の透過を制御する薄型画面。', category: 'part' },
@@ -681,13 +681,13 @@ const ELEMENTS = {
     'fertilizer': { id: 'fertilizer', name: '肥料', emoji: '💩', desc: '植物の成長を促進する栄養素。', category: 'material' },
     'pesticide': { id: 'pesticide', name: '農薬', emoji: '☠️', desc: '害虫や病気を防ぐ薬品。使いすぎには注意。', category: 'chemical' },
     'wheat': { id: 'wheat', name: '小麦', emoji: '🌾', desc: 'パンや麺の原料となる穀物。人類を支える主食。', category: 'food' },
-    'corn': { id: 'corn', name: 'トウモロコシ', emoji: '🌽', desc: '世界三大穀物の一つ。食用、飼料、工業原料と万能。', category: 'food' },
-    'potato': { id: 'potato', name: 'ジャガイモ', emoji: '🥔', desc: 'デンプンが豊富な地下茎。冷涼な土地でも育つ。', category: 'food' },
+    'corn': { id: 'corn', name: 'トウモロコシ', emoji: '🌽', desc: '世界三大穀物の一つ。食用、飼料、工業原料と万能。', category: 'food', isOverseas: true },
+    'potato': { id: 'potato', name: 'ジャガイモ', emoji: '🥔', desc: 'デンプンが豊富な地下茎。冷涼な土地でも育つ。', category: 'food', isOverseas: true },
     'bread': { id: 'bread', name: 'パン', emoji: '🍞', desc: '小麦粉を練って焼いたもの。ふっくらと香ばしい。', category: 'food' },
     'potato_chips': { id: 'potato_chips', name: 'ポテトチップス', emoji: '🍟', desc: '薄切りジャガイモを揚げたスナック。止まらない美味しさ。', category: 'food' },
     'biofuel': { id: 'biofuel', name: 'バイオ燃料', emoji: '⛽', desc: '植物から作られた燃料。カーボンニュートラルなエネルギー。', category: 'fuel' },
 
-    'uranium_ore': { id: 'uranium_ore', name: 'ウラン鉱石', emoji: '☢️', desc: '放射性物質を含む鉱石。原子力の燃料になる。', category: 'natural' },
+    'uranium_ore': { id: 'uranium_ore', name: 'ウラン鉱石', emoji: '☢️', desc: '放射性物質を含む鉱石。原子力の燃料になる。', category: 'natural', isOverseas: true },
     'nuclear_fuel': { id: 'nuclear_fuel', name: '核燃料', emoji: '☢️', desc: 'ウランを濃縮・加工した燃料。莫大なエネルギーを秘めている。', category: 'chemical' },
     'uranium_hexafluoride': { id: 'uranium_hexafluoride', name: '六フッ化ウラン', emoji: '💨', desc: 'ウランをフッ素化してガス状にしたもの。遠心分離機で濃縮できる。', category: 'chemical' },
     'centrifuge': { id: 'centrifuge', name: '遠心分離機', emoji: '🌪️', desc: '高速回転によって物質を比重ごとに分離する装置。', category: 'machine' },
@@ -837,7 +837,7 @@ const ELEMENTS = {
     'plastic_model': { id: 'plastic_model', name: 'プラスチックモデル', emoji: '🤖', desc: '3Dプリンターで出力された精巧な造形物。', category: 'tool' },
 
     // Textile & Fashion
-    'cotton': { id: 'cotton', name: '綿花', emoji: '☁️', desc: '種子を包むフワフワの繊維。吸水性と肌触りが良い。', category: 'material' },
+    'cotton': { id: 'cotton', name: '綿花', emoji: '☁️', desc: '種子を包むフワフワの繊維。吸水性と肌触りが良い。', category: 'material', isOverseas: true },
     'wool': { id: 'wool', name: '羊毛', emoji: '🐑', desc: '羊の毛。保温性が高く、縮れが空気を含む。', category: 'material' },
     'down': { id: 'down', name: 'ダウン', emoji: '🪶', desc: '水鳥の胸毛。軽く、圧倒的な保温力を持つ。', category: 'material' },
     'nylon': { id: 'nylon', name: 'ナイロン', emoji: '🧵', desc: '蜘蛛の糸より細く、鋼鉄より強い合成繊維。', category: 'material' },
@@ -896,7 +896,7 @@ const ELEMENTS = {
 
     // Machine Age & Advanced Tech Additions
     'lathe': { id: 'lathe', name: '旋盤', emoji: '⚙️', desc: '回転させた材料に刃物を当てて加工する工作機械。', category: 'tool' },
-    'plastic': { id: 'plastic', name: 'プラスチック', emoji: '🥤', desc: '合成樹脂の総称。自由な形に加工できる。', category: 'material' },
+    'plastic': { id: 'plastic', name: '高密度ポリエチレン (HDPE)', emoji: '🥤', desc: '低圧法で製造された硬質なポリエチレン。耐熱性、剛性に優れる。', category: 'material' },
     'wire': { id: 'wire', name: 'ワイヤー', emoji: '〰️', desc: '金属を細く伸ばした線。', category: 'material' },
     'aluminum': { id: 'aluminum', name: 'アルミニウム', emoji: '⚪', desc: '軽くて加工しやすい金属。', category: 'material' },
     'aluminum_oxide': { id: 'aluminum_oxide', name: '酸化アルミニウム', emoji: '⚪', desc: 'アルミナ。非常に硬く融点が高い白い粉末。サファイアやルビーの主成分。', category: 'chemical' },
@@ -922,12 +922,12 @@ const ELEMENTS = {
     'game_controller': { id: 'game_controller', name: 'ゲームコントローラー', emoji: '🎮', desc: 'ゲームを操作するための無線コントローラー。', category: 'tool' },
 
     // === Rare Metals ===
-    'bismuth_ore': { id: 'bismuth_ore', name: '輝蒼鉛鉱', emoji: '🪨', desc: 'ビスマスを含む鉱石。加熱すると溶けやすい。', category: 'natural' },
+    'bismuth_ore': { id: 'bismuth_ore', name: '輝蒼鉛鉱', emoji: '🪨', desc: 'ビスマスを含む鉱石。加熱すると溶けやすい。', category: 'natural', isOverseas: true },
     'bismuth': { id: 'bismuth', name: 'ビスマス', emoji: '🌈', desc: '虹色に輝く奇妙な金属。骸骨のような結晶を作る。', category: 'material' },
     'bismuth_crystal': { id: 'bismuth_crystal', name: 'ビスマス結晶', emoji: '💎', desc: '人工的に作られたビスマスの美しい結晶。', category: 'material' },
     'iridium': { id: 'iridium', name: 'イリジウム', emoji: '☄️', desc: '隕石に含まれる非常に硬く重い金属。恐竜絶滅の証拠？', category: 'material' },
-    'antimony': { id: 'antimony', name: 'アンチモン', emoji: '💄', desc: '毒性があるが、合金を硬くするのに使われる半金属。', category: 'material' },
-    'stibnite': { id: 'stibnite', name: '輝安鉱', emoji: '🗡️', desc: 'アンチモンの原材料。中国の鉱山で採れる。', category: 'natural' },
+    'antimony': { id: 'antimony', name: 'アンチモン', emoji: '💄', desc: '毒性があるが、合金を硬くするのに使われる半金属。', category: 'material', isOverseas: true },
+    'stibnite': { id: 'stibnite', name: '輝安鉱', emoji: '🗡️', desc: 'アンチモンの原材料。中国の鉱山で採れる。', category: 'natural', isOverseas: true },
     'magnesium': { id: 'magnesium', name: 'マグネシウム', emoji: '⚪️', desc: '軽く、激しく燃える金属。', category: 'material' },
     'magnesium_ribbon': { id: 'magnesium_ribbon', name: 'マグネシウムリボン', emoji: '➰', desc: '薄く帯状に加工されたマグネシウム。着火しやすい。', category: 'part' },
     'white_gold': { id: 'white_gold', name: 'ホワイトゴールド', emoji: '💍', desc: '金とパラジウムの合金。プラチナのような輝き。', category: 'material' },
@@ -1449,11 +1449,11 @@ const CIVILIZATION_LEVELS = [
     { level: 9, name: '通信革命', year: '1876年', trigger: 'telephone', reqCount: 200, desc: '遠く離れた人とリアルタイムで声がつながる時代。' },
     { level: 10, name: '自動車・航空時代', year: '20世紀初頭', trigger: 'engine', reqCount: 240, desc: '内燃機関により、陸と空の移動が自由になった時代。' },
     { level: 11, name: '化学・医療の進歩', year: '1920年代', trigger: 'sulfanilamide', reqCount: 280, desc: '抗生物質の発見により、病との戦いに勝利し始めた時代。' },
-    { level: 12, name: 'プラスチック時代', year: '1950年代', trigger: 'plastic', reqCount: 330, desc: '軽くて丈夫な合成樹脂が、生活のあらゆる場面を変えた時代。' },
+    { level: 12, name: '高分子革命', year: '1930年代', trigger: 'plastic', reqCount: 330, desc: '触媒技術により、軽くて強靭な合成樹脂が安価に大量生産されるようになった時代。' },
     { level: 13, name: 'エレクトロニクス', year: '1950年代', trigger: 'transistor', reqCount: 380, desc: '小さな半導体が、巨大な計算能力への扉を開いた時代。' },
-    { level: 14, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', reqCount: 430, desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
-    { level: 15, name: '宇宙時代', year: '1960年代', trigger: 'rocket', reqCount: 490, desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
-    { level: 16, name: '情報革命', year: '1990年代', trigger: 'computer', reqCount: 550, desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
+    { level: 14, name: '情報革命', year: '1940年代', trigger: 'computer', reqCount: 430, desc: 'デジタル技術とインターネットが世界を覆い尽くした時代。' },
+    { level: 15, name: '原子力時代', year: '1950年代', trigger: 'nuclear_power_plant', reqCount: 490, desc: '原子核に秘められた莫大なエネルギーを制御し始めた時代。' },
+    { level: 16, name: '宇宙時代', year: '1970年代', trigger: 'rocket', reqCount: 550, desc: '地球の重力を振り切り、星の海へと飛び出した時代。' },
     { level: 17, name: 'ロボット社会', year: '2010年代', trigger: 'robot', reqCount: 620, desc: '自動化された機械が労働を担い、効率化が進む時代。' },
     { level: 18, name: 'バイオ・医療革命', year: '2020年代', trigger: 'dna_sequencer', reqCount: 690, desc: '生命の設計図を解読し、医療が新たな次元へ進んだ時代。' },
     { level: 19, name: 'AI・シンギュラリティ', year: '未来', trigger: 'ai_chip', reqCount: 770, desc: '人類を超える知性が誕生し、文明が予測不能な領域へ突入する時代。' },
@@ -1809,6 +1809,7 @@ const RECIPES = {
     'glove+heating_element': 'heated_gloves', // Electric gloves
     'boot+heating_element': 'heated_boots', // Electric boots
     'wearable_thermo_device+clothes': 'spacesuit_inner', // Inner suit for spacesuit
+    'plastic+titanium_plate': 'hard_shell', // Outer protection
     'spacesuit_inner+hard_shell': 'spacesuit', // Complete spacesuit
 
     // Sewing & Textile
@@ -2194,7 +2195,7 @@ const RECIPES = {
     // 'fire+gold_ore': ['gold', 'silver', 'stone'], // REMOVED
     // Alternative: Mercury amalgam then heat
     // 'fire+mercury+gold_dust': 'gold', // Removed per user request
-    'cinnabar+fire': 'mercury',
+    'cinnabar+fire+air': ['mercury', 'sulfur_dioxide'],
     'fire+gold_dust+iron_plate+mercury': 'gold_plating',
 
     // Chromium (from Ferrochrome with Electrolysis) - Removed
@@ -3517,7 +3518,7 @@ const RECIPES = {
     // Crafted Items
     'copper+rod': 'copper_pipe',
     // 'naphtha+fire': 'plastic', // REMOVED: Too simple. Use polymerization.
-    'polyethylene+press_machine': 'plastic', // Process polyethylene into generic plastic
+    'polyethylene+press_machine': 'plastic', // LDPE/Generic PE into higher grade HDPE product logic or similar? No, let's keep it as refining.
     'iron_plate+iron_plate': 'pressure_vessel',
     'gear+iron_plate+motor': 'lathe',
     'iron_pipe+lathe': 'gun_barrel',
@@ -3672,7 +3673,18 @@ const BASE_REUSABLE_ITEMS = [
     'refrigerator', 'glass_vessel', 'matchlock_gun', 'cannon', 'rifle', 'pvc_pipe',
     'pendulum_clock', 'chronometer', 'quartz_clock', 'atomic_clock', 'fuel_cell',
     'lathe', 'boring_machine', 'milling_machine', 'rifling_machine', 'printing_press', 'typewriter',
-    'movable_type', 'scales', 'balance', 'anvil', 'hammer', 'distillation_tower'
+    'movable_type', 'scales', 'balance', 'anvil', 'hammer', 'distillation_tower', 'centrifuge'
+];
+
+/**
+ * 特定の製品を組み立てる際、本来再利用可能な器具類も「部品」として組み込まれるため、
+ * 強制的に消費（使い捨て）にするレシピのリスト。
+ */
+const FORCE_CONSUME_RECIPES = [
+    'vacuum_apparatus', // ガラス容器 + 真空ポンプ -> 真空装置（ポンプを組み込む）
+    'light_bulb',       // ガラス容器 + フィラメント -> 電球（容器を使い切る）
+    'vacuum_tube',      // ガラス管 + 電極 -> 真空管（管を使い切る）
+    'flask_and_tube',   // 組み立て式器具
 ];
 
 
@@ -3817,7 +3829,7 @@ function init() {
     updateGatherSpotDisplay();
     setupMachineReordering();
     try {
-        setupSettingsUI(); 
+        setupSettingsUI();
     } catch (e) {
         console.error('Settings UI Error:', e);
     }
@@ -4602,7 +4614,7 @@ function setupNavigation() {
         });
     }
     // New Shop Nav
-    
+
     if (ui.navFriends) ui.navFriends.addEventListener('click', () => { switchView('friends'); refreshFriendsData(); });
     if (ui.navShop) {
         ui.navShop.addEventListener('click', () => {
@@ -5356,7 +5368,7 @@ function renderInventoryContent() {
     userInventoryOrder.forEach((id, index) => {
         const data = ELEMENTS[id];
         if (!data) return; // Safety check
-        const displayName = getItemName(id);
+        const displayName = (data.isOverseas ? '🌍 ' : '') + data.name;
         // Filter by Search Query
         if (query && !displayName.toLowerCase().includes(query) && !data.name.toLowerCase().includes(query)) {
             return; // Skip rendering
@@ -5961,13 +5973,6 @@ function clearSlot(num) {
     if (num === 1) slot1 = null;
     else if (num === 2) slot2 = null;
     else if (num === 3) slot3 = null;
-    else if (num === 4) slot4 = null;
-    else slot5 = null;
-
-    let el;
-    if (num === 1) el = ui.slot1;
-    else if (num === 2) el = ui.slot2;
-    else if (num === 3) el = ui.slot3;
     else if (num === 4) el = ui.slot4;
     else el = ui.slot5;
 
@@ -6138,8 +6143,17 @@ function executeCraft() {
 
             let isReusable = reusableIds.includes(id);
 
-            // もし「道具同士の合成」であれば、道具カテゴリのアイテムは強制的に消費（reusable扱いを取り消す）
-            if (forceConsumeTools && ELEMENTS[id] && ELEMENTS[id].category === 'tool') {
+            // ▼ 追加ルール: 「特定の装置組み立て」レシピでは、部品となる道具も消費する
+            // resultIdが配列（複数生成）の場合は、メインの結果（0番目）で判定
+            const mainResult = Array.isArray(resultId) ? resultId[0] : resultId;
+            const isForceConsumeRecipe = FORCE_CONSUME_RECIPES.includes(mainResult);
+
+            if (isForceConsumeRecipe) {
+                // 触媒（プラチナ等）や、工業プロセスそのものは例外的に再利用可能にする場合もあるが、
+                // 基本的には「組み立て」なので材料はすべて消費させる。
+                isReusable = false;
+            } else if (forceConsumeTools && ELEMENTS[id] && ELEMENTS[id].category === 'tool') {
+                // 道具同士の合成による強制消費（既存ルール）
                 isReusable = false;
             }
 
@@ -6643,7 +6657,7 @@ function refineOre() {
         { id: 'iron_ore', result: 'iron' },
         { id: 'magnetite', result: 'iron' },
         { id: 'iron_sand', result: 'iron' },
-        { id: 'cinnabar', result: 'mercury' },
+
         // { id: 'bismuth_ore', result: 'bismuth' } // Removed direct smelting
         { id: 'bismuth_oxide', result: 'bismuth' } // New process: Oxide reduction
     ];
@@ -7504,6 +7518,16 @@ function updateNextGoalDisplay() {
     }
 
     if (nextLevel) {
+        // 特殊目標: 水力発電が未作成の場合、Lv13からLv14の間でLv13.5として割り込む
+        if (nextLevel.level === 14 && !discovered.has('hydroelectric_power')) {
+            nextLevel = {
+                level: 13.5,
+                name: '水力発電',
+                trigger: 'hydroelectric_power',
+                desc: '電気精錬による高度な工業化には、水力発電による安定した電力供給が必要です。'
+            };
+        }
+
         if (nextLevel.trigger) {
             const triggerInfo = ELEMENTS[nextLevel.trigger];
             const hasDiscovered = discovered.has(nextLevel.trigger);
@@ -7579,10 +7603,12 @@ function performLevelUp(targetLevel) {
     currentCivilizationLevel = targetLevel;
 
     // テーマ更新
-    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
+    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-cosmic', 'theme-digital', 'theme-future');
     let newTheme = 'theme-ancient';
     if (targetLevel >= 17) newTheme = 'theme-future';
-    else if (targetLevel >= 15) newTheme = 'theme-digital';
+    else if (targetLevel === 16) newTheme = 'theme-cosmic';
+    else if (targetLevel === 15) newTheme = 'theme-modern';
+    else if (targetLevel === 14) newTheme = 'theme-digital';
     else if (targetLevel >= 12) newTheme = 'theme-modern';
     else if (targetLevel >= 8) newTheme = 'theme-industrial';
     else if (targetLevel >= 6) newTheme = 'theme-medieval';
@@ -7672,16 +7698,9 @@ function renderShop() {
 
             // 海外特産品・資源 (ヨット解禁で未発見でも買えるようになる)
             if (discovered.has('yacht')) {
-                const overseasItems = [
-                    'rubber_tree', 'sugarcane', 'spice', 'corn', 'cotton', 'cacao',
-                    'potato', 'tomato', 'olive', 'fluorite', 'bismuth_ore', 'antimony',
-                    'pyrochlore', 'monazite', 'coffee_bean', 'tea_leaf', 'diamond',
-                    'bauxite', 'cobalt_ore', 'lithium_ore', 'uranium_ore', 'rutile',
-                    'pgm_ore', 'brine', 'shale_rock'
-                ];
-                for (let item of overseasItems) {
-                    if (ELEMENTS[item] && !targetIds.includes(item)) {
-                        targetIds.push(item);
+                for (let itemId in ELEMENTS) {
+                    if (ELEMENTS[itemId].isOverseas && !targetIds.includes(itemId)) {
+                        targetIds.push(itemId);
                     }
                 }
             }
@@ -7743,7 +7762,7 @@ function renderShop() {
                 // Buy Mode
                 card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
-                <div class="element-name">${data.name}</div>
+                <div class="element-name">${getItemName(id)}</div>
                 <div style="font-size:0.8rem; color:#d84315; font-weight:bold;">${price} G</div>
             `;
                 card.onclick = () => {
@@ -7770,7 +7789,7 @@ function renderShop() {
 
                 card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
-                <div class="element-name">${data.name}</div>
+                <div class="element-name">${getItemName(id)}</div>
                 ${countHtml}
                 <div style="font-size:0.8rem; color:#2e7d32; font-weight:bold;">売却: ${sellPrice} G</div>
             `;
@@ -8262,10 +8281,12 @@ function updateCivilizationLevel(silent = false) {
     let currentLevel = currentCivilizationLevel;
 
     // テーマ更新
-    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-digital', 'theme-future');
+    document.body.classList.remove('theme-ancient', 'theme-iceage', 'theme-classical', 'theme-medieval', 'theme-industrial', 'theme-modern', 'theme-cosmic', 'theme-digital', 'theme-future');
     let newTheme = 'theme-ancient';
     if (currentLevel >= 17) newTheme = 'theme-future';
-    else if (currentLevel >= 15) newTheme = 'theme-digital';
+    else if (currentLevel === 16) newTheme = 'theme-cosmic';
+    else if (currentLevel === 15) newTheme = 'theme-modern';
+    else if (currentLevel === 14) newTheme = 'theme-digital';
     else if (currentLevel >= 12) newTheme = 'theme-modern';
     else if (currentLevel >= 8) newTheme = 'theme-industrial';
     else if (currentLevel >= 6) newTheme = 'theme-medieval';
@@ -8450,7 +8471,7 @@ function renderElementsEncyclopedia(grid) {
         if (isDiscovered) {
             card.innerHTML = `
                 <div class="element-emoji">${data.emoji}</div>
-                <div class="element-name">${data.name}</div>
+                <div class="element-name">${getItemName(id)}</div>
                 <div style="margin-top:5px; font-size:0.7rem; color:#888;">タップで詳細</div>
             `;
             card.style.cursor = 'pointer';
@@ -8562,9 +8583,9 @@ function setupVisualMapUI() {
                     </div>
                 </div>
             </div>`;
-        } else {
-            // === JAPAN MAP ===
-            mapModal.innerHTML = `
+    } else {
+        // === JAPAN MAP ===
+        mapModal.innerHTML = `
             <div class="modal-content glass-panel" style="max-width: 800px; width: 95%; padding: 0; background: #f0f4c3; color: #333; overflow: hidden; display: flex; flex-direction: column; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
                 <div class="map-header" style="padding: 15px; display:flex; justify-content:space-between; align-items: center; background: rgba(255,255,255,0.9); box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 100;">
                     <div style="display:flex; align-items:center; gap:10px;">
@@ -8605,7 +8626,7 @@ function setupVisualMapUI() {
                     </button>
                 </div>
             </div>`;
-        }
+    }
 
     // Attach event listeners after rendering
     document.getElementById('close-map').onclick = () => mapModal.style.display = 'none';
@@ -9286,7 +9307,9 @@ function getText(key) {
 }
 
 function getItemName(id) {
-    return ELEMENTS[id].name;
+    const data = ELEMENTS[id];
+    if (!data) return id;
+    return (data.isOverseas ? '🌍 ' : '') + data.name;
 }
 
 function getItemDesc(id) {
@@ -9547,11 +9570,11 @@ function showTutorialStep(index) {
     if (!box || !overlay) return;
 
     overlay.style.display = 'block';
-    
+
     // Clear previous UI
     box.innerHTML = '';
     box.classList.remove('active');
-    void box.offsetWidth; 
+    void box.offsetWidth;
     box.classList.add('active');
 
     // Remove old pointer
@@ -9568,10 +9591,10 @@ function showTutorialStep(index) {
 
     const textArea = document.createElement('div');
     textArea.className = 'tutorial-text-area';
-    
+
     const title = document.createElement('h3');
     title.innerText = step.title;
-    
+
     const content = document.createElement('p');
     content.innerHTML = step.text;
 
@@ -9612,7 +9635,7 @@ function showTutorialStep(index) {
     // Positioning and Highlight
     removeHighlights();
     const targetEl = step.target ? document.querySelector(step.target) : null;
-    
+
     // Default Box Position
     box.style.left = '50%';
     box.style.transform = 'translateX(-50%)';
@@ -9627,7 +9650,7 @@ function showTutorialStep(index) {
         const pointer = document.createElement('div');
         pointer.className = 'tutorial-pointer';
         document.body.appendChild(pointer);
-        
+
         const rect = targetEl.getBoundingClientRect();
         pointer.style.top = (rect.top + rect.height / 2 + window.scrollY - 10) + 'px';
         pointer.style.left = (rect.left + rect.width / 2 + window.scrollX - 10) + 'px';
@@ -10795,7 +10818,7 @@ function setupSettingsUI() {
             // 既存のモーダルがあれば削除（重複防止）
             const oldModal = document.getElementById('settings-modal');
             if (oldModal) oldModal.remove();
-            
+
             createSettingsModal();
         });
         settingsBtn.dataset.bound = 'true';
@@ -11177,7 +11200,24 @@ window.onload = function () {
             IND_PLANTS.forEach(p => {
                 let state = indData.plants[p.id];
                 if (state && state.built && state.active) {
-                    state.progress = (state.progress || 0) + elapsed;
+                    // Start of cycle: Check if we have materials for at least one cycle
+                    let canDoAtLeastOne = true;
+                    if (p.inputs && p.inputs.length > 0) {
+                        for (let i = 0; i < p.inputs.length; i++) {
+                            let inputReq = p.inputs[i];
+                            let totalAvailable = 0;
+                            inputReq.options.forEach(opt => totalAvailable += (inventoryCounts[opt] || 0));
+                            if (totalAvailable < inputReq.amount) {
+                                canDoAtLeastOne = false;
+                                break;
+                            }
+                        }
+                    }
+                    state.isStarved = !canDoAtLeastOne;
+
+                    if (!state.isStarved) {
+                        state.progress = (state.progress || 0) + elapsed;
+                    }
 
                     if (state.progress >= p.cycleMs) {
                         let potentialCycles = Math.floor(state.progress / p.cycleMs);
@@ -11299,8 +11339,8 @@ function showRoadmap(targetId) {
     h += '<div class="' + cClass + '" style="max-width:98%;width:98%;height:92vh;display:flex;flex-direction:column;position:relative;padding:15px;background:#fdfdfd;color:#333;box-shadow:0 20px 60px rgba(0,0,0,0.3);">';
     h += '<button class="close-modal-btn" style="position:absolute;top:15px;right:20px;background:none;border:none;font-size:2rem;cursor:pointer;color:#888;z-index:100;line-height:1;">×</button>';
     h += '<div style="flex-shrink:0;">';
-    var displayEmoji = discovered.has(targetId) ? target.emoji : '❓';
-    var displayName = discovered.has(targetId) ? target.name : '？？？';
+    var displayEmoji = target.emoji;
+    var displayName = target.name;
 
     h += '<h2 style="text-align:center;padding-top:10px;margin-bottom:15px;color:#2e7d32;font-weight:bold;">';
     h += '<span style="font-size:1.8rem;vertical-align:middle;">' + displayEmoji + '</span> ';
@@ -11379,12 +11419,12 @@ function showRoadmap(targetId) {
     modal.querySelector('#rm-zoom-reset').onclick = function () { zoomLevel = 1.0; updateZoom(); };
 
     // 段階的展開・折り畳み
-    modal.querySelector('#rm-expand-step').onclick = function() {
+    modal.querySelector('#rm-expand-step').onclick = function () {
         const btns = Array.from(treeContainer.querySelectorAll('.rm-toggle-btn')).filter(b => b.innerText === '+');
         btns.forEach(btn => btn.click());
     };
 
-    modal.querySelector('#rm-collapse-step').onclick = function() {
+    modal.querySelector('#rm-collapse-step').onclick = function () {
         // 深い層から順に閉じるため、DOMの下方にあるボタンから処理する
         const btns = Array.from(treeContainer.querySelectorAll('.rm-toggle-btn')).filter(b => b.innerText === '-');
         for (let i = btns.length - 1; i >= 0; i--) {
@@ -11453,7 +11493,10 @@ function buildRecipeTreeHtml(itemId, isRoot, pathStr) {
 
     var displayName = item.name;
     var displayEmoji = item.emoji;
-    if (!isDiscovered) { displayName = '？？？'; displayEmoji = '❓'; }
+    if (!isDiscovered && !isRoot) {
+        displayName = '？？？';
+        displayEmoji = '❓';
+    }
 
     var ingredients = findIngredientsFor(itemId);
 
@@ -11461,12 +11504,12 @@ function buildRecipeTreeHtml(itemId, isRoot, pathStr) {
     var method = null;
     if (ingredients) {
         if (ingredients.includes('distillation_tower')) method = '蒸留';
-        else if (ingredients.includes('arc_furnace') || ['titanium', 'silicon', 'yellow_phosphorus', 'calcium_carbide', 'graphite'].includes(itemId)) method = 'アーク炉';
+        else if (ingredients.includes('arc_furnace') || ['yellow_phosphorus', 'calcium_carbide', 'graphite'].includes(itemId)) method = 'アーク炉';
         else if (['silver', 'lead', 'copper', 'manganese', 'tin', 'iron', 'mercury', 'bismuth'].includes(itemId)) method = '製錬';
         else if (['coke', 'coal_tar', 'coal_gas', 'charcoal', 'wood_vinegar', 'acetone'].includes(itemId)) method = '乾留';
         else if (['fresh_water'].includes(itemId) && ingredients.includes('fire')) method = '蒸留';
         else if (['salt'].includes(itemId) && ingredients.includes('fire')) method = '蒸発';
-        else if (['aluminum', 'sodium', 'magnesium', 'zinc'].includes(itemId) && ingredients.includes('electricity')) method = '電解製錬';
+        else if (['aluminum', 'silicon', 'ferrochrome', 'titanium', 'zinc', 'magnesium', 'barium', 'lithium', 'sodium'].includes(itemId)) method = '電気精錬';
     }
 
     var annotationHtml = '';
@@ -11480,7 +11523,8 @@ function buildRecipeTreeHtml(itemId, isRoot, pathStr) {
     }
 
     if (method && (isDiscovered || isRoot)) {
-        annotationHtml = '<span style="font-size:0.65rem; color:#d84315; background:rgba(216,67,21,0.1); white-space:nowrap; padding:2px 4px; border-radius:4px; margin-left:6px; font-weight:bold; vertical-align:middle;">' + method + '</span>' + annotationHtml;
+        var note = (method === '電気精錬') ? '<span style="font-weight:normal; font-size:0.6rem; opacity:0.9;">(要 水力発電)</span>' : '';
+        annotationHtml = '<span style="font-size:0.65rem; color:#d84315; background:rgba(216,67,21,0.1); white-space:nowrap; padding:2px 4px; border-radius:4px; margin-left:6px; font-weight:bold; vertical-align:middle;">' + method + note + '</span>' + annotationHtml;
     }
 
     var html = '<li class="' + statusClass + '" data-path="' + pathStr + '">';
@@ -11552,14 +11596,18 @@ function findIngredientsFor(targetId) {
         'argon': ['liquid_air', 'distillation_tower'],
 
         // Electric Refining
-        'aluminum': ['alumina', 'cryolite', 'electricity', 'carbon_rod'],
-        'sodium': ['sodium_hydroxide', 'electricity', 'iron_rod'],
-        'magnesium': ['magnesium_chloride', 'electricity', 'carbon_rod'],
-        'zinc': ['zinc_sulfate', 'sulfuric_acid', 'electricity'],
+        'aluminum': ['molten_alumina', 'carbon_rod', 'electricity'],
+        'sodium': ['salt', 'calcium_chloride', 'carbon_rod', 'fire', 'electricity'],
+        'lithium': ['lithium_chloride', 'potassium_chloride', 'carbon_rod', 'fire', 'electricity'],
+        'barium': ['barium_chloride', 'calcium_chloride', 'carbon_rod', 'argon', 'electricity'],
+        'magnesium': ['magnesium_chloride', 'electricity'],
+        'zinc': ['zinc_sulfate', 'electricity'],
+        'silicon': ['sand', 'coke', 'electricity'],
+        'ferrochrome': ['chromite', 'coke', 'electricity'],
+        'titanium': ['titanium_sponge', 'electricity'],
+        'molten_alumina': ['alumina', 'cryolite', 'fire'],
 
         // Arc Furnace (Approximate)
-        'titanium': ['titanium_tetrachloride', 'magnesium', 'electricity'],
-        'silicon': ['sand', 'coke', 'electricity'],
         'yellow_phosphorus': ['magnesium_diphosphate', 'sand', 'coke', 'electricity'],
         'calcium_carbide': ['calcium_oxide', 'coke', 'electricity'],
         'graphite': ['coke', 'electricity'],
@@ -11615,7 +11663,7 @@ function bindFirebaseSettingsUI() {
         setTimeout(bindFirebaseSettingsUI, 500);
         return;
     }
-    
+
     // Auth State Observer (only set once globally)
     if (!window.firebaseAPI_init_done) {
         window.firebaseAPI.onAuthStateChanged((user) => {
@@ -11651,11 +11699,11 @@ function bindFirebaseSettingsUI() {
         btnLoginGoogle.dataset.bound = "true";
     }
 
-    if(btnLoginEmail && !btnLoginEmail.dataset.bound) {
+    if (btnLoginEmail && !btnLoginEmail.dataset.bound) {
         btnLoginEmail.addEventListener('click', async () => {
             const email = emailInput.value.trim();
             const password = passwordInput.value;
-            if(!email || !password) return alert("メールアドレスとパスワードを入力してください");
+            if (!email || !password) return alert("メールアドレスとパスワードを入力してください");
             btnLoginEmail.innerText = '⏳ 通信中...';
             await window.firebaseAPI.signInWithEmail(email, password);
             btnLoginEmail.innerText = 'ログイン';
@@ -11663,12 +11711,12 @@ function bindFirebaseSettingsUI() {
         btnLoginEmail.dataset.bound = "true";
     }
 
-    if(btnRegisterEmail && !btnRegisterEmail.dataset.bound) {
+    if (btnRegisterEmail && !btnRegisterEmail.dataset.bound) {
         btnRegisterEmail.addEventListener('click', async () => {
             const email = emailInput.value.trim();
             const password = passwordInput.value;
-            if(!email || !password) return alert("メールアドレスとパスワードを入力してください");
-            if(password.length < 6) return alert("パスワードは6文字以上で入力してください");
+            if (!email || !password) return alert("メールアドレスとパスワードを入力してください");
+            if (password.length < 6) return alert("パスワードは6文字以上で入力してください");
             btnRegisterEmail.innerText = '⏳ 通信中...';
             await window.firebaseAPI.registerWithEmail(email, password);
             btnRegisterEmail.innerText = '新規登録';
@@ -11676,13 +11724,13 @@ function bindFirebaseSettingsUI() {
         btnRegisterEmail.dataset.bound = "true";
     }
 
-    if(btnForgotPassword && !btnForgotPassword.dataset.bound) {
+    if (btnForgotPassword && !btnForgotPassword.dataset.bound) {
         btnForgotPassword.addEventListener('click', async () => {
             const email = emailInput.value.trim();
-            if(!email) return alert("パスワードをリセットするメールアドレスを入力してください");
+            if (!email) return alert("パスワードをリセットするメールアドレスを入力してください");
             btnForgotPassword.innerText = '送信中...';
             const ok = await window.firebaseAPI.resetPasswordEmail(email);
-            if(ok) {
+            if (ok) {
                 alert("パスワード再設定用のメールを送信しました。\nメール内のリンクから新しいパスワードを設定してください。\n※迷惑メールフォルダに分類されることがありますのでご注意ください。");
             }
             btnForgotPassword.innerText = 'パスワードを忘れた場合';
@@ -11695,13 +11743,13 @@ function bindFirebaseSettingsUI() {
         });
         btnLogout.dataset.bound = "true";
     }
-    
+
     if (btnSave && !btnSave.dataset.bound) {
         btnSave.addEventListener('click', async () => {
-            if(!currentFirebaseUser) return;
+            if (!currentFirebaseUser) return;
             saveGame(); // Ensure local storage is up to date
             const data = localStorage.getItem('nature_science_save');
-            if(!data) {
+            if (!data) {
                 alert("保存するデータがありません");
                 return;
             }
@@ -11710,7 +11758,7 @@ function bindFirebaseSettingsUI() {
             const success = await window.firebaseAPI.saveDataToCloud(currentFirebaseUser.uid, data);
             btnSave.innerText = "📤 クラウドへ保存";
             btnSave.disabled = false;
-            if(success) {
+            if (success) {
                 if (typeof syncUserProfile === 'function') await syncUserProfile();
                 alert("クラウドにセーブデータをバックアップしました！\n（別の端末でログインして読込できます）");
             } else {
@@ -11722,16 +11770,16 @@ function bindFirebaseSettingsUI() {
 
     if (btnLoad && !btnLoad.dataset.bound) {
         btnLoad.addEventListener('click', async () => {
-            if(!currentFirebaseUser) return;
-            if(!confirm("現在のローカルセーブデータはクラウドのデータで上書きされ、元に戻せません。\n本当によろしいですか？")) return;
-            
+            if (!currentFirebaseUser) return;
+            if (!confirm("現在のローカルセーブデータはクラウドのデータで上書きされ、元に戻せません。\n本当によろしいですか？")) return;
+
             btnLoad.innerText = "⏳ 読込中...";
             btnLoad.disabled = true;
             const dataStr = await window.firebaseAPI.loadDataFromCloud(currentFirebaseUser.uid);
             btnLoad.innerText = "📥 クラウドから読込";
             btnLoad.disabled = false;
-            
-            if(dataStr) {
+
+            if (dataStr) {
                 localStorage.setItem('nature_science_save', dataStr);
                 alert("クラウドからデータを復元しました。\nゲームをリロードします。");
                 location.reload();
@@ -11772,7 +11820,7 @@ function updateCloudUI() {
     const loginForm = document.getElementById('settings-login-form');
     let btnLoginGoogle = document.getElementById('settings-btn-login-google') || document.getElementById('btn-login-google');
     // If we have loginForm, we use that for displaying all login controls instead of just the Google button directly if possible
-    
+
     const btnLogout = document.getElementById('settings-btn-logout') || document.getElementById('btn-logout');
     const btnSave = document.getElementById('settings-btn-cloud-save') || document.getElementById('btn-cloud-save');
     const btnLoad = document.getElementById('settings-btn-cloud-load') || document.getElementById('btn-cloud-load');
@@ -11783,27 +11831,27 @@ function updateCloudUI() {
     if (currentFirebaseUser) {
         status.innerText = '状態: ログイン済み (' + (currentFirebaseUser.displayName || currentFirebaseUser.email) + ')';
         status.style.color = '#4caf50';
-        if(loginForm) loginForm.style.display = 'none';
-        else if(btnLoginGoogle) btnLoginGoogle.style.display = 'none'; // Fallback
-        
-        if(btnLogout) btnLogout.style.display = 'block';
-        if(btnSave) btnSave.style.display = 'block';
-        if(btnLoad) btnLoad.style.display = 'block';
-        if(btnDeleteAccount) btnDeleteAccount.style.display = 'inline';
+        if (loginForm) loginForm.style.display = 'none';
+        else if (btnLoginGoogle) btnLoginGoogle.style.display = 'none'; // Fallback
+
+        if (btnLogout) btnLogout.style.display = 'block';
+        if (btnSave) btnSave.style.display = 'block';
+        if (btnLoad) btnLoad.style.display = 'block';
+        if (btnDeleteAccount) btnDeleteAccount.style.display = 'inline';
     } else {
         status.innerText = '状態: 未ログイン（クラウド機能は使えません）';
         status.style.color = '#666';
-        
-        if(loginForm) {
+
+        if (loginForm) {
             loginForm.style.display = 'flex';
-        } else if(btnLoginGoogle) {
+        } else if (btnLoginGoogle) {
             btnLoginGoogle.style.display = 'block'; // Fallback
         }
 
-        if(btnLogout) btnLogout.style.display = 'none';
-        if(btnSave) btnSave.style.display = 'none';
-        if(btnLoad) btnLoad.style.display = 'none';
-        if(btnDeleteAccount) btnDeleteAccount.style.display = 'none';
+        if (btnLogout) btnLogout.style.display = 'none';
+        if (btnSave) btnSave.style.display = 'none';
+        if (btnLoad) btnLoad.style.display = 'none';
+        if (btnDeleteAccount) btnDeleteAccount.style.display = 'none';
     }
 }
 
@@ -11843,7 +11891,7 @@ async function syncUserProfile() {
         photoURL: currentFirebaseUser.photoURL,
         status: document.visibilityState === 'visible' ? 'online' : 'away'
     };
-    
+
     await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, profile);
 }
 
@@ -11879,7 +11927,7 @@ function refreshFriendsData() {
 // 3. フレンドリストの描画
 function renderFriendsList(friends) {
     if (!ui.friendsList) return;
-    
+
     if (friends.length === 0) {
         ui.friendsList.innerHTML = '<p style="color:#aaa; text-align:center; grid-column:1/-1; padding:40px; font-style:italic;">仲間がまだいません。仲間コードで検索して申請してみよう！</p>';
         return;
@@ -12000,7 +12048,7 @@ async function updateOnlineStatus(status) {
         await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, {
             status: status
         });
-    } catch(e) {}
+    } catch (e) { }
 }
 
 document.addEventListener("visibilitychange", () => {
@@ -12075,8 +12123,8 @@ function renderChatMessages(messages) {
 
     ui.chatMessages.innerHTML = messages.map(msg => {
         const isMe = msg.senderId === currentFirebaseUser.uid;
-        const time = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '...';
-        
+        const time = msg.timestamp ? new Date(msg.timestamp.toDate()).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...';
+
         return `
             <div style="display:flex; justify-content:${isMe ? 'flex-end' : 'flex-start'}; margin-bottom:12px;">
                 <div style="max-width:80%; display:flex; flex-direction:column; align-items:${isMe ? 'flex-end' : 'flex-start'};">
@@ -12099,7 +12147,7 @@ async function handleSendMessage() {
 
     ui.chatInput.value = '';
     const chatId = [currentFirebaseUser.uid, currentChatFriendId].sort().join('_');
-    
+
     const ok = await window.firebaseAPI.sendMessage(chatId, currentFirebaseUser.uid, currentFirebaseUser.displayName || "研究者", text);
 
     if (!ok) {
@@ -12187,6 +12235,17 @@ function setupSuggestionBoxUI() {
             }
 
             const user = (typeof currentFirebaseUser !== 'undefined') ? currentFirebaseUser : null;
+
+            if (!window.firebaseAPI || !window.firebaseAPI.submitSuggestion) {
+                console.error('[SuggestionBox] Firebase API not ready');
+                if (statusEl) {
+                    statusEl.innerText = '❌ システムの準備中です。しばらく待ってから再試行してください。';
+                    statusEl.style.color = '#e53935';
+                }
+                submitBtn.disabled = false;
+                return;
+            }
+
             const ok = await window.firebaseAPI.submitSuggestion(
                 user ? user.uid : null,
                 user ? (user.displayName || user.email) : "匿名研究者",

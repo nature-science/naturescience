@@ -1739,30 +1739,73 @@ body.theme-modern .glass-panel {
     box-shadow: 0 10px 30px rgba(2, 119, 189, 0.1);
 }
 
-/* Level 15-16: Digital (Information Age) */
+/* Level 15: Cosmic (Space Age) */
+body.theme-cosmic {
+    --bg-color: #f0f7ff;
+    --accent-color: #00b0ff;
+    --secondary-color: #7c4dff;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 176, 255, 0.3);
+    --text-color: #1a237e;
+    --slot-bg: rgba(0, 0, 0, 0.03);
+    --bg-overlay: rgba(255, 255, 255, 0.5);
+}
+
+body.theme-cosmic .glass-panel {
+    border: 1px solid rgba(0, 176, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 176, 255, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--text-color);
+}
+
+body.theme-cosmic .element-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 176, 255, 0.1);
+    color: #1a237e;
+}
+
+body.theme-cosmic .nav-btn.active {
+    background: linear-gradient(135deg, #00b0ff, #0081cb);
+    box-shadow: 0 4px 10px rgba(0, 176, 255, 0.3);
+    color: white;
+}
+
+body.theme-cosmic .element-name {
+    color: #01579b;
+    font-weight: bold;
+}
+
+body.theme-cosmic h2 {
+    color: #0091ea;
+}
+
+/* Level 16: Digital (Information Age) */
 body.theme-digital {
-    --bg-color: #0d1117;
-    --accent-color: #00e676;
+    --bg-color: #f0fff4;
+    --accent-color: #2e7d32;
     --secondary-color: #2979ff;
-    --glass-bg: rgba(15, 20, 25, 0.85);
-    --glass-border: rgba(0, 230, 118, 0.3);
-    --text-color: #e6edf3;
-    --slot-bg: rgba(255, 255, 255, 0.05);
-    --bg-overlay: rgba(5, 5, 10, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(46, 125, 50, 0.3);
+    --text-color: #1b3022;
+    --slot-bg: rgba(0, 0, 0, 0.03);
+    --bg-overlay: rgba(255, 255, 255, 0.5);
 }
 
 body.theme-digital .glass-panel {
-    border: 1px solid rgba(0, 230, 118, 0.3);
-    box-shadow: 0 0 25px rgba(0, 230, 118, 0.15);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    color: var(--text-color);
 }
 
 body.theme-digital .element-name {
-    color: #00e676;
+    color: #2e7d32;
+    font-weight: bold;
 }
 
 body.theme-digital .machine-title {
-    color: #2979ff;
-    text-shadow: 0 0 8px rgba(41, 121, 255, 0.6);
+    color: #1565c0;
+    text-shadow: none;
 }
 
 /* Level 17+: Future (Innovation & Evolution) */
