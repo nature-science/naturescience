@@ -13,3 +13,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NATURALSCIENCE_63138 }}
           projectId: naturalscience-63138
+          channelId: live

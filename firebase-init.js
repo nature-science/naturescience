@@ -65,7 +65,7 @@ window.firebaseAPI = {
             const result = await createUserWithEmailAndPassword(auth, email, password);
             await sendEmailVerification(result.user);
             await signOut(auth);
-            alert('【仮登録完了】\nまだ登録は完了していません！\n\n入力したメールアドレスへ「確認メール」を送信しました。メール内のURLをクリックして本登録を完了させてください。\n\n※メールが届かない場合は「迷惑メールフォルダ」もあわせてご確認ください。');
+            alert('【仮登録完了】\nまだ登録は完了していません！\n\n入力したメールアドレスへ「確認メール」を送信しました。\n\n1. メールのURLをクリックして認証を完了させてください。\n2. 完了後、本アプリに戻って改めてログインを行ってください。\n\n※メールが届かない場合は「迷惑メールフォルダ」もご確認ください。');
             return null;
         } catch (error) {
             console.error('Email register error', error);
