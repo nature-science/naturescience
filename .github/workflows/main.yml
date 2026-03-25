@@ -11,5 +11,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NATURALSCIENCECRAFT }}
-          projectId: naturalsciencecraft
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NATURALSCIENCE_63138 }}
+          projectId: naturalscience-63138
