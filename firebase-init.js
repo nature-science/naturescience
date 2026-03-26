@@ -63,10 +63,8 @@ window.firebaseAPI = {
     registerWithEmail: async (email, password) => {
         try {
             const result = await createUserWithEmailAndPassword(auth, email, password);
-            await sendEmailVerification(result.user);
-            await signOut(auth);
-            alert('【仮登録完了】\nまだ登録は完了していません！\n\n入力したメールアドレスへ「確認メール」を送信しました。\n\n1. メールのURLをクリックして認証を完了させてください。\n2. 完了後、本アプリに戻って改めてログインを行ってください。\n\n※メールが届かない場合は「迷惑メールフォルダ」もご確認ください。');
-            return null;
+            alert('アカウントの作成が完了しました！');
+            return result.user;
         } catch (error) {
             console.error('Email register error', error);
             alert('アカウントの作成に失敗しました: ' + error.message);
@@ -76,12 +74,6 @@ window.firebaseAPI = {
     signInWithEmail: async (email, password) => {
         try {
             const result = await signInWithEmailAndPassword(auth, email, password);
-            if (!result.user.emailVerified) {
-                try { await sendEmailVerification(result.user); } catch (e) {}
-                await signOut(auth);
-                alert('メール認証が完了していません。確認メールを再送しましたので認証を完了させてください。');
-                return null;
-            }
             return result.user;
         } catch (error) {
             console.error('Email Login error', error);

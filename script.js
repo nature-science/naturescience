@@ -5973,8 +5973,11 @@ function clearSlot(num) {
     if (num === 1) slot1 = null;
     else if (num === 2) slot2 = null;
     else if (num === 3) slot3 = null;
-    else if (num === 4) el = ui.slot4;
-    else el = ui.slot5;
+    else if (num === 4) slot4 = null;
+    else if (num === 5) slot5 = null;
+
+    const el = ui[`slot${num}`];
+    if (!el) return;
 
     const label = num === 1 ? 'A' : (num === 2 ? 'B' : (num === 3 ? 'C' : (num === 4 ? 'D' : 'E')));
     el.innerHTML = `<span class="slot-placeholder">素材${label}</span>`;
@@ -9699,11 +9702,11 @@ function checkTutorialSlots() {
     if (TUTORIAL_STEPS[currentTutorialStep].id === 'set_slot') {
         // Check if at least 2 slots are filled
         let filledCount = 0;
-        if (document.getElementById('slot1').classList.contains('filled')) filledCount++;
-        if (document.getElementById('slot2').classList.contains('filled')) filledCount++;
-        if (document.getElementById('slot3').classList.contains('filled')) filledCount++;
-        if (document.getElementById('slot4').classList.contains('filled')) filledCount++;
-        if (document.getElementById('slot5').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot-1').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot-2').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot-3').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot-4').classList.contains('filled')) filledCount++;
+        if (document.getElementById('slot-5').classList.contains('filled')) filledCount++;
 
         if (filledCount >= 2) {
             nextTutorialStep();
@@ -9730,6 +9733,8 @@ function endTutorial() {
 function removeHighlights() {
     const highlights = document.querySelectorAll('.tutorial-highlight');
     highlights.forEach(el => el.classList.remove('tutorial-highlight'));
+    const pointers = document.querySelectorAll('.tutorial-pointer');
+    pointers.forEach(p => p.remove());
 }
 
 
@@ -11129,6 +11134,7 @@ window.onload = function () {
             startScreen.style.opacity = '0';
             setTimeout(() => {
                 startScreen.style.display = 'none';
+                initTutorial();
             }, 500);
         });
     }
@@ -11154,7 +11160,6 @@ window.onload = function () {
         updateHungerGauge();
         updateThirstGauge();
         init();
-        initTutorial();
         setupSuggestionBoxUI(); // Ensure it's ready
     } else {
         // If we are on Industry Mode page, we still need to load data
