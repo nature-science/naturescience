@@ -6038,6 +6038,7 @@ const CRAFT_COOLDOWN = 350; // ms
 
 function executeCraft() {
     if (isGameOver) return; // Prevent crafting when game over
+    checkTutorialTrigger('click'); // Advance tutorial on click
     const now = Date.now();
     if (now - lastCraftTime < CRAFT_COOLDOWN) return; // Prevent spam
     lastCraftTime = now;
@@ -9406,7 +9407,7 @@ const TUTORIAL_STEPS = [
         title: '大発明の瞬間',
         text: '素材をセットしたら、運命の<b>「⚡ 合成」</b>ボタンを。新しい文明の種が生まれるかもしれません！',
         target: '#craft-btn',
-        trigger: 'craft_success',
+        trigger: 'click',
         mascot: '⚡'
     },
     {
