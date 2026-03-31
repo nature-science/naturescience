@@ -11894,7 +11894,7 @@ async function syncUserProfile() {
         level: currentCivilizationLevel,
         discoveryCount: discovered.size,
         totalElements: typeof ELEMENTS !== 'undefined' ? Object.keys(ELEMENTS).length : 0,
-        photoURL: currentFirebaseUser.photoURL,
+        photoURL: currentFirebaseUser.photoURL || null,
         status: document.visibilityState === 'visible' ? 'online' : 'away'
     };
 
