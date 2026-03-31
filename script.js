@@ -11061,20 +11061,20 @@ function setupSettingsUI() {
         // ダークモード設定
         const chkDark = document.getElementById('settings-chk-dark');
         if (chkDark) {
-            // 現在の状態を反映
-            const isDarkMode = localStorage.getItem('nature_science_dark_mode') === 'true';
+            // 現在の状態を反映: デフォルトはサイバーダークモード
+            const isStoredDark = localStorage.getItem('nature_science_dark_mode');
+            const isDarkMode = (isStoredDark === null || isStoredDark === 'true');
             chkDark.checked = isDarkMode;
-            if (isDarkMode) document.body.classList.add('dark-mode');
 
-            chkDark.addEventListener('change', (e) => {
+            chkDark.onchange = (e) => {
                 if (e.target.checked) {
-                    document.body.classList.add('dark-mode');
+                    document.body.classList.remove('theme-light');
                     localStorage.setItem('nature_science_dark_mode', 'true');
                 } else {
-                    document.body.classList.remove('dark-mode');
+                    document.body.classList.add('theme-light');
                     localStorage.setItem('nature_science_dark_mode', 'false');
                 }
-            });
+            };
         }
 
         // 拡張機能：デバッグ
@@ -11161,26 +11161,11 @@ function setupSettingsUI() {
 window.onload = function () {
     if (ui.friendSearchBtn) ui.friendSearchBtn.onclick = handleFriendSearch;
 
-    // ライトモード切替 (デフォルトはダークモードに変更済)
-    const storedTheme = localStorage.getItem('nature_science_theme_light');
-    if (storedTheme === 'true') {
+    // ライト/ダークモード初期反映(デフォルトはサイバーダーク)
+    const isStoredDark = localStorage.getItem('nature_science_dark_mode');
+    const isDarkMode = (isStoredDark === null || isStoredDark === 'true');
+    if (!isDarkMode) {
         document.body.classList.add('theme-light');
-    }
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    if (themeToggleBtn) {
-        themeToggleBtn.onclick = () => {
-            const isLight = document.body.classList.toggle('theme-light');
-            localStorage.setItem('nature_science_theme_light', isLight);
-            
-            // UI Feedback
-            if(isLight) {
-                themeToggleBtn.innerText = '🌙 ダークモード切替';
-            } else {
-                themeToggleBtn.innerText = '💡 ライトモード切替';
-            }
-        };
-        // Init label
-        themeToggleBtn.innerText = document.body.classList.contains('theme-light') ? '🌙 ダークモード切替' : '💡 ライトモード切替';
     }
 
     const startBtn = document.getElementById('btn-start-game');
