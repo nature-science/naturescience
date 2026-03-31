@@ -4716,6 +4716,14 @@ function setupNavigation() {
 
 
 function switchView(mode) {
+    // Google Analytics タブ切り替えログ
+    if (typeof gtag === 'function') {
+        gtag('event', 'change_tab', {
+            'event_category': 'Navigation',
+            'tab_name': mode
+        });
+    }
+
     // Hide all first
     ui.fieldView.style.display = 'none';
     ui.labView.style.display = 'none';
@@ -5556,6 +5564,15 @@ function addItem(id, amount) {
         const dName = getItemName(id);
         log(`${getText('discovery')} [${dName}]`);
 
+        // Google Analytics 発見ログ
+        if (typeof gtag === 'function') {
+            gtag('event', 'item_discovered', {
+                'event_category': 'Progress',
+                'item_id': id,
+                'item_name': dName
+            });
+        }
+
         // Unlock Industry Mode (Industrial Revolution trigger)
         if (id === 'steam_engine') {
             log('✨ 【工業モード解放】 蒸気機関により「産業革命」が起きました！次回スタート画面から【工業モード】を開始できます！');
@@ -6218,6 +6235,13 @@ function executeCraft() {
 
     } else {
         log("合成失敗...何も起こりませんでした。");
+        // Google Analytics 失敗ログ
+        if (typeof gtag === 'function') {
+            gtag('event', 'craft_failed', {
+                'event_category': 'Synthesis',
+                'attempted_items': currentInputs.join(',')
+            });
+        }
         [ui.slot1, ui.slot2, ui.slot3, ui.slot4, ui.slot5].forEach(slot => {
             slot.parentElement.classList.add('shake-anim');
             setTimeout(() => {
@@ -9685,6 +9709,14 @@ function nextTutorialStep() {
     currentTutorialStep++;
     localStorage.setItem('nature_science_tutorial_step', currentTutorialStep);
 
+    // Google Analytics チュートリアル進捗ログ
+    if (typeof gtag === 'function') {
+        gtag('event', 'tutorial_step_complete', {
+            'event_category': 'Tutorial',
+            'step_number': currentTutorialStep
+        });
+    }
+
     if (currentTutorialStep >= TUTORIAL_STEPS.length) {
         endTutorial();
     } else {
@@ -11998,6 +12030,12 @@ async function handleAcceptFriend(requestId, fromUid) {
 
 // 5. 仲間検索ロジック
 async function handleFriendSearch() {
+    // Google Analytics フレンド検索ログ
+    if (typeof gtag === 'function') {
+        gtag('event', 'friend_search_executed', {
+            'event_category': 'Social'
+        });
+    }
     if (!currentFirebaseUser || !window.firebaseAPI) {
         alert("まずログインしてください。");
         return;
@@ -12034,6 +12072,12 @@ async function handleFriendSearch() {
             </div>
         `;
         document.getElementById('btn-send-request').onclick = async () => {
+            // Google Analytics フレンド申請ログ
+            if (typeof gtag === 'function') {
+                gtag('event', 'friend_request_sent', {
+                    'event_category': 'Social'
+                });
+            }
             const ok = await window.firebaseAPI.sendFriendRequest(currentFirebaseUser.uid, currentFirebaseUser.displayName || "研究者", target.uid);
             if (ok) {
                 ui.friendSearchResult.innerHTML = '<span style="color:#4caf50; font-weight:bold;">✅ 申請を送信しました！</span>';
