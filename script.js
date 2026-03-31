@@ -11999,7 +11999,14 @@ async function handleFriendSearch() {
     if (!fCode) return;
 
     ui.friendSearchResult.innerHTML = '<span style="color:#999;">検索中...</span>';
-    const target = await window.firebaseAPI.searchUserByFriendCode(fCode);
+    const res = await window.firebaseAPI.searchUserByFriendCode(fCode);
+    
+    if (!res.success) {
+        ui.friendSearchResult.innerHTML = `<span style="color:#e53935;">検索エラー: ${res.error}</span>`;
+        return;
+    }
+
+    const target = res.user;
 
     if (!target) {
         ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">ユーザーが見つかりませんでした。正しい仲間コードを入力してください。</span>';

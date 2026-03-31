@@ -147,12 +147,22 @@ window.firebaseAPI = {
     },
     searchUserByFriendCode: async (friendCode) => {
         try {
+            console.log("Searching for friendCode:", friendCode);
             const q = query(collection(db, "users"), where("friendCode", "==", friendCode));
             const snap = await getDocs(q);
-            if (snap.empty) return null;
+            if (snap.empty) {
+                return { success: true, user: null };
+            }
             const docItem = snap.docs[0];
-            return { uid: docItem.id, ...docItem.data() };
-        } catch (e) { console.error(e); return null; }
+            return { success: true, user: { uid: docItem.id, ...docItem.data() } };
+        } catch (e) {
+            console.error("Firebase Search Error:", e);
+            let errMsg = e.message;
+            if (e.code === 'permission-denied') {
+                errMsg = "データベースの閲覧権限がありません（Rules設定不足の可能性があります）";
+            }
+            return { success: false, error: errMsg };
+        }
     },
     sendFriendRequest: async (fromUid, fromName, toUid) => {
         try {
