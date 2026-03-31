@@ -11893,7 +11893,7 @@ async function syncUserProfile() {
         friendCode: currentFirebaseUser.uid.substring(0, 8).toUpperCase(),
         level: currentCivilizationLevel,
         discoveryCount: discovered.size,
-        totalElements: ELEMENTS_DATA ? Object.keys(ELEMENTS_DATA).length : 0,
+        totalElements: typeof ELEMENTS !== 'undefined' ? Object.keys(ELEMENTS).length : 0,
         photoURL: currentFirebaseUser.photoURL,
         status: document.visibilityState === 'visible' ? 'online' : 'away'
     };
