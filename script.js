@@ -10976,7 +10976,7 @@ function setupSettingsUI() {
                     <!-- メモ -->
                     <div style="background:#fff3e0; padding:15px; border-radius:15px; border:1px dashed #ffb74d;">
                         <h3 style="margin:0 0 5px 0; font-size:0.9rem; color:#f57c00; display:flex; align-items:center; gap:5px;">📝 開発者メモ</h3>
-                        <p style="margin:0; font-size:0.8rem; color:#5d4037; line-height:1.4;">ログインボーナスを追加しました。ぜひ毎日来てもらえると嬉しいです😊</p>
+                        <p style="margin:0; font-size:0.8rem; color:#5d4037; line-height:1.4;">目安箱が機能するようになったので、ガンガン要望を送ってください！</p>
                     </div>
 
                     <p style="font-size:0.75rem; color:#ccc; margin-top:10px; text-align:center;">Natural & Science v1.4 (Glass)</p>
@@ -12008,7 +12008,7 @@ async function handleFriendSearch() {
 
     ui.friendSearchResult.innerHTML = '<span style="color:#999;">検索中...</span>';
     const res = await window.firebaseAPI.searchUserByFriendCode(fCode);
-    
+
     if (!res.success) {
         ui.friendSearchResult.innerHTML = `<span style="color:#e53935;">検索エラー: ${res.error}</span>`;
         return;
