@@ -2092,8 +2092,15 @@ const RECIPES = {
     'electricity+silicon': 'wafer',
     // Wafer + Light (Lithography) + Gold (Wiring) -> IC
     'gold+light_bulb+wafer': 'ic',
+    'copper+light_bulb+wafer': 'ic',
     // IC + Al + Glass (Screen) + Motor (Fan) + Plastic (Case) -> Computer
     'aluminum+glass+ic+motor+plastic_container': 'computer',
+    // Fallback forgiving recipes for 'computer'
+    'aluminum+glass+ic+motor+plastic': 'computer',
+    'aluminum+glass+ic+motor+polyethylene': 'computer',
+    'copper+glass+ic+motor+plastic_container': 'computer',
+    'glass+ic+motor+plastic_container+silicon': 'computer',
+    'copper+glass+ic+motor+plastic': 'computer',
 
     // Rocket Assembly
     // Engine: Inconel + Pump + Spark Plug (Igniter)
@@ -2151,6 +2158,7 @@ const RECIPES = {
     // Existing IC recipe was light_bulb + photo_resist + wafer. Let's make Transistor a prerequisite for something or alternative.
     // Modern IC: Transistor + Photo Resist + Wafer
     'photo_resist+transistor+wafer': 'ic',
+    'copper+photo_resist+transistor': 'ic',
 
     // Transistor Radio (Alternative to Vacuum Tube Radio)
     'coil+plastic_container+transistor': 'radio',
