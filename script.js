@@ -67,11 +67,13 @@ const ELEMENTS = {
     'sulfur': { id: 'sulfur', name: '硫黄', emoji: '🟡', desc: '火山地帯で採れる黄色い結晶。火薬の原料になる。', category: 'natural' },
     'sulfur_dioxide': { id: 'sulfur_dioxide', name: '二酸化硫黄', emoji: '💨', desc: '硫黄を燃焼させて発生する刺激臭のある気体。', category: 'chemical' },
     'sulfurous_acid': { id: 'sulfurous_acid', name: '亜硫酸', emoji: '🧪', desc: '二酸化硫黄が水に溶けてできる酸性。漂白や防腐に使われる。', category: 'chemical' },
-    'sulfuric_acid': { id: 'sulfuric_acid', name: '硫酸', emoji: '🧪', desc: '亜硫酸が酸化してできる強力な酸。', category: 'chemical' },
+    'sulfuric_acid': { id: 'sulfuric_acid', name: '濃硫酸', emoji: '🧪', desc: '粘り気のある重い液体。強力な脱水作用と酸化作用を持つ、産業の米。', category: 'chemical' },
+    'dilute_sulfuric_acid': { id: 'dilute_sulfuric_acid', name: '希硫酸', emoji: '🧪', desc: '濃硫酸を水で薄めた酸。水素イオンを放出し、鉄や亜鉛を溶かして水素を発生させる。', category: 'chemical' },
     'hot_concentrated_sulfuric_acid': { id: 'hot_concentrated_sulfuric_acid', name: '熱濃硫酸', emoji: '🔥', desc: '加熱して水分を飛ばした高濃度の硫酸。銅や銀も溶かす強力な酸化力を持つ。', category: 'chemical' },
     'sodium_hydrogen_sulfate': { id: 'sodium_hydrogen_sulfate', name: '硫酸水素ナトリウム', emoji: '🧪', desc: '硫酸と水酸化ナトリウムが1:1で反応してできた酸性塩。', category: 'chemical' },
-    'hydrochloric_acid': { id: 'hydrochloric_acid', name: '塩酸', emoji: '🧪', desc: '塩と硫酸を反応させて得られる強力な酸。', category: 'chemical' },
-    'aqua_regia': { id: 'aqua_regia', name: '王水', emoji: '👑', desc: '塩酸と硝酸を3:1で混ぜた最強の酸。金やプラチナすら溶かす。', category: 'chemical' },
+    'hydrochloric_acid': { id: 'hydrochloric_acid', name: '濃塩酸', emoji: '🧪', desc: '塩化水素の高濃度水溶液。激しく煙を上げる強力な酸。', category: 'chemical' },
+    'dilute_hydrochloric_acid': { id: 'dilute_hydrochloric_acid', name: '希塩酸', emoji: '🧪', desc: '塩化水素の水溶液。一般的な実験で最も多用される酸。', category: 'chemical' },
+    'aqua_regia': { id: 'aqua_regia', name: '王水', emoji: '👑', desc: '濃塩酸と濃硝酸を3:1で混ぜた最強の酸。金やプラチナすら溶かす。', category: 'chemical' },
     'alcohol_lamp': { id: 'alcohol_lamp', name: 'アルコールランプ', emoji: '🏮', desc: 'アルコールと紐、ガラス容器を組み合わせた実験用の加熱器具。', category: 'tool' },
     'sodium_sulfite': { id: 'sodium_sulfite', name: '亜硫酸ナトリウム', emoji: '🧪', desc: '亜硫酸と水酸化ナトリウムが反応してできた塩。還元剤として使われる。', category: 'chemical' },
     'graphite': { id: 'graphite', name: '黒鉛', emoji: '✏️', desc: '洞窟で採れる黒い鉱物。炭素の結晶。', category: 'natural' },
@@ -101,7 +103,9 @@ const ELEMENTS = {
     'nitrogen': { id: 'nitrogen', name: '窒素', emoji: '💨', desc: '空気の主成分である不活性な気体。', category: 'chemical' },
     'nitrogen_monoxide': { id: 'nitrogen_monoxide', name: '一酸化窒素', emoji: '💨', desc: '無色の気体。アーク放電や、アンモニアをプラチナ触媒で酸化させることで得られる。', category: 'chemical' },
     'nitrogen_dioxide': { id: 'nitrogen_dioxide', name: '二酸化窒素', emoji: '💨', desc: '一酸化窒素がさらに酸化してできる赤褐色の気体。', category: 'chemical' },
-    'nitric_acid': { id: 'nitric_acid', name: '硝酸', emoji: '🧪', desc: '二酸化窒素を水に溶かしてできる強力な酸。', category: 'chemical' },
+    'nitric_acid': { id: 'nitric_acid', name: '濃硝酸', emoji: '🧪', desc: '強い酸化作用を持つ無色の液体。金属を溶かし、不動態を作る性質がある。', category: 'chemical' },
+    'dilute_nitric_acid': { id: 'dilute_nitric_acid', name: '希硝酸', emoji: '🧪', desc: '濃硝酸を水で薄めた酸。銅や銀を溶かし、一酸化窒素を発生させる。', category: 'chemical' },
+    'copper_nitrate': { id: 'copper_nitrate', name: '硝酸銅', emoji: '💎', desc: '銅を硝酸に溶かして得られる青色の結晶。', category: 'chemical' },
     'potassium_nitrate': { id: 'potassium_nitrate', name: '硝酸カリウム', emoji: '🧪', desc: '水酸化カリウムと硝酸が中和してできた塩。火薬の原料。', category: 'chemical' },
     'potassium_hydrogen_sulfate': { id: 'potassium_hydrogen_sulfate', name: '硫酸水素カリウム', emoji: '🧪', desc: '硝酸カリウムと硫酸の反応で得られる酸性塩。', category: 'chemical' },
     'black_powder': { id: 'black_powder', name: '黒色火薬', emoji: '💥', desc: '硝酸カリウム、硫黄、木炭を混ぜて作った爆発性の粉末。', category: 'chemical' },
@@ -1559,6 +1563,22 @@ const RECIPES = {
     'nitrogen_dioxide+sulfur_dioxide': ['sulfur_trioxide', 'nitrogen_monoxide'], // Nitrogen oxides cycle
     'fresh_water+lead_chamber+sulfur_trioxide': ['sulfuric_acid', 'lead_chamber'], // Interaction requiring lead chamber
     'fire+fresh_water+potassium_nitrate+sulfur': 'sulfuric_acid', // Bell method (user request)
+
+    // --- Dilution Recipes ---
+    'fresh_water+sulfuric_acid': 'dilute_sulfuric_acid',
+    'fresh_water+nitric_acid': 'dilute_nitric_acid',
+    'fresh_water+hydrochloric_acid': 'dilute_hydrochloric_acid',
+
+    // --- Metal & Acid Reactions ---
+    'copper+dilute_nitric_acid': ['copper_nitrate', 'nitrogen_monoxide', 'fresh_water'],
+    'copper+nitric_acid': ['copper_nitrate', 'nitrogen_dioxide', 'fresh_water'],
+    'copper+hot_concentrated_sulfuric_acid': ['copper_sulfate', 'sulfur_dioxide', 'fresh_water'],
+    'dilute_sulfuric_acid+iron': ['iron_sulfate', 'hydrogen'],
+    'dilute_hydrochloric_acid+iron': ['iron_chloride', 'hydrogen'],
+    'dilute_sulfuric_acid+zinc': ['zinc_sulfate', 'hydrogen'],
+    'dilute_hydrochloric_acid+zinc': ['zinc_chloride', 'hydrogen'],
+    'dilute_nitric_acid+silver': ['silver_nitrate', 'nitrogen_monoxide', 'fresh_water'],
+    'nitric_acid+silver': ['silver_nitrate', 'nitrogen_dioxide', 'fresh_water'],
 
     'aqua_regia+gold': ['chloroauric_acid', 'nitrogen_monoxide', 'fresh_water'], // Gold dissolution
     'aqua_regia+platinum': ['chloroplatinic_acid', 'nitrogen_monoxide', 'fresh_water'], // Platinum dissolution
