@@ -2582,3 +2582,32 @@ body.dark-mode .timeline-item.locked .timeline-content {
     background: #151515;
     border-color: #444;
 }
+
+
+/* Light Mode Overrides */
+body.theme-light {
+    --bg-color: #e8f5e9;
+    --accent-color: #2e7d32;
+    --secondary-color: #d84315;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --text-color: #1b5e20;
+    --slot-bg: rgba(0, 0, 0, 0.03);
+    --shadow-color: rgba(46, 125, 50, 0.4);
+}
+
+body.theme-light::before {
+    background: rgba(232, 245, 233, 0.2);
+}
+
+body.theme-light .element-card, 
+body.theme-light .book-card {
+    background: white;
+    color: var(--text-color);
+}
+
+body.theme-light .element-card:hover, 
+body.theme-light .book-card.unlocked:hover {
+    transform: translateY(-3px) scale(1.05);
+}
+

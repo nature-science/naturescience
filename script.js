@@ -11161,9 +11161,26 @@ function setupSettingsUI() {
 window.onload = function () {
     if (ui.friendSearchBtn) ui.friendSearchBtn.onclick = handleFriendSearch;
 
-    // ダークモード復元
-    if (localStorage.getItem('nature_science_dark_mode') === 'true') {
-        document.body.classList.add('dark-mode');
+    // ライトモード切替 (デフォルトはダークモードに変更済)
+    const storedTheme = localStorage.getItem('nature_science_theme_light');
+    if (storedTheme === 'true') {
+        document.body.classList.add('theme-light');
+    }
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.onclick = () => {
+            const isLight = document.body.classList.toggle('theme-light');
+            localStorage.setItem('nature_science_theme_light', isLight);
+            
+            // UI Feedback
+            if(isLight) {
+                themeToggleBtn.innerText = '🌙 ダークモード切替';
+            } else {
+                themeToggleBtn.innerText = '💡 ライトモード切替';
+            }
+        };
+        // Init label
+        themeToggleBtn.innerText = document.body.classList.contains('theme-light') ? '🌙 ダークモード切替' : '💡 ライトモード切替';
     }
 
     const startBtn = document.getElementById('btn-start-game');
