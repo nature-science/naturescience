@@ -1393,7 +1393,7 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'solvay', name: 'ソルベー法', key: 'sodium_bicarbonate', req: 'ammonia', desc: 'アンモニアソーダ法による重曹製造。' },
     { id: 'ostwald', name: 'オストワルト法', key: 'nitric_acid', req: 'platinum', desc: 'アンモニア酸化による硝酸製造。' },
     { id: 'lead_chamber_process', name: '鉛室法', key: 'sulfuric_acid', req: 'lead_chamber', desc: '鉛でできた部屋の中で、二酸化硫黄と水を反応させて硫酸を作る古い製法。' },
-    { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'fuming_sulfuric_acid', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
+    { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'vanadium_pentoxide', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
     { id: 'vanadium', name: 'バナジウム精錬', key: 'vanadium_pentoxide', req: 'magnetite', desc: '磁鉄鉱からの希少金属抽出。' },
     { id: 'oil_refining', name: '石油精製', key: 'gasoline', req: 'distillation_tower', req2: 'crude_oil', desc: '原油を蒸留して燃料を得る。' },
     { id: 'hydroelectric', name: '水力発電', key: 'hydroelectric_power', req: 'gear', desc: '自然のエネルギーを持続可能な電気に変える技術。' },
@@ -7466,8 +7466,8 @@ function updateStats() {
                 // Check for Nitrogen Monoxide (Step 1 product) + Platinum (Catalyst)
                 if (discovered.has('nitrogen_monoxide') && discovered.has('platinum')) canUnlock = true;
             } else if (proc.id === 'contact') { // Sulfuric Acid
-                // Requirement: Discover Sulfuric Acid via Fuming Sulfuric Acid + Water
-                if (discovered.has('fuming_sulfuric_acid') && discovered.has('fresh_water') && discovered.has('sulfuric_acid')) canUnlock = true;
+                // Requirement: Discover Sulfuric Acid and Vanadium Pentoxide (Catalyst)
+                if (discovered.has('vanadium_pentoxide') && discovered.has('sulfuric_acid')) canUnlock = true;
             } else if (proc.id === 'hydroelectric') { // Electricity
                 // Hydroelectric Power Element
                 if (discovered.has('hydroelectric_power')) canUnlock = true;
