@@ -1393,6 +1393,7 @@ const INDUSTRIAL_PROCESSES = [
     { id: 'solvay', name: 'ソルベー法', key: 'sodium_bicarbonate', req: 'ammonia', desc: 'アンモニアソーダ法による重曹製造。' },
     { id: 'ostwald', name: 'オストワルト法', key: 'nitric_acid', req: 'platinum', desc: 'アンモニア酸化による硝酸製造。' },
     { id: 'lead_chamber_process', name: '鉛室法', key: 'sulfuric_acid', req: 'lead_chamber', desc: '鉛でできた部屋の中で、二酸化硫黄と水を反応させて硫酸を作る古い製法。' },
+    { id: 'bell_process', name: 'ベル法', key: 'sulfuric_acid', req: 'potassium_nitrate', desc: '硝酸カリウムと硫黄を燃焼させ、その煙を水に吸収させて硫酸を得る古典的な製法。' },
     { id: 'contact', name: '接触法', key: 'sulfuric_acid', req: 'vanadium_pentoxide', desc: '発煙硫酸を水で薄めて高純度硫酸を得る製造法。' },
     { id: 'vanadium', name: 'バナジウム精錬', key: 'vanadium_pentoxide', req: 'magnetite', desc: '磁鉄鉱からの希少金属抽出。' },
     { id: 'oil_refining', name: '石油精製', key: 'gasoline', req: 'distillation_tower', req2: 'crude_oil', desc: '原油を蒸留して燃料を得る。' },
@@ -1552,11 +1553,12 @@ let unlockedArchives = new Set(); // Stores achievement IDs
 
 
 const RECIPES = {
-    // Lead Chamber Process
+    // Lead Chamber & Bell Process
     'box+lead': 'lead_chamber',
     'nitrogen_monoxide+oxygen': 'nitrogen_dioxide',
     'nitrogen_dioxide+sulfur_dioxide': ['sulfur_trioxide', 'nitrogen_monoxide'], // Nitrogen oxides cycle
     'fresh_water+lead_chamber+sulfur_trioxide': ['sulfuric_acid', 'lead_chamber'], // Interaction requiring lead chamber
+    'fire+fresh_water+potassium_nitrate+sulfur': 'sulfuric_acid', // Bell method (user request)
 
     'aqua_regia+gold': ['chloroauric_acid', 'nitrogen_monoxide', 'fresh_water'], // Gold dissolution
     'aqua_regia+platinum': ['chloroplatinic_acid', 'nitrogen_monoxide', 'fresh_water'], // Platinum dissolution
@@ -7468,6 +7470,11 @@ function updateStats() {
             } else if (proc.id === 'contact') { // Sulfuric Acid
                 // Requirement: Discover Sulfuric Acid and Vanadium Pentoxide (Catalyst)
                 if (discovered.has('vanadium_pentoxide') && discovered.has('sulfuric_acid')) canUnlock = true;
+            } else if (proc.id === 'bell_process') { // Bell Process for Sulfuric acid
+                // Requirement: Discover Sulfuric acid AND have its components
+                if (discovered.has('sulfuric_acid') && discovered.has('sulfur') && discovered.has('potassium_nitrate')) canUnlock = true;
+            } else if (proc.id === 'lead_chamber_process') { // Lead Chamber
+                if (discovered.has('sulfuric_acid') && discovered.has('lead_chamber')) canUnlock = true;
             } else if (proc.id === 'hydroelectric') { // Electricity
                 // Hydroelectric Power Element
                 if (discovered.has('hydroelectric_power')) canUnlock = true;
@@ -7489,7 +7496,7 @@ function updateStats() {
             if (canUnlock) {
                 discovered.add(proc.id);
                 // Log special message for infinite resources
-                if (['ostwald', 'contact', 'hydroelectric', 'haber_bosch', 'anthraquinone_process', 'sabatier'].includes(proc.id)) {
+                if (['ostwald', 'contact', 'bell_process', 'lead_chamber_process', 'hydroelectric', 'haber_bosch', 'anthraquinone_process', 'sabatier'].includes(proc.id)) {
                     log(`🏭 【工業化達成】 [${proc.name}]の実用化に成功！対応する資源が無限に使用可能になりました。`);
                     // Specifically adding the infinite product to discovered if not yet found?
                     // No, let the user craft it first using the now-infinite method, OR auto-discover it?
@@ -12351,4 +12358,6 @@ function setupSuggestionBoxUI() {
 document.addEventListener('DOMContentLoaded', () => {
     setupSuggestionBoxUI();
 });
+
+
 
