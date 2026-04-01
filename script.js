@@ -1658,7 +1658,7 @@ const RECIPES = {
     'sodium_sulfate+coke+calcium_carbonate+fire': ['sodium_carbonate', 'calcium_sulfide', 'carbon_dioxide'], // Leblanc Step 2 (Coke)
     'calcium_hydroxide+fresh_water': 'limewater', // Calcium Hydroxide + Water -> Limewater
     'calcium_hydroxide+water': 'magnesium_hydroxide', // Seawater + Lime -> Mg(OH)2
-    'hydrochloric_acid+magnesium_hydroxide': 'magnesium_chloride',
+    'dilute_hydrochloric_acid+magnesium_hydroxide': 'magnesium_chloride',
     'calcium_hydroxide+fresh_water+plant_ash': 'potassium_hydroxide', // Potassium Hydroxide synthesis (causticization)
 
     // Alum Production Chain
@@ -1672,11 +1672,11 @@ const RECIPES = {
     'earth+plant_ash+urine': 'potassium_nitrate', // Historical Niter Bed (Old method)
     'nitric_acid+potassium_hydroxide': 'potassium_nitrate', // Neutralization (Modern method)
     'fire+potassium_nitrate+sulfuric_acid': ['potassium_hydrogen_sulfate', 'nitric_acid'], // Ostwald process alternative (Laboratory method)
-    'calcium_carbonate+hydrochloric_acid': ['calcium_chloride', 'carbon_dioxide'], // Acid + Carbonate
+    'calcium_carbonate+dilute_hydrochloric_acid': ['calcium_chloride', 'carbon_dioxide'], // Acid + Carbonate
     'fire+iron+sulfur': 'iron_sulfide', // Iron + Sulfur + Fire -> Iron Sulfide
-    'hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
+    'dilute_hydrochloric_acid+iron_sulfide': ['hydrogen_sulfide', 'iron_chloride'], // FeS + HCl -> H2S + FeCl2
     'carbon_dioxide+potassium_hydroxide': 'potassium_carbonate', // CO2 absorption
-    'ammonia+hydrochloric_acid': 'ammonium_chloride', // Reaction
+    'ammonia+dilute_hydrochloric_acid': 'ammonium_chloride', // Reaction
     'bamboo+glass_vessel': 'cylinder',
     'stone_tool+wood': 'rod',
     'rod+wheel': 'top',
@@ -1689,7 +1689,7 @@ const RECIPES = {
     'coke+iron_oxide_ii': ['iron', 'carbon_dioxide'], // Reduction with Coke
     // 'iron+rod': 'iron_pipe',
     'carbonated_water+sodium_hydroxide': 'sodium_bicarbonate', // Reaction to bicarbonate
-    'ammonia+nitric_acid': 'ammonium_nitrate',
+    'ammonia+dilute_nitric_acid': 'ammonium_nitrate',
     // 'ammonia+oxygen+platinum': 'nitric_acid', // RECIPE REMOVED
     'ammonium_nitrate+fresh_water': 'cold_pack',
     'sodium_hydroxide+vinegar': 'sodium_acetate',
@@ -3667,11 +3667,11 @@ const RECIPES = {
 
     // User Requested Chemical Reactions
     'carbonated_water+sodium_carbonate': 'sodium_bicarbonate', // Na2CO3 + H2O + CO2 -> 2NaHCO3
-    'hydrochloric_acid+magnesium': ['magnesium_chloride', 'hydrogen'], // Mg + 2HCl -> MgCl2 + H2
-    'aluminum+hydrochloric_acid': ['aluminum_chloride', 'hydrogen'], // 2Al + 6HCl -> 2AlCl3 + 3H2
-    'hydrochloric_acid+iron': ['iron_chloride', 'hydrogen'], // Fe + 2HCl -> FeCl2 + H2
-    'hydrochloric_acid+nickel': ['nickel_chloride', 'hydrogen'], // Ni + 2HCl -> NiCl2 + H2
-    'hydrochloric_acid+tin': ['tin_chloride', 'hydrogen'], // Sn + 2HCl -> SnCl2 + H2
+    'dilute_hydrochloric_acid+magnesium': ['magnesium_chloride', 'hydrogen'], // Mg + 2HCl -> MgCl2 + H2
+    'aluminum+dilute_hydrochloric_acid': ['aluminum_chloride', 'hydrogen'], // 2Al + 6HCl -> 2AlCl3 + 3H2
+    'dilute_hydrochloric_acid+iron': ['iron_chloride', 'hydrogen'], // Fe + 2HCl -> FeCl2 + H2
+    'dilute_hydrochloric_acid+nickel': ['nickel_chloride', 'hydrogen'], // Ni + 2HCl -> NiCl2 + H2
+    'dilute_hydrochloric_acid+tin': ['tin_chloride', 'hydrogen'], // Sn + 2HCl -> SnCl2 + H2
 
     // Arc Furnace Roadmap Recipes (duplicates removed - already defined at L3355-3365)
 };
@@ -3846,6 +3846,13 @@ const ui = {
     submitSuggestionBtn: document.getElementById('submit-suggestion-btn'),
     suggestionStatus: document.getElementById('suggestion-status'),
     navSuggestionBox: document.getElementById('nav-suggestion-box'),
+    // Profile Edit
+    profileNameInput: document.getElementById('profile-name-input'),
+    profileCommentInput: document.getElementById('profile-comment-input'),
+    profileEditPreview: document.getElementById('profile-edit-preview'),
+    btnChangeAvatar: document.getElementById('btn-change-avatar'),
+    saveProfileBtn: document.getElementById('save-profile-btn'),
+    profileStatusMsg: document.getElementById('profile-status-msg'),
 };
 
 let isTrashMode = false;
@@ -10952,6 +10959,30 @@ function setupSettingsUI() {
                         </div>
                     </div>
 
+                    <!-- プロフィール編集 (新規追加) -->
+                    <div id="settings-profile-section" style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05); display: none;">
+                        <h3 style="margin:0 0 10px 0; font-size:1rem; color:#1976d2; display:flex; align-items:center; gap:5px;">👤 プロフィール編集</h3>
+                        
+                        <div style="display: flex; gap: 12px; margin-bottom: 15px; align-items: center;">
+                            <div style="position: relative;">
+                                <img id="profile-edit-preview" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #e3f2fd;">
+                                <button id="btn-change-avatar" style="position: absolute; bottom: -5px; right: -5px; background: #2196f3; color: white; border: none; width: 22px; height: 22px; border-radius: 50%; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">📷</button>
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="display: block; font-size: 0.75rem; color: #888; margin-bottom: 2px; font-weight: bold;">研究者名</label>
+                                <input type="text" id="profile-name-input" placeholder="名前を入力..." style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #eee; font-family: 'Zen Maru Gothic', sans-serif; font-size: 0.9rem; box-sizing: border-box;">
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <label style="display: block; font-size: 0.75rem; color: #888; margin-bottom: 2px; font-weight: bold;">一言コメント</label>
+                            <input type="text" id="profile-comment-input" placeholder="研究の意気込みを一言！" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid #eee; font-family: 'Zen Maru Gothic', sans-serif; font-size: 0.9rem; box-sizing: border-box;">
+                        </div>
+                        
+                        <button id="save-profile-btn" style="width: 100%; padding: 10px; background: #2196f3; color: white; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(33, 150, 243, 0.2);">プロフィールを保存</button>
+                        <div id="profile-status-msg" style="text-align: center; font-size: 0.75rem; color: #4caf50; margin-top: 5px; height: 1.1rem; font-weight: bold;"></div>
+                    </div>
+
                     <!-- 表示設定 -->
                     <div style="background:white; padding:15px; border-radius:15px; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
                         <h3 style="margin:0 0 10px 0; font-size:1rem; color:#555; display:flex; align-items:center; gap:5px;">🎨 表示設定</h3>
@@ -11178,9 +11209,36 @@ function setupSettingsUI() {
             });
         }
 
+        // --- プロフィール編集関連のバインド ---
+        ui.profileNameInput = document.getElementById('profile-name-input');
+        ui.profileCommentInput = document.getElementById('profile-comment-input');
+        ui.profileEditPreview = document.getElementById('profile-edit-preview');
+        ui.btnChangeAvatar = document.getElementById('btn-change-avatar');
+        ui.saveProfileBtn = document.getElementById('save-profile-btn');
+        ui.profileStatusMsg = document.getElementById('profile-status-msg');
+
+        if (ui.saveProfileBtn) ui.saveProfileBtn.onclick = saveSettingsProfile;
+        
+        if (ui.btnChangeAvatar) ui.btnChangeAvatar.onclick = async () => {
+            const currentImg = ui.profileEditPreview ? ui.profileEditPreview.src : "";
+            const url = prompt("アバター画像のURLを入力してください（Gravatar等）:", currentImg);
+            if (url !== null && url.trim() !== "") {
+                if (ui.profileEditPreview) ui.profileEditPreview.src = url;
+                // photoURLとして保存
+                if (currentFirebaseUser) {
+                    await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, { photoURL: url });
+                }
+            }
+        };
+
         // Bind Firebase buttons inside dynamically created modal
         if (typeof bindFirebaseSettingsUI === 'function') {
             bindFirebaseSettingsUI();
+        }
+        
+        // ログイン状態なら情報を最新にする
+        if (currentFirebaseUser && typeof refreshSettingsProfileUI === 'function') {
+            refreshSettingsProfileUI();
         }
     };
 }
@@ -11927,7 +11985,61 @@ function updateCloudUI() {
         if (btnSave) btnSave.style.display = 'none';
         if (btnLoad) btnLoad.style.display = 'none';
         if (btnDeleteAccount) btnDeleteAccount.style.display = 'none';
+        
+        // Hide profile editor if not logged in
+        const profileEditor = document.querySelector('[style*="👤 プロフィール編集"]')?.parentElement;
+        if (profileEditor) profileEditor.style.display = 'none';
     }
+}
+
+// ユーザープロフィールの入力欄を現在のデータで更新
+async function refreshSettingsProfileUI() {
+    if (!currentFirebaseUser || !window.firebaseAPI) return;
+    
+    // Firestoreから最新のユーザー情報を取得
+    const res = await window.firebaseAPI.searchUserByFriendCode(currentFirebaseUser.uid.substring(0, 8).toUpperCase());
+    if (res.success && res.user) {
+        const u = res.user;
+        if (ui.profileNameInput) ui.profileNameInput.value = u.name || "";
+        if (ui.profileCommentInput) ui.profileCommentInput.value = u.comment || "";
+        if (ui.profileEditPreview) ui.profileEditPreview.src = u.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+        
+        // Show profile editor
+        const profileEditor = document.querySelector('[style*="👤 プロフィール編集"]')?.parentElement;
+        if (profileEditor) profileEditor.style.display = 'block';
+    }
+}
+
+// プロフィールの保存
+async function saveSettingsProfile() {
+    if (!currentFirebaseUser || !window.firebaseAPI) return;
+    
+    const newName = ui.profileNameInput.value.trim();
+    const newComment = ui.profileCommentInput.value.trim();
+    
+    if (!newName) {
+        alert("研究者名を入力してください。");
+        return;
+    }
+    
+    if (ui.saveProfileBtn) ui.saveProfileBtn.disabled = true;
+    if (ui.profileStatusMsg) ui.profileStatusMsg.innerText = "🌀 保存中...";
+    
+    const ok = await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, {
+        name: newName,
+        comment: newComment
+    });
+    
+    if (ok) {
+        if (ui.profileStatusMsg) ui.profileStatusMsg.innerText = "✅ 保存しました！";
+        setTimeout(() => { if (ui.profileStatusMsg) ui.profileStatusMsg.innerText = ""; }, 3000);
+        // フレンド一覧なども更新されるはず
+    } else {
+        alert("保存に失敗しました。ネットワーク接続を確認してください。");
+        if (ui.profileStatusMsg) ui.profileStatusMsg.innerText = "";
+    }
+    
+    if (ui.saveProfileBtn) ui.saveProfileBtn.disabled = false;
 }
 
 // Optionally prep the connection silently in the background
@@ -11949,8 +12061,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. プロフィール同期（ログイン時や進捗保存時に呼び出し）
 async function syncUserProfile() {
     if (!currentFirebaseUser || !window.firebaseAPI) return;
+    
+    // まず既存のプロフィールを取得して、名前やコメントが既にあるか確認する
+    let existingProfile = null;
+    try {
+        const res = await window.firebaseAPI.searchUserByFriendCode(currentFirebaseUser.uid.substring(0, 8).toUpperCase());
+        if (res.success && res.user) existingProfile = res.user;
+    } catch(e) {}
+
     // Fallbacks for non-Google signins
-    let defaultName = currentFirebaseUser.displayName;
+    let defaultName = existingProfile?.name || currentFirebaseUser.displayName;
     if (!defaultName && currentFirebaseUser.email) {
         defaultName = currentFirebaseUser.email.split('@')[0];
     }
@@ -11958,16 +12078,22 @@ async function syncUserProfile() {
 
     const profile = {
         name: defaultName,
+        comment: existingProfile?.comment || "",
         email: currentFirebaseUser.email || "",
         friendCode: currentFirebaseUser.uid.substring(0, 8).toUpperCase(),
         level: currentCivilizationLevel,
         discoveryCount: discovered.size,
         totalElements: typeof ELEMENTS !== 'undefined' ? Object.keys(ELEMENTS).length : 0,
-        photoURL: currentFirebaseUser.photoURL || null,
+        photoURL: existingProfile?.photoURL || currentFirebaseUser.photoURL || null,
         status: document.visibilityState === 'visible' ? 'online' : 'away'
     };
 
     await window.firebaseAPI.updateUserProfile(currentFirebaseUser.uid, profile);
+    
+    // 設定画面が開いていれば更新
+    if (document.getElementById('settings-modal').style.display !== 'none') {
+        refreshSettingsProfileUI();
+    }
 }
 
 // 2. 仲間の情報を定期的にリフレッシュ（タブ切り替え時などに呼び出し）
@@ -12009,14 +12135,18 @@ function renderFriendsList(friends) {
     }
 
     ui.friendsList.innerHTML = friends.map(friend => `
-        <div class="glass-panel" style="padding:15px; display:flex; gap:12px; align-items:center; background:rgba(255,255,255,0.7); box-shadow:0 4px 10px rgba(0,0,0,0.05);">
-            <img src="${friend.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:50px; height:50px; border-radius:50%; border:2px solid #4caf50;">
+        <div class="glass-panel" style="padding:15px; display:flex; gap:12px; align-items:center; background:rgba(255,255,255,0.7); box-shadow:0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px;">
+            <div style="position: relative;">
+                <img src="${friend.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:50px; height:50px; border-radius:50%; border:2px solid ${friend.status === 'online' ? '#4caf50' : '#ccc'};">
+                <div style="position: absolute; bottom: 2px; right: 2px; width: 12px; height: 12px; border-radius: 50%; background: ${friend.status === 'online' ? '#4caf50' : '#ccc'}; border: 2px solid #fff;"></div>
+            </div>
             <div style="flex:1;">
                 <div style="font-weight:bold; color:#2e7d32; font-size:1.1rem;">${friend.name || '研究者'}</div>
-                <div style="font-size:0.85rem; color:#666;">Lv.${friend.level} | 発見: ${friend.discoveryCount}/${friend.totalElements || '??'}</div>
+                <div style="font-size:0.75rem; color:#1976d2; font-style: italic; margin-bottom: 2px;">${friend.comment || ""}</div>
+                <div style="font-size:0.75rem; color:#666;">Lv.${friend.level} | 発見: ${friend.discoveryCount}/${friend.totalElements || '??'}</div>
             </div>
             <div style="display:flex; flex-direction:column; align-items:flex-end; gap:5px;">
-                <button onclick="openChat('${friend.uid}', '${friend.name}', '${friend.photoURL || ''}')" style="background:#2196f3; color:white; border:none; padding:5px 12px; border-radius:15px; font-size:0.8rem; cursor:pointer; font-weight:bold; display:flex; align-items:center; gap:4px;">💬 トーク</button>
+                <button onclick="openChat('${friend.uid}', '${friend.name}', '${friend.photoURL || ''}')" style="background:#2196f3; color:white; border:none; padding:6px 14px; border-radius:20px; font-size:0.8rem; cursor:pointer; font-weight:bold; display:flex; align-items:center; gap:4px; box-shadow: 0 2px 5px rgba(33, 150, 243, 0.3);">💬 トーク</button>
                 <div style="text-align:right;">
                     ${renderFriendStatus(friend)}
                 </div>
@@ -12089,15 +12219,16 @@ async function handleFriendSearch() {
         ui.friendSearchResult.innerHTML = '<span style="color:#e53935;">自分自身は検索できません。</span>';
     } else {
         ui.friendSearchResult.innerHTML = `
-            <div style="display:flex; align-items:center; justify-content:space-between; background:#f1f8e9; padding:10px 15px; border-radius:10px; border:1px solid #4caf50;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <img src="${target.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:40px; height:40px; border-radius:50%;">
+            <div style="display:flex; align-items:center; justify-content:space-between; background:#f1f8e9; padding:12px 18px; border-radius:12px; border:1px solid #4caf50; box-shadow: 0 4px 10px rgba(76, 175, 80, 0.1);">
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <img src="${target.photoURL || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'}" style="width:45px; height:45px; border-radius:50%; border: 2px solid #fff;">
                     <div>
-                        <div style="font-weight:bold;">${target.name || '研究者'}</div>
-                        <div style="font-size:0.75rem; color:#666;">Lv.${target.level}</div>
+                        <div style="font-weight:bold; color:#2e7d32; font-size:1rem;">${target.name || '研究者'}</div>
+                        <div style="font-size:0.75rem; color:#1976d2; font-style: italic;">${target.comment || ""}</div>
+                        <div style="font-size:0.7rem; color:#666;">Lv.${target.level}</div>
                     </div>
                 </div>
-                <button id="btn-send-request" style="background:#4caf50; color:white; border:none; padding:8px 15px; border-radius:25px; cursor:pointer; font-weight:bold;">仲間に誘う</button>
+                <button id="btn-send-request" style="background:#4caf50; color:white; border:none; padding:8px 16px; border-radius:25px; cursor:pointer; font-weight:bold; box-shadow: 0 3px 6px rgba(76, 175, 80, 0.2);">仲間に誘う</button>
             </div>
         `;
         document.getElementById('btn-send-request').onclick = async () => {
